@@ -14,6 +14,8 @@ namespace Enemy
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
 
+        //TODO: pasar valores a scriptable objects para que su cambio afecte en runtime 
+
         [SerializeField] private Transform player;
         [SerializeField] private float innerRadius;
         [SerializeField] private float outerRadius;
