@@ -13,14 +13,9 @@ namespace Enemy
         public UnityEvent onAttack;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
-
-        //TODO: pasar valores a scriptable objects para que su cambio afecte en runtime 
-
+        
         [SerializeField] private Transform player;
-        [SerializeField] private float innerRadius;
-        [SerializeField] private float outerRadius;
-        [SerializeField] private float attackRange;
-        [SerializeField] private float attackDuration;
+        [SerializeField] private EnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
 
         private Fsm _fsm;
@@ -28,14 +23,14 @@ namespace Enemy
 
         private void OnEnable()
         {
-            State idle = new Idle(this.transform, player, innerRadius, TransitionToChase);
+            State idle = new Idle(this.transform, player, model.InnerRadius, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, attackDuration);
+            State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, model.AttackDuration);
 
             State death = new Death(this.gameObject);
             _states.Add(death);
 
-            State chase = new Chase(this.transform, player, navMeshAgent, outerRadius, attackRange,
+            State chase = new Chase(this.transform, player, navMeshAgent, model.OuterRadius, model.AttackRange,
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
@@ -92,13 +87,13 @@ namespace Enemy
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, innerRadius);
+            Gizmos.DrawWireSphere(transform.position, model.InnerRadius);
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, outerRadius);
+            Gizmos.DrawWireSphere(transform.position, model.OuterRadius);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
     }
 }
