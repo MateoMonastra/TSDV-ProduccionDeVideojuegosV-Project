@@ -13,22 +13,20 @@ namespace Enemy
         public UnityEvent onAttack;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
+        public UnityEvent onDeath;
         
         [SerializeField] private Transform player;
         [SerializeField] private EnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
 
         private Fsm _fsm;
-        public List<State> _states = new List<State>();
+        private List<State> _states = new List<State>();
 
         private void OnEnable()
         {
             State idle = new Idle(this.transform, player, model.InnerRadius, TransitionToChase);
 
             State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, model.AttackDuration);
-
-            State death = new Death(this.gameObject);
-            _states.Add(death);
 
             State chase = new Chase(this.transform, player, navMeshAgent, model.OuterRadius, model.AttackRange,
                 onExitChase: TransitionToIdle,
@@ -72,6 +70,13 @@ namespace Enemy
         {
             onIdle.Invoke();
             _fsm.TryTransitionTo("toIdle");
+        }
+
+        public void TransitionToDeath()
+        {
+            onDeath.Invoke();
+            State death = new Death(this.gameObject);
+            _fsm.ForceSetCurrentState(death);
         }
 
         private void Update()
