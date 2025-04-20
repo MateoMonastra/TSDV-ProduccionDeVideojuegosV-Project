@@ -4,23 +4,18 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class Attack : State
+    public class Attack : BaseState
     {
-        private Transform _enemy;
-        private Transform _player;
         private NavMeshAgent _agent;
         private System.Action _onAttackFinished;
 
         private float _attackDuration;
         private float _attackTimer = 0f;
 
-        public Attack(Transform enemy, Transform player, NavMeshAgent agent, System.Action onAttackFinished, float attackDuration)
+        public Attack(Transform enemy, Transform player, EnemyModel model, NavMeshAgent agent, System.Action onAttackFinished) : base(enemy, player, model)
         {
-            this._enemy = enemy;
-            this._player = player;
             this._agent = agent;
             this._onAttackFinished = onAttackFinished;
-            this._attackDuration = attackDuration;
         }
 
         public override void Enter()

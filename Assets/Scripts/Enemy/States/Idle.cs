@@ -1,19 +1,12 @@
-using FSM;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class Idle : State
+    public class Idle : BaseState
     {
-        private Transform enemy;
-        private Transform player;
-        private float innerRadius;
         private System.Action onEnterChase;
-        public Idle(Transform enemy, Transform player, float innerRadius, System.Action onEnterChase)
+        public Idle(Transform enemy, Transform player, EnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
         {
-            this.enemy = enemy;
-            this.player = player;
-            this.innerRadius = innerRadius;
             this.onEnterChase = onEnterChase;
         }
         
@@ -28,7 +21,7 @@ namespace Enemy
             
             float distance = Vector3.Distance(enemy.position, player.position);
 
-            if (distance <= innerRadius)
+            if (distance <= model.InnerRadius)
             {
                 onEnterChase?.Invoke();
             }

@@ -4,24 +4,16 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class Chase : State
+    public class Chase : BaseState
     {
-        private Transform enemy;
-        private Transform player;
         private NavMeshAgent agent;
-        private float outerRadius;
-        private float attackRange;
         private System.Action onExitChase;
         private System.Action onEnterAttack;
 
-        public Chase(Transform enemy, Transform player, NavMeshAgent agent, float outerRadius, float attackRange,
-            System.Action onExitChase, System.Action onEnterAttack)
+        public Chase(Transform enemy, Transform player, EnemyModel model, NavMeshAgent agent,
+            System.Action onExitChase, System.Action onEnterAttack) : base(enemy, player, model)
         {
-            this.enemy = enemy;
-            this.player = player;
             this.agent = agent;
-            this.outerRadius = outerRadius;
-            this.attackRange = attackRange;
             this.onExitChase = onExitChase;
             this.onEnterAttack = onEnterAttack;
         }
@@ -43,7 +35,7 @@ namespace Enemy
 
             agent.SetDestination(player.position);
         }
-        
+
         public override void FixedTick(float delta)
         {
             base.FixedTick(delta);
@@ -56,7 +48,7 @@ namespace Enemy
 
         private bool IsPlayerInChaseRange(float distance)
         {
-            if (distance > outerRadius)
+            if (distance > model.OuterRadius)
             {
                 agent.ResetPath();
                 onExitChase?.Invoke();
@@ -65,9 +57,10 @@ namespace Enemy
 
             return true;
         }
+
         private bool IsPlayerInAttackRange(float distance)
         {
-            if (distance <= attackRange)
+            if (distance <= model.AttackRange)
             {
                 agent.ResetPath();
                 onEnterAttack?.Invoke();
