@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,8 +11,11 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 direction;
     public float speed = 6f;
+    public float dashSpeed = 6f;
     public float jumpSpeed = 6f;
+    
     private bool grounded = false;
+    private bool dashing = false;
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -24,11 +28,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f);
-        if(hit.collider != null)
+        if (hit.collider != null)
             grounded = true;
         else
             grounded = false;
-        
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontal, 0f, vertical);
@@ -37,10 +41,13 @@ public class PlayerController : MonoBehaviour
         {
             _rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
-        
 
-            
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _rb.AddForce(transform.forward * dashSpeed);
+        }
     }
+
 
     private void FixedUpdate()
     {
@@ -50,16 +57,16 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
                 turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            
+
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            
+
             float prevY = _rb.linearVelocity.y;
             _rb.linearVelocity = moveDir * (speed * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, prevY, _rb.linearVelocity.z);
         }
         else
         {
-            _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0f);
+            //_rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0f);
         }
     }
 

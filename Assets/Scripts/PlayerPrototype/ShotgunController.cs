@@ -1,5 +1,6 @@
 using UnityEngine;
 using KinematicCharacterController;
+using UnityEngine.Serialization;
 
 public class ShotgunController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ShotgunController : MonoBehaviour
     [SerializeField] private Transform lookingTransf;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private ParticleSystem muzzleFlashParticles;
-    [SerializeField] private KinematicCharacterMotor characterMotor;
+    [FormerlySerializedAs("characterMotor")] [SerializeField] private Rigidbody characterRb;
 
     private float currentCooldown = 0f;
     private bool canShoot = true;
@@ -32,9 +33,9 @@ public class ShotgunController : MonoBehaviour
         }
 
         // Get character motor reference if not set
-        if (characterMotor == null)
+        if (characterRb == null)
         {
-            characterMotor = GetComponentInParent<KinematicCharacterMotor>();
+            characterRb = GetComponentInParent<Rigidbody>();
         }
 
         // Ensure particle system is stopped initially
@@ -88,10 +89,10 @@ public class ShotgunController : MonoBehaviour
         shotDirection.Normalize();
 
         // Apply recoil to the character motor
-        if (characterMotor != null)
+        if (characterRb != null)
         {
-            Vector3 recoilDirection = -lookingTransf.transform.forward;
-            characterMotor.BaseVelocity = recoilDirection * recoilForce;
+            Vector3 recoilDirection = -playerCamera.transform.forward;
+            characterRb.AddForce(recoilDirection * recoilForce);
         }
 
         // Perform raycast
