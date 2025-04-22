@@ -10,21 +10,36 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 direction;
     public float speed = 6f;
+    public float jumpSpeed = 6f;
+    private bool grounded = false;
 
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update()
     {
+        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f);
+        if(hit.collider != null)
+            grounded = true;
+        else
+            grounded = false;
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontal, 0f, vertical);
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && grounded)
         {
-            _rb.AddForce(Vector3.up * 900f, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
+        
+
+            
     }
 
     private void FixedUpdate()
@@ -46,5 +61,10 @@ public class PlayerController : MonoBehaviour
         {
             _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0f);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, Vector3.down * 1.2f);
     }
 }
