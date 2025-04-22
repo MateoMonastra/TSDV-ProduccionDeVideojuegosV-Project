@@ -21,16 +21,17 @@ namespace Enemy
         private Fsm _fsm;
         public List<State> _states = new List<State>();
 
+        private State death;
         private void OnEnable()
         {
-            State idle = new Idle(this.transform, player, model.InnerRadius, TransitionToChase);
+            State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, model.AttackDuration);
-
-            State death = new Death(this.gameObject);
+            State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, model);
+            
+            death = new Death(this.gameObject);
             _states.Add(death);
 
-            State chase = new Chase(this.transform, player, navMeshAgent, model.OuterRadius, model.AttackRange,
+            State chase = new Chase(this.transform, player, navMeshAgent, model,
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
@@ -72,6 +73,11 @@ namespace Enemy
         {
             onIdle.Invoke();
             _fsm.TryTransitionTo("toIdle");
+        }
+        public void TransitionToDeath()
+        {
+            _fsm.SetCurrentState(death);
+            Debug.Log("death");
         }
 
         private void Update()

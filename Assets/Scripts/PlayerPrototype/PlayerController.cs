@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
             _rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            Application.Quit();
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             canDash = false;

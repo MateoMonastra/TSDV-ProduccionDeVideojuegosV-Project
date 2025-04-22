@@ -7,13 +7,13 @@ namespace Enemy
     {
         private Transform enemy;
         private Transform player;
-        private float innerRadius;
+        private EnemyModel model;
         private System.Action onEnterChase;
-        public Idle(Transform enemy, Transform player, float innerRadius, System.Action onEnterChase)
+        public Idle(Transform enemy, Transform player, EnemyModel model, System.Action onEnterChase)
         {
             this.enemy = enemy;
             this.player = player;
-            this.innerRadius = innerRadius;
+            this.model = model;
             this.onEnterChase = onEnterChase;
         }
         
@@ -28,7 +28,7 @@ namespace Enemy
             
             float distance = Vector3.Distance(enemy.position, player.position);
 
-            if (distance <= innerRadius)
+            if (distance <= model.InnerRadius)
             {
                 onEnterChase?.Invoke();
             }

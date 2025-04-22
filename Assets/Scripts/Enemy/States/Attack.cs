@@ -11,16 +11,16 @@ namespace Enemy
         private NavMeshAgent _agent;
         private System.Action _onAttackFinished;
 
-        private float _attackDuration;
+        private EnemyModel model;
         private float _attackTimer = 0f;
 
-        public Attack(Transform enemy, Transform player, NavMeshAgent agent, System.Action onAttackFinished, float attackDuration)
+        public Attack(Transform enemy, Transform player, NavMeshAgent agent, System.Action onAttackFinished, EnemyModel model)
         {
             this._enemy = enemy;
             this._player = player;
             this._agent = agent;
             this._onAttackFinished = onAttackFinished;
-            this._attackDuration = attackDuration;
+            this.model = model;
         }
 
         public override void Enter()
@@ -36,7 +36,7 @@ namespace Enemy
 
             _attackTimer += delta;
 
-            if (_attackTimer >= _attackDuration)
+            if (_attackTimer >= model.AttackDuration)
             {
                 _onAttackFinished?.Invoke();
             }

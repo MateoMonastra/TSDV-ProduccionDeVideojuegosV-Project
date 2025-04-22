@@ -14,6 +14,7 @@ public class ShotgunController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private ParticleSystem muzzleFlashParticles;
     [FormerlySerializedAs("characterMotor")] [SerializeField] private Rigidbody characterRb;
+    public BoxCollider collider;
 
     private float currentCooldown = 0f;
     private bool canShoot = true;
@@ -54,6 +55,7 @@ public class ShotgunController : MonoBehaviour
             if (currentCooldown <= 0f)
             {
                 canShoot = true;
+                collider.enabled = false;
             }
         }
 
@@ -66,6 +68,7 @@ public class ShotgunController : MonoBehaviour
 
     private void Shoot()
     {
+        collider.enabled = true;
         // Reset cooldown
         canShoot = false;
         currentCooldown = cooldownTime;
@@ -109,6 +112,7 @@ public class ShotgunController : MonoBehaviour
                 hitRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
             }
         }
+        
     }
 
     // Optional: Draw ray in editor for debugging
