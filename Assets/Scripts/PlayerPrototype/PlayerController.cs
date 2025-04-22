@@ -32,12 +32,14 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            _rb.AddForce(moveDir.normalized * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            //_rb.AddForce(moveDir.normalized * speed * Time.fixedDeltaTime, ForceMode.Force);
+            float prevY = _rb.linearVelocity.y;
+            _rb.linearVelocity = moveDir * (speed * Time.fixedDeltaTime);
+            _rb.linearVelocity = new Vector3(_rb.linearVelocity.x, prevY, _rb.linearVelocity.z);
         }
         else
         {
-            Debug.Log("problema");
-            _rb.linearVelocity = Vector3.zero;
+            _rb.linearVelocity = new Vector3(0, _rb.linearVelocity.y, 0f);
         }
     }
 }
