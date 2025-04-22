@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -52,6 +53,9 @@ public class PlayerController : MonoBehaviour
             canDash = false;
             dashing = true;
         }
+        
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+            SceneManager.LoadScene(0);
 
         if (dashing)
         {
