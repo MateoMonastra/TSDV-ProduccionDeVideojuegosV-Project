@@ -6,7 +6,10 @@ public class KillEnemy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<EnemyAgent>().TransitionToDeath();
-        Debug.Log("collided");
+        if (other.gameObject.TryGetComponent(out EnemyAgent enemy))
+        {
+            enemy.TransitionToDeath();
+            Debug.Log("collided");
+        }
     }
 }
