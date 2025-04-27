@@ -1,8 +1,8 @@
-using FSM;
+using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemy
+namespace Enemies.Enemy.States
 {
     public class Attack : BaseState
     {
@@ -12,7 +12,7 @@ namespace Enemy
         private float _attackDuration;
         private float _attackTimer = 0f;
 
-        public Attack(Transform enemy, Transform player, EnemyModel model, NavMeshAgent agent, System.Action onAttackFinished) : base(enemy, player, model)
+        public Attack(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent, System.Action onAttackFinished) : base(enemy, player, model)
         {
             this._agent = agent;
             this._onAttackFinished = onAttackFinished;

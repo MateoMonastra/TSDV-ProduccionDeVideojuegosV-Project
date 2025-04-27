@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
+using Enemies.Enemy.States;
 using FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace Enemy
+namespace Enemies.Enemy
 {
     public class EnemyAgent : MonoBehaviour
     {
@@ -17,7 +16,7 @@ namespace Enemy
 
         //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private Transform player;
-        [SerializeField] private EnemyModel model;
+        [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
 
         private Fsm _fsm;

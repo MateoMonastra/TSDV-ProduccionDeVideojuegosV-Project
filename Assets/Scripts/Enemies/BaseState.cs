@@ -1,14 +1,14 @@
 ﻿using FSM;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies
 {
     public abstract class BaseState : State
     {
         protected Transform enemy;
         protected Transform player;
-        protected EnemyModel model;
-        protected BaseState(Transform enemy, Transform player, EnemyModel model)
+        protected BaseEnemyModel model;
+        protected BaseState(Transform enemy, Transform player, BaseEnemyModel model)
         {
             this.enemy = enemy;
             this.player = player;
