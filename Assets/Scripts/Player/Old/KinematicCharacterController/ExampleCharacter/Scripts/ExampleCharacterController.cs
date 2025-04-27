@@ -71,6 +71,7 @@ namespace KinematicCharacterController.Examples
         public float JumpScalableForwardSpeed = 10f;
         public float JumpPreGroundingGraceTime = 0f;
         public float JumpPostGroundingGraceTime = 0f;
+        public int MaxJumps = 2; // Maximum number of jumps allowed
 
         [Header("Misc")]
         public List<Collider> IgnoredColliders = new List<Collider>();
@@ -109,6 +110,8 @@ namespace KinematicCharacterController.Examples
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
 
+        private int _jumpsRemaining; // Track remaining jumps
+
         private void Awake()
         {
             // Handle initial state
@@ -122,6 +125,9 @@ namespace KinematicCharacterController.Examples
             {
                 animator = GetComponent<Animator>();
             }
+
+            // Initialize jumps
+            _jumpsRemaining = MaxJumps;
         }
 
         /// <summary>
@@ -441,10 +447,10 @@ namespace KinematicCharacterController.Examples
                         // Handle jumping
                         _jumpedThisFrame = false;
                         _timeSinceJumpRequested += deltaTime;
+
                         if (_jumpRequested)
                         {
-                            // See if we actually are allowed to jump
-                            if (!_jumpConsumed && ((AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround) || _timeSinceLastAbleToJump <= JumpPostGroundingGraceTime))
+                            if (_jumpsRemaining > 0)
                             {
                                 // Calculate jump direction before ungrounding
                                 Vector3 jumpDirection = Motor.CharacterUp;
@@ -453,16 +459,15 @@ namespace KinematicCharacterController.Examples
                                     jumpDirection = Motor.GroundingStatus.GroundNormal;
                                 }
 
-                                // Makes the character skip ground probing/snapping on its next update. 
-                                // If this line weren't here, the character would remain snapped to the ground when trying to jump. Try commenting this line out and see.
+                                // Makes the character skip ground probing/snapping on its next update
                                 Motor.ForceUnground();
 
                                 // Add to the return velocity and reset jump state
                                 currentVelocity += (jumpDirection * JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
                                 currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
-                                _jumpRequested = false;
-                                _jumpConsumed = true;
                                 _jumpedThisFrame = true;
+                                _jumpsRemaining--; // Decrease remaining jumps
+                                _jumpRequested = false; // Reset jump request after executing
                             }
                         }
 
@@ -550,6 +555,7 @@ namespace KinematicCharacterController.Examples
             if (Motor.GroundingStatus.IsStableOnGround && !Motor.LastGroundingStatus.IsStableOnGround)
             {
                 OnLanded();
+                _jumpsRemaining = MaxJumps; // Reset jumps when landing
             }
             else if (!Motor.GroundingStatus.IsStableOnGround && Motor.LastGroundingStatus.IsStableOnGround)
             {
