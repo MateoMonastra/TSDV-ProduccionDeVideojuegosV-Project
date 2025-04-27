@@ -13,43 +13,45 @@ namespace Enemy
         public UnityEvent onAttack;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
-        
+        public UnityEvent onDeath;
+
+        //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private Transform player;
         [SerializeField] private EnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
 
         private Fsm _fsm;
-        public List<State> _states = new List<State>();
+        private List<State> _states = new List<State>();
 
-        private State death;
+        private const string ToChaseID = "toChase";
+        private const string ToAttackID = "toAttack";
+        private const string ToIdleID = "toIdle";
+
         private void OnEnable()
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, navMeshAgent, TransitionToChase, model);
-            
-            death = new Death(this.gameObject);
-            _states.Add(death);
+            State attack = new Attack(this.transform, player, model, navMeshAgent, TransitionToChase);
 
-            State chase = new Chase(this.transform, player, navMeshAgent, model,
+            State chase = new Chase(this.transform, player, model, navMeshAgent,
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
             //Idle Transitions
-            Transition idleToChase = new Transition() { From = idle, To = chase, ID = "toChase" };
+            Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
             idle.AddTransition(idleToChase);
             _states.Add(idle);
 
             //Chase Transitions
-            Transition chaseToAttack = new Transition() { From = chase, To = attack, ID = "toAttack" };
+            Transition chaseToAttack = new Transition() { From = chase, To = attack, ID = ToAttackID };
             chase.AddTransition(chaseToAttack);
 
-            Transition chaseToIdle = new Transition() { From = chase, To = idle, ID = "toIdle" };
+            Transition chaseToIdle = new Transition() { From = chase, To = idle, ID = ToIdleID };
             chase.AddTransition(chaseToIdle);
             _states.Add(chase);
 
             //Atack Transitions
-            Transition attackToChase = new Transition() { From = attack, To = chase, ID = "toChase" };
+            Transition attackToChase = new Transition() { From = attack, To = chase, ID = ToChaseID };
             attack.AddTransition(attackToChase);
             _states.Add(attack);
 
@@ -60,24 +62,26 @@ namespace Enemy
         private void TransitionToChase()
         {
             onChase.Invoke(true);
-            _fsm.TryTransitionTo("toChase");
+            _fsm.TryTransitionTo(ToChaseID);
         }
 
         private void TransitionToAttack()
         {
             onAttack.Invoke();
-            _fsm.TryTransitionTo("toAttack");
+            _fsm.TryTransitionTo(ToAttackID);
         }
 
         private void TransitionToIdle()
         {
             onIdle.Invoke();
-            _fsm.TryTransitionTo("toIdle");
+            _fsm.TryTransitionTo(ToIdleID);
         }
+
         public void TransitionToDeath()
         {
-            _fsm.SetCurrentState(death);
-            Debug.Log("death");
+            onDeath.Invoke();
+            State death = new Death(this.gameObject);
+            _fsm.ForceSetCurrentState(death);
         }
 
         private void Update()

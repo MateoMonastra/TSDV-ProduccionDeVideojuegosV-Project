@@ -1,19 +1,12 @@
-using FSM;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class Idle : State
+    public class Idle : BaseState
     {
-        private Transform enemy;
-        private Transform player;
-        private EnemyModel model;
         private System.Action onEnterChase;
-        public Idle(Transform enemy, Transform player, EnemyModel model, System.Action onEnterChase)
+        public Idle(Transform enemy, Transform player, EnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
         {
-            this.enemy = enemy;
-            this.player = player;
-            this.model = model;
             this.onEnterChase = onEnterChase;
         }
         

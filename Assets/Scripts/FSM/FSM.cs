@@ -31,6 +31,7 @@ namespace FSM
                 Debug.Log($"Transition Success, Id:{id}");
                 return true;
             }
+
             Debug.Log($"Transition Failed, Id:{id}");
             return false;
         }
@@ -44,6 +45,11 @@ namespace FSM
         public State GetCurrentState()
         {
             return _current;
+        }
+
+        public void ForceSetCurrentState(State state)
+        {
+            _current = state;
         }
     }
 }

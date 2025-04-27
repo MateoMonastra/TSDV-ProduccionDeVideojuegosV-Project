@@ -4,22 +4,16 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class Chase : State
+    public class Chase : BaseState
     {
-        private Transform enemy;
-        private Transform player;
         private NavMeshAgent agent;
-        EnemyModel model;
         private System.Action onExitChase;
         private System.Action onEnterAttack;
 
-        public Chase(Transform enemy, Transform player, NavMeshAgent agent, EnemyModel model,
-            System.Action onExitChase, System.Action onEnterAttack)
+        public Chase(Transform enemy, Transform player, EnemyModel model, NavMeshAgent agent,
+            System.Action onExitChase, System.Action onEnterAttack) : base(enemy, player, model)
         {
-            this.enemy = enemy;
-            this.player = player;
             this.agent = agent;
-            this.model = model;
             this.onExitChase = onExitChase;
             this.onEnterAttack = onEnterAttack;
         }
@@ -41,7 +35,7 @@ namespace Enemy
 
             agent.SetDestination(player.position);
         }
-        
+
         public override void FixedTick(float delta)
         {
             base.FixedTick(delta);
@@ -63,6 +57,7 @@ namespace Enemy
 
             return true;
         }
+
         private bool IsPlayerInAttackRange(float distance)
         {
             if (distance <= model.AttackRange)
