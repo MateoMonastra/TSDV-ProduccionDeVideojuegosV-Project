@@ -1,7 +1,7 @@
-using FSM;
+﻿using FSM;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies.RangeEnemy.States
 {
     public class Death : State
     {

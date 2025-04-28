@@ -1,8 +1,7 @@
-using FSM;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemy
+namespace Enemies.Enemy.States
 {
     public class Chase : BaseState
     {
@@ -10,7 +9,7 @@ namespace Enemy
         private System.Action onExitChase;
         private System.Action onEnterAttack;
 
-        public Chase(Transform enemy, Transform player, EnemyModel model, NavMeshAgent agent,
+        public Chase(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent,
             System.Action onExitChase, System.Action onEnterAttack) : base(enemy, player, model)
         {
             this.agent = agent;

@@ -1,11 +1,12 @@
+using Enemy;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemies.Enemy.States
 {
     public class Idle : BaseState
     {
         private System.Action onEnterChase;
-        public Idle(Transform enemy, Transform player, EnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
+        public Idle(Transform enemy, Transform player, BaseEnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
         {
             this.onEnterChase = onEnterChase;
         }
