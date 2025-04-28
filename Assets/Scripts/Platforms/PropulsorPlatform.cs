@@ -1,3 +1,4 @@
+using KinematicCharacterController;
 using UnityEngine;
 
 namespace Platforms
@@ -6,14 +7,17 @@ namespace Platforms
     {
         public float jumpForce;
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player"))
             {
-                Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-                if (playerRigidbody != null)
+                var kinematicCharacterMotor = other.gameObject.GetComponent<KinematicCharacterMotor>();
+                    
+                
+                if (kinematicCharacterMotor != null)
                 {
-                    playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    kinematicCharacterMotor.ForceUnground();
+                    kinematicCharacterMotor.BaseVelocity = Vector3.up * jumpForce;
                 }
             }
         }
