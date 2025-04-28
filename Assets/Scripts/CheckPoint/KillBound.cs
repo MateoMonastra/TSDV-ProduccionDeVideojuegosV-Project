@@ -5,12 +5,12 @@ namespace CheckPoint
 {
     public class KillBound : MonoBehaviour
     {
-        private void OnCollisionEnter(Collision other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                GameEvents.PlayerDied(other.gameObject);
-            }
+            Debug.Log("entro");
+            if (!other.gameObject.CompareTag("Player")) return;
+            Debug.Log("murio");
+            GameEvents.PlayerDied(other.gameObject);
         }
     }
 }
