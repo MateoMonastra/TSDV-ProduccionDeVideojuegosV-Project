@@ -452,22 +452,7 @@ namespace KinematicCharacterController.Examples
                         {
                             if (_jumpsRemaining > 0)
                             {
-                                // Calculate jump direction before ungrounding
-                                Vector3 jumpDirection = Motor.CharacterUp;
-                                if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
-                                {
-                                    jumpDirection = Motor.GroundingStatus.GroundNormal;
-                                }
-
-                                // Makes the character skip ground probing/snapping on its next update
-                                Motor.ForceUnground();
-
-                                // Add to the return velocity and reset jump state
-                                currentVelocity += (jumpDirection * JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
-                                currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
-                                _jumpedThisFrame = true;
-                                _jumpsRemaining--; // Decrease remaining jumps
-                                _jumpRequested = false; // Reset jump request after executing
+                                Jump(ref currentVelocity);
                             }
                         }
 
@@ -486,6 +471,26 @@ namespace KinematicCharacterController.Examples
                         break;
                     }
             }
+        }
+
+        private void Jump(ref Vector3 currentVelocity)
+        {
+            // Calculate jump direction before ungrounding
+            Vector3 jumpDirection = Motor.CharacterUp;
+            if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
+            {
+                jumpDirection = Motor.GroundingStatus.GroundNormal;
+            }
+
+            // Makes the character skip ground probing/snapping on its next update
+            Motor.ForceUnground();
+
+            // Add to the return velocity and reset jump state
+            currentVelocity += (jumpDirection * JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+            currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
+            _jumpedThisFrame = true;
+            _jumpsRemaining--; // Decrease remaining jumps
+            _jumpRequested = false; // Reset jump request after executing
         }
 
         /// <summary>
