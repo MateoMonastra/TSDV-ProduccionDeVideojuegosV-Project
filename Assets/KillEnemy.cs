@@ -1,6 +1,7 @@
 using System;
 using Enemy;
 using UnityEngine;
+using Enemies.Enemy;
 
 public class KillEnemy : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class KillEnemy : MonoBehaviour
         if (other.gameObject.TryGetComponent(out EnemyAgent enemy))
         {
             enemy.TransitionToDeath();
-            Debug.Log("collided");
         }
     }
 }
