@@ -14,15 +14,26 @@ namespace CheckPoint
             _isActivated = true;
 
             Vector3 safePosition = CalculateSafeRespawnPosition(player);
-            checkpointManagerRef.manager.SetCheckpoint(transform.position);
             
-            Debug.Log("Checkpoint activado en: " + safePosition);
+            if (!checkpointManagerRef.manager.IsLastCheckpoint(safePosition))
+            {
+                checkpointManagerRef.manager.SetCheckpoint(safePosition);
+
+                Debug.Log("Checkpoint activado en: " + safePosition);
+            }
         }
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
             ActivateCheckpoint(other.transform);
         }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Player")) return;
+            ActivateCheckpoint(other.transform);
+        }
+
         private Vector3 CalculateSafeRespawnPosition(Transform player)
         {
             Collider checkpointCol = GetComponent<Collider>();

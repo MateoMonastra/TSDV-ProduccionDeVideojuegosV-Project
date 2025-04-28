@@ -8,11 +8,12 @@ namespace CheckPoint
         private Vector3 _lastCheckpointPosition;
 
         [SerializeField] private CheckPointManagerRef checkpointManagerRef;
+
         private void OnEnable()
         {
             checkpointManagerRef.manager = this;
         }
-        
+
         private void OnDisable()
         {
             checkpointManagerRef.manager = null;
@@ -34,6 +35,20 @@ namespace CheckPoint
             {
                 Debug.LogWarning("No se ha establecido ningún checkpoint aún.");
             }
+        }
+
+        public bool IsLastCheckpoint(Vector3 position)
+        {
+            if (_lastCheckpointPosition == position)
+            {
+                Debug.Log("the same");
+            }
+            else
+            {
+                Debug.Log("not the same");
+            }
+
+            return _lastCheckpointPosition == position;
         }
     }
 }

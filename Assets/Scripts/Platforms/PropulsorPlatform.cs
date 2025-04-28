@@ -17,7 +17,7 @@ namespace Platforms
                 if (kinematicCharacterMotor != null)
                 {
                     kinematicCharacterMotor.ForceUnground();
-                    kinematicCharacterMotor.BaseVelocity = Vector3.up * jumpForce;
+                    kinematicCharacterMotor.BaseVelocity = transform.up * jumpForce;
                 }
             }
         }
