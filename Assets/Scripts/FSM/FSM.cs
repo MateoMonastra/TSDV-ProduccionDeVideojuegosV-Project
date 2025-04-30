@@ -31,13 +31,25 @@ namespace FSM
                 Debug.Log($"Transition Success, Id:{id}");
                 return true;
             }
+
             Debug.Log($"Transition Failed, Id:{id}");
             return false;
+        }
+
+        public void SetCurrentState(State state)
+        {
+            _current = state;
+            _current.Enter();
         }
 
         public State GetCurrentState()
         {
             return _current;
+        }
+
+        public void ForceSetCurrentState(State state)
+        {
+            _current = state;
         }
     }
 }
