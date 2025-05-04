@@ -8,13 +8,11 @@ namespace PickUps
     {
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.name);
             if (other.tag == "Player")
             {
-                Debug.Log("aver");
                 if (other.TryGetComponent(out ExampleCharacterController player))
                 {
-                    player.AddExtraDashCharge();
+                    player.ResetDashCD();
                     //Destroy(gameObject);
                 }
             }
