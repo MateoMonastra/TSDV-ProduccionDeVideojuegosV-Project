@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxStableMoveSpeed: 10
   StableMovementSharpness: 15
-  OrientationSharpness: 10
-  OrientationMethod: 0
-  MaxAirMoveSpeed: 15
-  AirAccelerationSpeed: 15
-  Drag: 0.1
-  AllowJumpingWhenSliding: 0
-  JumpUpSpeed: 10
-  JumpScalableForwardSpeed: 10
-  JumpPreGroundingGraceTime: 0
-  JumpPostGroundingGraceTime: 0
+  OrientationSharpness: 20
+  OrientationMethod: 1
+  MaxAirMoveSpeed: 10
+  AirAccelerationSpeed: 30
+  Drag: 0
+  AllowJumpingWhenSliding: 1
+  JumpUpSpeed: 17
+  JumpScalableForwardSpeed: 0
+  JumpPreGroundingGraceTime: 0.1
+  JumpPostGroundingGraceTime: 0.1
   MaxJumps: 2
-  Gravity: {x: 0, y: -30, z: 0}
-  DashSpeed: 30
+  Gravity: {x: 0, y: -40, z: 0}
+  DashSpeed: 75
   DashDuration: 0.2
-  DashCooldown: 1
+  DashCooldown: 0.4
