@@ -95,6 +95,7 @@ namespace KinematicCharacterController.Examples
         private bool _hasExtraCharge = false;
 
         private int _jumpsRemaining; // Track remaining jumps
+        private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
 
         private void Awake()
         {
@@ -467,7 +468,7 @@ namespace KinematicCharacterController.Examples
 
                         if (_jumpRequested)
                         {
-                            if (_jumpsRemaining > 0)
+                            if (CanJump())
                             {
                                 Jump(ref currentVelocity);
                             }
@@ -506,7 +507,17 @@ namespace KinematicCharacterController.Examples
             currentVelocity += (jumpDirection * Model.JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
             currentVelocity += (_moveInputVector * Model.JumpScalableForwardSpeed);
             _jumpedThisFrame = true;
-            _jumpsRemaining--; // Decrease remaining jumps
+
+            // Use extra jumps first, then normal jumps
+            if (_extraJumpsRemaining > 0)
+            {
+                _extraJumpsRemaining--;
+            }
+            else
+            {
+                _jumpsRemaining--;
+            }
+            
             _jumpRequested = false; // Reset jump request after executing
         }
 
@@ -577,7 +588,7 @@ namespace KinematicCharacterController.Examples
             if (Motor.GroundingStatus.IsStableOnGround && !Motor.LastGroundingStatus.IsStableOnGround)
             {
                 OnLanded();
-                _jumpsRemaining = Model.MaxJumps; // Reset jumps when landing
+                _jumpsRemaining = Model.MaxJumps; // Reset normal jumps when landing
             }
             else if (!Motor.GroundingStatus.IsStableOnGround && Motor.LastGroundingStatus.IsStableOnGround)
             {
@@ -704,6 +715,16 @@ namespace KinematicCharacterController.Examples
             {
                 _dashCooldownRemaining = Model.DashCooldown;
             }
+        }
+
+        public void AddExtraJumps(int amount)
+        {
+            _extraJumpsRemaining += amount;
+        }
+
+        private bool CanJump()
+        {
+            return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
     }
 }
