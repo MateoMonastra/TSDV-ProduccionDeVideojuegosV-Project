@@ -253,7 +253,6 @@ namespace KinematicCharacterController.Examples
                         // Dash input
                         if (inputs.DashDown && CanDash())
                         {
-                            Debug.Log("trying");
                             _isDashing = true;
                             _dashTimeRemaining = Model.DashDuration;
                             UseDash();
@@ -685,6 +684,7 @@ namespace KinematicCharacterController.Examples
         {
             _extraDashCharges++;
             _hasExtraCharge = true;
+            _dashCooldownRemaining = 0f; // Ensure no cooldown when getting extra charge
         }
 
         private bool CanDash()
@@ -698,6 +698,7 @@ namespace KinematicCharacterController.Examples
             {
                 _hasExtraCharge = false;
                 _extraDashCharges--;
+                _dashCooldownRemaining = 0f; // No cooldown when using extra charge
             }
             else
             {

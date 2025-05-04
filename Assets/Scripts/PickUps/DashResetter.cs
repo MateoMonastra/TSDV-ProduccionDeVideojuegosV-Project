@@ -12,8 +12,8 @@ namespace PickUps
             {
                 if (other.TryGetComponent(out ExampleCharacterController player))
                 {
-                    player.ResetDashCD();
-                    //Destroy(gameObject);
+                    player.AddExtraDashCharge();
+                    Destroy(gameObject);
                 }
             }
         }
