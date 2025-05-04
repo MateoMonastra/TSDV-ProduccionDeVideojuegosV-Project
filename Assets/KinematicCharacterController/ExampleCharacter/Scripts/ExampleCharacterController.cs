@@ -85,6 +85,7 @@ namespace KinematicCharacterController.Examples
         public float DashSpeed = 30f;
         public float DashDuration = 0.2f;
         public float DashCooldown = 1f;
+        private int _extraDashCharges = 0;
 
         public CharacterState CurrentCharacterState { get; private set; }
 
@@ -108,6 +109,7 @@ namespace KinematicCharacterController.Examples
         private float _dashTimeRemaining = 0f;
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
+        private bool _hasExtraCharge = false;
 
         private void Awake()
         {
@@ -209,10 +211,11 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Dash input
-                        if (inputs.DashDown && _dashCooldownRemaining <= 0f)
+                        if (inputs.DashDown && CanDash())
                         {
                             _isDashing = true;
                             _dashTimeRemaining = DashDuration;
+                            UseDash();
                             
                             // Calculate dash direction based on input or camera
                             Vector3 inputDirection = Vector3.zero;
@@ -259,9 +262,37 @@ namespace KinematicCharacterController.Examples
                     }
                 case CharacterState.Dashing:
                     {
-                        // While dashing, we don't process other inputs
-                        _moveInputVector = Vector3.zero;
-                        _lookInputVector = _dashDirection;
+                        // Dash input
+                        if (inputs.DashDown && CanDash())
+                        {
+                            Debug.Log("trying");
+                            _isDashing = true;
+                            _dashTimeRemaining = DashDuration;
+                            UseDash();
+                            
+                            // Calculate dash direction based on input or camera
+                            Vector3 inputDirection = Vector3.zero;
+                            if (moveInputVector.sqrMagnitude > 0.01f)
+                            {
+                                // Use input direction if there is input
+                                inputDirection = cameraPlanarRotation * moveInputVector;
+                            }
+                            else
+                            {
+                                // Fall back to camera direction if no input
+                                inputDirection = cameraPlanarDirection;
+                            }
+                            
+                            _dashDirection = inputDirection.normalized;
+                            TransitionToState(CharacterState.Dashing);
+                        }
+                        else
+                        {
+                            // While dashing, we don't process other inputs
+                            _moveInputVector = Vector3.zero;
+                            _lookInputVector = _dashDirection;
+                        }
+                        
                     }
                     break;
             }
@@ -307,6 +338,11 @@ namespace KinematicCharacterController.Examples
             UpdateAnimationParameters();
         }
 
+        public void ResetDashCD()
+        {
+            _dashCooldownRemaining = 0f;
+        }
+        
         /// <summary>
         /// (Called by KinematicCharacterMotor during its update cycle)
         /// This is where you tell your character what its rotation should be right now. 
@@ -649,6 +685,30 @@ namespace KinematicCharacterController.Examples
                 case CharacterState.Dashing:
                     animator.SetBool(IsDashing, true);
                     break;
+            }
+        }
+
+        public void AddExtraDashCharge()
+        {
+            _extraDashCharges++;
+            _hasExtraCharge = true;
+        }
+
+        private bool CanDash()
+        {
+            return _dashCooldownRemaining <= 0f || _hasExtraCharge;
+        }
+
+        private void UseDash()
+        {
+            if (_hasExtraCharge)
+            {
+                _hasExtraCharge = false;
+                _extraDashCharges--;
+            }
+            else
+            {
+                _dashCooldownRemaining = DashCooldown;
             }
         }
     }
