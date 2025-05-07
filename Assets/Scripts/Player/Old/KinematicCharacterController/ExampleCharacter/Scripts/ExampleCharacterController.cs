@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using Player.Old.PlayerPrototype;
+using UnityEngine.Serialization;
 
 namespace KinematicCharacterController.Examples
 {
@@ -44,6 +46,7 @@ namespace KinematicCharacterController.Examples
 
     public class ExampleCharacterController : MonoBehaviour, ICharacterController
     {
+        public PlayerModel Model;
         public KinematicCharacterMotor Motor;
 
         [Header("Animation")]
@@ -54,38 +57,18 @@ namespace KinematicCharacterController.Examples
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
         private static readonly int IsIdle = Animator.StringToHash("IsIdle");
 
-        [Header("Stable Movement")]
-        public float MaxStableMoveSpeed = 10f;
-        public float StableMovementSharpness = 15f;
-        public float OrientationSharpness = 10f;
-        public OrientationMethod OrientationMethod = OrientationMethod.TowardsCamera;
-
-        [Header("Air Movement")]
-        public float MaxAirMoveSpeed = 15f;
-        public float AirAccelerationSpeed = 15f;
-        public float Drag = 0.1f;
-
-        [Header("Jumping")]
-        public bool AllowJumpingWhenSliding = false;
-        public float JumpUpSpeed = 10f;
-        public float JumpScalableForwardSpeed = 10f;
-        public float JumpPreGroundingGraceTime = 0f;
-        public float JumpPostGroundingGraceTime = 0f;
-        public int MaxJumps = 2; // Maximum number of jumps allowed
+        
 
         [Header("Misc")]
         public List<Collider> IgnoredColliders = new List<Collider>();
         public BonusOrientationMethod BonusOrientationMethod = BonusOrientationMethod.None;
         public float BonusOrientationSharpness = 10f;
-        public Vector3 Gravity = new Vector3(0, -30f, 0);
         public Transform MeshRoot;
         public Transform CameraFollowPoint;
         public float CrouchedCapsuleHeight = 1f;
 
-        [Header("Dashing")]
-        public float DashSpeed = 30f;
-        public float DashDuration = 0.2f;
-        public float DashCooldown = 1f;
+        
+        private int _extraDashCharges = 0;
 
         public CharacterState CurrentCharacterState { get; private set; }
 
@@ -109,8 +92,10 @@ namespace KinematicCharacterController.Examples
         private float _dashTimeRemaining = 0f;
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
+        private bool _hasExtraCharge = false;
 
         private int _jumpsRemaining; // Track remaining jumps
+        private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
 
         private void Awake()
         {
@@ -127,7 +112,7 @@ namespace KinematicCharacterController.Examples
             }
 
             // Initialize jumps
-            _jumpsRemaining = MaxJumps;
+            _jumpsRemaining = Model.MaxJumps;
         }
 
         /// <summary>
@@ -204,7 +189,7 @@ namespace KinematicCharacterController.Examples
                         // Move and look inputs
                         _moveInputVector = cameraPlanarRotation * moveInputVector;
 
-                        switch (OrientationMethod)
+                        switch (Model.OrientationMethod)
                         {
                             case OrientationMethod.TowardsCamera:
                                 _lookInputVector = cameraPlanarDirection;
@@ -215,10 +200,11 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Dash input
-                        if (inputs.DashDown && _dashCooldownRemaining <= 0f)
+                        if (inputs.DashDown && CanDash())
                         {
                             _isDashing = true;
-                            _dashTimeRemaining = DashDuration;
+                            _dashTimeRemaining = Model.DashDuration;
+                            UseDash();
                             
                             // Calculate dash direction based on input or camera
                             Vector3 inputDirection = Vector3.zero;
@@ -265,9 +251,36 @@ namespace KinematicCharacterController.Examples
                     }
                 case CharacterState.Dashing:
                     {
-                        // While dashing, we don't process other inputs
-                        _moveInputVector = Vector3.zero;
-                        _lookInputVector = _dashDirection;
+                        // Dash input
+                        if (inputs.DashDown && CanDash())
+                        {
+                            _isDashing = true;
+                            _dashTimeRemaining = Model.DashDuration;
+                            UseDash();
+                            
+                            // Calculate dash direction based on input or camera
+                            Vector3 inputDirection = Vector3.zero;
+                            if (moveInputVector.sqrMagnitude > 0.01f)
+                            {
+                                // Use input direction if there is input
+                                inputDirection = cameraPlanarRotation * moveInputVector;
+                            }
+                            else
+                            {
+                                // Fall back to camera direction if no input
+                                inputDirection = cameraPlanarDirection;
+                            }
+                            
+                            _dashDirection = inputDirection.normalized;
+                            TransitionToState(CharacterState.Dashing);
+                        }
+                        else
+                        {
+                            // While dashing, we don't process other inputs
+                            _moveInputVector = Vector3.zero;
+                            _lookInputVector = _dashDirection;
+                        }
+                        
                     }
                     break;
             }
@@ -302,7 +315,7 @@ namespace KinematicCharacterController.Examples
                 if (_dashTimeRemaining <= 0f)
                 {
                     _isDashing = false;
-                    _dashCooldownRemaining = DashCooldown;
+                    _dashCooldownRemaining = Model.DashCooldown;
                     // Reset velocity when dash ends
                     Motor.BaseVelocity = Vector3.zero;
                     TransitionToState(CharacterState.Default);
@@ -313,6 +326,11 @@ namespace KinematicCharacterController.Examples
             UpdateAnimationParameters();
         }
 
+        public void ResetDashCD()
+        {
+            _dashCooldownRemaining = 0f;
+        }
+        
         /// <summary>
         /// (Called by KinematicCharacterMotor during its update cycle)
         /// This is where you tell your character what its rotation should be right now. 
@@ -324,10 +342,10 @@ namespace KinematicCharacterController.Examples
             {
                 case CharacterState.Default:
                     {
-                        if (_lookInputVector.sqrMagnitude > 0f && OrientationSharpness > 0f)
+                        if (_lookInputVector.sqrMagnitude > 0f && Model.OrientationSharpness > 0f)
                         {
                             // Smoothly interpolate from current to target look direction
-                            Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _lookInputVector, 1 - Mathf.Exp(-OrientationSharpness * deltaTime)).normalized;
+                            Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _lookInputVector, 1 - Mathf.Exp(-Model.OrientationSharpness * deltaTime)).normalized;
 
                             // Set the current rotation (which will be used by the KinematicCharacterMotor)
                             currentRotation = Quaternion.LookRotation(smoothedLookInputDirection, Motor.CharacterUp);
@@ -337,7 +355,7 @@ namespace KinematicCharacterController.Examples
                         if (BonusOrientationMethod == BonusOrientationMethod.TowardsGravity)
                         {
                             // Rotate from current up to invert gravity
-                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
                             currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
                         }
                         else if (BonusOrientationMethod == BonusOrientationMethod.TowardsGroundSlopeAndGravity)
@@ -354,7 +372,7 @@ namespace KinematicCharacterController.Examples
                             }
                             else
                             {
-                                Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                                Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized, 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
                                 currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
                             }
                         }
@@ -392,10 +410,10 @@ namespace KinematicCharacterController.Examples
                             // Calculate target velocity
                             Vector3 inputRight = Vector3.Cross(_moveInputVector, Motor.CharacterUp);
                             Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
-                            Vector3 targetMovementVelocity = reorientedInput * MaxStableMoveSpeed;
+                            Vector3 targetMovementVelocity = reorientedInput * Model.MaxStableMoveSpeed;
 
                             // Smooth movement Velocity
-                            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
+                            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-Model.StableMovementSharpness * deltaTime));
                         }
                         // Air movement
                         else
@@ -403,15 +421,15 @@ namespace KinematicCharacterController.Examples
                             // Add move input
                             if (_moveInputVector.sqrMagnitude > 0f)
                             {
-                                Vector3 addedVelocity = _moveInputVector * AirAccelerationSpeed * deltaTime;
+                                Vector3 addedVelocity = _moveInputVector * (Model.AirAccelerationSpeed * deltaTime);
 
                                 Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
 
                                 // Limit air velocity from inputs
-                                if (currentVelocityOnInputsPlane.magnitude < MaxAirMoveSpeed)
+                                if (currentVelocityOnInputsPlane.magnitude < Model.MaxAirMoveSpeed)
                                 {
                                     // clamp addedVel to make total vel not exceed max vel on inputs plane
-                                    Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, MaxAirMoveSpeed);
+                                    Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity, Model.MaxAirMoveSpeed);
                                     addedVelocity = newTotal - currentVelocityOnInputsPlane;
                                 }
                                 else
@@ -438,10 +456,10 @@ namespace KinematicCharacterController.Examples
                             }
 
                             // Gravity
-                            currentVelocity += Gravity * deltaTime;
+                            currentVelocity += Model.Gravity * deltaTime;
 
                             // Drag
-                            currentVelocity *= (1f / (1f + (Drag * deltaTime)));
+                            currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
                         }
 
                         // Handle jumping
@@ -450,7 +468,7 @@ namespace KinematicCharacterController.Examples
 
                         if (_jumpRequested)
                         {
-                            if (_jumpsRemaining > 0)
+                            if (CanJump())
                             {
                                 Jump(ref currentVelocity);
                             }
@@ -467,7 +485,7 @@ namespace KinematicCharacterController.Examples
                 case CharacterState.Dashing:
                     {
                         // During dash, we set the velocity directly without any interpolation
-                        currentVelocity = _dashDirection * DashSpeed;
+                        currentVelocity = _dashDirection * Model.DashSpeed;
                         break;
                     }
             }
@@ -486,10 +504,20 @@ namespace KinematicCharacterController.Examples
             Motor.ForceUnground();
 
             // Add to the return velocity and reset jump state
-            currentVelocity += (jumpDirection * JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
-            currentVelocity += (_moveInputVector * JumpScalableForwardSpeed);
+            currentVelocity += (jumpDirection * Model.JumpUpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+            currentVelocity += (_moveInputVector * Model.JumpScalableForwardSpeed);
             _jumpedThisFrame = true;
-            _jumpsRemaining--; // Decrease remaining jumps
+
+            // Use extra jumps first, then normal jumps
+            if (_extraJumpsRemaining > 0)
+            {
+                _extraJumpsRemaining--;
+            }
+            else
+            {
+                _jumpsRemaining--;
+            }
+            
             _jumpRequested = false; // Reset jump request after executing
         }
 
@@ -506,12 +534,12 @@ namespace KinematicCharacterController.Examples
                         // Handle jump-related values
                         {
                             // Handle jumping pre-ground grace period
-                            if (_jumpRequested && _timeSinceJumpRequested > JumpPreGroundingGraceTime)
+                            if (_jumpRequested && _timeSinceJumpRequested > Model.JumpPreGroundingGraceTime)
                             {
                                 _jumpRequested = false;
                             }
 
-                            if (AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround)
+                            if (Model.AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround)
                             {
                                 // If we're on a ground surface, reset jumping values
                                 if (!_jumpedThisFrame)
@@ -560,7 +588,7 @@ namespace KinematicCharacterController.Examples
             if (Motor.GroundingStatus.IsStableOnGround && !Motor.LastGroundingStatus.IsStableOnGround)
             {
                 OnLanded();
-                _jumpsRemaining = MaxJumps; // Reset jumps when landing
+                _jumpsRemaining = Model.MaxJumps; // Reset normal jumps when landing
             }
             else if (!Motor.GroundingStatus.IsStableOnGround && Motor.LastGroundingStatus.IsStableOnGround)
             {
@@ -661,6 +689,42 @@ namespace KinematicCharacterController.Examples
                     animator.SetBool(IsDashing, true);
                     break;
             }
+        }
+
+        public void AddExtraDashCharge()
+        {
+            _extraDashCharges++;
+            _hasExtraCharge = true;
+            _dashCooldownRemaining = 0f; // Ensure no cooldown when getting extra charge
+        }
+
+        private bool CanDash()
+        {
+            return _dashCooldownRemaining <= 0f || _hasExtraCharge;
+        }
+
+        private void UseDash()
+        {
+            if (_hasExtraCharge)
+            {
+                _hasExtraCharge = false;
+                _extraDashCharges--;
+                _dashCooldownRemaining = 0f; // No cooldown when using extra charge
+            }
+            else
+            {
+                _dashCooldownRemaining = Model.DashCooldown;
+            }
+        }
+
+        public void AddExtraJumps(int amount)
+        {
+            _extraJumpsRemaining += amount;
+        }
+
+        private bool CanJump()
+        {
+            return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
     }
 }

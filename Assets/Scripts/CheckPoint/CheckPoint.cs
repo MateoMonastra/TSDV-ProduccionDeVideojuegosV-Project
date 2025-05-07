@@ -8,12 +8,13 @@ namespace CheckPoint
         private bool _isActivated = false;
         [SerializeField] private CheckPointManagerRef checkpointManagerRef;
 
-        private void ActivateCheckpoint(Transform player)
+        private void ActivateCheckpoint(Transform player, bool isCollider)
         {
             if (_isActivated) return;
             _isActivated = true;
-
-            Vector3 safePosition = CalculateSafeRespawnPosition(player);
+            Vector3 safePosition;
+            
+            safePosition = isCollider ? CalculateSafeRespawnPosition(player) : transform.position;
             
             if (!checkpointManagerRef.manager.IsLastCheckpoint(safePosition))
             {
@@ -25,13 +26,13 @@ namespace CheckPoint
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
-            ActivateCheckpoint(other.transform);
+            ActivateCheckpoint(other.transform, false);
         }
 
         private void OnCollisionEnter(Collision other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            ActivateCheckpoint(other.transform);
+            ActivateCheckpoint(other.transform, true);
         }
 
         private Vector3 CalculateSafeRespawnPosition(Transform player)

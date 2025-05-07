@@ -1,4 +1,5 @@
 using System;
+using KinematicCharacterController.Examples;
 using UnityEngine;
 
 namespace CheckPoint
@@ -29,7 +30,12 @@ namespace CheckPoint
         {
             if (_lastCheckpointPosition != Vector3.zero)
             {
-                player.transform.position = _lastCheckpointPosition;
+                ExampleCharacterController characterController = player.GetComponent<ExampleCharacterController>();
+
+                if (characterController)
+                {
+                    characterController.Motor.SetPositionAndRotation(_lastCheckpointPosition, Quaternion.identity);
+                }
             }
             else
             {
