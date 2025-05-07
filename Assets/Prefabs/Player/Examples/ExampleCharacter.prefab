@@ -552,33 +552,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76020eee813ed7844bcea94c5d5ce76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Model: {fileID: 11400000, guid: 469b7bb018787b54d83783f0019bd640, type: 2}
   Motor: {fileID: 1340978461038787366}
   animator: {fileID: 4609355858030255384}
-  MaxStableMoveSpeed: 10
-  StableMovementSharpness: 15
-  OrientationSharpness: 20
-  OrientationMethod: 1
-  MaxAirMoveSpeed: 10
-  AirAccelerationSpeed: 30
-  Drag: 0
-  AllowJumpingWhenSliding: 1
-  JumpUpSpeed: 17
-  JumpScalableForwardSpeed: 0
-  JumpPreGroundingGraceTime: 0.1
-  JumpPostGroundingGraceTime: 0.1
-  MaxJumps: 2
   IgnoredColliders:
   - {fileID: 0}
   - {fileID: 0}
   BonusOrientationMethod: 1
   BonusOrientationSharpness: 20
-  Gravity: {x: 0, y: -40, z: 0}
   MeshRoot: {fileID: 5433197189293847460}
   CameraFollowPoint: {fileID: 5282297839871979558}
   CrouchedCapsuleHeight: 1
-  DashSpeed: 75
-  DashDuration: 0.2
-  DashCooldown: 0.4
 --- !u!114 &1340978461038787366
 MonoBehaviour:
   m_ObjectHideFlags: 0
