@@ -21,6 +21,7 @@ namespace Enemies.RangeEnemy
         
         [Header("SpecialAttack Values")]
         [SerializeField] private float attackAreaRadius;
+        [SerializeField] private float maxRayDistance;
         [SerializeField] private int specialAttacksCount;
         [SerializeField] private float projectileFallTime;
         [SerializeField] private float specialAttackCooldown;
@@ -81,6 +82,11 @@ namespace Enemies.RangeEnemy
         {
             get => attackAreaRadius;
             set => attackAreaRadius = value;
+        }
+        public float MaxRayDistance
+        {
+            get => maxRayDistance;
+            set => maxRayDistance = value;
         }
 
         public int AttacksCount

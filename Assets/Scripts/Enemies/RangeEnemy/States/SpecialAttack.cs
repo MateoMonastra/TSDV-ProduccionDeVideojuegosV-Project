@@ -54,11 +54,28 @@ namespace Enemies.RangeEnemy.States
             for (int i = 0; i < model.AttacksCount; i++)
             {
                 Vector2 randomCircle = Random.insideUnitCircle * model.AttackAreaRadius;
-                Vector3 randomPosition = player.position + new Vector3(randomCircle.x, 0, randomCircle.y);
-                targetPositions[i] = randomPosition;
+                Vector3 randomPosition = player.position + new Vector3(randomCircle.x, 0f, randomCircle.y); 
+                Ray ray = new Ray(randomPosition, Vector3.down);
                 
-                GameObject marker = GameObject.Instantiate(_groundMark, randomPosition, Quaternion.identity);
-                GameObject.Destroy(marker, model.ProjectileFallTime + 0.5f);
+                RaycastHit hit;
+                
+                if (Physics.Raycast(ray, out hit, model.MaxRayDistance))
+                {
+                    targetPositions[i] = hit.point;
+
+                    GameObject marker = GameObject.Instantiate(_groundMark, hit.point, Quaternion.identity);
+                    GameObject.Destroy(marker, model.ProjectileFallTime + 0.5f);
+                }
+                //the default option was taken out by manuel petition 
+                // else
+                // {
+                //     //else default
+                //     Vector3 fallbackPosition = player.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
+                //     targetPositions[i] = fallbackPosition;
+                //
+                //     GameObject marker = GameObject.Instantiate(_groundMark, fallbackPosition, Quaternion.identity);
+                //     GameObject.Destroy(marker, model.ProjectileFallTime + 0.5f);
+                // }
             }
             
             for (int i = 0; i < model.AttacksCount; i++)
