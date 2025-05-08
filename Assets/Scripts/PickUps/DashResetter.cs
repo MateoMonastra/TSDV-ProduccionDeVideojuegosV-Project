@@ -4,18 +4,16 @@ using UnityEngine;
 
 namespace PickUps
 {
-    public class DashResetter : MonoBehaviour
+    public class DashResetter : Pickup
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
-            {
-                if (other.TryGetComponent(out ExampleCharacterController player))
-                {
-                    player.AddExtraDashCharge();
-                    Destroy(gameObject);
-                }
-            }
+            if (!other.CompareTag("Player")) return;
+           
+            if (!other.TryGetComponent(out ExampleCharacterController player)) return;
+            
+            player.AddExtraDashCharge();
+            RefreshCooldown();
         }
     }
 }
