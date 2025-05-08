@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7521146549416944559}
   - component: {fileID: 7577582478003471445}
   - component: {fileID: 90215273148411630}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpecialBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ MonoBehaviour:
   lifeTime: 10
   impactParticlesPrefab: {fileID: 0}
   particlesLifeTime: 0
-  activateLogs: 0
+  activateLogs: 1
 --- !u!1001 &7462911920246956093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -218,9 +218,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1330407642057107585, guid: 9d4fab74999fbe240b391788179db538, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1330407642057107587, guid: 9d4fab74999fbe240b391788179db538, type: 3}
       propertyPath: m_Name
       value: SpikeBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1330407642057107587, guid: 9d4fab74999fbe240b391788179db538, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

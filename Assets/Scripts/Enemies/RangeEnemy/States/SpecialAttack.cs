@@ -72,8 +72,6 @@ namespace Enemies.RangeEnemy.States
                     Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i], model.ProjectileFallTime);
                     rb.linearVelocity = velocity;
                 }
-
-                GameObject.Destroy(projectile, model.ProjectileFallTime);
             }
             
             yield return new WaitForSeconds(model.SpecialAttackCooldown);
