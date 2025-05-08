@@ -79,7 +79,6 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToDeath()
         {
-            Debug.Log("muelto confirmed");
             onDeath.Invoke();
             State death = new Death(this.gameObject);
             _fsm.ForceSetCurrentState(death);

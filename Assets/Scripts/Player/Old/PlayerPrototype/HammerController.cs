@@ -3,12 +3,14 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     private Animator animator;
+    private Collider collider;
     private bool isAnimating = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Get the Animator component attached to this GameObject
+        collider = GetComponent<BoxCollider>();
         animator = GetComponent<Animator>();
         if (animator == null)
         {
@@ -23,6 +25,7 @@ public class HammerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isAnimating)
         {
             PlayHammerAnimation();
+            collider.enabled = true;
         }
     }
 
@@ -39,5 +42,6 @@ public class HammerController : MonoBehaviour
     public void OnAnimationComplete()
     {
         isAnimating = false;
+        collider.enabled = false;
     }
 }

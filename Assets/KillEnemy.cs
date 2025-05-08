@@ -11,7 +11,6 @@ public class KillEnemy : MonoBehaviour
         if (other.gameObject.TryGetComponent(out IEnemy enemy))
         {
             enemy.OnBeingAttacked();
-            Debug.Log("muelto");
         }
     }
 }
