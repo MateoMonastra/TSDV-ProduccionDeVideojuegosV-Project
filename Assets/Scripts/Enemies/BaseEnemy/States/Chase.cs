@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Enemies.Enemy.States
+namespace Enemies.BaseEnemy.States
 {
     public class Chase : BaseEnemyState
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Enemies.Enemy.States
+namespace Enemies.BaseEnemy.States
 {
     public class Idle : BaseEnemyState
     {

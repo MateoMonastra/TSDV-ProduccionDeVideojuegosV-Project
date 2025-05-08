@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using Enemies.Enemy.States;
+using Enemies.BaseEnemy.States;
 using FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-namespace Enemies.Enemy
+namespace Enemies.BaseEnemy
 {
-    public class EnemyAgent : MonoBehaviour
+    public class BaseEnemyAgent : MonoBehaviour, IEnemy
     {
         public UnityEvent onAttack;
         public UnityEvent<bool> onChase;
@@ -77,8 +77,9 @@ namespace Enemies.Enemy
             _fsm.TryTransitionTo(ToIdleID);
         }
 
-        public void TransitionToDeath()
+        private void TransitionToDeath()
         {
+            Debug.Log("muelto confirmed");
             onDeath.Invoke();
             State death = new Death(this.gameObject);
             _fsm.ForceSetCurrentState(death);
@@ -104,6 +105,11 @@ namespace Enemies.Enemy
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
+        }
+
+        public void OnBeingAttacked()
+        {
+            TransitionToDeath();
         }
     }
 }

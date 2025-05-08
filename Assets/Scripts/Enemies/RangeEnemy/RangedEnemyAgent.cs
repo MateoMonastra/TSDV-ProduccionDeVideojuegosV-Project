@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Enemies.RangeEnemy
 {
-    public class RangedEnemyAgent : MonoBehaviour
+    public class RangedEnemyAgent : MonoBehaviour, IEnemy
     {
         public UnityEvent onAttack;
         public UnityEvent onIdle;
@@ -80,8 +80,9 @@ namespace Enemies.RangeEnemy
             _fsm.TryTransitionTo(ToSpecialAttackID);
         }
 
-        public void TransitionToDeath()
+        private void TransitionToDeath()
         {
+            Debug.Log("muelto confirmed");
             onDeath.Invoke();
             State death = new Death(this.gameObject);
             _fsm.ForceSetCurrentState(death);
@@ -101,6 +102,11 @@ namespace Enemies.RangeEnemy
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
+        }
+
+        public void OnBeingAttacked()
+        {
+            TransitionToDeath();
         }
     }
 }

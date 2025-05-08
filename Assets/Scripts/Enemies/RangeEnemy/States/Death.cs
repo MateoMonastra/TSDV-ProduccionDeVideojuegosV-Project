@@ -13,6 +13,7 @@ namespace Enemies.RangeEnemy.States
         public override void Enter()
         {
             base.Enter();
+            Debug.Log("muelto confirmed confirmed");
             enemy.SetActive(false);
         }
 

@@ -1,4 +1,4 @@
-﻿using Enemies.Enemy;
+﻿using Enemies.BaseEnemy;
 using UnityEngine;
 
 namespace Enemies.RangeEnemy

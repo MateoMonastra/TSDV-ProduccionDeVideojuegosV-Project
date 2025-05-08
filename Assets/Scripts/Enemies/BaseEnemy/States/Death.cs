@@ -1,7 +1,7 @@
 using FSM;
 using UnityEngine;
 
-namespace Enemies.Enemy.States
+namespace Enemies.BaseEnemy.States
 {
     public class Death : State
     {
@@ -13,6 +13,7 @@ namespace Enemies.Enemy.States
         public override void Enter()
         {
             base.Enter();
+            Debug.Log("muelto confirmed confirmed");
             _enemy.SetActive(false);
         }
 

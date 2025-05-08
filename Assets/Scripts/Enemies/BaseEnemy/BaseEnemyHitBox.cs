@@ -1,7 +1,7 @@
 ﻿using KinematicCharacterController.Examples;
 using UnityEngine;
 
-namespace Enemies.Enemy
+namespace Enemies.BaseEnemy
 {
     public class BaseEnemyHitBox : MonoBehaviour
     {

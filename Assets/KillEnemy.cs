@@ -1,14 +1,17 @@
-using System;
+using Enemies;
 using UnityEngine;
-using Enemies.Enemy;
 
 public class KillEnemy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out EnemyAgent enemy))
+        Debug.Log(other.gameObject.name);
+        if (!other.CompareTag("Enemy")) return;
+        
+        if (other.gameObject.TryGetComponent(out IEnemy enemy))
         {
-            enemy.TransitionToDeath();
+            enemy.OnBeingAttacked();
+            Debug.Log("muelto");
         }
     }
 }
