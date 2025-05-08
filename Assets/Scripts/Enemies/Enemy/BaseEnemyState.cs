@@ -1,7 +1,7 @@
 ﻿using FSM;
 using UnityEngine;
 
-namespace Enemies
+namespace Enemies.Enemy
 {
     public abstract class BaseEnemyState : State
     {

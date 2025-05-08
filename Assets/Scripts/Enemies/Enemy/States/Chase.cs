@@ -5,16 +5,16 @@ namespace Enemies.Enemy.States
 {
     public class Chase : BaseEnemyState
     {
-        private NavMeshAgent agent;
-        private System.Action onExitChase;
-        private System.Action onEnterAttack;
+        private NavMeshAgent _agent;
+        private System.Action _onExitChase;
+        private System.Action _onEnterAttack;
 
         public Chase(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent,
             System.Action onExitChase, System.Action onEnterAttack) : base(enemy, player, model)
         {
-            this.agent = agent;
-            this.onExitChase = onExitChase;
-            this.onEnterAttack = onEnterAttack;
+            this._agent = agent;
+            this._onExitChase = onExitChase;
+            this._onEnterAttack = onEnterAttack;
         }
 
         public override void Enter()
@@ -32,7 +32,7 @@ namespace Enemies.Enemy.States
 
             if (IsPlayerInAttackRange(distance)) return;
 
-            agent.SetDestination(player.position);
+            _agent.SetDestination(player.position);
         }
 
         public override void FixedTick(float delta)
@@ -42,15 +42,15 @@ namespace Enemies.Enemy.States
 
         public override void Exit()
         {
-            agent.ResetPath();
+            _agent.ResetPath();
         }
 
         private bool IsPlayerInChaseRange(float distance)
         {
             if (distance > model.OuterRadius)
             {
-                agent.ResetPath();
-                onExitChase?.Invoke();
+                _agent.ResetPath();
+                _onExitChase?.Invoke();
                 return false;
             }
 
@@ -61,8 +61,8 @@ namespace Enemies.Enemy.States
         {
             if (distance <= model.AttackRange)
             {
-                agent.ResetPath();
-                onEnterAttack?.Invoke();
+                _agent.ResetPath();
+                _onEnterAttack?.Invoke();
                 return true;
             }
 

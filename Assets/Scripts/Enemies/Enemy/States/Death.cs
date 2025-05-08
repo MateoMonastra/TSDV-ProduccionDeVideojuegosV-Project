@@ -5,15 +5,15 @@ namespace Enemies.Enemy.States
 {
     public class Death : State
     {
-        private GameObject enemy;
+        private GameObject _enemy;
         public Death(GameObject enemy)
         {
-            this.enemy = enemy;
+            this._enemy = enemy;
         }
         public override void Enter()
         {
             base.Enter();
-            enemy.SetActive(false);
+            _enemy.SetActive(false);
         }
 
         public override void Tick(float delta)

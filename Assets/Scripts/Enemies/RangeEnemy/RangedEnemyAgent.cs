@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Enemies.RangeEnemy.States;
 using FSM;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Enemies.RangeEnemy
 {
@@ -39,7 +36,8 @@ namespace Enemies.RangeEnemy
             State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
                 groundMarkerPrefab, specialBulletPrefab);
 
-            State attack = new Attack(this.transform, player, model,bulletPrefab ,shootPoint.transform, TransitionToIdle);
+            State attack = new Attack(this.transform, player, model, bulletPrefab, shootPoint.transform,
+                TransitionToIdle);
 
             //Idle Transitions
             Transition idleToAttack = new Transition() { From = idle, To = attack, ID = ToAttackID };

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using Enemies.Enemy;
+using UnityEngine;
 
 namespace Enemies.RangeEnemy
 {
