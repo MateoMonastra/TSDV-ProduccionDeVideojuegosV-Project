@@ -14,6 +14,7 @@ namespace Enemies.RangeEnemy
         [Header("Attack Values")] 
         [SerializeField] private int totalShots;
         [SerializeField] private int shotsSeries;
+        [SerializeField] private float height;
         [SerializeField] private float shotSpeed;
         [SerializeField] private float timeBetweenShots;
         [SerializeField] private float cooldownBetweenShots;
@@ -56,6 +57,11 @@ namespace Enemies.RangeEnemy
         {
             get => shotSpeed;
             set => shotSpeed = value;
+        }
+        public float Height
+        {
+            get => height;
+            set => height = value;
         }
 
         public float TimeBetweenShots

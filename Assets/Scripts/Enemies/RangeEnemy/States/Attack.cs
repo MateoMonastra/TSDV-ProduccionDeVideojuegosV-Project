@@ -78,7 +78,9 @@ namespace Enemies.RangeEnemy.States
         private void Shoot()
         {
             GameObject projectile = GameObject.Instantiate(_projectilePrefab, _shootPoint.position, Quaternion.identity);
-            Vector3 direction = (player.position - _shootPoint.position).normalized;
+            Vector3 targetPosition = player.position + Vector3.up * model.Height;
+            Vector3 direction = (targetPosition - _shootPoint.position).normalized;
+           
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             
             if (rb)
