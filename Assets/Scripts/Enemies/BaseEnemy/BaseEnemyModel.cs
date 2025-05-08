@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Enemies
+namespace Enemies.BaseEnemy
 {
     [CreateAssetMenu(fileName = "EnemyModel", menuName = "Models/Enemy")]
     public class BaseEnemyModel : ScriptableObject

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using Enemies.Enemy.States;
+using Enemies.BaseEnemy.States;
 using FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-namespace Enemies.Enemy
+namespace Enemies.BaseEnemy
 {
-    public class EnemyAgent : MonoBehaviour
+    public class BaseEnemyAgent : MonoBehaviour, IEnemy
     {
         public UnityEvent onAttack;
         public UnityEvent<bool> onChase;
@@ -18,6 +18,7 @@ namespace Enemies.Enemy
         [SerializeField] private Transform player;
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
+        [SerializeField] private  Collider hitBox;
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
@@ -30,7 +31,7 @@ namespace Enemies.Enemy
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, model, navMeshAgent, TransitionToChase);
+            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, TransitionToChase);
 
             State chase = new Chase(this.transform, player, model, navMeshAgent,
                 onExitChase: TransitionToIdle,
@@ -76,7 +77,7 @@ namespace Enemies.Enemy
             _fsm.TryTransitionTo(ToIdleID);
         }
 
-        public void TransitionToDeath()
+        private void TransitionToDeath()
         {
             onDeath.Invoke();
             State death = new Death(this.gameObject);
@@ -103,6 +104,11 @@ namespace Enemies.Enemy
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
+        }
+
+        public void OnBeingAttacked()
+        {
+            TransitionToDeath();
         }
     }
 }

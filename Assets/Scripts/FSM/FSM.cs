@@ -36,12 +36,6 @@ namespace FSM
             return false;
         }
 
-        public void SetCurrentState(State state)
-        {
-            _current = state;
-            _current.Enter();
-        }
-
         public State GetCurrentState()
         {
             return _current;
@@ -50,6 +44,8 @@ namespace FSM
         public void ForceSetCurrentState(State state)
         {
             _current = state;
+            _current.Enter();
+            Debug.Log($"Transition Forced, Id:{_current.GetType().Name}");
         }
     }
 }

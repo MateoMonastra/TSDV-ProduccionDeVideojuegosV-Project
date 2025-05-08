@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7045124234364749166}
   m_Layer: 7
   m_Name: RangedEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,6 @@ MonoBehaviour:
   groundMarkerPrefab: {fileID: 7663107877028067152, guid: 175d19a22bf129940a7e121842106940, type: 3}
   shootPoint: {fileID: 7704771142481383807}
   player: {fileID: 0}
-  baseModel: {fileID: 11400000, guid: 540fa6fe965d9f64a8bfc87583f1c77f, type: 2}
   model: {fileID: 11400000, guid: 4b220d659abec1845b1a9cde8eac6ecd, type: 2}
 --- !u!1 &7704771142481383807
 GameObject:
@@ -152,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 306028874904714175}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}

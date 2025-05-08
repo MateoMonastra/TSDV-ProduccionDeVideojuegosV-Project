@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using Enemies.BaseEnemy;
+using UnityEngine;
 
 namespace Enemies.RangeEnemy
 {
     [CreateAssetMenu(fileName = "RangedEnemyModel", menuName = "Models/RangedEnemy")]
-    public class RangedEnemyModel : ScriptableObject
+    public class RangedEnemyModel : BaseEnemyModel
     {
 
         [Header("Idle Values")] 
