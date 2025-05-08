@@ -1,3 +1,4 @@
+using KinematicCharacterController.Examples;
 using UnityEngine;
 
 namespace Enemies.RangeEnemy
@@ -6,7 +7,6 @@ namespace Enemies.RangeEnemy
     {
         [Header("Stats")]
         [SerializeField] private float damage;
-        [SerializeField] private LayerMask playerLayer;
         [SerializeField] private LayerMask environmentLayer;
         [SerializeField] private float lifeTime;
 
@@ -14,6 +14,8 @@ namespace Enemies.RangeEnemy
         [SerializeField] private GameObject impactParticlesPrefab;
         [SerializeField] private float particlesLifeTime;
 
+        [Header("Debug")]
+        [SerializeField] private bool activateLogs;
         private void Start()
         {
             Destroy(gameObject, lifeTime);
@@ -21,15 +23,22 @@ namespace Enemies.RangeEnemy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & playerLayer) != 0)
+            if (other.CompareTag("Player"))
             {
                 //TODO: colocar daño al jugador
+                if(activateLogs)
+                    Debug.Log("Player hit");
                 
+                if (!other.GetComponent<ExampleCharacterController>()) return;
+                GameEvents.PlayerDied(other.gameObject);
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }
-            else if (((1 << other.gameObject.layer) & environmentLayer) != 0)
+            else if (environmentLayer != 0)
             {
+                if(activateLogs)
+                    Debug.Log("Environment hit");
+                
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }

@@ -22,7 +22,6 @@ namespace Enemies.RangeEnemy
         [SerializeField] private GameObject groundMarkerPrefab;
         [SerializeField] private GameObject shootPoint;
         [SerializeField] private Transform player;
-        [SerializeField] private BaseEnemyModel baseModel;
         [SerializeField] private RangedEnemyModel model;
 
         private Fsm _fsm;
@@ -34,13 +33,13 @@ namespace Enemies.RangeEnemy
 
         private void OnEnable()
         {
-            State idle = new Idle(this.transform, player, baseModel, model, TransitionToAttack,
+            State idle = new Idle(this.transform, player, model, TransitionToAttack,
                 TransitionToSpecialAttack);
 
-            State specialAttack = new SpecialAttack(this.transform, player, baseModel, model, TransitionToIdle,
+            State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
                 groundMarkerPrefab, specialBulletPrefab);
 
-            State attack = new Attack(this.transform, player, baseModel, model,bulletPrefab ,shootPoint.transform, TransitionToIdle);
+            State attack = new Attack(this.transform, player, model,bulletPrefab ,shootPoint.transform, TransitionToIdle);
 
             //Idle Transitions
             Transition idleToAttack = new Transition() { From = idle, To = attack, ID = ToAttackID };
@@ -103,7 +102,7 @@ namespace Enemies.RangeEnemy
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, baseModel.AttackRange);
+            Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
     }
 }

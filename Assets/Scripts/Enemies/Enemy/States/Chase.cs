@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Enemies.Enemy.States
 {
-    public class Chase : BaseState
+    public class Chase : BaseEnemyState
     {
         private NavMeshAgent agent;
         private System.Action onExitChase;

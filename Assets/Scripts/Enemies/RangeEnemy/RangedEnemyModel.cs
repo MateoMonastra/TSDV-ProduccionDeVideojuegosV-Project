@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace Enemies.RangeEnemy
 {
     [CreateAssetMenu(fileName = "RangedEnemyModel", menuName = "Models/RangedEnemy")]
-    public class RangedEnemyModel : ScriptableObject
+    public class RangedEnemyModel : BaseEnemyModel
     {
 
         [Header("Idle Values")] 

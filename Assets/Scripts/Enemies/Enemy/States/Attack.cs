@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Enemies.Enemy.States
 {
-    public class Attack : BaseState
+    public class Attack : BaseEnemyState
     {
         private NavMeshAgent _agent;
         private System.Action _onAttackFinished;

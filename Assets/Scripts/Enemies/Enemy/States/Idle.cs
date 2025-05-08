@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemies.Enemy.States
 {
-    public class Idle : BaseState
+    public class Idle : BaseEnemyState
     {
         private System.Action onEnterChase;
         public Idle(Transform enemy, Transform player, BaseEnemyModel model, System.Action onEnterChase) : base(enemy, player, model)

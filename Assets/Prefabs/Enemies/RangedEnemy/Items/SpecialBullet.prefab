@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9129176220595129696}
   - component: {fileID: 7521146549416944559}
   - component: {fileID: 7577582478003471445}
+  - component: {fileID: 90215273148411630}
   m_Layer: 0
   m_Name: SpecialBullet
   m_TagString: Untagged
@@ -137,6 +138,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &90215273148411630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073369727708270445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ee1fa2aceebf74c88062ff69bdf62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  lifeTime: 10
+  impactParticlesPrefab: {fileID: 0}
+  particlesLifeTime: 0
+  activateLogs: 0
 --- !u!1001 &7462911920246956093
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,22 +1,19 @@
-using Enemy;
 using UnityEngine;
 
 namespace Enemies.RangeEnemy.States
 {
-    public class Idle : BaseState
+    public class Idle : RangedEnemyState
     {
         private System.Action _onEnterAttackRange;
         private System.Action _specialAttackAction;
         private int _attacksCount = 0;
-        private RangedEnemyModel _model;
         private float _cooldownTimer = 0f;
         private bool _isInCooldown = false;
-        public Idle(Transform enemy, Transform player, BaseEnemyModel baseModel,RangedEnemyModel model, System.Action onEnterAttackRange
-            , System.Action specialAttackAction) : base(enemy, player, baseModel)
+        public Idle(Transform enemy, Transform player, RangedEnemyModel model, System.Action onEnterAttackRange
+            , System.Action specialAttackAction) : base(enemy, player, model)
         {
             this._onEnterAttackRange = onEnterAttackRange;
             this._specialAttackAction = specialAttackAction;
-            _model = model;
         }
         
         public override void Enter()
@@ -33,7 +30,7 @@ namespace Enemies.RangeEnemy.States
             if (_isInCooldown)
             {
                 _cooldownTimer += delta;
-                if (_cooldownTimer >= _model.CooldownBetweenAttacks)
+                if (_cooldownTimer >= model.CooldownBetweenAttacks)
                 {
                     _isInCooldown = false;
                     _cooldownTimer = 0f;
@@ -43,13 +40,12 @@ namespace Enemies.RangeEnemy.States
 
             if (distance <= model.AttackRange)
             {
-                if (_attacksCount < _model.AttacksCountToSpecialAttack)
+                if (_attacksCount < model.AttacksCountToSpecialAttack)
                 {
                     _onEnterAttackRange?.Invoke();
                     _attacksCount++;
                     _isInCooldown = true;
                     _cooldownTimer = 0f;
-                    Debug.Log($"Ataque normal {_attacksCount}");
                 }
                 else
                 {
@@ -57,7 +53,6 @@ namespace Enemies.RangeEnemy.States
                     _attacksCount = 0;
                     _isInCooldown = true;
                     _cooldownTimer = 0f;
-                    Debug.Log("Ataque especial");
                 }
             }
         }

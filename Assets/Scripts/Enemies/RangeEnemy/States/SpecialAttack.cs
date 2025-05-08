@@ -3,17 +3,16 @@ using System.Collections;
 
 namespace Enemies.RangeEnemy.States
 {
-    public class SpecialAttack : BaseState
+    public class SpecialAttack : RangedEnemyState
     {
+        private Coroutine _specialAttackCoroutine;
         private bool _isAttacking;
-        private RangedEnemyModel _model;
         private GameObject _groundMark;
         private GameObject _bullet;
         private System.Action _onFinishSpecialAttack;
-        public SpecialAttack(Transform enemy, Transform player, BaseEnemyModel baseModel, RangedEnemyModel model, System.Action onFinishSpecialAttack
-            , GameObject groundMark, GameObject bullet) : base(enemy, player, baseModel)
+        public SpecialAttack(Transform enemy, Transform player, RangedEnemyModel model, System.Action onFinishSpecialAttack
+            , GameObject groundMark, GameObject bullet) : base(enemy, player, model)
         {
-            _model = model;
             _groundMark = groundMark;
             _bullet = bullet;
             _onFinishSpecialAttack = onFinishSpecialAttack;
@@ -45,42 +44,39 @@ namespace Enemies.RangeEnemy.States
         {
             if (_isAttacking) return;
             _isAttacking = true;
-            enemy.GetComponent<MonoBehaviour>().StartCoroutine(ExecuteSpecialAttack());
+            _specialAttackCoroutine = enemy.GetComponent<MonoBehaviour>().StartCoroutine(ExecuteSpecialAttack());
         }
 
         private IEnumerator ExecuteSpecialAttack()
         {
-            Vector3[] targetPositions = new Vector3[_model.AttacksCount];
+            Vector3[] targetPositions = new Vector3[model.AttacksCount];
             
-            for (int i = 0; i < _model.AttacksCount; i++)
+            for (int i = 0; i < model.AttacksCount; i++)
             {
-                Vector2 randomCircle = Random.insideUnitCircle * _model.AttackAreaRadius;
+                Vector2 randomCircle = Random.insideUnitCircle * model.AttackAreaRadius;
                 Vector3 randomPosition = player.position + new Vector3(randomCircle.x, 0, randomCircle.y);
                 targetPositions[i] = randomPosition;
                 
                 GameObject marker = GameObject.Instantiate(_groundMark, randomPosition, Quaternion.identity);
-                GameObject.Destroy(marker, _model.ProjectileFallTime + 0.5f);
+                GameObject.Destroy(marker, model.ProjectileFallTime + 0.5f);
             }
             
-            for (int i = 0; i < _model.AttacksCount; i++)
+            for (int i = 0; i < model.AttacksCount; i++)
             {
                 GameObject projectile = GameObject.Instantiate(_bullet, enemy.position + Vector3.up * 2f, Quaternion.identity);
                 
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                if (rb != null)
+                
+                if (rb)
                 {
-                    Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i], _model.ProjectileFallTime);
+                    Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i], model.ProjectileFallTime);
                     rb.linearVelocity = velocity;
                 }
 
-                GameObject.Destroy(projectile, _model.ProjectileFallTime);
+                GameObject.Destroy(projectile, model.ProjectileFallTime);
             }
             
-            yield return new WaitForSeconds(_model.ProjectileFallTime);
-            
-            //TODO: aplicar daño
-            
-            yield return new WaitForSeconds(_model.SpecialAttackCooldown);
+            yield return new WaitForSeconds(model.SpecialAttackCooldown);
 
             _isAttacking = false;
             _onFinishSpecialAttack?.Invoke();
