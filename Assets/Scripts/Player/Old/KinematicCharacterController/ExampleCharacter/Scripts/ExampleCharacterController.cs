@@ -50,6 +50,7 @@ namespace KinematicCharacterController.Examples
         public KinematicCharacterMotor Motor;
         public ParticleSystem lastJumpParticles;
         public ParticleSystem dashParticles;
+        private HammerController hammerController; // Reference to hammer controller
 
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
@@ -112,6 +113,9 @@ namespace KinematicCharacterController.Examples
                 animator = GetComponent<Animator>();
             }
 
+            // Get hammer controller reference
+            hammerController = GetComponentInChildren<HammerController>();
+
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
         }
@@ -172,6 +176,13 @@ namespace KinematicCharacterController.Examples
         /// </summary>
         public void SetInputs(ref PlayerCharacterInputs inputs)
         {
+            // If ground slamming, prevent all movement
+            if (hammerController != null && hammerController.IsGroundSlamming)
+            {
+                _moveInputVector = Vector3.zero;
+                return;
+            }
+
             // Clamp input
             Vector3 moveInputVector =
                 Vector3.ClampMagnitude(new Vector3(inputs.MoveAxisRight, 0f, inputs.MoveAxisForward), 1f);
@@ -773,6 +784,10 @@ namespace KinematicCharacterController.Examples
 
         private bool CanDash()
         {
+            // Can't dash while ground slamming
+            if (hammerController != null && hammerController.IsGroundSlamming)
+                return false;
+
             // Can dash if either:
             // 1. Has extra charge (regardless of cooldown or ground state)
             // 2. Cooldown has passed AND has been grounded since last dash
@@ -807,6 +822,10 @@ namespace KinematicCharacterController.Examples
 
         private bool CanJump()
         {
+            // Can't jump while ground slamming
+            if (hammerController != null && hammerController.IsGroundSlamming)
+                return false;
+
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
     }

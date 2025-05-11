@@ -12,6 +12,9 @@ public class HammerController : MonoBehaviour
     private bool isGroundSlamming = false;
     private KinematicCharacterMotor motor; // Reference to the character motor
 
+    // Public property to check ground slam state
+    public bool IsGroundSlamming => isGroundSlamming;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +31,17 @@ public class HammerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Don't process inputs if ground slamming
+        if (isGroundSlamming)
+        {
+            // Check if ground slam should end
+            if (motor.GroundingStatus.IsStableOnGround)
+            {
+                EndGroundSlam();
+            }
+            return;
+        }
+
         // Handle mouse button down
         if (Input.GetMouseButtonDown(0) && !isAnimating)
         {
@@ -38,7 +52,7 @@ public class HammerController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !isAnimating)
         {
             float holdDuration = Time.time - mouseDownTime;
-
+            
             if (holdDuration >= holdTimeThreshold)
             {
                 HoldAttack();
@@ -53,12 +67,6 @@ public class HammerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isAnimating && !motor.GroundingStatus.IsStableOnGround)
         {
             GroundSlamAttack();
-        }
-
-        // Check if ground slam should end
-        if (isGroundSlamming && motor.GroundingStatus.IsStableOnGround)
-        {
-            EndGroundSlam();
         }
     }
 
