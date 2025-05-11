@@ -49,6 +49,7 @@ namespace KinematicCharacterController.Examples
         public PlayerModel Model;
         public KinematicCharacterMotor Motor;
         public ParticleSystem lastJumpParticles;
+        public ParticleSystem dashParticles;
 
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
@@ -780,6 +781,10 @@ namespace KinematicCharacterController.Examples
 
         private void UseDash()
         {
+            if (dashParticles.isPlaying)
+                dashParticles.Stop();
+            
+            dashParticles.Play();
             if (_hasExtraCharge)
             {
                 _hasExtraCharge = false;
