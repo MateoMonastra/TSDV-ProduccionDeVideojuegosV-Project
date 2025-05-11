@@ -1,12 +1,16 @@
+using KinematicCharacterController;
 using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem groundSlamParticles;
     private Animator animator;
     private Collider collider;
     private bool isAnimating = false;
     private float holdTimeThreshold = 0.2f; // Time in seconds to consider it a hold
     private float mouseDownTime;
+    private bool isGroundSlamming = false;
+    private KinematicCharacterMotor motor; // Reference to the character motor
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,6 +18,7 @@ public class HammerController : MonoBehaviour
         // Get the Animator component attached to this GameObject
         collider = GetComponent<BoxCollider>();
         animator = GetComponent<Animator>();
+        motor = GetComponentInParent<KinematicCharacterMotor>();
         if (animator == null)
         {
             Debug.LogError("No Animator component found on this GameObject!");
@@ -33,7 +38,7 @@ public class HammerController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !isAnimating)
         {
             float holdDuration = Time.time - mouseDownTime;
-            
+
             if (holdDuration >= holdTimeThreshold)
             {
                 HoldAttack();
@@ -42,6 +47,18 @@ public class HammerController : MonoBehaviour
             {
                 NormalAttack();
             }
+        }
+
+        // Check for ground slam input
+        if (Input.GetMouseButtonDown(0) && !isAnimating && !motor.GroundingStatus.IsStableOnGround)
+        {
+            GroundSlamAttack();
+        }
+
+        // Check if ground slam should end
+        if (isGroundSlamming && motor.GroundingStatus.IsStableOnGround)
+        {
+            EndGroundSlam();
         }
     }
 
@@ -65,10 +82,43 @@ public class HammerController : MonoBehaviour
         }
     }
 
+    void GroundSlamAttack()
+    {
+        if (animator != null)
+        {
+            isAnimating = true;
+            isGroundSlamming = true;
+            animator.SetTrigger("GroundSlam");
+            collider.enabled = true;
+
+            // Add downward force to the character
+            if (motor != null)
+            {
+                motor.BaseVelocity = Vector3.down * 20f; // Adjust the force as needed
+            }
+        }
+    }
+
+    void EndGroundSlam()
+    {
+        isGroundSlamming = false;
+        isAnimating = false;
+        collider.enabled = true;
+
+        if (groundSlamParticles.isPlaying)
+            groundSlamParticles.Stop();
+
+        groundSlamParticles.Play();
+        animator.SetTrigger("GroundSlamEnd");
+    }
+
     // This method should be called by an Animation Event at the end of your animation
     public void OnAnimationComplete()
     {
-        isAnimating = false;
-        collider.enabled = false;
+        if (!isGroundSlamming) // Only end normal animations if not ground slamming
+        {
+            isAnimating = false;
+            collider.enabled = false;
+        }
     }
 }
