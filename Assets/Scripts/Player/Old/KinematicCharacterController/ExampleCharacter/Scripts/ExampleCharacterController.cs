@@ -91,6 +91,8 @@ namespace KinematicCharacterController.Examples
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
         private bool _hasExtraCharge = false;
+        private bool _needsGroundToRecharge = false; // Track if player needs to be grounded to recharge
+        private bool _hasBeenGroundedSinceLastDash = false; // Track if player has been grounded since last dash
 
         private int _jumpsRemaining; // Track remaining jumps
         private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
@@ -223,6 +225,12 @@ namespace KinematicCharacterController.Examples
 
                         _dashDirection = inputDirection.normalized;
                         TransitionToState(CharacterState.Dashing);
+
+                        // Force unground if we're on the ground to ensure proper ground state tracking
+                        if (Motor.GroundingStatus.IsStableOnGround)
+                        {
+                            Motor.ForceUnground();
+                        }
                     }
 
                     // Jumping input
@@ -275,6 +283,12 @@ namespace KinematicCharacterController.Examples
 
                         _dashDirection = inputDirection.normalized;
                         TransitionToState(CharacterState.Dashing);
+
+                        // Force unground if we're on the ground to ensure proper ground state tracking
+                        if (Motor.GroundingStatus.IsStableOnGround)
+                        {
+                            Motor.ForceUnground();
+                        }
                     }
                     else
                     {
@@ -523,11 +537,10 @@ namespace KinematicCharacterController.Examples
                 jumpDirection = Motor.GroundingStatus.GroundNormal;
             }
 
-            if(Motor.GroundingStatus.FoundAnyGround || Motor.GroundingStatus.IsStableOnGround)
+            if (Motor.GroundingStatus.FoundAnyGround || Motor.GroundingStatus.IsStableOnGround)
                 wasGrounded = true;
 
-            
-            
+
             // Makes the character skip ground probing/snapping on its next update
             Motor.ForceUnground();
 
@@ -544,9 +557,9 @@ namespace KinematicCharacterController.Examples
 
                 if (!wasGrounded)
                 {
-                    if(lastJumpParticles.isPlaying)
+                    if (lastJumpParticles.isPlaying)
                         lastJumpParticles.Stop();
-                
+
                     lastJumpParticles.Play();
                 }
                 else
@@ -561,9 +574,9 @@ namespace KinematicCharacterController.Examples
 
                 if (_jumpsRemaining == 0)
                 {
-                    if(lastJumpParticles.isPlaying)
+                    if (lastJumpParticles.isPlaying)
                         lastJumpParticles.Stop();
-                
+
                     lastJumpParticles.Play();
                 }
             }
@@ -643,6 +656,7 @@ namespace KinematicCharacterController.Examples
             {
                 OnLanded();
                 _jumpsRemaining = Model.MaxJumps; // Reset normal jumps when landing
+                _hasBeenGroundedSinceLastDash = true; // Set to true when player lands
             }
             else if (!Motor.GroundingStatus.IsStableOnGround && Motor.LastGroundingStatus.IsStableOnGround)
             {
@@ -758,7 +772,10 @@ namespace KinematicCharacterController.Examples
 
         private bool CanDash()
         {
-            return _dashCooldownRemaining <= 0f || _hasExtraCharge;
+            // Can dash if either:
+            // 1. Has extra charge (regardless of cooldown or ground state)
+            // 2. Cooldown has passed AND has been grounded since last dash
+            return _hasExtraCharge || (_dashCooldownRemaining <= 0f && _hasBeenGroundedSinceLastDash);
         }
 
         private void UseDash()
@@ -772,6 +789,9 @@ namespace KinematicCharacterController.Examples
             else
             {
                 _dashCooldownRemaining = Model.DashCooldown;
+
+                if (!Motor.GroundingStatus.FoundAnyGround)
+                    _hasBeenGroundedSinceLastDash = false; // Reset ground state when dashing
             }
         }
 
