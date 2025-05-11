@@ -5,6 +5,8 @@ public class HammerController : MonoBehaviour
     private Animator animator;
     private Collider collider;
     private bool isAnimating = false;
+    private float holdTimeThreshold = 0.2f; // Time in seconds to consider it a hold
+    private float mouseDownTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,20 +23,45 @@ public class HammerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check for left mouse button click and if we're not currently animating
+        // Handle mouse button down
         if (Input.GetMouseButtonDown(0) && !isAnimating)
         {
-            PlayHammerAnimation();
-            collider.enabled = true;
+            mouseDownTime = Time.time;
+        }
+
+        // Handle mouse button up
+        if (Input.GetMouseButtonUp(0) && !isAnimating)
+        {
+            float holdDuration = Time.time - mouseDownTime;
+            
+            if (holdDuration >= holdTimeThreshold)
+            {
+                HoldAttack();
+            }
+            else
+            {
+                NormalAttack();
+            }
         }
     }
 
-    void PlayHammerAnimation()
+    void NormalAttack()
     {
         if (animator != null)
         {
             isAnimating = true;
             animator.SetTrigger("Attack");
+            collider.enabled = true;
+        }
+    }
+
+    void HoldAttack()
+    {
+        if (animator != null)
+        {
+            isAnimating = true;
+            animator.SetTrigger("HoldAttack");
+            collider.enabled = true;
         }
     }
 
