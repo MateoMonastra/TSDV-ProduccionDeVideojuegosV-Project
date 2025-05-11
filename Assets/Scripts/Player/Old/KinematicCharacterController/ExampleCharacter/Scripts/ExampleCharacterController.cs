@@ -49,7 +49,6 @@ namespace KinematicCharacterController.Examples
         public PlayerModel Model;
         public KinematicCharacterMotor Motor;
         public ParticleSystem lastJumpParticles;
-        public ParticleSystem extraJumpParticles;
 
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
@@ -545,10 +544,10 @@ namespace KinematicCharacterController.Examples
 
                 if (!wasGrounded)
                 {
-                    if(extraJumpParticles.isPlaying)
-                        extraJumpParticles.Stop();
+                    if(lastJumpParticles.isPlaying)
+                        lastJumpParticles.Stop();
                 
-                    extraJumpParticles.Play();
+                    lastJumpParticles.Play();
                 }
                 else
                 {
