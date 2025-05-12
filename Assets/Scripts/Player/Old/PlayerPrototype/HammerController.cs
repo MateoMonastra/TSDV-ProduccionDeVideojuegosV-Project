@@ -39,6 +39,7 @@ public class HammerController : MonoBehaviour
             {
                 EndGroundSlam();
             }
+
             return;
         }
 
@@ -52,7 +53,7 @@ public class HammerController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && !isAnimating)
         {
             float holdDuration = Time.time - mouseDownTime;
-            
+
             if (holdDuration >= holdTimeThreshold)
             {
                 HoldAttack();
@@ -128,5 +129,13 @@ public class HammerController : MonoBehaviour
             isAnimating = false;
             collider.enabled = false;
         }
+    }
+
+    public void InterruptGroundSlam()
+    {
+        isGroundSlamming = false;
+        isAnimating = false;
+        collider.enabled = false;
+        animator.SetTrigger("InterruptGroundSlam");
     }
 }
