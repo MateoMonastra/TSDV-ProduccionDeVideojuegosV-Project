@@ -52,6 +52,9 @@ namespace KinematicCharacterController.Examples
         public ParticleSystem dashParticles;
         private HammerController hammerController; // Reference to hammer controller
 
+        [Header("Skill Unlocks")] [SerializeField]
+        private bool isDashUnlocked;
+        
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         private static readonly int IsDashing = Animator.StringToHash("IsDashing");
@@ -784,6 +787,9 @@ namespace KinematicCharacterController.Examples
 
         private bool CanDash()
         {
+            if (!isDashUnlocked)
+                return false;
+            
             // Can't dash while ground slamming
             if (hammerController != null && hammerController.IsGroundSlamming)
                 return false;
