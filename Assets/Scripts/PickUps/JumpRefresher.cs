@@ -3,20 +3,18 @@ using UnityEngine;
 
 namespace PickUps
 {
-    public class JumpRefresher : MonoBehaviour
+    public class JumpRefresher : Pickup
     {
         [SerializeField] private int extraJumpsToGive = 1;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
-            {
-                if (other.TryGetComponent(out ExampleCharacterController player))
-                {
-                    player.AddExtraJumps(extraJumpsToGive);
-                    Destroy(gameObject);
-                }
-            }
+            if (!other.CompareTag("Player")) return;
+
+            if (!other.TryGetComponent(out ExampleCharacterController player)) return;
+
+            player.AddExtraJumps(extraJumpsToGive);
+            RefreshCooldown();
         }
     }
 }

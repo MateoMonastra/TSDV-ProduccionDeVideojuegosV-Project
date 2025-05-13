@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using Enemies.BaseEnemy;
+using UnityEngine;
 
 namespace Enemies.RangeEnemy
 {
     [CreateAssetMenu(fileName = "RangedEnemyModel", menuName = "Models/RangedEnemy")]
-    public class RangedEnemyModel : ScriptableObject
+    public class RangedEnemyModel : BaseEnemyModel
     {
 
         [Header("Idle Values")] 
@@ -14,12 +14,14 @@ namespace Enemies.RangeEnemy
         [Header("Attack Values")] 
         [SerializeField] private int totalShots;
         [SerializeField] private int shotsSeries;
+        [SerializeField] private float height;
         [SerializeField] private float shotSpeed;
         [SerializeField] private float timeBetweenShots;
         [SerializeField] private float cooldownBetweenShots;
         
         [Header("SpecialAttack Values")]
         [SerializeField] private float attackAreaRadius;
+        [SerializeField] private float maxRayDistance;
         [SerializeField] private int specialAttacksCount;
         [SerializeField] private float projectileFallTime;
         [SerializeField] private float specialAttackCooldown;
@@ -57,6 +59,11 @@ namespace Enemies.RangeEnemy
             get => shotSpeed;
             set => shotSpeed = value;
         }
+        public float Height
+        {
+            get => height;
+            set => height = value;
+        }
 
         public float TimeBetweenShots
         {
@@ -75,6 +82,11 @@ namespace Enemies.RangeEnemy
         {
             get => attackAreaRadius;
             set => attackAreaRadius = value;
+        }
+        public float MaxRayDistance
+        {
+            get => maxRayDistance;
+            set => maxRayDistance = value;
         }
 
         public int AttacksCount

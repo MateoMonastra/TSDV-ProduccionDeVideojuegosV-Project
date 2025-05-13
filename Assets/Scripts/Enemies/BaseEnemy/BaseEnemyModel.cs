@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Enemies
+namespace Enemies.BaseEnemy
 {
     [CreateAssetMenu(fileName = "EnemyModel", menuName = "Models/Enemy")]
     public class BaseEnemyModel : ScriptableObject
@@ -9,6 +9,7 @@ namespace Enemies
         [SerializeField] private float outerRadius;
         [SerializeField] private float attackRange;
         [SerializeField] private float attackDuration;
+        [SerializeField] private float attackDelay;
 
         public float InnerRadius
         {
@@ -32,6 +33,12 @@ namespace Enemies
         {
             get => attackDuration;
             set => attackDuration = value;
+        }
+        
+        public float AttackDelay
+        {
+            get => attackDelay;
+            set => attackDelay = value;
         }
     }
 }

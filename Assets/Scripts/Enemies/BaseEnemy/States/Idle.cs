@@ -1,14 +1,13 @@
-using Enemy;
 using UnityEngine;
 
-namespace Enemies.Enemy.States
+namespace Enemies.BaseEnemy.States
 {
-    public class Idle : BaseState
+    public class Idle : BaseEnemyState
     {
-        private System.Action onEnterChase;
+        private System.Action _onEnterChase;
         public Idle(Transform enemy, Transform player, BaseEnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
         {
-            this.onEnterChase = onEnterChase;
+            this._onEnterChase = onEnterChase;
         }
         
         public override void Enter()
@@ -24,7 +23,7 @@ namespace Enemies.Enemy.States
 
             if (distance <= model.InnerRadius)
             {
-                onEnterChase?.Invoke();
+                _onEnterChase?.Invoke();
             }
         }
 
