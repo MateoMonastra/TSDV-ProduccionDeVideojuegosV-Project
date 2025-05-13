@@ -51,11 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794e31f5005a4f7498ad81e81f3dfe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAttack:
+  onAttackDelay:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6952151925575430033}
-        m_TargetAssemblyTypeName: Enemy.EnemyAnimationController, Assembly-CSharp
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
         m_MethodName: SetAttackAnimation
         m_Mode: 1
         m_Arguments:
@@ -78,6 +78,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onAttackHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetAttackHitAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttackFinish:
+    m_PersistentCalls:
+      m_Calls: []
   onChase:
     m_PersistentCalls:
       m_Calls:
@@ -229,7 +247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3594149441453921859
 Transform:
   m_ObjectHideFlags: 0

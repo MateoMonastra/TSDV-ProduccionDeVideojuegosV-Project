@@ -9,7 +9,9 @@ namespace Enemies.BaseEnemy
 {
     public class BaseEnemyAgent : MonoBehaviour, IEnemy
     {
-        public UnityEvent onAttack;
+        public UnityEvent onAttackDelay;
+        public UnityEvent onAttackHit;
+        public UnityEvent onAttackFinish;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
@@ -18,7 +20,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private Transform player;
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
-        [SerializeField] private  Collider hitBox;
+        [SerializeField] private Collider hitBox;
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
@@ -31,7 +33,8 @@ namespace Enemies.BaseEnemy
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, TransitionToChase);
+            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, AttackOnDelay, AttackOnHit,
+                TransitionToChase);
 
             State chase = new Chase(this.transform, player, model, navMeshAgent,
                 onExitChase: TransitionToIdle,
@@ -67,7 +70,6 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToAttack()
         {
-            onAttack.Invoke();
             _fsm.TryTransitionTo(ToAttackID);
         }
 
@@ -82,6 +84,16 @@ namespace Enemies.BaseEnemy
             onDeath.Invoke();
             State death = new Death(this.gameObject);
             _fsm.ForceSetCurrentState(death);
+        }
+
+        private void AttackOnDelay()
+        {
+            onAttackDelay?.Invoke();
+        }
+
+        private void AttackOnHit()
+        {
+            onAttackHit?.Invoke();
         }
 
         private void Update()
