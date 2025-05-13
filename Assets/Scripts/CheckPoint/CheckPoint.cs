@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace CheckPoint
 {
     public class Checkpoint : MonoBehaviour
     {
+       public UnityEvent onActivate;
+        
         private bool _isActivated = false;
         [SerializeField] private CheckPointManagerRef checkpointManagerRef;
 
@@ -21,6 +25,7 @@ namespace CheckPoint
                 checkpointManagerRef.manager.SetCheckpoint(safePosition);
 
                 Debug.Log("Checkpoint activado en: " + safePosition);
+                onActivate?.Invoke();
             }
         }
         private void OnTriggerEnter(Collider other)
