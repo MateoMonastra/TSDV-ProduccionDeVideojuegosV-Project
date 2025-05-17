@@ -21,6 +21,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Collider hitBox;
+        [SerializeField] private ParticleSystem particleSystem;
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
@@ -42,6 +43,7 @@ namespace Enemies.BaseEnemy
 
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
+            idleToChase.OnTransition += particleSystem.Play;
             idle.AddTransition(idleToChase);
             _states.Add(idle);
 
