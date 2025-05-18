@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
+using UnityEngine.InputSystem;
 
 namespace KinematicCharacterController.Examples
 {
     public class ExamplePlayer : MonoBehaviour
     {
+        private InputSystem_Actions inputs;
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
 
@@ -19,6 +21,8 @@ namespace KinematicCharacterController.Examples
 
         private void Start()
         {
+            inputs = new InputSystem_Actions();
+            inputs.Enable();
             Cursor.lockState = CursorLockMode.Locked;
 
             // Tell camera to follow transform
@@ -31,10 +35,10 @@ namespace KinematicCharacterController.Examples
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+            // if (Input.GetMouseButtonDown(0))
+            // {
+            //     Cursor.lockState = CursorLockMode.Locked;
+            // }
 
             HandleCharacterInput();
         }
@@ -54,10 +58,10 @@ namespace KinematicCharacterController.Examples
         private void HandleCameraInput()
         {
             // Create the look input vector for the camera
-            float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
-            float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
+            float mouseLookAxisUp = inputs.Player.Look.ReadValue<Vector2>().y;
+            float mouseLookAxisRight = inputs.Player.Look.ReadValue<Vector2>().x;
             Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
-
+            lookInputVector *= 2.5f;
             // Prevent moving the camera while the cursor isn't locked
             if (Cursor.lockState != CursorLockMode.Locked)
             {
@@ -65,7 +69,7 @@ namespace KinematicCharacterController.Examples
             }
 
             // Input for zooming the camera (disabled in WebGL because it can cause problems)
-            float scrollInput = -Input.GetAxis(MouseScrollInput);
+            float scrollInput = 0f;
 #if UNITY_WEBGL
         scrollInput = 0f;
 #endif
@@ -74,10 +78,10 @@ namespace KinematicCharacterController.Examples
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
 
             // Handle toggling zoom level
-            if (Input.GetMouseButtonDown(1))
-            {
-                CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
-            }
+            // if (Input.GetMouseButtonDown(1))
+            // {
+            //     CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
+            // }
         }
 
         private void HandleCharacterInput()
@@ -85,14 +89,24 @@ namespace KinematicCharacterController.Examples
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
             // Build the CharacterInputs struct
-            characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-            characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            characterInputs.MoveAxisForward = inputs.Player.Move.ReadValue<Vector2>().y;
+            characterInputs.MoveAxisRight = inputs.Player.Move.ReadValue<Vector2>().x;
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
-            characterInputs.DashDown = Input.GetKeyDown(KeyCode.LeftShift);
-
+            characterInputs.JumpDown = inputs.Player.Jump.WasPerformedThisFrame();
+            characterInputs.CrouchDown = inputs.Player.Crouch.WasPerformedThisFrame();
+            characterInputs.CrouchUp = inputs.Player.Crouch.WasReleasedThisFrame();
+            characterInputs.DashDown = inputs.Player.Sprint.WasPerformedThisFrame();
+            
+            Debug.Log(characterInputs);
+            
+            //characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
+            //characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            //characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
+            //characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+            //characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
+            //characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
+            //characterInputs.DashDown = Input.GetKeyDown(KeyCode.LeftShift);
+            //characterInputs.MoveAxisForward = 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
         }
