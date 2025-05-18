@@ -13,12 +13,6 @@ namespace KinematicCharacterController.Examples
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
 
-        private const string MouseXInput = "Mouse X";
-        private const string MouseYInput = "Mouse Y";
-        private const string MouseScrollInput = "Mouse ScrollWheel";
-        private const string HorizontalInput = "Horizontal";
-        private const string VerticalInput = "Vertical";
-
         private void Start()
         {
             inputs = new InputSystem_Actions();
@@ -61,7 +55,7 @@ namespace KinematicCharacterController.Examples
             float mouseLookAxisUp = inputs.Player.Look.ReadValue<Vector2>().y;
             float mouseLookAxisRight = inputs.Player.Look.ReadValue<Vector2>().x;
             Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
-            lookInputVector *= 2.5f;
+            
             // Prevent moving the camera while the cursor isn't locked
             if (Cursor.lockState != CursorLockMode.Locked)
             {
@@ -70,12 +64,9 @@ namespace KinematicCharacterController.Examples
 
             // Input for zooming the camera (disabled in WebGL because it can cause problems)
             float scrollInput = 0f;
-#if UNITY_WEBGL
-        scrollInput = 0f;
-#endif
-
+            
             // Apply inputs to the camera
-            CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
+            CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector,inputs.Player.Look.activeControl?.device);
 
             // Handle toggling zoom level
             // if (Input.GetMouseButtonDown(1))

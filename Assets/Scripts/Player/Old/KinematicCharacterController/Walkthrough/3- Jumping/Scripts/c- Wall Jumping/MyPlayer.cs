@@ -65,7 +65,7 @@ namespace KinematicCharacterController.Walkthrough.WallJumping
 #endif
 
             // Apply inputs to the camera
-            OrbitCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
+            // OrbitCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector, );
 
             // Handle toggling zoom level
             if (Input.GetMouseButtonDown(1))

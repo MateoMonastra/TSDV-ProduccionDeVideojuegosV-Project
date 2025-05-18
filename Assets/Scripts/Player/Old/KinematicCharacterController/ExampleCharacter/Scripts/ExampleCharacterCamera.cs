@@ -2,38 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace KinematicCharacterController.Examples
 {
     public class ExampleCharacterCamera : MonoBehaviour
     {
-        [Header("Framing")]
-        public Camera Camera;
+        [Header("Framing")] public Camera Camera;
         public Vector2 FollowPointFraming = new Vector2(0f, 0f);
         public float FollowingSharpness = 10000f;
 
-        [Header("Distance")]
-        public float DefaultDistance = 6f;
+        [Header("Distance")] public float DefaultDistance = 6f;
         public float MinDistance = 0f;
         public float MaxDistance = 10f;
         public float DistanceMovementSpeed = 5f;
         public float DistanceMovementSharpness = 10f;
 
-        [Header("Rotation")]
-        public bool InvertX = false;
+        [Header("Rotation")] public bool InvertX = false;
         public bool InvertY = false;
-        [Range(-90f, 90f)]
-        public float DefaultVerticalAngle = 20f;
-        [Range(-90f, 90f)]
-        public float MinVerticalAngle = -90f;
-        [Range(-90f, 90f)]
-        public float MaxVerticalAngle = 90f;
-        public float RotationSpeed = 1f;
+        [Range(-90f, 90f)] public float DefaultVerticalAngle = 20f;
+        [Range(-90f, 90f)] public float MinVerticalAngle = -90f;
+        [Range(-90f, 90f)] public float MaxVerticalAngle = 90f;
+        public float MouseRotationSpeed = 1.3f;
+        public float JoystickRotationSpeed = 12f;
         public float RotationSharpness = 10000f;
         public bool RotateWithPhysicsMover = false;
 
-        [Header("Obstruction")]
-        public float ObstructionCheckRadius = 0.2f;
+        [Header("Obstruction")] public float ObstructionCheckRadius = 0.2f;
         public LayerMask ObstructionLayers = -1;
         public float ObstructionSharpness = 10000f;
         public List<Collider> IgnoredColliders = new List<Collider>();
@@ -81,31 +76,47 @@ namespace KinematicCharacterController.Examples
             _currentFollowPosition = FollowTransform.position;
         }
 
-        public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput)
+        public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput, InputDevice inputDevice)
         {
-            
-            
+            float rotationSpeed;
+            float stabilizer = 100f;
+
+            if (inputDevice == Gamepad.current)
+            {
+                rotationSpeed = JoystickRotationSpeed / stabilizer;
+            }
+            else if (inputDevice == Mouse.current)
+            {
+                rotationSpeed = MouseRotationSpeed / stabilizer;
+            }
+            else
+            {
+                rotationSpeed = 0.0f;
+            }
+
             if (FollowTransform)
             {
                 if (InvertX)
                 {
                     rotationInput.x *= -1f;
                 }
+
                 if (InvertY)
                 {
                     rotationInput.y *= -1f;
                 }
 
                 // Process rotation input
-                Quaternion rotationFromInput = Quaternion.Euler(FollowTransform.up * (rotationInput.x * RotationSpeed));
+                Quaternion rotationFromInput = Quaternion.Euler(FollowTransform.up * (rotationInput.x * rotationSpeed));
                 PlanarDirection = rotationFromInput * PlanarDirection;
                 PlanarDirection = Vector3.Cross(FollowTransform.up, Vector3.Cross(PlanarDirection, FollowTransform.up));
                 Quaternion planarRot = Quaternion.LookRotation(PlanarDirection, FollowTransform.up);
 
-                _targetVerticalAngle -= (rotationInput.y * RotationSpeed);
+                _targetVerticalAngle -= (rotationInput.y * rotationSpeed);
                 _targetVerticalAngle = Mathf.Clamp(_targetVerticalAngle, MinVerticalAngle, MaxVerticalAngle);
                 Quaternion verticalRot = Quaternion.Euler(_targetVerticalAngle, 0, 0);
-                Quaternion targetRotation = Quaternion.Slerp(Transform.rotation, planarRot * verticalRot, 1f - Mathf.Exp(-RotationSharpness * deltaTime));
+                Quaternion targetRotation = Quaternion.Slerp(Transform.rotation, planarRot * verticalRot,
+                    1f - Mathf.Exp(-RotationSharpness * deltaTime));
 
                 // Apply rotation
                 Transform.rotation = targetRotation;
@@ -115,17 +126,21 @@ namespace KinematicCharacterController.Examples
                 {
                     TargetDistance = _currentDistance;
                 }
+
                 TargetDistance += zoomInput * DistanceMovementSpeed;
                 TargetDistance = Mathf.Clamp(TargetDistance, MinDistance, MaxDistance);
 
                 // Find the smoothed follow position
-                _currentFollowPosition = Vector3.Lerp(_currentFollowPosition, FollowTransform.position, 1f - Mathf.Exp(-FollowingSharpness * deltaTime));
+                _currentFollowPosition = Vector3.Lerp(_currentFollowPosition, FollowTransform.position,
+                    1f - Mathf.Exp(-FollowingSharpness * deltaTime));
 
                 // Handle obstructions
                 {
                     RaycastHit closestHit = new RaycastHit();
                     closestHit.distance = Mathf.Infinity;
-                    _obstructionCount = Physics.SphereCastNonAlloc(_currentFollowPosition, ObstructionCheckRadius, -Transform.forward, _obstructions, TargetDistance, ObstructionLayers, QueryTriggerInteraction.Ignore);
+                    _obstructionCount = Physics.SphereCastNonAlloc(_currentFollowPosition, ObstructionCheckRadius,
+                        -Transform.forward, _obstructions, TargetDistance, ObstructionLayers,
+                        QueryTriggerInteraction.Ignore);
                     for (int i = 0; i < _obstructionCount; i++)
                     {
                         bool isIgnored = false;
@@ -137,6 +152,7 @@ namespace KinematicCharacterController.Examples
                                 break;
                             }
                         }
+
                         for (int j = 0; j < IgnoredColliders.Count; j++)
                         {
                             if (IgnoredColliders[j] == _obstructions[i].collider)
@@ -146,7 +162,8 @@ namespace KinematicCharacterController.Examples
                             }
                         }
 
-                        if (!isIgnored && _obstructions[i].distance < closestHit.distance && _obstructions[i].distance > 0)
+                        if (!isIgnored && _obstructions[i].distance < closestHit.distance &&
+                            _obstructions[i].distance > 0)
                         {
                             closestHit = _obstructions[i];
                         }
@@ -156,18 +173,21 @@ namespace KinematicCharacterController.Examples
                     if (closestHit.distance < Mathf.Infinity)
                     {
                         _distanceIsObstructed = true;
-                        _currentDistance = Mathf.Lerp(_currentDistance, closestHit.distance, 1 - Mathf.Exp(-ObstructionSharpness * deltaTime));
+                        _currentDistance = Mathf.Lerp(_currentDistance, closestHit.distance,
+                            1 - Mathf.Exp(-ObstructionSharpness * deltaTime));
                     }
                     // If no obstruction
                     else
                     {
                         _distanceIsObstructed = false;
-                        _currentDistance = Mathf.Lerp(_currentDistance, TargetDistance, 1 - Mathf.Exp(-DistanceMovementSharpness * deltaTime));
+                        _currentDistance = Mathf.Lerp(_currentDistance, TargetDistance,
+                            1 - Mathf.Exp(-DistanceMovementSharpness * deltaTime));
                     }
                 }
 
                 // Find the smoothed camera orbit position
-                Vector3 targetPosition = _currentFollowPosition - ((targetRotation * Vector3.forward) * _currentDistance);
+                Vector3 targetPosition =
+                    _currentFollowPosition - ((targetRotation * Vector3.forward) * _currentDistance);
 
                 // Handle framing
                 targetPosition += Transform.right * FollowPointFraming.x;
