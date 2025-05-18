@@ -20,7 +20,7 @@ namespace KinematicCharacterController.Examples
         TowardsMovement,
     }
 
-    public struct PlayerCharacterInputs
+    public struct  PlayerCharacterInputs
     {
         public float MoveAxisForward;
         public float MoveAxisRight;
@@ -780,6 +780,8 @@ namespace KinematicCharacterController.Examples
 
         public void AddExtraDashCharge()
         {
+            if(_extraDashCharges > 0)
+                return;
             _extraDashCharges++;
             _hasExtraCharge = true;
             _dashCooldownRemaining = 0f; // Ensure no cooldown when getting extra charge
@@ -797,7 +799,7 @@ namespace KinematicCharacterController.Examples
             // Can dash if either:
             // 1. Has extra charge (regardless of cooldown or ground state)
             // 2. Cooldown has passed AND has been grounded since last dash
-            return _hasExtraCharge || (_dashCooldownRemaining <= 0f && _hasBeenGroundedSinceLastDash);
+            return _hasExtraCharge;
         }
 
         private void UseDash()
