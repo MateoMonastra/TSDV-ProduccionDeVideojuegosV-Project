@@ -4,6 +4,7 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem groundSlamParticles;
+    private InputSystem_Actions inputs;
     private Animator animator;
     private Collider collider;
     private bool isAnimating = false;
@@ -18,6 +19,8 @@ public class HammerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        inputs = new InputSystem_Actions();
+        inputs.Enable();
         // Get the Animator component attached to this GameObject
         collider = GetComponent<BoxCollider>();
         animator = GetComponent<Animator>();
@@ -44,13 +47,13 @@ public class HammerController : MonoBehaviour
         }
 
         // Handle mouse button down
-        if (Input.GetMouseButtonDown(0) && !isAnimating)
+        if (inputs.Player.Attack.WasPressedThisFrame() && !isAnimating)
         {
             mouseDownTime = Time.time;
         }
 
         // Handle mouse button up
-        if (Input.GetMouseButtonUp(0) && !isAnimating)
+        if (inputs.Player.Attack.WasReleasedThisFrame() && !isAnimating)
         {
             float holdDuration = Time.time - mouseDownTime;
 
@@ -64,8 +67,8 @@ public class HammerController : MonoBehaviour
             }
         }
 
-        // Check for ground slam input
-        if (Input.GetMouseButtonDown(0) && !isAnimating && !motor.GroundingStatus.IsStableOnGround)
+        // Check for ground slam inputInput.GetMouseButtonDown(0) && !isAnimating && !motor.GroundingStatus.IsStableOnGround
+        else if (inputs.Player.Attack.WasPressedThisFrame() && !isAnimating && !motor.GroundingStatus.IsStableOnGround)
         {
             GroundSlamAttack();
         }
