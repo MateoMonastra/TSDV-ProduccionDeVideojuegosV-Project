@@ -83,6 +83,8 @@ namespace KinematicCharacterController.Examples
 
         public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput)
         {
+            
+            
             if (FollowTransform)
             {
                 if (InvertX)
