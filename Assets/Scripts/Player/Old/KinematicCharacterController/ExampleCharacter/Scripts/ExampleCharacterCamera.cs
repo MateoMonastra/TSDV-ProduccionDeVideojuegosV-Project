@@ -23,8 +23,8 @@ namespace KinematicCharacterController.Examples
         [Range(-90f, 90f)] public float DefaultVerticalAngle = 20f;
         [Range(-90f, 90f)] public float MinVerticalAngle = -90f;
         [Range(-90f, 90f)] public float MaxVerticalAngle = 90f;
-        public float MouseRotationSpeed = 1.3f;
-        public float JoystickRotationSpeed = 12f;
+        public float MouseRotationSpeed = 0.1f;
+        public float JoystickRotationSpeed = 1f;
         public float RotationSharpness = 10000f;
         public bool RotateWithPhysicsMover = false;
 
