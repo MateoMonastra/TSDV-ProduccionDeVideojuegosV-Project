@@ -86,7 +86,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.JumpDown = inputs.Player.Jump.WasPerformedThisFrame();
             characterInputs.CrouchDown = inputs.Player.Crouch.WasPerformedThisFrame();
             characterInputs.CrouchUp = inputs.Player.Crouch.WasReleasedThisFrame();
-            characterInputs.DashDown = inputs.Player.Sprint.WasPerformedThisFrame();
+            characterInputs.DashDown = inputs.Player.Dash.WasPerformedThisFrame();
             
             //characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
             //characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
