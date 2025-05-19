@@ -29,8 +29,8 @@ namespace Enemies.RangeEnemy
                 if(activateLogs)
                     Debug.Log("Player hit");
                 
-                if (!other.GetComponent<ExampleCharacterController>()) return;
-                GameEvents.PlayerDied(other.gameObject);
+                if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
+                characterController.DeathSequence(transform.position);
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }
