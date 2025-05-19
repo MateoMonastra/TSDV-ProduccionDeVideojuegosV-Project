@@ -18,10 +18,11 @@ namespace UI
             else
                 dashImage.enabled = false;
             
-            if(characterController.CanJump())
+            if(characterController.HasExtraJumps())
                 jumpImage.enabled = true;
             else
                 jumpImage.enabled = false;
+            
         }
     }
 }

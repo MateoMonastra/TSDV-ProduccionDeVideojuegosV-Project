@@ -557,7 +557,6 @@ namespace KinematicCharacterController.Examples
             if (Motor.GroundingStatus.FoundAnyGround || Motor.GroundingStatus.IsStableOnGround)
                 wasGrounded = true;
 
-
             // Makes the character skip ground probing/snapping on its next update
             Motor.ForceUnground();
 
@@ -567,25 +566,8 @@ namespace KinematicCharacterController.Examples
             currentVelocity += (_moveInputVector * Model.JumpScalableForwardSpeed);
             _jumpedThisFrame = true;
 
-            // Use extra jumps first, then normal jumps
-            if (_extraJumpsRemaining > 0)
-            {
-                _extraJumpsRemaining--;
-
-                if (!wasGrounded)
-                {
-                    if (lastJumpParticles.isPlaying)
-                        lastJumpParticles.Stop();
-
-                    lastJumpParticles.Play();
-                }
-                else
-                {
-                    _extraJumpsRemaining++;
-                    _jumpsRemaining--;
-                }
-            }
-            else
+            // Use normal jumps first, then extra jumps
+            if (_jumpsRemaining > 0)
             {
                 _jumpsRemaining--;
 
@@ -593,9 +575,18 @@ namespace KinematicCharacterController.Examples
                 {
                     if (lastJumpParticles.isPlaying)
                         lastJumpParticles.Stop();
-
+                
                     lastJumpParticles.Play();
                 }
+            }
+            else if (_extraJumpsRemaining > 0)
+            {
+                _extraJumpsRemaining--;
+
+                if (lastJumpParticles.isPlaying)
+                    lastJumpParticles.Stop();
+            
+                lastJumpParticles.Play();
             }
 
             _jumpRequested = false; // Reset jump request after executing
@@ -850,7 +841,7 @@ namespace KinematicCharacterController.Examples
             GameEvents.PlayerDied(gameObject);
         }
         
-        public bool CanJump()
+        private bool CanJump()
         {
             // Can't jump while ground slamming
             if (hammerController != null && hammerController.IsGroundSlamming)
@@ -858,5 +849,7 @@ namespace KinematicCharacterController.Examples
 
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
+        
+        public bool HasExtraJumps() => _extraJumpsRemaining > 0;
     }
 }
