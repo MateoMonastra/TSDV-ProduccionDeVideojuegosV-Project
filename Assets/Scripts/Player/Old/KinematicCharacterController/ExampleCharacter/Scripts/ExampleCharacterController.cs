@@ -61,6 +61,7 @@ namespace KinematicCharacterController.Examples
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
         private static readonly int IsIdle = Animator.StringToHash("IsIdle");
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
 
 
         [Header("Misc")] public List<Collider> IgnoredColliders = new List<Collider>();
@@ -92,6 +93,7 @@ namespace KinematicCharacterController.Examples
         private Vector3 lastOuterNormal = Vector3.zero;
 
         private bool _isDashing = false;
+        private bool _isDead = false;
         private float _dashTimeRemaining = 0f;
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
@@ -826,6 +828,26 @@ namespace KinematicCharacterController.Examples
             _extraJumpsRemaining += amount;
         }
 
+        public void DeathSequence(Vector3 damageOrigin)
+        {
+            if(_isDead)
+                return;
+            
+            StartCoroutine(DeathCoroutine(damageOrigin));
+        }
+
+        private IEnumerator DeathCoroutine(Vector3 damageOrigin)
+        {
+            animator.SetBool(IsDead, true);
+            Motor.ForceUnground();
+            Motor.BaseVelocity = ((damageOrigin - transform.position) * 8.0f) + Vector3.up * 8.0f;
+            _isDead = true;
+            yield return new WaitForSeconds(0.7f);
+            _isDead = false;
+            animator.SetBool(IsDead, false);
+            GameEvents.PlayerDied(gameObject);
+        }
+        
         private bool CanJump()
         {
             // Can't jump while ground slamming
