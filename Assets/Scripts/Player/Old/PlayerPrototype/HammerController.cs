@@ -46,14 +46,18 @@ public class HammerController : MonoBehaviour
             return;
         }
 
+        // Don't process new attack inputs if already animating
+        if (isAnimating)
+            return;
+
         // Handle mouse button down
-        if (inputs.Player.Attack.WasPressedThisFrame() && !isAnimating)
+        if (inputs.Player.Attack.WasPressedThisFrame())
         {
             mouseDownTime = Time.time;
         }
 
         // Handle mouse button up
-        if (inputs.Player.Attack.WasReleasedThisFrame() && !isAnimating)
+        if (inputs.Player.Attack.WasReleasedThisFrame())
         {
             float holdDuration = Time.time - mouseDownTime;
 
@@ -66,9 +70,8 @@ public class HammerController : MonoBehaviour
                 NormalAttack();
             }
         }
-
-        // Check for ground slam inputInput.GetMouseButtonDown(0) && !isAnimating && !motor.GroundingStatus.IsStableOnGround
-        else if (inputs.Player.Attack.WasPressedThisFrame() && !isAnimating && !motor.GroundingStatus.IsStableOnGround)
+        // Check for ground slam input
+        else if (inputs.Player.Attack.WasPressedThisFrame() && !motor.GroundingStatus.IsStableOnGround)
         {
             GroundSlamAttack();
         }
