@@ -6,18 +6,21 @@ namespace Enemies.RangeEnemy
     [CreateAssetMenu(fileName = "RangedEnemyModel", menuName = "Models/RangedEnemy")]
     public class RangedEnemyModel : BaseEnemyModel
     {
-
+        
         [Header("Idle Values")] 
         [SerializeField] private int attacksCountToSpecialAttack;
         [SerializeField] private int cooldownBetweenAttacks;
 
         [Header("Attack Values")] 
+        
+        [SerializeField] private bool mustFaceTargetToFire;
         [SerializeField] private int totalShots;
         [SerializeField] private int shotsSeries;
         [SerializeField] private float height;
         [SerializeField] private float shotSpeed;
         [SerializeField] private float timeBetweenShots;
         [SerializeField] private float cooldownBetweenShots;
+        [SerializeField] private float rotateVelocity;
         
         [Header("SpecialAttack Values")]
         [SerializeField] private float attackAreaRadius;
@@ -42,6 +45,11 @@ namespace Enemies.RangeEnemy
         }
         
         //Attack
+        public bool MustFaceTargetToFire
+        {
+            get => mustFaceTargetToFire;
+            set => mustFaceTargetToFire = value;
+        }
         public int TotalShots
         {
             get => totalShots;
@@ -75,6 +83,11 @@ namespace Enemies.RangeEnemy
         {
             get => cooldownBetweenShots;
             set => cooldownBetweenShots = value;
+        } 
+        public float RotateVelocity
+        {
+            get => rotateVelocity;
+            set => rotateVelocity = value;
         }
         
         //SpecialAttack
