@@ -16,11 +16,10 @@ namespace Enemies.BaseEnemy
             if (other.CompareTag("Player"))
             {
                 //TODO: colocar daño al jugador
-                if (!other.GetComponent<ExampleCharacterController>()) return;
+                if (!other.TryGetComponent(out ExampleCharacterController controller)) return;
                 if(activateLogs)
                     Debug.Log("Player hit");
-                
-                GameEvents.PlayerDied(other.gameObject);
+                controller.DeathSequence(transform.position);
             }
         }
     }

@@ -95,6 +95,8 @@ public class HammerController : MonoBehaviour
     {
         if (animator != null)
         {
+            animator.ResetTrigger("GroundSlamEnd");
+
             isAnimating = true;
             isGroundSlamming = true;
             animator.SetTrigger("GroundSlam");
@@ -128,14 +130,18 @@ public class HammerController : MonoBehaviour
         {
             isAnimating = false;
             collider.enabled = false;
+            animator.ResetTrigger("GroundSlamEnd");
         }
     }
 
     public void InterruptGroundSlam()
     {
-        isGroundSlamming = false;
-        isAnimating = false;
-        collider.enabled = false;
-        animator.SetTrigger("InterruptGroundSlam");
+        if (isGroundSlamming)
+        {
+            animator.SetTrigger("InterruptGroundSlam");
+            isGroundSlamming = false;
+            isAnimating = false;
+            collider.enabled = false;
+        }
     }
 }

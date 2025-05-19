@@ -31,7 +31,6 @@ namespace Enemies.RangeEnemy
                 
                 if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
                 characterController.DeathSequence(transform.position);
-                GameEvents.PlayerDied(other.gameObject);
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }

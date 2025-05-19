@@ -840,7 +840,7 @@ namespace KinematicCharacterController.Examples
         {
             animator.SetBool(IsDead, true);
             Motor.ForceUnground();
-            Motor.BaseVelocity = ((damageOrigin - transform.position) * 8.0f) + Vector3.up * 8.0f;
+            Motor.BaseVelocity = ((damageOrigin - transform.position).normalized * 10.0f) + Vector3.up * 8.0f;
             _isDead = true;
             yield return new WaitForSeconds(0.7f);
             _isDead = false;
