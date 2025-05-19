@@ -789,7 +789,7 @@ namespace KinematicCharacterController.Examples
             _dashCooldownRemaining = 0f; // Ensure no cooldown when getting extra charge
         }
 
-        private bool CanDash()
+        public bool CanDash()
         {
             if (!isDashUnlocked)
                 return false;
@@ -850,7 +850,7 @@ namespace KinematicCharacterController.Examples
             GameEvents.PlayerDied(gameObject);
         }
         
-        private bool CanJump()
+        public bool CanJump()
         {
             // Can't jump while ground slamming
             if (hammerController != null && hammerController.IsGroundSlamming)
