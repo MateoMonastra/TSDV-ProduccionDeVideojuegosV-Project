@@ -47,9 +47,12 @@ namespace Enemies.RangeEnemy.States
             _shotTimer += delta;
             if (_shotTimer >= model.TimeBetweenShots && _shotsFired < model.TotalShots)
             {
-                Shoot();
-                _shotsFired++;
-                _shotTimer = 0f;
+                if (!model.MustFaceTargetToFire || IsFacingTarget())
+                {
+                    Shoot();
+                    _shotsFired++;
+                    _shotTimer = 0f;
+                }
             }
 
             if (_shotsFired >= model.TotalShots && !_inCooldown)
@@ -65,10 +68,24 @@ namespace Enemies.RangeEnemy.States
             }
         }
 
+
         public override void FixedTick(float delta)
         {
             base.FixedTick(delta);
+    
+            Vector3 directionToPlayer = player.position - enemy.position;
+            directionToPlayer.y = 0f;
+
+            if (directionToPlayer == Vector3.zero) return;
+            
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            enemy.rotation = Quaternion.RotateTowards(
+                enemy.rotation,
+                targetRotation,
+                model.RotateVelocity * delta
+            );
         }
+
 
         public override void Exit()
         {
@@ -97,5 +114,20 @@ namespace Enemies.RangeEnemy.States
             _shotSeries = 0;
             _inCooldown = false;
         }
+        
+        private bool IsFacingTarget()
+        {
+            float threshold  = 0.95f;
+            
+            Vector3 directionToPlayer = (player.position - enemy.position).normalized;
+            directionToPlayer.y = 0f;
+
+            Vector3 forward = enemy.forward;
+            forward.y = 0f;
+
+            float dot = Vector3.Dot(forward.normalized, directionToPlayer);
+            return dot > threshold; 
+        }
+
     }
 }
