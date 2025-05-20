@@ -1,12 +1,13 @@
+using PickUps;
 using UnityEngine;
 
 namespace Platforms
 {
-    public class BreakablePlatform : MonoBehaviour, IBreakable
+    public class BreakablePlatform : Pickup, IBreakable
     {
         public void Break()
         {
-            gameObject.SetActive(false);
+            RefreshCooldown();
         }
     }
 }
