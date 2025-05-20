@@ -29,11 +29,13 @@ namespace Player
         public void HandleShowRoomInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(showRoomSceneName);
+            Time.timeScale = 1;
         }
         
         public void HandleLevelInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(levelSceneName);
+            Time.timeScale = 1;
         }
     }
 }
