@@ -28,11 +28,9 @@ namespace FSM
             {
                 transition.Do();
                 _current = transition.To;
-                Debug.Log($"Transition Success, Id:{id}");
                 return true;
             }
-
-            Debug.Log($"Transition Failed, Id:{id}");
+            
             return false;
         }
 
@@ -45,7 +43,6 @@ namespace FSM
         {
             _current = state;
             _current.Enter();
-            Debug.Log($"Transition Forced, Id:{_current.GetType().Name}");
         }
     }
 }

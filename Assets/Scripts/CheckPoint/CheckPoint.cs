@@ -23,8 +23,7 @@ namespace CheckPoint
             if (!checkpointManagerRef.manager.IsLastCheckpoint(safePosition))
             {
                 checkpointManagerRef.manager.SetCheckpoint(safePosition);
-
-                Debug.Log("Checkpoint activado en: " + safePosition);
+                
                 onActivate?.Invoke();
             }
         }

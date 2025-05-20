@@ -23,7 +23,6 @@ namespace CheckPoint
         public void SetCheckpoint(Vector3 position)
         {
             _lastCheckpointPosition = position;
-            Debug.Log("New CheckPoint: " + position);
         }
 
         public void Respawn(GameObject player)
@@ -45,15 +44,6 @@ namespace CheckPoint
 
         public bool IsLastCheckpoint(Vector3 position)
         {
-            if (_lastCheckpointPosition == position)
-            {
-                Debug.Log("the same");
-            }
-            else
-            {
-                Debug.Log("not the same");
-            }
-
             return _lastCheckpointPosition == position;
         }
     }
