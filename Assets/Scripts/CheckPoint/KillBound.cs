@@ -1,4 +1,5 @@
 using System;
+using KinematicCharacterController.Examples;
 using UnityEngine;
 
 namespace CheckPoint
@@ -7,10 +8,9 @@ namespace CheckPoint
     {
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("entro");
             if (!other.gameObject.CompareTag("Player")) return;
-            Debug.Log("murio");
-            GameEvents.PlayerDied(other.gameObject);
+            if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
+            characterController.DeathSequence(transform.position);
         }
     }
 }
