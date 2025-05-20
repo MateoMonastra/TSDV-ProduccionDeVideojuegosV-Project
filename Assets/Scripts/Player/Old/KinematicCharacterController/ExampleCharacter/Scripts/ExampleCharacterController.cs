@@ -835,6 +835,7 @@ namespace KinematicCharacterController.Examples
             if(_isDead)
                 return;
             
+            hammerController.InterruptGroundSlam();
             TransitionToState(CharacterState.Stunned);
             
             StartCoroutine(DeathCoroutine(damageOrigin));
