@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
@@ -8,6 +9,9 @@ namespace Player
     {
         public Action OnNavigate; 
         public Action OnPause;
+        
+        [SerializeField] private string showRoomSceneName;
+        [SerializeField] private string levelSceneName;
         
         public void HandleNavigate(InputAction.CallbackContext context)
         {
@@ -20,6 +24,16 @@ namespace Player
             {
                 OnPause?.Invoke();
             }
+        }
+
+        public void HandleShowRoomInput(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(showRoomSceneName);
+        }
+        
+        public void HandleLevelInput(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(levelSceneName);
         }
     }
 }

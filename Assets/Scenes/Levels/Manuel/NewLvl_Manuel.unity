@@ -25849,6 +25849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6132509427390379825, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7045124234364749166, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: player
       value: 
@@ -37518,11 +37522,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9430722, y: 2.3603492, z: 1.9201536}
   m_Center: {x: 0.0000038146973, y: 0, z: 0}
---- !u!198 &820651528 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3325321131399037288, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-  m_PrefabInstance: {fileID: 861243810}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &820894413
 GameObject:
   m_ObjectHideFlags: 0
@@ -37646,6 +37645,10 @@ PrefabInstance:
     - target: {fileID: 5799735417556798114, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132509427390379825, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7045124234364749166, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: model
@@ -39600,11 +39603,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1118322254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &853632521 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4147931261320086186, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-  m_PrefabInstance: {fileID: 861243810}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &855184176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39996,30 +39994,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 559672123855830419, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2778196741158179762, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: dashParticles
-      value: 
-      objectReference: {fileID: 820651528}
-    - target: {fileID: 2778196741158179762, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: isDashUnlocked
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2778196741158179762, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: lastJumpParticles
-      value: 
-      objectReference: {fileID: 853632521}
-    - target: {fileID: 2998035491230549544, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: MouseRotationSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2998035491230549544, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: JoystickRotationSpeed
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3726827609303786499, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
       propertyPath: m_Name
       value: PlayerPackage
@@ -40063,18 +40037,6 @@ PrefabInstance:
     - target: {fileID: 3766082978611122714, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8075086042002279429, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8075086042002279429, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 9218983315242100637, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.526
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -40451,6 +40413,10 @@ PrefabInstance:
     - target: {fileID: 5799735417556798114, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: m_Name
       value: RangedEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132509427390379825, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7045124234364749166, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: player
@@ -47980,6 +47946,10 @@ PrefabInstance:
     - target: {fileID: 5799735417556798114, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132509427390379825, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7045124234364749166, guid: 37cfb642ee72b384eb9f0a6573931462, type: 3}
       propertyPath: model
@@ -89068,7 +89038,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Atacar: LMB'
+  m_text: 'Atacar: LMB, LeftFaceButton'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -89266,13 +89236,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Moverse: W-A-S-D
+  m_text: 'Moverse: W-A-S-D, LStick
 
 
-    Salto: ESPACIO
+    Salto: ESPACIO, SouthButton
 
 
-    DobleSalto: ESPACIOx2'
+    DobleSalto:
+    ESPACIO x 2
+
+    SouthButton x 2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -89748,7 +89721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dash: SHIFT'
+  m_text: 'Dash: SHIFT, R2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

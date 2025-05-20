@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6b23ed983321c4cb6b1bdbba3b48d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showRoomSceneName: ShowroomLvl
+  levelSceneName: NewLvl_Manuel
 --- !u!114 &2179766239188865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +174,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8033342697096436698}
+        m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
+        m_MethodName: HandleShowRoomInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 74d7447d-5bb5-413a-b060-610e1eada7fe
+    m_ActionName: 'Player/LoadShowRoom[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8033342697096436698}
+        m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
+        m_MethodName: HandleLevelInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8428b7d4-1456-4599-ad93-0ad2c29dd22d
+    m_ActionName: 'Player/LoadLevelRoom[/Keyboard/1]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
