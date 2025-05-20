@@ -33,6 +33,7 @@ namespace CheckPoint
 
                 if (characterController)
                 {
+                    characterController.TransitionToState(CharacterState.Default);
                     characterController.Motor.SetPositionAndRotation(_lastCheckpointPosition, Quaternion.identity);
                 }
             }

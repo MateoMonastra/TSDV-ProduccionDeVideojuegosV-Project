@@ -1,4 +1,5 @@
 using KinematicCharacterController;
+using KinematicCharacterController.Examples;
 using UnityEngine;
 
 public class HammerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class HammerController : MonoBehaviour
     private float mouseDownTime;
     private bool isGroundSlamming = false;
     private KinematicCharacterMotor motor; // Reference to the character motor
+    private ExampleCharacterController characterController; // Reference to the character controller
 
     // Public property to check ground slam state
     public bool IsGroundSlamming => isGroundSlamming;
@@ -25,6 +27,7 @@ public class HammerController : MonoBehaviour
         collider = GetComponent<BoxCollider>();
         animator = GetComponent<Animator>();
         motor = GetComponentInParent<KinematicCharacterMotor>();
+        characterController = GetComponentInParent<ExampleCharacterController>();
         if (animator == null)
         {
             Debug.LogError("No Animator component found on this GameObject!");
@@ -46,6 +49,10 @@ public class HammerController : MonoBehaviour
             return;
         }
 
+        
+        if(characterController.CurrentCharacterState == CharacterState.Stunned)
+            return;
+        
         // Don't process new attack inputs if already animating
         if (isAnimating)
             return;
