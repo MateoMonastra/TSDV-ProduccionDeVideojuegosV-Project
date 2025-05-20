@@ -189,6 +189,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LoadShowRoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""74d7447d-5bb5-413a-b060-610e1eada7fe"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LoadLevelRoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""8428b7d4-1456-4599-ad93-0ad2c29dd22d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -629,6 +647,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68a03f95-672d-4a47-b5f9-edb5021e0afb"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""LoadShowRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""050da369-4cc4-4044-bb4f-add6b58d7f35"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""LoadLevelRoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1227,6 +1267,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_LoadShowRoom = m_Player.FindAction("LoadShowRoom", throwIfNotFound: true);
+        m_Player_LoadLevelRoom = m_Player.FindAction("LoadLevelRoom", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1331,6 +1373,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_LoadShowRoom;
+    private readonly InputAction m_Player_LoadLevelRoom;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1386,6 +1430,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadShowRoom".
+        /// </summary>
+        public InputAction @LoadShowRoom => m_Wrapper.m_Player_LoadShowRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadLevelRoom".
+        /// </summary>
+        public InputAction @LoadLevelRoom => m_Wrapper.m_Player_LoadLevelRoom;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1445,6 +1497,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @LoadShowRoom.started += instance.OnLoadShowRoom;
+            @LoadShowRoom.performed += instance.OnLoadShowRoom;
+            @LoadShowRoom.canceled += instance.OnLoadShowRoom;
+            @LoadLevelRoom.started += instance.OnLoadLevelRoom;
+            @LoadLevelRoom.performed += instance.OnLoadLevelRoom;
+            @LoadLevelRoom.canceled += instance.OnLoadLevelRoom;
         }
 
         /// <summary>
@@ -1489,6 +1547,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @LoadShowRoom.started -= instance.OnLoadShowRoom;
+            @LoadShowRoom.performed -= instance.OnLoadShowRoom;
+            @LoadShowRoom.canceled -= instance.OnLoadShowRoom;
+            @LoadLevelRoom.started -= instance.OnLoadLevelRoom;
+            @LoadLevelRoom.performed -= instance.OnLoadLevelRoom;
+            @LoadLevelRoom.canceled -= instance.OnLoadLevelRoom;
         }
 
         /// <summary>
@@ -1866,6 +1930,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadShowRoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadShowRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadLevelRoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadLevelRoom(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
