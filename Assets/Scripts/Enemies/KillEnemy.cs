@@ -1,16 +1,26 @@
 using Enemies;
+using Platforms;
 using UnityEngine;
 
 public class KillEnemy : MonoBehaviour
 {
+    [SerializeField] private HammerController hammerController;
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
-        if (!other.CompareTag("Enemy")) return;
-        
-        if (other.gameObject.TryGetComponent(out IEnemy enemy))
+        if (other.CompareTag("Enemy"))
         {
-            enemy.OnBeingAttacked();
+            if (other.gameObject.TryGetComponent(out IEnemy enemy))
+            {
+                enemy.OnBeingAttacked();
+            }
+        }
+
+        if (other.gameObject.TryGetComponent(out IBreakable breakable))
+        {
+            if (hammerController.IsGroundSlamming)
+                breakable.Break();
         }
     }
 }

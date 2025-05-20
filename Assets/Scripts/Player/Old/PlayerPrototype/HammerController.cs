@@ -118,7 +118,6 @@ public class HammerController : MonoBehaviour
 
     void EndGroundSlam()
     {
-        isGroundSlamming = false;
         isAnimating = false;
         collider.enabled = true;
 
@@ -138,6 +137,8 @@ public class HammerController : MonoBehaviour
             collider.enabled = false;
             animator.ResetTrigger("GroundSlamEnd");
         }
+
+        isGroundSlamming = false;
     }
 
     public void InterruptGroundSlam()
