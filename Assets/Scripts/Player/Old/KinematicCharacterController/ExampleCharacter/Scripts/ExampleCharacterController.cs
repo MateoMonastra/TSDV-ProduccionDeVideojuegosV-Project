@@ -12,6 +12,7 @@ namespace KinematicCharacterController.Examples
     {
         Default,
         Dashing,
+        Stunned,
     }
 
     public enum OrientationMethod
@@ -181,8 +182,8 @@ namespace KinematicCharacterController.Examples
         /// </summary>
         public void SetInputs(ref PlayerCharacterInputs inputs)
         {
-            // If ground slamming, prevent all movement
-            if (hammerController != null && hammerController.IsGroundSlamming)
+            // If ground slamming or stunned, prevent all movement
+            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
             {
                 _moveInputVector = Vector3.zero;
                 return;
@@ -541,6 +542,13 @@ namespace KinematicCharacterController.Examples
                     currentVelocity = _dashDirection * Model.DashSpeed;
                     break;
                 }
+                case CharacterState.Stunned:
+                {
+                    // In stunned state, only apply gravity and drag
+                    currentVelocity += Model.Gravity * deltaTime;
+                    currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
+                    break;
+                }
             }
         }
 
@@ -702,6 +710,7 @@ namespace KinematicCharacterController.Examples
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
+                case CharacterState.Stunned: // Allow velocity additions in stunned state
                 {
                     _internalVelocityAdd += velocity;
                     break;
@@ -785,8 +794,8 @@ namespace KinematicCharacterController.Examples
             if (!isDashUnlocked)
                 return false;
             
-            // Can't dash while ground slamming
-            if (hammerController != null && hammerController.IsGroundSlamming)
+            // Can't dash while ground slamming or stunned
+            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
                 return false;
 
             // Can dash if either:
@@ -826,6 +835,8 @@ namespace KinematicCharacterController.Examples
             if(_isDead)
                 return;
             
+            TransitionToState(CharacterState.Stunned);
+            
             StartCoroutine(DeathCoroutine(damageOrigin));
         }
 
@@ -833,7 +844,7 @@ namespace KinematicCharacterController.Examples
         {
             animator.SetBool(IsDead, true);
             Motor.ForceUnground();
-            Motor.BaseVelocity = ((damageOrigin - transform.position).normalized * 10.0f) + Vector3.up * 8.0f;
+            Motor.BaseVelocity = (((damageOrigin - transform.position).normalized * 10.0f) + Vector3.up * 8.0f);
             _isDead = true;
             yield return new WaitForSeconds(0.7f);
             _isDead = false;
@@ -843,8 +854,8 @@ namespace KinematicCharacterController.Examples
         
         private bool CanJump()
         {
-            // Can't jump while ground slamming
-            if (hammerController != null && hammerController.IsGroundSlamming)
+            // Can't jump while ground slamming or stunned
+            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
                 return false;
 
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
