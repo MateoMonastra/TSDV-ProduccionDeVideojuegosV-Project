@@ -9,6 +9,9 @@ namespace Player
     {
         public Action OnNavigate; 
         public Action OnPause;
+        public Action OnGodModeCheat;
+        public Action OnJumpPickUpCheat;
+        public Action OnDashPickUpCheat;
         
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
@@ -36,6 +39,29 @@ namespace Player
         {
             SceneManager.LoadScene(levelSceneName);
             Time.timeScale = 1;
+        }
+        public void HandleGodModeInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnGodModeCheat?.Invoke();
+            }
+        }
+        
+        public void HandleDashCheatInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnDashPickUpCheat?.Invoke();
+            }
+        }
+        
+        public void HandleJumpCheatInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnJumpPickUpCheat?.Invoke();
+            }
         }
     }
 }

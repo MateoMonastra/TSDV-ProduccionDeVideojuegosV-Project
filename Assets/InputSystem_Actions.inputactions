@@ -121,6 +121,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GodModeCheat",
+                    "type": "Button",
+                    "id": "812323b6-aeef-4a8d-b3d9-8373345f2d94",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GetDashPickUpCheat",
+                    "type": "Button",
+                    "id": "28ca4980-72e3-4819-9ea7-6f894da6112a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GetJumpPickUpCheat",
+                    "type": "Button",
+                    "id": "3a921c9e-a571-490e-bae3-d38643b5605e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -583,6 +610,39 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "LoadLevelRoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f470344-a1d1-47e6-ae77-29cea69011b0",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "GodModeCheat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd242c94-a05c-4df8-8937-db49f7914865",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "GetDashPickUpCheat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4efccd57-d181-437d-8239-534de1a3d700",
+                    "path": "<Keyboard>/f3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "GetJumpPickUpCheat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

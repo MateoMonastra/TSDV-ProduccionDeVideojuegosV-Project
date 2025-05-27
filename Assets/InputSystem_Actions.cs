@@ -207,6 +207,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GodModeCheat"",
+                    ""type"": ""Button"",
+                    ""id"": ""812323b6-aeef-4a8d-b3d9-8373345f2d94"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetDashPickUpCheat"",
+                    ""type"": ""Button"",
+                    ""id"": ""28ca4980-72e3-4819-9ea7-6f894da6112a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetJumpPickUpCheat"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a921c9e-a571-490e-bae3-d38643b5605e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -669,6 +696,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""LoadLevelRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f470344-a1d1-47e6-ae77-29cea69011b0"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""GodModeCheat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd242c94-a05c-4df8-8937-db49f7914865"",
+                    ""path"": ""<Keyboard>/f2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""GetDashPickUpCheat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4efccd57-d181-437d-8239-534de1a3d700"",
+                    ""path"": ""<Keyboard>/f3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""GetJumpPickUpCheat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1269,6 +1329,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_LoadShowRoom = m_Player.FindAction("LoadShowRoom", throwIfNotFound: true);
         m_Player_LoadLevelRoom = m_Player.FindAction("LoadLevelRoom", throwIfNotFound: true);
+        m_Player_GodModeCheat = m_Player.FindAction("GodModeCheat", throwIfNotFound: true);
+        m_Player_GetDashPickUpCheat = m_Player.FindAction("GetDashPickUpCheat", throwIfNotFound: true);
+        m_Player_GetJumpPickUpCheat = m_Player.FindAction("GetJumpPickUpCheat", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1375,6 +1438,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_LoadShowRoom;
     private readonly InputAction m_Player_LoadLevelRoom;
+    private readonly InputAction m_Player_GodModeCheat;
+    private readonly InputAction m_Player_GetDashPickUpCheat;
+    private readonly InputAction m_Player_GetJumpPickUpCheat;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1438,6 +1504,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LoadLevelRoom".
         /// </summary>
         public InputAction @LoadLevelRoom => m_Wrapper.m_Player_LoadLevelRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/GodModeCheat".
+        /// </summary>
+        public InputAction @GodModeCheat => m_Wrapper.m_Player_GodModeCheat;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/GetDashPickUpCheat".
+        /// </summary>
+        public InputAction @GetDashPickUpCheat => m_Wrapper.m_Player_GetDashPickUpCheat;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/GetJumpPickUpCheat".
+        /// </summary>
+        public InputAction @GetJumpPickUpCheat => m_Wrapper.m_Player_GetJumpPickUpCheat;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1503,6 +1581,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started += instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed += instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled += instance.OnLoadLevelRoom;
+            @GodModeCheat.started += instance.OnGodModeCheat;
+            @GodModeCheat.performed += instance.OnGodModeCheat;
+            @GodModeCheat.canceled += instance.OnGodModeCheat;
+            @GetDashPickUpCheat.started += instance.OnGetDashPickUpCheat;
+            @GetDashPickUpCheat.performed += instance.OnGetDashPickUpCheat;
+            @GetDashPickUpCheat.canceled += instance.OnGetDashPickUpCheat;
+            @GetJumpPickUpCheat.started += instance.OnGetJumpPickUpCheat;
+            @GetJumpPickUpCheat.performed += instance.OnGetJumpPickUpCheat;
+            @GetJumpPickUpCheat.canceled += instance.OnGetJumpPickUpCheat;
         }
 
         /// <summary>
@@ -1553,6 +1640,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled -= instance.OnLoadLevelRoom;
+            @GodModeCheat.started -= instance.OnGodModeCheat;
+            @GodModeCheat.performed -= instance.OnGodModeCheat;
+            @GodModeCheat.canceled -= instance.OnGodModeCheat;
+            @GetDashPickUpCheat.started -= instance.OnGetDashPickUpCheat;
+            @GetDashPickUpCheat.performed -= instance.OnGetDashPickUpCheat;
+            @GetDashPickUpCheat.canceled -= instance.OnGetDashPickUpCheat;
+            @GetJumpPickUpCheat.started -= instance.OnGetJumpPickUpCheat;
+            @GetJumpPickUpCheat.performed -= instance.OnGetJumpPickUpCheat;
+            @GetJumpPickUpCheat.canceled -= instance.OnGetJumpPickUpCheat;
         }
 
         /// <summary>
@@ -1944,6 +2040,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLoadLevelRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GodModeCheat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGodModeCheat(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GetDashPickUpCheat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGetDashPickUpCheat(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "GetJumpPickUpCheat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGetJumpPickUpCheat(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
