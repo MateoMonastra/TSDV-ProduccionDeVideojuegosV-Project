@@ -234,6 +234,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa745ae1-6396-402a-aec3-1c840175f1c1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FlyDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c3bb986-9913-43a7-b963-654455d1183a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -729,6 +747,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""GetJumpPickUpCheat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e2bcb86-a8ca-4f74-a025-b12715092318"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FlyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0c955a9-f40b-4318-83f3-31abf517b27d"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FlyDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1332,6 +1372,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_GodModeCheat = m_Player.FindAction("GodModeCheat", throwIfNotFound: true);
         m_Player_GetDashPickUpCheat = m_Player.FindAction("GetDashPickUpCheat", throwIfNotFound: true);
         m_Player_GetJumpPickUpCheat = m_Player.FindAction("GetJumpPickUpCheat", throwIfNotFound: true);
+        m_Player_FlyUp = m_Player.FindAction("FlyUp", throwIfNotFound: true);
+        m_Player_FlyDown = m_Player.FindAction("FlyDown", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1441,6 +1483,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_GodModeCheat;
     private readonly InputAction m_Player_GetDashPickUpCheat;
     private readonly InputAction m_Player_GetJumpPickUpCheat;
+    private readonly InputAction m_Player_FlyUp;
+    private readonly InputAction m_Player_FlyDown;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1517,6 +1561,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @GetJumpPickUpCheat => m_Wrapper.m_Player_GetJumpPickUpCheat;
         /// <summary>
+        /// Provides access to the underlying input action "Player/FlyUp".
+        /// </summary>
+        public InputAction @FlyUp => m_Wrapper.m_Player_FlyUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/FlyDown".
+        /// </summary>
+        public InputAction @FlyDown => m_Wrapper.m_Player_FlyDown;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1590,6 +1642,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @GetJumpPickUpCheat.started += instance.OnGetJumpPickUpCheat;
             @GetJumpPickUpCheat.performed += instance.OnGetJumpPickUpCheat;
             @GetJumpPickUpCheat.canceled += instance.OnGetJumpPickUpCheat;
+            @FlyUp.started += instance.OnFlyUp;
+            @FlyUp.performed += instance.OnFlyUp;
+            @FlyUp.canceled += instance.OnFlyUp;
+            @FlyDown.started += instance.OnFlyDown;
+            @FlyDown.performed += instance.OnFlyDown;
+            @FlyDown.canceled += instance.OnFlyDown;
         }
 
         /// <summary>
@@ -1649,6 +1707,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @GetJumpPickUpCheat.started -= instance.OnGetJumpPickUpCheat;
             @GetJumpPickUpCheat.performed -= instance.OnGetJumpPickUpCheat;
             @GetJumpPickUpCheat.canceled -= instance.OnGetJumpPickUpCheat;
+            @FlyUp.started -= instance.OnFlyUp;
+            @FlyUp.performed -= instance.OnFlyUp;
+            @FlyUp.canceled -= instance.OnFlyUp;
+            @FlyDown.started -= instance.OnFlyDown;
+            @FlyDown.performed -= instance.OnFlyDown;
+            @FlyDown.canceled -= instance.OnFlyDown;
         }
 
         /// <summary>
@@ -2061,6 +2125,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGetJumpPickUpCheat(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlyDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlyDown(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
