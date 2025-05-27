@@ -12,7 +12,9 @@ namespace Player
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
         public Action OnFlyUp;
+        public Action OnFlyUpCanceled;
         public Action OnFlyDown;
+        public Action OnFlyDownCanceled;
         public Action OnGodModeCheat;
         public Action OnJumpPickUpCheat;
         public Action OnDashPickUpCheat;
@@ -40,18 +42,27 @@ namespace Player
 
         public void HandleFlyMoveInput(InputAction.CallbackContext context)
         {
-            if (context.started)
-                OnFlyMove?.Invoke(context.ReadValue<Vector2>());
+            OnFlyMove?.Invoke(context.ReadValue<Vector2>());
         }
 
         public void HandleFlyUpInput(InputAction.CallbackContext context)
         {
             OnFlyUp?.Invoke();
+
+            if (context.canceled)
+            {
+                OnFlyUpCanceled?.Invoke();
+            }
         }
 
         public void HandleFlyDownInput(InputAction.CallbackContext context)
         {
             OnFlyDown?.Invoke();
+
+            if (context.canceled)
+            {
+                OnFlyDownCanceled?.Invoke();
+            }
         }
 
         public void HandleShowRoomInput(InputAction.CallbackContext context)

@@ -1,3 +1,4 @@
+using System;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Player;
@@ -14,6 +15,8 @@ namespace PlayerCheats
 
         private ExampleCharacterController _playerCharacterController;
         private KinematicCharacterMotor _kinematicCharacterMotor;
+        private Vector2 _currentFlyInput;
+        private float _currentVerticalInput;
 
         private bool _isGodModeActive = false;
 
@@ -59,11 +62,13 @@ namespace PlayerCheats
             if (_isGodModeActive)
             {
                 GameEvents.GameEvents.PlayerGodMode(false);
-                
+
                 inputReader.OnFlyDown -= PlayerFlyDown;
                 inputReader.OnFlyUp -= PlayerFlyUp;
+                inputReader.OnFlyDownCanceled -= StopVerticalMovement;
+                inputReader.OnFlyUpCanceled -= StopVerticalMovement;
                 inputReader.OnFlyMove -= PlayerMovement;
-                
+
                 inputReader.OnDashPickUpCheat += _playerCharacterController.AddExtraDashCharge;
                 inputReader.OnJumpPickUpCheat += OnJumpPickUpCheat;
 
@@ -79,7 +84,7 @@ namespace PlayerCheats
             else
             {
                 GameEvents.GameEvents.PlayerGodMode(true);
-                
+
                 _isGodModeActive = true;
                 _playerCharacterController.enabled = false;
                 _kinematicCharacterMotor.enabled = false;
@@ -87,8 +92,10 @@ namespace PlayerCheats
 
                 inputReader.OnFlyDown += PlayerFlyDown;
                 inputReader.OnFlyUp += PlayerFlyUp;
+                inputReader.OnFlyDownCanceled += StopVerticalMovement;
+                inputReader.OnFlyUpCanceled += StopVerticalMovement;
                 inputReader.OnFlyMove += PlayerMovement;
-                
+
                 inputReader.OnDashPickUpCheat -= _playerCharacterController.AddExtraDashCharge;
                 inputReader.OnJumpPickUpCheat -= OnJumpPickUpCheat;
             }
@@ -96,17 +103,33 @@ namespace PlayerCheats
 
         private void PlayerFlyUp()
         {
-            character.gameObject.transform.position += new Vector3(0, flySpeed, 0);
+            _currentVerticalInput = flySpeed;
         }
 
         private void PlayerFlyDown()
         {
-            character.gameObject.transform.position += new Vector3(0, -flySpeed, 0);
+            _currentVerticalInput = -flySpeed;
+        }
+
+        private void StopVerticalMovement()
+        {
+            _currentVerticalInput = 0f;
         }
 
         private void PlayerMovement(Vector2 direction)
         {
-            character.gameObject.transform.position += new Vector3(direction.x * flySpeed, 0, direction.y * flySpeed);
+            _currentFlyInput = direction;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isGodModeActive) return;
+            Vector3 movement = new Vector3(
+                _currentFlyInput.x * flySpeed,
+                _currentVerticalInput * flySpeed,
+                _currentFlyInput.y * flySpeed);
+
+            character.transform.position += movement;
         }
     }
 }
