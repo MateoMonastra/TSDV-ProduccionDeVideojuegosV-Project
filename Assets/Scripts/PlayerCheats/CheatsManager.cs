@@ -11,6 +11,7 @@ namespace PlayerCheats
         [SerializeField] private InputReader inputReader;
         [SerializeField] private GameObject character;
         [SerializeField] private GameObject hammer;
+        [SerializeField] private Transform cameraTransform;
         [SerializeField] private GameObject godModeInstructions;
         [SerializeField] private float flySpeed;
 
@@ -126,13 +127,28 @@ namespace PlayerCheats
 
         private void FixedUpdate()
         {
-            if (!_isGodModeActive) return;
-            Vector3 movement = new Vector3(
-                _currentFlyInput.x * flySpeed,
-                _currentVerticalInput * flySpeed,
-                _currentFlyInput.y * flySpeed);
+            if (_isGodModeActive)
+            {
+                Vector3 cameraForward = cameraTransform.forward;
+                Vector3 cameraRight = cameraTransform.right;
+                
+                cameraForward.y = 0;
+                cameraRight.y = 0;
 
-            character.transform.position += movement;
+                cameraForward.Normalize();
+                cameraRight.Normalize();
+                
+                Vector3 horizontalMovement =
+                    (_currentFlyInput.x * cameraRight + _currentFlyInput.y * cameraForward) * flySpeed;
+
+                
+                Vector3 verticalMovement = Vector3.up * (_currentVerticalInput * flySpeed);
+
+                
+                Vector3 movement = horizontalMovement + verticalMovement;
+
+                character.transform.position += movement;
+            }
         }
     }
 }
