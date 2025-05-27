@@ -129,26 +129,29 @@ namespace PlayerCheats
         {
             if (_isGodModeActive)
             {
+                // Direcciones horizontales relativas a la cámara
                 Vector3 cameraForward = cameraTransform.forward;
                 Vector3 cameraRight = cameraTransform.right;
-                
+
+                // Eliminar cualquier componente vertical para evitar movimiento inclinado
                 cameraForward.y = 0;
                 cameraRight.y = 0;
 
                 cameraForward.Normalize();
                 cameraRight.Normalize();
-                
-                Vector3 horizontalMovement =
-                    (_currentFlyInput.x * cameraRight + _currentFlyInput.y * cameraForward) * flySpeed;
 
-                
-                Vector3 verticalMovement = Vector3.up * (_currentVerticalInput * flySpeed);
+                // Movimiento horizontal según input y orientación de la cámara
+                Vector3 horizontalMovement = (_currentFlyInput.x * cameraRight + _currentFlyInput.y * cameraForward) * flySpeed;
 
-                
+                // Movimiento vertical (independiente)
+                Vector3 verticalMovement = Vector3.up * _currentVerticalInput * flySpeed;
+
+                // Movimiento total
                 Vector3 movement = horizontalMovement + verticalMovement;
 
                 character.transform.position += movement;
             }
         }
+
     }
 }
