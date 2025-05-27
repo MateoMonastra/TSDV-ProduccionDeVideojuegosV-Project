@@ -11,6 +11,7 @@ namespace PlayerCheats
         [SerializeField] private InputReader inputReader;
         [SerializeField] private GameObject character;
         [SerializeField] private GameObject hammer;
+        [SerializeField] private GameObject godModeInstructions;
         [SerializeField] private float flySpeed;
 
         private ExampleCharacterController _playerCharacterController;
@@ -75,6 +76,7 @@ namespace PlayerCheats
                 _playerCharacterController.enabled = true;
                 _kinematicCharacterMotor.enabled = true;
                 hammer.SetActive(true);
+                godModeInstructions.SetActive(false);
 
                 _playerCharacterController.Motor.SetPositionAndRotation(
                     _playerCharacterController.gameObject.transform.position, Quaternion.identity);
@@ -89,6 +91,7 @@ namespace PlayerCheats
                 _playerCharacterController.enabled = false;
                 _kinematicCharacterMotor.enabled = false;
                 hammer.SetActive(false);
+                godModeInstructions.SetActive(true);
 
                 inputReader.OnFlyDown += PlayerFlyDown;
                 inputReader.OnFlyUp += PlayerFlyUp;

@@ -21,7 +21,7 @@ namespace KinematicCharacterController.Examples
         TowardsMovement,
     }
 
-    public struct  PlayerCharacterInputs
+    public struct PlayerCharacterInputs
     {
         public float MoveAxisForward;
         public float MoveAxisRight;
@@ -55,7 +55,7 @@ namespace KinematicCharacterController.Examples
 
         [Header("Skill Unlocks")] [SerializeField]
         private bool isDashUnlocked;
-        
+
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         private static readonly int IsDashing = Animator.StringToHash("IsDashing");
@@ -183,7 +183,8 @@ namespace KinematicCharacterController.Examples
         public void SetInputs(ref PlayerCharacterInputs inputs)
         {
             // If ground slamming or stunned, prevent all movement
-            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
+            if ((hammerController != null && hammerController.IsGroundSlamming) ||
+                CurrentCharacterState == CharacterState.Stunned)
             {
                 _moveInputVector = Vector3.zero;
                 return;
@@ -583,7 +584,7 @@ namespace KinematicCharacterController.Examples
                 {
                     if (lastJumpParticles.isPlaying)
                         lastJumpParticles.Stop();
-                
+
                     lastJumpParticles.Play();
                 }
             }
@@ -593,7 +594,7 @@ namespace KinematicCharacterController.Examples
 
                 if (lastJumpParticles.isPlaying)
                     lastJumpParticles.Stop();
-            
+
                 lastJumpParticles.Play();
             }
 
@@ -782,7 +783,7 @@ namespace KinematicCharacterController.Examples
 
         public void AddExtraDashCharge()
         {
-            if(_extraDashCharges > 0)
+            if (_extraDashCharges > 0)
                 return;
             _extraDashCharges++;
             _hasExtraCharge = true;
@@ -793,9 +794,10 @@ namespace KinematicCharacterController.Examples
         {
             if (!isDashUnlocked)
                 return false;
-            
+
             // Can't dash while ground slamming or stunned
-            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
+            if ((hammerController != null && hammerController.IsGroundSlamming) ||
+                CurrentCharacterState == CharacterState.Stunned)
                 return false;
 
             // Can dash if either:
@@ -808,7 +810,7 @@ namespace KinematicCharacterController.Examples
         {
             if (dashParticles.isPlaying)
                 dashParticles.Stop();
-            
+
             dashParticles.Play();
             if (_hasExtraCharge)
             {
@@ -827,17 +829,17 @@ namespace KinematicCharacterController.Examples
 
         public void AddExtraJumps(int amount)
         {
-            _extraJumpsRemaining += amount;
+            _extraJumpsRemaining = Math.Clamp(_extraJumpsRemaining + amount, 0, Model.MaxJumps);
         }
 
         public void DeathSequence(Vector3 damageOrigin)
         {
-            if(_isDead)
+            if (_isDead)
                 return;
-            
+
             hammerController.InterruptGroundSlam();
             TransitionToState(CharacterState.Stunned);
-            
+
             StartCoroutine(DeathCoroutine(damageOrigin));
         }
 
@@ -852,16 +854,17 @@ namespace KinematicCharacterController.Examples
             animator.SetBool(IsDead, false);
             GameEvents.GameEvents.PlayerDied(gameObject);
         }
-        
+
         private bool CanJump()
         {
             // Can't jump while ground slamming or stunned
-            if ((hammerController != null && hammerController.IsGroundSlamming) || CurrentCharacterState == CharacterState.Stunned)
+            if ((hammerController != null && hammerController.IsGroundSlamming) ||
+                CurrentCharacterState == CharacterState.Stunned)
                 return false;
 
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
-        
+
         public bool HasExtraJumps() => _extraJumpsRemaining > 0;
     }
 }
