@@ -10,12 +10,12 @@ namespace LevelManager
         
         private void OnEnable()
         {
-            GameEvents.OnPlayerDied += checkPointManager.Respawn;
+            GameEvents.GameEvents.OnPlayerDied += checkPointManager.Respawn;
         }
 
         private void OnDisable()
         {
-            GameEvents.OnPlayerDied -= checkPointManager.Respawn;
+            GameEvents.GameEvents.OnPlayerDied -= checkPointManager.Respawn;
         }
         
     }

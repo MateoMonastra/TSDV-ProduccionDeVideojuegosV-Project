@@ -1,13 +1,21 @@
 using System;
 using UnityEngine;
 
-
-public static class GameEvents
+namespace GameEvents
 {
-    public static event Action<GameObject> OnPlayerDied;
-
-    public static void PlayerDied(GameObject player)
+    public static class GameEvents
     {
-        OnPlayerDied?.Invoke(player);
+        public static event Action<GameObject> OnPlayerDied;
+        public static event Action<bool> OnPlayerGodMode;
+
+        public static void PlayerDied(GameObject player)
+        {
+            OnPlayerDied?.Invoke(player);
+        }
+
+        public static void PlayerGodMode(bool isPlayerGodModeActive)
+        {
+            OnPlayerGodMode?.Invoke(isPlayerGodModeActive);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Enemies.BaseEnemy.States;
 using FSM;
@@ -24,6 +25,7 @@ namespace Enemies.BaseEnemy
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
+        private bool _isGodModeActive = false;
 
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
@@ -58,8 +60,14 @@ namespace Enemies.BaseEnemy
             attack.AddTransition(attackToChase);
             _states.Add(attack);
 
+            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
 
             _fsm = new Fsm(idle);
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
         }
 
         private void TransitionToChase()
@@ -96,14 +104,21 @@ namespace Enemies.BaseEnemy
             onAttackHit?.Invoke();
         }
 
+        private void SetGodModeValue(bool value)
+        {
+            _isGodModeActive = value;
+        }
+
         private void Update()
         {
-            _fsm.Update();
+            if (!_isGodModeActive)
+                _fsm.Update();
         }
 
         private void FixedUpdate()
         {
-            _fsm.FixedUpdate();
+            if (!_isGodModeActive)
+                _fsm.FixedUpdate();
         }
 
         private void OnDrawGizmos()

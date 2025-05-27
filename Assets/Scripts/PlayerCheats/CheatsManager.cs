@@ -58,9 +58,14 @@ namespace PlayerCheats
         {
             if (_isGodModeActive)
             {
+                GameEvents.GameEvents.PlayerGodMode(false);
+                
                 inputReader.OnFlyDown -= PlayerFlyDown;
                 inputReader.OnFlyUp -= PlayerFlyUp;
                 inputReader.OnFlyMove -= PlayerMovement;
+                
+                inputReader.OnDashPickUpCheat += _playerCharacterController.AddExtraDashCharge;
+                inputReader.OnJumpPickUpCheat += OnJumpPickUpCheat;
 
                 _playerCharacterController.enabled = true;
                 _kinematicCharacterMotor.enabled = true;
@@ -73,6 +78,8 @@ namespace PlayerCheats
             }
             else
             {
+                GameEvents.GameEvents.PlayerGodMode(true);
+                
                 _isGodModeActive = true;
                 _playerCharacterController.enabled = false;
                 _kinematicCharacterMotor.enabled = false;
@@ -81,6 +88,9 @@ namespace PlayerCheats
                 inputReader.OnFlyDown += PlayerFlyDown;
                 inputReader.OnFlyUp += PlayerFlyUp;
                 inputReader.OnFlyMove += PlayerMovement;
+                
+                inputReader.OnDashPickUpCheat -= _playerCharacterController.AddExtraDashCharge;
+                inputReader.OnJumpPickUpCheat -= OnJumpPickUpCheat;
             }
         }
 

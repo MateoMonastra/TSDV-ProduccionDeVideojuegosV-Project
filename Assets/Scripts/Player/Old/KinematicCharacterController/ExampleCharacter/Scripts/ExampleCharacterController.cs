@@ -850,7 +850,7 @@ namespace KinematicCharacterController.Examples
             yield return new WaitForSeconds(0.7f);
             _isDead = false;
             animator.SetBool(IsDead, false);
-            GameEvents.PlayerDied(gameObject);
+            GameEvents.GameEvents.PlayerDied(gameObject);
         }
         
         private bool CanJump()
