@@ -17,7 +17,7 @@ namespace Enemies.RangeEnemy
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private GameObject specialBulletPrefab;
         [SerializeField] private GameObject groundMarkerPrefab;
-        [SerializeField] private GameObject shootPoint;
+        [SerializeField] private Transform shootPoint;
         [SerializeField] private Transform player;
         [SerializeField] private RangedEnemyModel model;
 
@@ -29,7 +29,7 @@ namespace Enemies.RangeEnemy
         private const string ToIdleID = "toIdle";
         private const string ToSpecialAttackID = "toSpecialAttack";
 
-        private void OnEnable()
+        private void Start()
         {
             State idle = new Idle(this.transform, player, model, TransitionToAttack,
                 TransitionToSpecialAttack);
@@ -37,7 +37,7 @@ namespace Enemies.RangeEnemy
             State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
                 groundMarkerPrefab, specialBulletPrefab);
 
-            State attack = new Attack(this.transform, player, model, bulletPrefab, shootPoint.transform,
+            State attack = new Attack(this.transform, player, model, bulletPrefab, transform,
                 TransitionToIdle);
 
             //Idle Transitions
@@ -59,9 +59,13 @@ namespace Enemies.RangeEnemy
             specialAttack.AddTransition(specialAttackToIdle);
             _states.Add(attack);
 
-            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
 
             _fsm = new Fsm(idle);
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
         }
 
         private void OnDisable()
@@ -98,7 +102,7 @@ namespace Enemies.RangeEnemy
         {
             _isGodModeActive = value;
         }
-        
+
         private void Update()
         {
             if (!_isGodModeActive)

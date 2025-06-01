@@ -10,7 +10,9 @@ namespace Enemies.RangeEnemy.States
         private GameObject _groundMark;
         private GameObject _bullet;
         private System.Action _onFinishSpecialAttack;
-        public SpecialAttack(Transform enemy, Transform player, RangedEnemyModel model, System.Action onFinishSpecialAttack
+
+        public SpecialAttack(Transform enemy, Transform player, RangedEnemyModel model,
+            System.Action onFinishSpecialAttack
             , GameObject groundMark, GameObject bullet) : base(enemy, player, model)
         {
             _groundMark = groundMark;
@@ -50,16 +52,14 @@ namespace Enemies.RangeEnemy.States
         private IEnumerator ExecuteSpecialAttack()
         {
             Vector3[] targetPositions = new Vector3[model.AttacksCount];
-            
+
             for (int i = 0; i < model.AttacksCount; i++)
             {
                 Vector2 randomCircle = Random.insideUnitCircle * model.AttackAreaRadius;
-                Vector3 randomPosition = player.position + new Vector3(randomCircle.x, 0f, randomCircle.y); 
+                Vector3 randomPosition = player.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
                 Ray ray = new Ray(randomPosition, Vector3.down);
-                
-                RaycastHit hit;
-                
-                if (Physics.Raycast(ray, out hit, model.MaxRayDistance))
+
+                if (Physics.Raycast(ray, out var hit, model.MaxRayDistance))
                 {
                     targetPositions[i] = hit.point;
 
@@ -77,20 +77,22 @@ namespace Enemies.RangeEnemy.States
                 //     GameObject.Destroy(marker, model.ProjectileFallTime + 0.5f);
                 // }
             }
-            
+
             for (int i = 0; i < model.AttacksCount; i++)
             {
-                GameObject projectile = GameObject.Instantiate(_bullet, enemy.position + Vector3.up * 2f, Quaternion.identity);
-                
+                GameObject projectile =
+                    GameObject.Instantiate(_bullet, enemy.position + Vector3.up * 2f, Quaternion.identity);
+
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                
+
                 if (rb)
                 {
-                    Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i], model.ProjectileFallTime);
+                    Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i],
+                        model.ProjectileFallTime);
                     rb.linearVelocity = velocity;
                 }
             }
-            
+
             yield return new WaitForSeconds(model.SpecialAttackCooldown);
 
             _isAttacking = false;

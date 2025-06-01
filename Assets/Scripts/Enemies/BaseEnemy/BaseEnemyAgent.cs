@@ -31,7 +31,7 @@ namespace Enemies.BaseEnemy
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
 
-        private void OnEnable()
+        private void Start()
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
@@ -60,9 +60,12 @@ namespace Enemies.BaseEnemy
             attack.AddTransition(attackToChase);
             _states.Add(attack);
 
-            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
-
             _fsm = new Fsm(idle);
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
         }
 
         private void OnDisable()

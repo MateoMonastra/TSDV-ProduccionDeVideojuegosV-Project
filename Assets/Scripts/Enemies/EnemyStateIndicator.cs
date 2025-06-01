@@ -12,6 +12,7 @@ namespace Enemies
         private string _onIdle = "Idle";
         private string _onSpecialAttack = "SpecialAttack";
         private string _onChase = "Chase";
+        private string _onDeath = "Death";
 
         private void OnEnable()
         {
@@ -40,6 +41,12 @@ namespace Enemies
         {
             currentStateText.text = _onChase;
             currentStateText.color = Color.green;
+        }
+        
+        public void SetDeathState()
+        {
+            currentStateText.text = _onDeath;
+            currentStateText.color = Color.black;
         }
     }
 }
