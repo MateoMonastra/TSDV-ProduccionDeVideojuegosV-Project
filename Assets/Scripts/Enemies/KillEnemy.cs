@@ -16,6 +16,7 @@ public class KillEnemy : MonoBehaviour
             }
         }
 
+        //TODO: YA HAY QUE SACAR ESTE BODRIO
         if (other.gameObject.TryGetComponent(out IBreakable breakable))
         {
             if (hammerController.IsGroundSlamming)
