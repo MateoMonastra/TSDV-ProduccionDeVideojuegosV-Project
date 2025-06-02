@@ -9,6 +9,8 @@ namespace Hazards.Catapult.States
         private Transform _target;
         private Transform _enemy;
         private CatapultModel _model;
+        private float _cooldownTimer = 0f;
+        private bool _isInCooldown = false;
         public Idle(Transform enemy, Transform target, CatapultModel model, System.Action onEnterAttackRange)
         {
             _onEnterAttackRange = onEnterAttackRange;
@@ -25,13 +27,26 @@ namespace Hazards.Catapult.States
         public override void Tick(float delta)
         {
             base.Tick(delta);
+            base.Tick(delta);
 
             float distance = Vector3.Distance(_enemy.position, _target.position);
 
-            if (distance <= _model.AttackRange)
+            if (_isInCooldown)
             {
-                    _onEnterAttackRange?.Invoke();
+                _cooldownTimer += delta;
+                
+                if (!(_cooldownTimer >= _model.CooldownBetweenAttacks)) return;
+                
+                _isInCooldown = false;
+                _cooldownTimer = 0f;
+                return;
             }
+
+            if (!(distance <= _model.AttackRange)) return;
+            
+            _onEnterAttackRange?.Invoke();
+            _isInCooldown = true;
+            _cooldownTimer = 0f;
         }
 
         public override void FixedTick(float delta)

@@ -25,13 +25,14 @@ namespace Hazards.Catapult
         private bool _isGodModeActive = false;
 
         private const string ToAttackID = "toAttack";
+        private const string ToIdleID = "toIdle";
         private const string ToDeathID = "toDeath";
 
         private void Start()
         {
             State idle = new Idle(transform, target, model, TransitionToAttack);
 
-            State attack = new Attack(shootPoint, bulletPrefab, groundMarkPrefab, target, model, TransitionToDeath);
+            State attack = new Attack(shootPoint, bulletPrefab, groundMarkPrefab, target, model, TransitionToIdle);
 
             State death = new Death();
             _states.Add(death);
@@ -41,8 +42,9 @@ namespace Hazards.Catapult
             idle.AddTransition(idleToAttack);
             _states.Add(idle);
 
-            Transition attackToDeath = new Transition() { From = attack, To = death, ID = ToDeathID };
-            attack.AddTransition(attackToDeath);
+            //Attack Transitions
+            Transition attackToIdle = new Transition() { From = attack, To = idle, ID = ToIdleID };
+            attack.AddTransition(attackToIdle);
             _states.Add(attack);
 
             _fsm = new Fsm(idle);
@@ -58,6 +60,12 @@ namespace Hazards.Catapult
         {
             onDeath.Invoke();
             _fsm.TryTransitionTo(ToDeathID);
+        }
+        
+        private void TransitionToIdle()
+        {
+            onIdle.Invoke();
+            _fsm.TryTransitionTo(ToIdleID);
         }
 
         private void OnEnable()

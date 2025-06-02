@@ -7,6 +7,7 @@ namespace Hazards.Catapult
     public class CatapultModel : ScriptableObject
     {
         [SerializeField] private float attackRange;
+        [SerializeField] private float cooldownBetweenAttacks;
         [SerializeField] private float flightDuration;
         [SerializeField] private bool debugDrawTrajectory = false;
         [SerializeField] private int drawResolution = 30;
@@ -16,6 +17,12 @@ namespace Hazards.Catapult
         {
             get => attackRange;
             set => attackRange = value;
+        }
+        
+        public float CooldownBetweenAttacks
+        {
+            get => cooldownBetweenAttacks;
+            set => cooldownBetweenAttacks = value;
         }
 
         public float FlightDuration
