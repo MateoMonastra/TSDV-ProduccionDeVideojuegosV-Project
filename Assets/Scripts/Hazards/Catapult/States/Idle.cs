@@ -27,8 +27,6 @@ namespace Hazards.Catapult.States
         public override void Tick(float delta)
         {
             base.Tick(delta);
-            base.Tick(delta);
-
             float distance = Vector3.Distance(_enemy.position, _target.position);
 
             if (_isInCooldown)
@@ -43,7 +41,6 @@ namespace Hazards.Catapult.States
             }
 
             if (!(distance <= _model.AttackRange)) return;
-            
             _onEnterAttackRange?.Invoke();
             _isInCooldown = true;
             _cooldownTimer = 0f;

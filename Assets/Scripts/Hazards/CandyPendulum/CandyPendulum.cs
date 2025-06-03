@@ -8,6 +8,7 @@ namespace Hazards.CandyPendulum
     {
         [SerializeField] private float swingAngle = 45f;
         [SerializeField] private float swingSpeed = 1.5f;
+        [SerializeField] private float knockbackForce = 20f;
         [SerializeField] private Transform pendulumArm;
         // [SerializeField] private float knockbackForce;
 
@@ -22,20 +23,19 @@ namespace Hazards.CandyPendulum
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
-            if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
-            characterController.DeathSequence(transform.position);
-           
             //TODO: AGREGAR DAÑO
-            
+            // if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
+            // characterController.DeathSequence(transform.position);
+
             // esto quedaría si seria solo empuje, pero decidí que sea muerte 
-            // var characterController = other.GetComponent<ExampleCharacterController>();
-            // if (!characterController) return;
-            //
-            // characterController.Motor.ForceUnground();
-            // characterController.Motor.BaseVelocity =
-            //     (((transform.position - characterController.transform.position).normalized * knockbackForce) +
-            //      Vector3.up * knockbackForce);
+            if (!other.CompareTag("Player")) return;
+            var characterController = other.GetComponent<ExampleCharacterController>();
+            if (!characterController) return;
+
+            characterController.Motor.ForceUnground();
+            characterController.Motor.BaseVelocity =
+                (((transform.position - characterController.transform.position).normalized * -knockbackForce) +
+                 Vector3.up * knockbackForce);
         }
     }
 }

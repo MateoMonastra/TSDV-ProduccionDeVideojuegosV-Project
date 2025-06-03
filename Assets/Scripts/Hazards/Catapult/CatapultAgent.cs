@@ -53,6 +53,7 @@ namespace Hazards.Catapult
         private void TransitionToAttack()
         {
             onAttack.Invoke();
+            Debug.Log("ToAttack");
             _fsm.TryTransitionTo(ToAttackID);
         }
 

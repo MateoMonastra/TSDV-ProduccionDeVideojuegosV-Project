@@ -8,7 +8,7 @@ namespace Hazards.ConfettiMine
     public class ConfettiMine : MonoBehaviour
     {
         [SerializeField] private float mineRadius;
-        [SerializeField] private float knockbackForce = 8f;
+        [SerializeField] private float knockbackForce = 20f;
         [SerializeField] private float activationDelay = 2f;
         [SerializeField] private ParticleSystem explosionEffect;
         [SerializeField] private ParticleSystem confettiEffect;
