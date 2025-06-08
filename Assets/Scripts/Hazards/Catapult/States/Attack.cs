@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Hazards.Catapult.States
 {
-    public class Attack: State
+    public class Attack : State
     {
         private Transform _shootPoint;
         private GameObject _projectilePrefab;
@@ -13,6 +13,7 @@ namespace Hazards.Catapult.States
         private Transform _target;
         private CatapultModel _model;
         private Action _onAttackComplete;
+        private float _elapsedTime;
 
         public Attack(Transform shootPoint, GameObject projectilePrefab, GameObject groundMarkPrefab, Transform target,
             CatapultModel model, Action onAttackComplete)
@@ -29,7 +30,20 @@ namespace Hazards.Catapult.States
         {
             base.Enter();
             StartAttack();
+            _elapsedTime = 0f;
         }
+
+        public override void Tick(float delta)
+        {
+            base.Tick(delta);
+            _elapsedTime += delta;
+
+            if (_elapsedTime >= _model.FlightDuration)
+            {
+                _onAttackComplete?.Invoke();
+            }
+        }
+
 
         private void StartAttack()
         {
@@ -45,7 +59,7 @@ namespace Hazards.Catapult.States
                 UnityEngine.Object.Instantiate(_projectilePrefab, launchPosition, Quaternion.identity);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             rb.linearVelocity = velocity;
-            
+
             Ray ray = new Ray(_target.position, Vector3.down);
 
             if (Physics.Raycast(ray, out var hit, _model.MaxRayDistance))
