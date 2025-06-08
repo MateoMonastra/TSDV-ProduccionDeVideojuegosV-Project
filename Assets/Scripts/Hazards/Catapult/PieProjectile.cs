@@ -26,7 +26,6 @@ namespace Hazards.Catapult
                 if (!other.GetComponent(typeof(ExampleCharacterController))) return;
 
                 GameEvents.GameEvents.PlayerBlinded();
-                Debug.Log("Player Hit");
             }
             else if (other.gameObject.layer == environmentLayer)
             {

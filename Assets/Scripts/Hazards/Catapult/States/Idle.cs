@@ -11,6 +11,7 @@ namespace Hazards.Catapult.States
         private CatapultModel _model;
         private float _cooldownTimer = 0f;
         private bool _isInCooldown = false;
+
         public Idle(Transform enemy, Transform target, CatapultModel model, System.Action onEnterAttackRange)
         {
             _onEnterAttackRange = onEnterAttackRange;
@@ -18,12 +19,12 @@ namespace Hazards.Catapult.States
             _target = target;
             _model = model;
         }
-        
+
         public override void Enter()
         {
             base.Enter();
         }
-
+        
         public override void Tick(float delta)
         {
             base.Tick(delta);
@@ -32,9 +33,9 @@ namespace Hazards.Catapult.States
             if (_isInCooldown)
             {
                 _cooldownTimer += delta;
-                
+
                 if (!(_cooldownTimer >= _model.CooldownBetweenAttacks)) return;
-                
+
                 _isInCooldown = false;
                 _cooldownTimer = 0f;
                 return;
