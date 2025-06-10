@@ -30,7 +30,7 @@ namespace FSM
                 _current = transition.To;
                 return true;
             }
-            
+
             return false;
         }
 

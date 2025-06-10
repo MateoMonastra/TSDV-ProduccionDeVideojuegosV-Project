@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using FSM;
 using Hazards.Catapult.States;
@@ -13,7 +12,6 @@ namespace Hazards.Catapult
         public UnityEvent onIdle;
         public UnityEvent onDeath;
 
-
         [SerializeField] private CatapultModel model;
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private GameObject groundMarkPrefab;
@@ -27,7 +25,7 @@ namespace Hazards.Catapult
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
         private const string ToDeathID = "toDeath";
-
+        
         private void Start()
         {
             State idle = new Idle(transform, target, model, TransitionToAttack);
@@ -45,6 +43,9 @@ namespace Hazards.Catapult
             //Attack Transitions
             Transition attackToIdle = new Transition() { From = attack, To = idle, ID = ToIdleID };
             attack.AddTransition(attackToIdle);
+
+            Transition attackToDeath = new Transition() { From = attack, To = death, ID = ToDeathID };
+            attack.AddTransition(attackToDeath);
             _states.Add(attack);
 
             _fsm = new Fsm(idle);
@@ -53,7 +54,6 @@ namespace Hazards.Catapult
         private void TransitionToAttack()
         {
             onAttack.Invoke();
-            Debug.Log("ToAttack");
             _fsm.TryTransitionTo(ToAttackID);
         }
 
@@ -62,7 +62,7 @@ namespace Hazards.Catapult
             onDeath.Invoke();
             _fsm.TryTransitionTo(ToDeathID);
         }
-        
+
         private void TransitionToIdle()
         {
             onIdle.Invoke();

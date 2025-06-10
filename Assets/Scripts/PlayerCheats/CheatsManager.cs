@@ -76,8 +76,8 @@ namespace PlayerCheats
 
                 _playerCharacterController.enabled = true;
                 _kinematicCharacterMotor.enabled = true;
-                hammer.SetActive(true);
-                godModeInstructions.SetActive(false);
+                hammer?.SetActive(true);
+                godModeInstructions?.SetActive(false);
 
                 _playerCharacterController.Motor.SetPositionAndRotation(
                     _playerCharacterController.gameObject.transform.position, Quaternion.identity);
@@ -91,8 +91,8 @@ namespace PlayerCheats
                 _isGodModeActive = true;
                 _playerCharacterController.enabled = false;
                 _kinematicCharacterMotor.enabled = false;
-                hammer.SetActive(false);
-                godModeInstructions.SetActive(true);
+                hammer?.SetActive(false);
+                godModeInstructions?.SetActive(true);
 
                 inputReader.OnFlyDown += PlayerFlyDown;
                 inputReader.OnFlyUp += PlayerFlyUp;
@@ -127,30 +127,24 @@ namespace PlayerCheats
 
         private void FixedUpdate()
         {
-            if (_isGodModeActive)
-            {
-                // Direcciones horizontales relativas a la cámara
-                Vector3 cameraForward = cameraTransform.forward;
-                Vector3 cameraRight = cameraTransform.right;
+            if (!_isGodModeActive) return;
+            
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
+                
+            cameraForward.y = 0;
+            cameraRight.y = 0;
 
-                // Eliminar cualquier componente vertical para evitar movimiento inclinado
-                cameraForward.y = 0;
-                cameraRight.y = 0;
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+                
+            Vector3 horizontalMovement = (_currentFlyInput.x * cameraRight + _currentFlyInput.y * cameraForward) * flySpeed;
+                
+            Vector3 verticalMovement = Vector3.up * (_currentVerticalInput * flySpeed);
+                
+            Vector3 movement = horizontalMovement + verticalMovement;
 
-                cameraForward.Normalize();
-                cameraRight.Normalize();
-
-                // Movimiento horizontal según input y orientación de la cámara
-                Vector3 horizontalMovement = (_currentFlyInput.x * cameraRight + _currentFlyInput.y * cameraForward) * flySpeed;
-
-                // Movimiento vertical (independiente)
-                Vector3 verticalMovement = Vector3.up * _currentVerticalInput * flySpeed;
-
-                // Movimiento total
-                Vector3 movement = horizontalMovement + verticalMovement;
-
-                character.transform.position += movement;
-            }
+            character.transform.position += movement;
         }
 
     }

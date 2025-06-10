@@ -14,18 +14,16 @@ namespace UI
         [SerializeField] private GameObject blindnessEffect;
         [SerializeField] private float blindnessDuration = 2f;
 
-        private IEnumerator _blindnessCoroutine;
+        private Coroutine _blindnessCoroutine;
 
         private void OnEnable()
         {
             GameEvents.GameEvents.OnPlayerBlinded += OnBlind;
-            _blindnessCoroutine = BlindPlayer();
         }
 
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerBlinded -= OnBlind;
-            _blindnessCoroutine = null;
         }
 
         private void Update()
@@ -43,7 +41,7 @@ namespace UI
 
         private void OnBlind()
         {
-            StartCoroutine(_blindnessCoroutine);
+            _blindnessCoroutine = StartCoroutine(BlindPlayer());
         }
 
         private IEnumerator BlindPlayer()
