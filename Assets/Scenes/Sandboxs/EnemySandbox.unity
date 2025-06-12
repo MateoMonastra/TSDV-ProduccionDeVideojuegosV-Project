@@ -1023,58 +1023,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 770891700}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1374090759}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1374090760}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetDeathAnimation
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetDeathState
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Enemies.EnemyAnimationController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Enemies.EnemyStateIndicator, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813122811278968515, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-      propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8136693203401698564, guid: e94a76000b3d535449371dc544e429f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.113612
@@ -1120,28 +1068,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e94a76000b3d535449371dc544e429f9, type: 3}
---- !u!114 &1374090759 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6952151925575430033, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-  m_PrefabInstance: {fileID: 1374090758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ecacefbcd4135b41a23e19de6cd4018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1374090760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6946263649448154249, guid: e94a76000b3d535449371dc544e429f9, type: 3}
-  m_PrefabInstance: {fileID: 1374090758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ddd1f00a670e8c43b939114855769e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1408732975 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6144144302336364643, guid: d433f92159eac5c4582add83f730a505, type: 3}
