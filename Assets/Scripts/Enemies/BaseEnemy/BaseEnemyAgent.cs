@@ -93,7 +93,7 @@ namespace Enemies.BaseEnemy
         private void TransitionToDeath()
         {
             onDeath.Invoke();
-            State death = new Death(this.gameObject);
+            State death = new Death(this.gameObject, model);
             _fsm.ForceSetCurrentState(death);
         }
 
