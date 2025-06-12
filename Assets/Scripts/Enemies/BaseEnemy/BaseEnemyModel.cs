@@ -10,6 +10,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private float attackRange;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelay;
+        [SerializeField] private float deathTime;
 
         public float InnerRadius
         {
@@ -34,11 +35,17 @@ namespace Enemies.BaseEnemy
             get => attackDuration;
             set => attackDuration = value;
         }
-        
+
         public float AttackDelay
         {
             get => attackDelay;
             set => attackDelay = value;
+        }
+
+        public float DeathTime
+        {
+            get => deathTime;
+            set => deathTime = value;
         }
     }
 }

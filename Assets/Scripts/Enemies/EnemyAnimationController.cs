@@ -7,6 +7,7 @@ namespace Enemies
         private static readonly int IsChase = Animator.StringToHash("IsChase");
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int AttackHit = Animator.StringToHash("AttackHit");
+        private static readonly int Death = Animator.StringToHash("Death");
         
         [SerializeField] Animator animator;
 
@@ -23,6 +24,10 @@ namespace Enemies
         public void SetAttackHitAnimation()
         {
             animator.SetTrigger(AttackHit);
+        }
+        public void SetDeathAnimation()
+        {
+            animator.SetTrigger(Death);
         }
     }
 }

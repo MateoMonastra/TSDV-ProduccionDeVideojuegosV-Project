@@ -26,6 +26,7 @@ namespace Enemies.BaseEnemy
         private Fsm _fsm;
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
+        private bool _isDeath = false;
 
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
@@ -75,7 +76,7 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToChase()
         {
-            onChase.Invoke(true);
+            onChase?.Invoke(true);
             _fsm.TryTransitionTo(ToChaseID);
         }
 
@@ -86,14 +87,15 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToIdle()
         {
-            onIdle.Invoke();
+            onIdle?.Invoke();
             _fsm.TryTransitionTo(ToIdleID);
         }
 
         private void TransitionToDeath()
         {
-            onDeath.Invoke();
-            State death = new Death(this.gameObject);
+            onDeath?.Invoke();
+            _isDeath = true;
+            State death = new Death(this.gameObject, model);
             _fsm.ForceSetCurrentState(death);
         }
 
@@ -138,7 +140,8 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked()
         {
-            TransitionToDeath();
+            if (!_isDeath)
+                TransitionToDeath();
         }
     }
 }
