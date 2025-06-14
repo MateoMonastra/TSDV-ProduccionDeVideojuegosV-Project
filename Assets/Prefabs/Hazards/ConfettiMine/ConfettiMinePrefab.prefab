@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7714436184729803937}
   - component: {fileID: 1678103472865866118}
   - component: {fileID: 2805461497097787510}
+  - component: {fileID: 2234068603448228059}
   m_Layer: 0
   m_Name: ConfettiMinePrefab
   m_TagString: Untagged
@@ -122,11 +123,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a39b651651b7d249ad89c26f8c2dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mineRadius: 0
   knockbackForce: 20
   activationDelay: 2
   explosionEffect: {fileID: 0}
   confettiEffect: {fileID: 0}
   mineRenderer: {fileID: 7714436184729803937}
+--- !u!208 &2234068603448228059
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854744173280586233}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4903621314295031900
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +156,7 @@ GameObject:
   - component: {fileID: 695224502666365290}
   - component: {fileID: 6773201750813567216}
   - component: {fileID: 1995338412831596403}
+  - component: {fileID: 533870027786382212}
   m_Layer: 0
   m_Name: Candle
   m_TagString: Untagged
@@ -213,3 +232,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &533870027786382212
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4903621314295031900}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
