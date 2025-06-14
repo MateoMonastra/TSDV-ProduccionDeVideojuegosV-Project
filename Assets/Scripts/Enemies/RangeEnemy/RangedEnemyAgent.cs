@@ -35,9 +35,9 @@ namespace Enemies.RangeEnemy
                 TransitionToSpecialAttack);
 
             State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
-                groundMarkerPrefab, specialBulletPrefab);
+                groundMarkerPrefab, specialBulletPrefab, shootPoint.position);
 
-            State attack = new Attack(this.transform, player, model, bulletPrefab, transform,
+            State attack = new Attack(this.transform, player, model, bulletPrefab, shootPoint,
                 TransitionToIdle);
 
             //Idle Transitions

@@ -9,15 +9,17 @@ namespace Enemies.RangeEnemy.States
         private bool _isAttacking;
         private GameObject _groundMark;
         private GameObject _bullet;
+        private Vector3 _shootPoint;
         private System.Action _onFinishSpecialAttack;
 
         public SpecialAttack(Transform enemy, Transform player, RangedEnemyModel model,
             System.Action onFinishSpecialAttack
-            , GameObject groundMark, GameObject bullet) : base(enemy, player, model)
+            , GameObject groundMark, GameObject bullet, Vector3 shootPoint) : base(enemy, player, model)
         {
             _groundMark = groundMark;
             _bullet = bullet;
             _onFinishSpecialAttack = onFinishSpecialAttack;
+            _shootPoint = shootPoint;
         }
 
         public override void Enter()
@@ -81,13 +83,13 @@ namespace Enemies.RangeEnemy.States
             for (int i = 0; i < model.AttacksCount; i++)
             {
                 GameObject projectile =
-                    GameObject.Instantiate(_bullet, enemy.position + Vector3.up * 2f, Quaternion.identity);
+                    GameObject.Instantiate(_bullet, _shootPoint + Vector3.up * 2f, Quaternion.identity);
 
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
                 if (rb)
                 {
-                    Vector3 velocity = CalculateProjectileVelocity(enemy.position + Vector3.up * 2f, targetPositions[i],
+                    Vector3 velocity = CalculateProjectileVelocity(_shootPoint + Vector3.up * 2f, targetPositions[i],
                         model.ProjectileFallTime);
                     rb.linearVelocity = velocity;
                 }
