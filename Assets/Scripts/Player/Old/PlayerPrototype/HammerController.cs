@@ -126,7 +126,7 @@ public class HammerController : MonoBehaviour
     void EndGroundSlam()
     {
         isAnimating = false;
-        collider.enabled = true;
+        collider.enabled = false;
 
         if (groundSlamParticles.isPlaying)
             groundSlamParticles.Stop();
