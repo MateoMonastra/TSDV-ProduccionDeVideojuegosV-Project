@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4878707371497439465}
+  - component: {fileID: 4206624668558796925}
   m_Layer: 0
   m_Name: Mesh_Trampa
   m_TagString: Untagged
@@ -36,6 +37,27 @@ Transform:
   - {fileID: 5711967204879883568}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4206624668558796925
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966756595317867056}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 147.01859, y: 230.48296, z: 33.44735}
+  m_Center: {x: 3.4745023, y: -12.203513, z: 0.6580341}
 --- !u!1 &6376048484017368813
 GameObject:
   m_ObjectHideFlags: 0

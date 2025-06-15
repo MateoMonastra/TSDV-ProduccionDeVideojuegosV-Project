@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Angel
-  m_Shader: {fileID: -6465566751694194690, guid: 5f3302a5c9327834cb769861760f483e, type: 3}
+  m_Name: M_Toxic_V02
+  m_Shader: {fileID: -6465566751694194690, guid: 566ff650217c3f9419e22327bc5d454a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,20 +24,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - MainTex:
-        m_Texture: {fileID: 2800000, guid: ebbab39db68ed354b93fd9d2eecd7116, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Mask_R_Emission:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CausticTextur:
+        m_Texture: {fileID: 2800000, guid: 1af47a2d90ff3914abb9d7dd971a1e71, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -56,20 +52,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Height:
-        m_Texture: {fileID: 0}
+    - _FoamTextur:
+        m_Texture: {fileID: 2800000, guid: d812795a93266784984d703217c0f554, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 44b186971ca430c4da0087de8f74a0fa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal:
-        m_Texture: {fileID: 2800000, guid: fffc23776b4f38e4bbc539f976118f96, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -80,15 +72,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Roughness:
-        m_Texture: {fileID: 2800000, guid: 19d3f9c6b971d0b4192bf6adfe2873e9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -106,27 +90,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Brightness_Rim: 1.66
-    - Rim_Power: 1.44
-    - Toon_Ramp_Offset: 0.585
-    - Toon_Ramp_Smoothness: 0.017
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Ambient: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
-    - _CastShadows: 1
+    - _CasticsSpeed: 0.05
+    - _CasticsTiling: 4.48
+    - _CausticCutout: 0.28
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Depth: 10
+    - _DepthFalloff: 6.73
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FoamAmount: 0.76
+    - _FoamCutout: 0.149
+    - _FoamDepth: 1.03
+    - _FoamFalloff: 1.59
+    - _FoamShoreWidth: 0.907
+    - _FoamTiling: 3.37
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -142,23 +131,23 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Toon_Ramp_Offset_Point: 0.441
+    - _WaveIntensity: 0.00005
+    - _WaveSpeed: 3
     - _WorkflowMode: 1
-    - _ZTest: 4
     - _ZWrite: 1
-    - _ZWriteControl: 0
     m_Colors:
-    - Toon_Ramp_Tint: {r: 0.9150943, g: 0.8158152, b: 0.8158152, a: 1}
-    - _AmbientColor: {r: 0.6037736, g: 0.5268779, b: 0.5268779, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CausticColor: {r: 1.697413, g: 3.9533496, b: 1.4731823, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColorT: {r: 1, g: 1, b: 1, a: 0}
+    - _FoamSpeed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _Foamcolor: {r: 1.5208757, g: 4.541206, b: 1.8428869, a: 0}
+    - _MainColor: {r: 0, g: 1, b: 0.119170904, a: 0}
+    - _ShoreColor: {r: 0, g: 0.24528301, b: 0.041877605, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2823426301857542184
+--- !u!114 &3411105578874444560
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
