@@ -1119,6 +1119,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1014531853128904603}
+    - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6354720857541659468}
+    - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3143351457651717672}
   m_SourcePrefab: {fileID: 100100000, guid: af674b5643004e74ea22937a31f15417, type: 3}
 --- !u!4 &2921732632884768669 stripped
 Transform:
@@ -1217,6 +1223,45 @@ MonoBehaviour:
   m_ForceModule: {fileID: 0}
   m_ForceScale: 0.1
   m_SimulateSpace: {fileID: 0}
+--- !u!1 &7320928428678493006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
+  m_PrefabInstance: {fileID: 7862820587817824572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6354720857541659468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320928428678493006}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 375
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 2.439991, y: 2.9405522, z: 1}
+  m_Center: {x: 0.00000004288737, y: 1.8409963, z: 0.0000000010526433}
+--- !u!114 &3143351457651717672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320928428678493006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a0efefe90cb6d48a048649d4e045c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerController: {fileID: 0}
 --- !u!4 &7680010479053248215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: af674b5643004e74ea22937a31f15417, type: 3}
