@@ -5,9 +5,10 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator hammerAnimator;
+    [SerializeField] private Collider collider;
     private InputSystem_Actions inputs;
-    private Animator animator;
-    private Collider collider;
     private bool isAnimating = false;
     private float holdTimeThreshold = 0.2f; // Time in seconds to consider it a hold
     private float mouseDownTime;
@@ -24,14 +25,8 @@ public class HammerController : MonoBehaviour
         inputs = new InputSystem_Actions();
         inputs.Enable();
         // Get the Animator component attached to this GameObject
-        collider = GetComponent<BoxCollider>();
-        animator = GetComponent<Animator>();
         motor = GetComponentInParent<KinematicCharacterMotor>();
         characterController = GetComponentInParent<ExampleCharacterController>();
-        if (animator == null)
-        {
-            Debug.LogError("No Animator component found on this GameObject!");
-        }
     }
 
     // Update is called once per frame
@@ -49,10 +44,10 @@ public class HammerController : MonoBehaviour
             return;
         }
 
-        
-        if(characterController.CurrentCharacterState == CharacterState.Stunned)
+
+        if (characterController.CurrentCharacterState == CharacterState.Stunned)
             return;
-        
+
         // Don't process new attack inputs if already animating
         if (isAnimating)
             return;
@@ -70,7 +65,8 @@ public class HammerController : MonoBehaviour
 
             if (holdDuration >= holdTimeThreshold)
             {
-                HoldAttack();
+                //HoldAttack();
+                NormalAttack();
             }
             else
             {
@@ -84,36 +80,42 @@ public class HammerController : MonoBehaviour
         }
     }
 
+    private void StartAttack()
+    {
+        isAnimating = true;
+        collider.enabled = true;
+
+        animator.SetBool("IsAttacking", true);
+    }
+
     void NormalAttack()
     {
-        if (animator != null)
-        {
-            isAnimating = true;
-            animator.SetTrigger("Attack");
-            collider.enabled = true;
-        }
+        StartAttack();
+
+        animator.SetTrigger("NormalAttack");
+        hammerAnimator.SetTrigger("NormalAttack");
     }
 
     void HoldAttack()
     {
-        if (animator != null)
-        {
-            isAnimating = true;
-            animator.SetTrigger("HoldAttack");
-            collider.enabled = true;
-        }
+        StartAttack();
+
+        hammerAnimator.SetTrigger("HoldAttack");
+        animator.SetTrigger("HoldAttack");
     }
 
     void GroundSlamAttack()
     {
+        StartAttack();
+
         if (animator != null)
         {
             animator.ResetTrigger("GroundSlamEnd");
+            hammerAnimator.ResetTrigger("GroundSlamEnd");
 
-            isAnimating = true;
             isGroundSlamming = true;
             animator.SetTrigger("GroundSlam");
-            collider.enabled = true;
+            hammerAnimator.SetTrigger("GroundSlam");
 
             // Add downward force to the character
             if (motor != null)
@@ -133,6 +135,7 @@ public class HammerController : MonoBehaviour
 
         groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
+        hammerAnimator.SetTrigger("GroundSlamEnd");
     }
 
     // This method should be called by an Animation Event at the end of your animation
@@ -142,9 +145,11 @@ public class HammerController : MonoBehaviour
         {
             isAnimating = false;
             animator.ResetTrigger("GroundSlamEnd");
+            hammerAnimator.ResetTrigger("GroundSlamEnd");
         }
 
-            collider.enabled = false;
+        animator.SetBool("IsAttacking", false);
+        collider.enabled = false;
         isGroundSlamming = false;
     }
 
@@ -153,6 +158,7 @@ public class HammerController : MonoBehaviour
         if (isGroundSlamming)
         {
             animator.SetTrigger("InterruptGroundSlam");
+            hammerAnimator.SetTrigger("InterruptGroundSlam");
             isGroundSlamming = false;
             isAnimating = false;
             collider.enabled = false;
