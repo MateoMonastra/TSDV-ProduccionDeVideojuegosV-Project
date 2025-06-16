@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -89.5, y: -6.6, z: 85.5}
-  m_LocalScale: {x: 16.87763, y: 1.1526127, z: 16.87763}
+  m_LocalScale: {x: 1.6105218, y: 2.1690507, z: 1.6105218}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3911222624606333028}
@@ -110,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.8117282, z: 1}
-  m_Center: {x: 0, y: -0.9058642, z: 0}
+  m_Size: {x: 3, y: 0.6, z: 3}
+  m_Center: {x: 0, y: 2.9799619, z: 0}
 --- !u!114 &3562990672894443153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 644478762136113724}
   translationAxis: {x: 0, y: 1, z: 0}
-  translationDistance: 10
-  translationSpeed: 1
+  translationDistance: 30
+  translationSpeed: 10
   rotationAxis: {x: 0, y: 0, z: 0}
   rotSpeed: 10
   oscillationAxis: {x: 0, y: 0, z: 0}
@@ -216,15 +216,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.33709
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.0789237
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.33709
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6112488017933979064, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.43
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}
       propertyPath: m_Name
       value: mesh_platform_vertical
@@ -302,8 +306,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 16.236046, z: 1}
-  m_Center: {x: 0, y: -8.437929, z: 0}
+  m_Size: {x: 1, y: 16.180792, z: 1}
+  m_Center: {x: 0, y: -4.706464, z: 0}
 --- !u!4 &1928196771447877374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 851ffab252d6f6440b08f38d660c4ae3, type: 3}

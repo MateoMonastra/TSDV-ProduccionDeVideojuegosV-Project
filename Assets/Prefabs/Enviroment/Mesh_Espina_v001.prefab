@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3116449450610091936}
   - component: {fileID: 3265734309083248330}
   - component: {fileID: 7380351053804318936}
+  - component: {fileID: 5185810008282659632}
   m_Layer: 0
   m_Name: Mesh_Espina_v001
   m_TagString: Untagged
@@ -27,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323437659688724411}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.499088, y: 57.28962, z: -29.616495}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.3416466, y: 0.34164673, z: 0.3416466}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,6 +67,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: d7ae652eaf476734da9533edd9eb21c4, type: 2}
+  - {fileID: 2100000, guid: d0894499bb8866948b653c7275cff078, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,9 +104,21 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 751.1572, y: 1309.1505, z: 429.81686}
   m_Center: {x: -222.48378, y: 654.57477, z: -192.67447}
+--- !u!114 &5185810008282659632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323437659688724411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1919c941dac904281cbae20cf1727b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
