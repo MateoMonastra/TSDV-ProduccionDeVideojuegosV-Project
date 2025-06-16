@@ -19,8 +19,10 @@ namespace Hazards.BlowerBridge
         {
             if (_isOnCooldown) return;
 
+            Debug.Log("1");
             if (other.TryGetComponent(out HammerController hammer) && hammer.IsGroundSlamming)
             {
+                Debug.Log("2");
                 ActivateButton();
             }
             else

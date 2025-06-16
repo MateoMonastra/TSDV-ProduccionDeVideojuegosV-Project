@@ -1,10 +1,12 @@
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
+using Player.New;
 using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
     [SerializeField] private Collider collider;
@@ -27,6 +29,8 @@ public class HammerController : MonoBehaviour
         // Get the Animator component attached to this GameObject
         motor = GetComponentInParent<KinematicCharacterMotor>();
         characterController = GetComponentInParent<ExampleCharacterController>();
+        
+        animationEvents.AnimationComplete += OnAnimationComplete;
     }
 
     // Update is called once per frame
@@ -138,8 +142,7 @@ public class HammerController : MonoBehaviour
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
 
-    // This method should be called by an Animation Event at the end of your animation
-    public void OnAnimationComplete()
+    private void OnAnimationComplete()
     {
         if (!isGroundSlamming) // Only end normal animations if not ground slamming
         {
