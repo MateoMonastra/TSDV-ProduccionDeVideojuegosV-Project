@@ -853,7 +853,7 @@ namespace KinematicCharacterController.Examples
 
             StartCoroutine(DeathCoroutine(damageOrigin));
         }
-
+        
         private IEnumerator DeathCoroutine(Vector3 damageOrigin)
         {
             animator.SetBool(IsDead, true);

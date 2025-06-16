@@ -1119,12 +1119,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1014531853128904603}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8717590983609226268}
     - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6354720857541659468}
     - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3143351457651717672}
+    - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1066017755372728910}
   m_SourcePrefab: {fileID: 100100000, guid: af674b5643004e74ea22937a31f15417, type: 3}
 --- !u!4 &2921732632884768669 stripped
 Transform:
@@ -1223,6 +1229,18 @@ MonoBehaviour:
   m_ForceModule: {fileID: 0}
   m_ForceScale: 0.1
   m_SimulateSpace: {fileID: 0}
+--- !u!114 &8717590983609226268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052408848498248813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d981cd11a5364607a77ddab53e6b461a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7320928428678493006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
@@ -1261,7 +1279,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a0efefe90cb6d48a048649d4e045c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hammerController: {fileID: 0}
+  hammerController: {fileID: 1066017755372728910}
+--- !u!114 &1066017755372728910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320928428678493006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab4f0a83bd22ee46b58e5717653d323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundSlamParticles: {fileID: 0}
+  animationEvents: {fileID: 8717590983609226268}
+  animator: {fileID: 5594794976487381866}
+  hammerAnimator: {fileID: 0}
+  collider: {fileID: 6354720857541659468}
 --- !u!4 &7680010479053248215 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: af674b5643004e74ea22937a31f15417, type: 3}
