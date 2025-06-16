@@ -126,7 +126,7 @@ public class HammerController : MonoBehaviour
     void EndGroundSlam()
     {
         isAnimating = false;
-        collider.enabled = false;
+        collider.enabled = true;
 
         if (groundSlamParticles.isPlaying)
             groundSlamParticles.Stop();
@@ -141,10 +141,10 @@ public class HammerController : MonoBehaviour
         if (!isGroundSlamming) // Only end normal animations if not ground slamming
         {
             isAnimating = false;
-            collider.enabled = false;
             animator.ResetTrigger("GroundSlamEnd");
         }
 
+            collider.enabled = false;
         isGroundSlamming = false;
     }
 
