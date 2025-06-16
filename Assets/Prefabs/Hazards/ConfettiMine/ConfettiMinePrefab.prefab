@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1678103472865866118}
   - component: {fileID: 2805461497097787510}
   - component: {fileID: 2234068603448228059}
+  - component: {fileID: 7120931256839522581}
   m_Layer: 0
   m_Name: ConfettiMinePrefab
   m_TagString: Untagged
@@ -109,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.1272815, z: 1.0266039}
+  m_Center: {x: 0, y: 0.06364019, z: 0.013302169}
 --- !u!114 &2805461497097787510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a39b651651b7d249ad89c26f8c2dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineRadius: 0
+  mineRadius: 5
   knockbackForce: 20
   activationDelay: 2
   explosionEffect: {fileID: 0}
@@ -145,6 +146,27 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &7120931256839522581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854744173280586233}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.99001676}
+  m_Center: {x: 0, y: 0, z: 0.003907274}
 --- !u!1 &4903621314295031900
 GameObject:
   m_ObjectHideFlags: 0
