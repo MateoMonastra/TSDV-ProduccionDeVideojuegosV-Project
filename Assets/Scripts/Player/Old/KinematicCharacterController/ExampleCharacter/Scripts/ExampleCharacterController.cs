@@ -586,6 +586,11 @@ namespace KinematicCharacterController.Examples
                         lastJumpParticles.Stop();
 
                     lastJumpParticles.Play();
+                    animator.SetTrigger("DoubleJump");
+                }
+                else
+                {
+                    animator.SetTrigger("Jump");
                 }
             }
             else if (_extraJumpsRemaining > 0)
@@ -596,8 +601,14 @@ namespace KinematicCharacterController.Examples
                     lastJumpParticles.Stop();
 
                 lastJumpParticles.Play();
-            }
 
+                animator.SetTrigger("DoubleJump");
+            }
+            else
+            {
+                animator.SetTrigger("Jump");
+            }
+            
             _jumpRequested = false; // Reset jump request after executing
         }
 

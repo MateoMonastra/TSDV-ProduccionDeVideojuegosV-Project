@@ -21,7 +21,7 @@ namespace Hazards.CandyPendulum
             _time += Time.deltaTime;
             float angle = swingAngle * Mathf.Sin(_time * swingSpeed * Mathf.PI * 2);
             
-            transform.localRotation = _initialRotation * Quaternion.AngleAxis(angle, Vector3.right);
+            transform.localRotation = _initialRotation * Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
         private void OnTriggerEnter(Collider other)
