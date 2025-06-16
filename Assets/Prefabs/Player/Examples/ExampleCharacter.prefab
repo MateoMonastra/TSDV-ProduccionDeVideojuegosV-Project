@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3760674165777198628}
   - component: {fileID: 5695250171236872292}
   - component: {fileID: 1425323749973543540}
-  - component: {fileID: 7959981981524138611}
   - component: {fileID: 4882394713495585400}
   - component: {fileID: 7298190835868101949}
   m_Layer: 6
@@ -112,21 +111,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.439991, y: 3.0589108, z: 1}
   m_Center: {x: -0.0000012008572, y: -0.14701925, z: 0.000004104375}
---- !u!114 &7959981981524138611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2682596433793550809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ab4f0a83bd22ee46b58e5717653d323, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundSlamParticles: {fileID: 9030093686947633803}
-  animator: {fileID: 271999709088441556}
-  collider: {fileID: 0}
 --- !u!95 &4882394713495585400
 Animator:
   serializedVersion: 7
@@ -161,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a0efefe90cb6d48a048649d4e045c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hammerController: {fileID: 7959981981524138611}
+  hammerController: {fileID: 4329994465900593046}
 --- !u!1 &4249884870996845093
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,13 +620,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4329994465900593046}
   m_SourcePrefab: {fileID: 100100000, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
 --- !u!95 &271999709088441556 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5594794976487381866, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
   m_PrefabInstance: {fileID: 5648325544833613758}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3440136947159086035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+  m_PrefabInstance: {fileID: 5648325544833613758}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4329994465900593046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440136947159086035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab4f0a83bd22ee46b58e5717653d323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundSlamParticles: {fileID: 9030093686947633803}
+  animator: {fileID: 271999709088441556}
+  hammerAnimator: {fileID: 4882394713495585400}
+  collider: {fileID: 1425323749973543540}
 --- !u!4 &5433197189293847460 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 361548175956298778, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}

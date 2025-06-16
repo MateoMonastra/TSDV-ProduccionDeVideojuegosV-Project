@@ -6,6 +6,7 @@ public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem groundSlamParticles;
     [SerializeField] private Animator animator;
+    [SerializeField] private Animator hammerAnimator;
     [SerializeField] private Collider collider;
     private InputSystem_Actions inputs;
     private bool isAnimating = false;
@@ -92,12 +93,14 @@ public class HammerController : MonoBehaviour
         StartAttack();
 
         animator.SetTrigger("NormalAttack");
+        hammerAnimator.SetTrigger("NormalAttack");
     }
 
     void HoldAttack()
     {
         StartAttack();
 
+        hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
     }
 
@@ -108,9 +111,11 @@ public class HammerController : MonoBehaviour
         if (animator != null)
         {
             animator.ResetTrigger("GroundSlamEnd");
+            hammerAnimator.ResetTrigger("GroundSlamEnd");
 
             isGroundSlamming = true;
             animator.SetTrigger("GroundSlam");
+            hammerAnimator.SetTrigger("GroundSlam");
 
             // Add downward force to the character
             if (motor != null)
@@ -130,6 +135,7 @@ public class HammerController : MonoBehaviour
 
         groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
+        hammerAnimator.SetTrigger("GroundSlamEnd");
     }
 
     // This method should be called by an Animation Event at the end of your animation
@@ -139,9 +145,9 @@ public class HammerController : MonoBehaviour
         {
             isAnimating = false;
             animator.ResetTrigger("GroundSlamEnd");
+            hammerAnimator.ResetTrigger("GroundSlamEnd");
         }
 
-        Debug.Log("called");
         animator.SetBool("IsAttacking", false);
         collider.enabled = false;
         isGroundSlamming = false;
@@ -152,6 +158,7 @@ public class HammerController : MonoBehaviour
         if (isGroundSlamming)
         {
             animator.SetTrigger("InterruptGroundSlam");
+            hammerAnimator.SetTrigger("InterruptGroundSlam");
             isGroundSlamming = false;
             isAnimating = false;
             collider.enabled = false;
