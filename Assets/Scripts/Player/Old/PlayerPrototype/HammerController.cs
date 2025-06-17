@@ -69,8 +69,7 @@ public class HammerController : MonoBehaviour
 
             if (holdDuration >= holdTimeThreshold)
             {
-                //HoldAttack();
-                NormalAttack();
+                HoldAttack();
             }
             else
             {
