@@ -20,9 +20,14 @@ namespace Hazards.ConfettiMine
         private Coroutine _warningCoroutine;
         private Coroutine _explodeCoroutine;
 
-        private void Start()
+        private void Awake()
         {
             GameEvents.GameEvents.OnPlayerDied += Respawn;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.GameEvents.OnPlayerDied -= Respawn;
         }
 
         private void Respawn(GameObject player)
@@ -36,6 +41,7 @@ namespace Hazards.ConfettiMine
             if (_warningCoroutine != null)
                 StopCoroutine(_warningCoroutine);
 
+            
             _isTriggered = false;
             gameObject.SetActive(true);
         }
