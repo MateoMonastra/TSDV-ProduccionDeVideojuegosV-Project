@@ -11,7 +11,6 @@ namespace Hazards.ConfettiMine
         [SerializeField] private float knockbackForce = 20f;
         [SerializeField] private float activationDelay = 2f;
         [SerializeField] private ParticleSystem explosionEffect;
-        [SerializeField] private ParticleSystem confettiEffect;
         [SerializeField] private Renderer mineRenderer;
         [SerializeField] private Material baseMaterial;
         [SerializeField] private Material warningMaterial;
@@ -75,10 +74,7 @@ namespace Hazards.ConfettiMine
         {
             if (explosionEffect)
                 explosionEffect.Play();
-
-            if (confettiEffect)
-                confettiEffect.Play();
-
+            
             // hecho asi por si quieren integrar que los enemigos les afecte tambien 
             Collider[] colliders = Physics.OverlapSphere(transform.position, mineRadius);
             foreach (var entity in colliders)
