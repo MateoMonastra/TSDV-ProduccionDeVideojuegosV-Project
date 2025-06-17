@@ -29,7 +29,7 @@ public class HammerController : MonoBehaviour
         // Get the Animator component attached to this GameObject
         motor = GetComponentInParent<KinematicCharacterMotor>();
         characterController = GetComponentInParent<ExampleCharacterController>();
-        
+
         animationEvents.AnimationComplete += OnAnimationComplete;
     }
 
@@ -159,6 +159,7 @@ public class HammerController : MonoBehaviour
     {
         if (isGroundSlamming)
         {
+            animator.SetBool("IsAttacking", false);
             animator.SetTrigger("InterruptGroundSlam");
             hammerAnimator.SetTrigger("InterruptGroundSlam");
             isGroundSlamming = false;
