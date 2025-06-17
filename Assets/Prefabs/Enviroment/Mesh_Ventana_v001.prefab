@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4093819438615557026}
   - component: {fileID: 837804586116880758}
   - component: {fileID: 3675372350101698444}
-  - component: {fileID: 5573859913307410835}
+  - component: {fileID: 3308600767226157217}
   m_Layer: 0
   m_Name: Mesh_Ventana_v001
   m_TagString: Untagged
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5573859913307410835
-BoxCollider:
+--- !u!64 &3308600767226157217
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,6 +105,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 368.34308, y: 690.2188, z: 68.37208}
-  m_Center: {x: 35.891453, y: 345.1094, z: 34.186283}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7275496395514387711, guid: 4966806eac28daa4fafa2ca18afb205f, type: 3}
