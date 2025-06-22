@@ -22,6 +22,23 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 		</SoundBank>
+		<SoundBank Id="1661994096" Type="User" Language="SFX" Hash="{A3428206-6BA9-A385-DFC9-A19F6612092B}">
+			<ShortName>SoundBank</ShortName>
+			<Path>SoundBank.bnk</Path>
+			<Media>
+				<File Id="272313163" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>JDSherbert - Ultimate UI SFX Pack - Cancel - 1.wav</ShortName>
+					<CachePath>SFX/JDSherbert - Ultimate UI SFX Pack - Cancel - 1_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="562256996" Name="play_player_jump" DurationType="OneShot" DurationMin="2.0052154" DurationMax="2.0052154">
+					<MediaRefs>
+						<MediaRef Id="272313163"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{65ACD701-C344-9E7E-4B1A-A247DBAA44A3}</FileHash>
+	<FileHash>{922B40B7-300E-8429-64B5-65934BBE2928}</FileHash>
 </SoundBanksInfo>

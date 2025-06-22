@@ -11,6 +11,17 @@
 
 namespace AK
 {
+    namespace EVENTS
+    {
+        static const AkUniqueID PLAY_PLAYER_JUMP = 562256996U;
+    } // namespace EVENTS
+
+    namespace BANKS
+    {
+        static const AkUniqueID INIT = 1355168291U;
+        static const AkUniqueID SOUNDBANK = 1661994096U;
+    } // namespace BANKS
+
     namespace BUSSES
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
