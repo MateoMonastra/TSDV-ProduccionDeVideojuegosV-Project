@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7714436184729803937}
   - component: {fileID: 1678103472865866118}
   - component: {fileID: 2805461497097787510}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ConfettiMinePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5440359756248743409}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,6 +236,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 497f44fed54755f429c868c16ea77542, type: 3}
       propertyPath: m_Name
       value: mesh_mina_low
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 497f44fed54755f429c868c16ea77542, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
