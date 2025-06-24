@@ -2,6 +2,7 @@ using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Player.New;
 using UnityEngine;
+using KinematicCharacterMotor = KinematicCharacterController.KinematicCharacterMotor;
 
 public class HammerController : MonoBehaviour
 {

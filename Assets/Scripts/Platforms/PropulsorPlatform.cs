@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using UnityEngine;
+using KinematicCharacterMotor = Player.Old;
 
 namespace Platforms
 {
@@ -25,7 +26,7 @@ namespace Platforms
 
             if (other.gameObject.CompareTag("Player"))
             {
-                var kinematicCharacterMotor = other.gameObject.GetComponent<KinematicCharacterMotor>();
+                var kinematicCharacterMotor = other.gameObject.GetComponent<KinematicCharacterController.KinematicCharacterMotor>();
                 var characterController = other.gameObject.GetComponent<ExampleCharacterController>();
 
                 var hammerController = other.gameObject.GetComponentInChildren<HammerController>();

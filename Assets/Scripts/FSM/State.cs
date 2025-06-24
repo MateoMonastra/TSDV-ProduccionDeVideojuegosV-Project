@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FSM
 {
@@ -10,6 +11,7 @@ namespace FSM
         public Action OnTick;
         public Action OnFixedTick;
         public Action OnExit;
+        public Action OnHandleInput;
 
         public virtual void Enter() => OnEnter?.Invoke();
 
@@ -18,6 +20,7 @@ namespace FSM
         public virtual void FixedTick(float delta) => OnFixedTick?.Invoke();
 
         public virtual void Exit() => OnExit?.Invoke();
+        public virtual void HandleInput(params object[] values) => OnHandleInput?.Invoke();
 
         public bool TryGetTransition(string id, out Transition transition)
         {

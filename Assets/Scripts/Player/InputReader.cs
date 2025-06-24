@@ -9,6 +9,7 @@ namespace Player
     {
         public Action OnNavigate;
         public Action OnPause;
+        public Action OnJump;
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
         public Action OnFlyUp;
@@ -32,6 +33,13 @@ namespace Player
             if (context.started)
             {
                 OnPause?.Invoke();
+            }
+        }
+        public void HandleJumpInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnJump?.Invoke();
             }
         }
 

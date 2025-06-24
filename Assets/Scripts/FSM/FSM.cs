@@ -26,11 +26,13 @@ namespace FSM
         {
             if (_current.TryGetTransition(id, out var transition))
             {
+                Debug.Log($"transition {_current} to {id}, success");
                 transition.Do();
                 _current = transition.To;
                 return true;
             }
 
+            Debug.Log($"transition {_current} to {id}, failure");
             return false;
         }
 

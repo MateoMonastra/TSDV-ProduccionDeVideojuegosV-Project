@@ -2,6 +2,7 @@ using System;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Player;
+using Player.New;
 using UnityEngine;
 
 namespace PlayerCheats
@@ -16,7 +17,7 @@ namespace PlayerCheats
         [SerializeField] private float flySpeed;
 
         private ExampleCharacterController _playerCharacterController;
-        private KinematicCharacterMotor _kinematicCharacterMotor;
+        private MyKinematicMotor _myKinematicMotor;
         private Vector2 _currentFlyInput;
         private float _currentVerticalInput;
 
@@ -25,14 +26,14 @@ namespace PlayerCheats
         private void OnEnable()
         {
             _playerCharacterController = character.GetComponent<ExampleCharacterController>();
-            _kinematicCharacterMotor = character.GetComponent<KinematicCharacterMotor>();
+            _myKinematicMotor = character.GetComponent<MyKinematicMotor>();
 
             if (_playerCharacterController == null)
             {
                 Debug.Log("player controller null");
             }
 
-            if (_kinematicCharacterMotor == null)
+            if (_myKinematicMotor == null)
             {
                 Debug.Log("kinematic character motor null");
             }
@@ -51,7 +52,7 @@ namespace PlayerCheats
             inputReader.OnGodModeCheat -= SwitchGodMode;
 
             _playerCharacterController = null;
-            _kinematicCharacterMotor = null;
+            _myKinematicMotor = null;
         }
 
         private void OnJumpPickUpCheat()
@@ -75,7 +76,7 @@ namespace PlayerCheats
                 inputReader.OnJumpPickUpCheat += OnJumpPickUpCheat;
 
                 _playerCharacterController.enabled = true;
-                _kinematicCharacterMotor.enabled = true;
+                _myKinematicMotor.enabled = true;
                 hammer?.SetActive(true);
                 godModeInstructions?.SetActive(false);
 
@@ -90,7 +91,7 @@ namespace PlayerCheats
 
                 _isGodModeActive = true;
                 _playerCharacterController.enabled = false;
-                _kinematicCharacterMotor.enabled = false;
+                _myKinematicMotor.enabled = false;
                 hammer?.SetActive(false);
                 godModeInstructions?.SetActive(true);
 
