@@ -154,8 +154,7 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked()
         {
-            if (!_isDeath)
-                TransitionToDeath();
+            
         }
     }
 }
