@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Enemies.BaseEnemy.States;
 using FSM;
+using Health;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -18,6 +19,7 @@ namespace Enemies.BaseEnemy
         public UnityEvent onDeath;
 
         //TODO: pasar conocimiento del player a un scriptable object
+        [SerializeField] private HealthController healthController;
         [SerializeField] private Transform player;
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
@@ -31,6 +33,12 @@ namespace Enemies.BaseEnemy
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
+
+        private void Awake()
+        {
+            healthController.OnTakeDamage += OnBeingAttacked;
+            healthController.OnDeath += TransitionToDeath;
+        }
 
         private void Start()
         {
@@ -72,6 +80,12 @@ namespace Enemies.BaseEnemy
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
+        }
+
+        private void OnDestroy()
+        {
+            healthController.OnTakeDamage -= OnBeingAttacked;
+            healthController.OnDeath -= TransitionToDeath;
         }
 
         private void TransitionToChase()

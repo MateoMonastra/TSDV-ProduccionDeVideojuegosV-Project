@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8136693203401698564}
+  - component: {fileID: 6096114325307598351}
   - component: {fileID: 5813122811278968515}
   - component: {fileID: 6952151925575430033}
   - component: {fileID: 3352233999941462722}
@@ -39,6 +40,19 @@ Transform:
   - {fileID: 6856786367200452442}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6096114325307598351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378120186435083909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!114 &5813122811278968515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +191,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  healthController: {fileID: 6096114325307598351}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 2440aa51b9ad3684e805274ef0fee782, type: 2}
   navMeshAgent: {fileID: 3352233999941462722}

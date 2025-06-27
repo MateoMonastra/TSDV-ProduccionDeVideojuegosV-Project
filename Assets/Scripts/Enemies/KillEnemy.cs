@@ -1,4 +1,5 @@
 using Enemies;
+using Health;
 using Platforms;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class KillEnemy : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            if (other.gameObject.TryGetComponent(out IEnemy enemy))
+            if (other.gameObject.TryGetComponent(out HealthController enemy))
             {
-                enemy.OnBeingAttacked();
+                enemy.OnTakeDamage();
             }
         }
 
