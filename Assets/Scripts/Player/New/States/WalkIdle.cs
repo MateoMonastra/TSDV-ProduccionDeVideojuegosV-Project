@@ -7,70 +7,79 @@ namespace Player.New
     {
         private readonly MyKinematicMotor _motor;
         private readonly float _moveSpeed;
+        private readonly float _rotationSharpness;
         private readonly float _gravity;
+        
+        private Vector3 _moveInputVector;
+        private Vector3 _lookInputVector;
+        private float _ungroundedTime;
         private System.Action _onFall;
-        private float _ungroundedTimer;
-        private Vector2 _currentInput;
 
-        public WalkIdle(MyKinematicMotor motor, float moveSpeed, float gravity, System.Action onFall)
+        public WalkIdle(MyKinematicMotor motor, float moveSpeed, float rotationSharpness, 
+                       float gravity, System.Action onFall)
         {
             _motor = motor;
             _moveSpeed = moveSpeed;
+            _rotationSharpness = rotationSharpness;
             _gravity = gravity;
             _onFall = onFall;
         }
 
         public override void Enter()
         {
-            _motor.SetVelocity(new Vector3(_motor.Velocity.x, 0, _motor.Velocity.z));
+            _ungroundedTime = 0f;
+ 
+            Vector3 velocity = _motor.Velocity;
+            velocity.y = Mathf.Min(velocity.y, 0);
+            _motor.SetVelocity(velocity);
         }
 
         public override void Tick(float delta)
         {
-            ApplyMovement(_currentInput, delta);
+            Vector3 targetVelocity = _moveInputVector * _moveSpeed;
+            Vector3 currentVelocity = _motor.Velocity;
             
-            HandleGravityAndTransitions(delta);
-        }
-
-        public override void HandleInput(params object[] values)
-        {
-            _currentInput = (Vector2)values[0];
-
-            if (!(_currentInput.sqrMagnitude > 0.01f)) return;
-            Vector3 forward = new Vector3(_currentInput.x, 0f, _currentInput.y).normalized;
-            _motor.SetRotation(Quaternion.LookRotation(forward));
-        }
-
-        private void ApplyMovement(Vector2 input, float deltaTime)
-        {
-            Vector3 planarVelocity = new Vector3(input.x, 0f, input.y) * _moveSpeed;
+            currentVelocity = Vector3.Lerp(
+                currentVelocity,
+                new Vector3(targetVelocity.x, currentVelocity.y, targetVelocity.z),
+                1 - Mathf.Exp(-_rotationSharpness * delta)
+            );
             
-            Vector3 newVelocity = new Vector3(planarVelocity.x, _motor.Velocity.y, planarVelocity.z);
-            _motor.SetVelocity(newVelocity);
-        }
-
-        private void HandleGravityAndTransitions(float deltaTime)
-        {
             if (!_motor.IsGrounded)
             {
-                _motor.ApplyGravity(_gravity, deltaTime);
-                _ungroundedTimer += deltaTime;
+                currentVelocity.y += _gravity * 0.1f * delta; 
+                _ungroundedTime += delta;
                 
-                if (_ungroundedTimer > 0.1f)
+                if (_ungroundedTime > 0.15f)
                 {
                     _onFall?.Invoke();
-                    _ungroundedTimer = 0f;
                 }
             }
             else
             {
-                _ungroundedTimer = 0f;
-
-                if (!(_motor.Velocity.y < 0)) return;
-                Vector3 velocity = _motor.Velocity;
-                velocity.y = 0;
-                _motor.SetVelocity(velocity);
+                _ungroundedTime = 0f;
+                currentVelocity.y = Mathf.Min(currentVelocity.y, 0);
             }
+            
+            _motor.SetVelocity(currentVelocity);
+            
+            if (_lookInputVector.sqrMagnitude > 0.01f)
+            {
+                _motor.SmoothRotation(_lookInputVector, _rotationSharpness, delta);
+            }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _moveInputVector = Vector3.zero;
+            _lookInputVector = Vector3.zero;
+        }
+
+        public override void HandleInput(params object[] values)
+        {
+            _moveInputVector = (Vector3)values[0];
+            _lookInputVector = values.Length > 1 ? (Vector3)values[1] : _moveInputVector;
         }
     }
 }
