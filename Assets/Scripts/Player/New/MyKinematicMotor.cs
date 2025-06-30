@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Player.New
@@ -85,25 +86,6 @@ namespace Player.New
             
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
-            // Post-detection y ajuste de suelo
-            float postMoveProbeDistance = _groundSnapDistance * 2f; // Mayor margen después de mover
-            _groundingSolver.CheckProbe(ref _position, _rotation, postMoveProbeDistance, _velocity, ref _groundingReport);
-
-            if (_groundingReport.FoundAnyGround && _velocity.y <= 0)
-            {
-                float currentCapsuleBase = _position.y + _capsule.center.y - (_capsule.height * 0.5f);
-                
-                float desiredBaseY = _groundingReport.GroundPoint.y + _capsule.radius;
-               
-                float desiredY = desiredBaseY + (_capsule.height * 0.5f) - _capsule.center.y;
-                
-                if (Mathf.Abs(currentCapsuleBase - desiredBaseY) > 0.01f)
-                {
-                    _position.y = desiredY;
-                    _velocity.y = Mathf.Min(_velocity.y, 0);
-                }
-            }
-
             transform.SetPositionAndRotation(_position, _rotation);
         }
         public void SetRotation(Vector3 direction)
@@ -127,6 +109,12 @@ namespace Player.New
             {
                 _velocity.y += gravity * deltaTime;
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(_position,0.1f);
         }
     }
 }
