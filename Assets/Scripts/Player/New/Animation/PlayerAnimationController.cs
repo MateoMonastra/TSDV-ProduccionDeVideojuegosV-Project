@@ -9,20 +9,26 @@ namespace Player.New
         private static readonly int MovementValueX = Animator.StringToHash("MovementValueX");
         private static readonly int MovementValueZ = Animator.StringToHash("MovementValueZ");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private static readonly int IsOnGround = Animator.StringToHash("IsOnGround");
         
         [SerializeField] Animator animator;
         
-        public void SetJumpAnimation()
+        public void SetJumpAnimation(bool isJumping)
         {
-            animator.SetTrigger(IsJumping);
+            animator.SetBool(IsJumping,isJumping);
         }
         
-        public void SetFallAnimation()
+        public void SetFallAnimation( bool isFalling)
         {
-            animator.SetTrigger(IsFalling);
+            animator.SetBool(IsFalling,isFalling);
         }
         
         public void SetDeadAnimation()
+        {
+            animator.SetTrigger(IsDead);
+        }
+        
+        public void SetFinishFallAnimation()
         {
             animator.SetTrigger(IsDead);
         }

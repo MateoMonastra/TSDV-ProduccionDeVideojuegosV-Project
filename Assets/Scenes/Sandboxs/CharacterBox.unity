@@ -1180,7 +1180,19 @@ MonoBehaviour:
       - m_Target: {fileID: 243734810}
         m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
         m_MethodName: SetFallAnimation
-        m_Mode: 1
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 243734810}
+        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
+        m_MethodName: SetJumpAnimation
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1191,14 +1203,11 @@ MonoBehaviour:
         m_CallState: 2
   onWalkIdle:
     m_PersistentCalls:
-      m_Calls: []
-  onJump:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 243734810}
         m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
-        m_MethodName: SetJumpAnimation
-        m_Mode: 1
+        m_MethodName: SetFallAnimation
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1207,16 +1216,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onJump:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 243734810}
+        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
+        m_MethodName: SetJumpAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   motor: {fileID: 243734809}
   animationController: {fileID: 243734810}
   inputReader: {fileID: 4198275304448247819}
-  moveSpeed: 10
-  jumpVelocity: 10
-  gravity: -10
-  airAcceleration: 15
-  maxAirSpeed: 10
-  rotationSharpness: 15
-  airControlSharpness: 5
+  model: {fileID: 11400000, guid: b500ce0009cf57f4e8bfa79ec0eccd22, type: 2}
 --- !u!4 &243734807
 Transform:
   m_ObjectHideFlags: 0
@@ -1277,11 +1295,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 705
   _characterMass: 1
-  _groundSnapDistance: 0.2
-  _groundedOffset: 0.05
   _maxSnapSpeed: 5
   _rotationSpeed: 10
   _rotationSharpness: 10
+  _groundSnapDistance: 0.2
+  _groundedOffset: 0.05
+  _fallDetectionMultiplier: 2
+  _minGroundDotForSnap: 0.85
 --- !u!114 &243734810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1508,9 +1528,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1014531853128904603, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: m_Gravity.y
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014531853128904603, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: m_DeltaTimeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014531853128904603, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: m_RootBones.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       propertyPath: animator
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: animationEvents
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143351457651717672, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6666373297758378847, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       propertyPath: m_Name
@@ -1518,7 +1562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320928428678493006, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -1528,6 +1572,9 @@ PrefabInstance:
     - {fileID: 2973502247403683279, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 537080339}
     - targetCorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 537080336}
@@ -1911,6 +1958,73 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &537080339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537080335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa2b9bccfefda549bd1cf67fd922ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RootBones:
+  - {fileID: 609974301}
+  - {fileID: 1037356108}
+  - {fileID: 1337764602}
+  - {fileID: 1599364819}
+  m_EndBones: []
+  m_Material: {fileID: 0}
+  m_StartDepth: 0
+  m_SiblingConstraints: 0
+  m_ClosedSiblings: 0
+  m_SiblingRotationConstraints: 1
+  m_LengthUnification: 0
+  m_CollisionLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ExtraColliders: []
+  m_Radius: 0
+  m_RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_DeltaTimeMode: 0
+  m_ConstantDeltaTime: 0.03
+  m_Iterations: 1
+  m_SleepThreshold: 0.005
+  m_GravityAligner: {fileID: 0}
+  m_Gravity: {x: 0, y: -15, z: 0}
+  m_ForceModule: {fileID: 0}
+  m_ForceScale: 1
+  m_SimulateSpace: {fileID: 0}
+--- !u!4 &609974301 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5122879209172177343, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+  m_PrefabInstance: {fileID: 296857035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &635362167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,6 +2542,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1037356108 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1363255706771835511, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+  m_PrefabInstance: {fileID: 296857035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1144405824
 Mesh:
   m_ObjectHideFlags: 0
@@ -3124,6 +3243,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 361548175956298778, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
   m_PrefabInstance: {fileID: 296857035}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1337764602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 715903559402205325, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+  m_PrefabInstance: {fileID: 296857035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1357327539
 Mesh:
   m_ObjectHideFlags: 0
@@ -3641,6 +3765,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!4 &1599364819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 589855784296042198, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+  m_PrefabInstance: {fileID: 296857035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1603827285
 Mesh:
   m_ObjectHideFlags: 0

@@ -5,14 +5,30 @@ namespace Player.New
 {
     public class MyKinematicMotor : MonoBehaviour
     {
-        [Header("References")] 
-        [SerializeField] private CapsuleCollider _capsule;
+        [Header("References")] [SerializeField]
+        private CapsuleCollider _capsule;
+
         [SerializeField] private LayerMask _collisionMask;
         [SerializeField] private LayerMask _groundMask;
-        [SerializeField] private float _characterMass = 1f;
-        [SerializeField] private float _groundSnapDistance = 0.1f;
+
+        [Header("Movement Settings")] [SerializeField]
+        private float _characterMass = 1f;
+
         [SerializeField] private float _maxSnapSpeed = 5f;
-        [SerializeField] private float _groundedOffset = 0.05f;
+        [SerializeField] private float _rotationSpeed = 10f;
+
+        [Header("Rotation Settings")] [SerializeField]
+        private float _rotationSharpness = 10f;
+
+        private Quaternion _targetRotation;
+        private Quaternion _smoothedRotation;
+
+        [Header("Ground Detection")] [SerializeField]
+        private float _groundSnapDistance = 0.3f;
+
+        [SerializeField] private float _groundedOffset = 0.1f;
+        [SerializeField] private float _fallDetectionMultiplier = 2f;
+        [SerializeField] private float _minGroundDotForSnap = 0.85f;
 
         private MovementSolver _movementSolver;
         private GroundingSolver _groundingSolver;
@@ -26,18 +42,26 @@ namespace Player.New
 
         public Vector3 Velocity => _velocity;
         public bool IsGrounded => _groundingReport.IsStableOnGround && _groundingReport.FoundAnyGround;
-
+        public Quaternion SmoothedRotation
+        {
+            get => _smoothedRotation;
+            set => _smoothedRotation = value;
+        }
         public void SetVelocity(Vector3 velocity) => _velocity = velocity;
         public void AddVelocity(Vector3 deltaVelocity) => _velocity += deltaVelocity;
         public void SetRotation(Quaternion rotation) => _rotation = rotation;
-
+        public Vector3 CharacterUp => Vector3.up;
+        public CharacterGroundingReport GroundingReport => _groundingReport;
         public void SetInputDirection(Vector2 moveInput, float moveSpeed)
         {
             Vector3 planarVelocity = new Vector3(moveInput.x, 0f, moveInput.y) * moveSpeed;
             _velocity.x = planarVelocity.x;
             _velocity.z = planarVelocity.z;
         }
-
+        public Vector3 GetDirectionTangentToSurface(Vector3 direction, Vector3 surfaceNormal)
+        {
+            return Vector3.ProjectOnPlane(direction, surfaceNormal).normalized;
+        }
         private void Awake()
         {
             _rigidbodyHandler = new RigidbodyInteractionHandler(_characterMass);
@@ -46,52 +70,62 @@ namespace Player.New
 
             _position = transform.position;
             _rotation = transform.rotation;
-        }
 
-        private void Update()
-        {
-            transform.SetPositionAndRotation(_position, _rotation);
+            _targetRotation = transform.rotation;
+            _smoothedRotation = transform.rotation;
         }
-
         private void FixedUpdate()
         {
             float deltaTime = Time.fixedDeltaTime;
-
-
+            
             ApplyGravity(Physics.gravity.y, deltaTime);
-
-
+            
+            float preMoveProbeDistance = _groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
+            _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity, ref _groundingReport);
+            
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
-            // Calcular distancia de sondeo dinámica basada en velocidad
-            float probeDistance = Mathf.Max(_groundSnapDistance, Mathf.Abs(_velocity.y * deltaTime) + _groundedOffset);
-            _groundingSolver.CheckProbe(ref _position, _rotation, probeDistance, _velocity, ref _groundingReport);
+            // Post-detection y ajuste de suelo
+            float postMoveProbeDistance = _groundSnapDistance * 2f; // Mayor margen después de mover
+            _groundingSolver.CheckProbe(ref _position, _rotation, postMoveProbeDistance, _velocity, ref _groundingReport);
 
-            // Snap to ground si estamos cerca y moviéndonos hacia abajo
-            if (_groundingReport.FoundAnyGround && !_groundingReport.SnappingPrevented &&
-                _velocity.y <= 0 && _groundingReport.GroundPoint.y >= (_position.y - probeDistance))
+            if (_groundingReport.FoundAnyGround && _velocity.y <= 0)
             {
-                _position.y = _groundingReport.GroundPoint.y;
-                _velocity.y = 0;
+                float currentCapsuleBase = _position.y + _capsule.center.y - (_capsule.height * 0.5f);
+                
+                float desiredBaseY = _groundingReport.GroundPoint.y + _capsule.radius;
+               
+                float desiredY = desiredBaseY + (_capsule.height * 0.5f) - _capsule.center.y;
+                
+                if (Mathf.Abs(currentCapsuleBase - desiredBaseY) > 0.01f)
+                {
+                    _position.y = desiredY;
+                    _velocity.y = Mathf.Min(_velocity.y, 0);
+                }
             }
 
             transform.SetPositionAndRotation(_position, _rotation);
-            _wasGrounded = IsGrounded;
         }
-
+        public void SetRotation(Vector3 direction)
+        {
+            if (direction != Vector3.zero)
+            {
+                _rotation = Quaternion.LookRotation(direction);
+            }
+        }
+        public void SmoothRotation(Vector3 direction, float sharpness, float deltaTime)
+        {
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(direction);
+                _rotation = Quaternion.Slerp(_rotation, targetRot, 1 - Mathf.Exp(-sharpness * deltaTime));
+            }
+        }
         public void ApplyGravity(float gravity, float deltaTime)
         {
             if (!IsGrounded)
             {
                 _velocity.y += gravity * deltaTime;
-            }
-        }
-        
-        private void OnDrawGizmos()
-        {
-            if (_groundingSolver != null && _capsule != null)
-            {
-                _groundingSolver.DrawGizmos(transform.position, transform.rotation);
             }
         }
     }

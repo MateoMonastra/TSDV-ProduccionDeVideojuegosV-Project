@@ -14,20 +14,9 @@ namespace Player.New
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private InputReader inputReader;
-
-        [Header("Settings")]
-        [SerializeField] private float moveSpeed = 6f;
-        [SerializeField] private float jumpVelocity = 7f;
-        [SerializeField] private float gravity = -25f;
-        [SerializeField] private float airAcceleration = 15f;
-        [SerializeField] private float maxAirSpeed = 10f;
-        [SerializeField] private float rotationSharpness = 15f;
-        [SerializeField] private float airControlSharpness = 5f;
+        [SerializeField] private PlayerModel model;
 
         private Fsm _fsm;
-
-        private Vector3 _moveInput;
-        private Vector3 _lookInput;
 
         private const string ToWalkIdleID = "ToWalkIdle";
         private const string ToJumpID = "ToJump";
@@ -50,10 +39,9 @@ namespace Player.New
 
         private void Start()
         {
-            State fall = new Fall(motor, gravity, airAcceleration, maxAirSpeed, rotationSharpness,
-                TransitionToWalkIdle);
-            State jump = new Jump(motor, jumpVelocity, moveSpeed, gravity, rotationSharpness, airControlSharpness, TransitionToFall);
-            State walk = new WalkIdle(motor, moveSpeed, rotationSharpness, gravity, TransitionToFall);
+            State fall = new Fall(motor, model, TransitionToWalkIdle);
+            State jump = new Jump(motor, model, TransitionToFall);
+            State walk = new WalkIdle(motor, model, TransitionToFall);
 
             walk.AddTransition(new Transition { From = walk, To = jump, ID = ToJumpID });
             walk.AddTransition(new Transition { From = walk, To = fall, ID = ToFallID });
@@ -87,19 +75,19 @@ namespace Player.New
 
         private void OnHandleMove(Vector2 input)
         {
-            _moveInput = new Vector3(input.x, 0, input.y).normalized;
+            model.MoveInput = new Vector3(input.x, 0, input.y).normalized;
             SendInputToState();
         }
 
         private void OnHandleLook(Vector2 input)
         {
-            _lookInput = new Vector3(input.x, 0, input.y).normalized;
+            model.LookInput = new Vector3(input.x, 0, input.y).normalized;
             SendInputToState();
         }
 
         private void SendInputToState()
         {
-            _fsm?.GetCurrentState()?.HandleInput(_moveInput, _lookInput);
+            _fsm?.GetCurrentState()?.HandleInput(model.MoveInput,  model.LookInput);
         }
 
         private void Update()

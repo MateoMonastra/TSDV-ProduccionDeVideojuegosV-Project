@@ -6,22 +6,15 @@ namespace Player.New
     public class WalkIdle : State
     {
         private readonly MyKinematicMotor _motor;
-        private readonly float _moveSpeed;
-        private readonly float _rotationSharpness;
-        private readonly float _gravity;
-        
-        private Vector3 _moveInputVector;
-        private Vector3 _lookInputVector;
-        private float _ungroundedTime;
         private System.Action _onFall;
+        private PlayerModel _model;
 
-        public WalkIdle(MyKinematicMotor motor, float moveSpeed, float rotationSharpness, 
-                       float gravity, System.Action onFall)
+        private float _ungroundedTime;
+
+        public WalkIdle(MyKinematicMotor motor, PlayerModel model, System.Action onFall)
         {
             _motor = motor;
-            _moveSpeed = moveSpeed;
-            _rotationSharpness = rotationSharpness;
-            _gravity = gravity;
+            _model = model;
             _onFall = onFall;
         }
 
@@ -36,18 +29,18 @@ namespace Player.New
 
         public override void Tick(float delta)
         {
-            Vector3 targetVelocity = _moveInputVector * _moveSpeed;
+            Vector3 targetVelocity = _model.MoveInput * _model.MoveSpeed;
             Vector3 currentVelocity = _motor.Velocity;
             
             currentVelocity = Vector3.Lerp(
                 currentVelocity,
                 new Vector3(targetVelocity.x, currentVelocity.y, targetVelocity.z),
-                1 - Mathf.Exp(-_rotationSharpness * delta)
+                1 - Mathf.Exp(-_model.RotationSharpness * delta)
             );
             
             if (!_motor.IsGrounded)
             {
-                currentVelocity.y += _gravity * 0.1f * delta; 
+                currentVelocity.y += _model.Gravity * 0.1f * delta; 
                 _ungroundedTime += delta;
                 
                 if (_ungroundedTime > 0.15f)
@@ -63,23 +56,21 @@ namespace Player.New
             
             _motor.SetVelocity(currentVelocity);
             
-            if (_lookInputVector.sqrMagnitude > 0.01f)
+            if (_model.LookInput.sqrMagnitude > 0.01f)
             {
-                _motor.SmoothRotation(_lookInputVector, _rotationSharpness, delta);
+                _motor.SmoothRotation(_model.LookInput, _model.RotationSharpness, delta);
             }
         }
 
         public override void Exit()
         {
             base.Exit();
-            _moveInputVector = Vector3.zero;
-            _lookInputVector = Vector3.zero;
         }
 
         public override void HandleInput(params object[] values)
         {
-            _moveInputVector = (Vector3)values[0];
-            _lookInputVector = values.Length > 1 ? (Vector3)values[1] : _moveInputVector;
+            _model.MoveInput = (Vector3)values[0];
+            _model.LookInput = values.Length > 1 ? (Vector3)values[1] : _model.MoveInput;
         }
     }
 }

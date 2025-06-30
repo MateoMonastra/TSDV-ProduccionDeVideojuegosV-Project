@@ -12,6 +12,7 @@ namespace Player
         public Action OnJump;
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
+        public Action<Vector2> OnLook;
         public Action OnFlyUp;
         public Action OnFlyUpCanceled;
         public Action OnFlyDown;
@@ -42,6 +43,15 @@ namespace Player
                 OnJump?.Invoke();
             }
         }
+        
+        public void HandleLookInput(InputAction.CallbackContext context)
+        {
+            Vector2 lookInput = new Vector2(
+                Input.GetAxis("Mouse X"), 
+                Input.GetAxis("Mouse Y"));
+            OnLook?.Invoke(lookInput);
+        }
+
 
         public void HandleMoveInput(InputAction.CallbackContext context)
         {

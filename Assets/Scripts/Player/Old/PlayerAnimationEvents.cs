@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Player.New
+namespace Player.Old
 {
     public class PlayerAnimationEvents : MonoBehaviour
     {

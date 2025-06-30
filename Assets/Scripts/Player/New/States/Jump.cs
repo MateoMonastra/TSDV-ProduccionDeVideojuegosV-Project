@@ -6,29 +6,17 @@ namespace Player.New
     public class Jump : State
     {
         private readonly MyKinematicMotor _motor;
-        private readonly float _jumpUpSpeed;
-        private readonly float _jumpScalableForwardSpeed;
-        private readonly float _gravity;
-        private readonly float _rotationSharpness;
-        private readonly float _airControlSharpness;
-
-        private Vector3 _moveInputVector;
-        private Vector3 _lookInputVector;
+        private readonly PlayerModel _model;
         private float _elapsedTime;
         private bool _jumpConsumed;
 
         
         private System.Action _onFall;
 
-        public Jump(MyKinematicMotor motor, float jumpUpSpeed, float jumpScalableForwardSpeed,
-            float gravity, float rotationSharpness, float airControlSharpness,System.Action onFall)
+        public Jump(MyKinematicMotor motor, PlayerModel model,System.Action onFall)
         {
             _motor = motor;
-            _jumpUpSpeed = jumpUpSpeed;
-            _jumpScalableForwardSpeed = jumpScalableForwardSpeed;
-            _gravity = gravity;
-            _rotationSharpness = rotationSharpness;
-            _airControlSharpness = airControlSharpness;
+            _model = model;
             _onFall = onFall;
         }
 
@@ -39,11 +27,11 @@ namespace Player.New
             _jumpConsumed = false;
 
             Vector3 jumpVelocity = _motor.Velocity;
-            jumpVelocity.y = _jumpUpSpeed;
+            jumpVelocity.y = _model.JumpVelocity;
 
-            if (_moveInputVector.sqrMagnitude > 0.01f)
+            if (_model.MoveInput.sqrMagnitude > 0.01f)
             {
-                jumpVelocity += _moveInputVector * _jumpScalableForwardSpeed;
+                jumpVelocity += _model.MoveInput * _model.AirAcceleration;
             }
 
             _motor.SetVelocity(jumpVelocity);
@@ -54,15 +42,15 @@ namespace Player.New
             _elapsedTime += delta;
 
             Vector3 velocity = _motor.Velocity;
-            velocity.y += _gravity * delta;
+            velocity.y += _model.Gravity * delta;
 
             velocity = AirMovement(delta, velocity);
 
             _motor.SetVelocity(velocity);
 
-            if (_lookInputVector.sqrMagnitude > 0.01f)
+            if (_model.LookInput.sqrMagnitude > 0.01f)
             {
-                _motor.SmoothRotation(_lookInputVector, _rotationSharpness, delta);
+                _motor.SmoothRotation(_model.LookInput, _model.RotationSharpness, delta);
             }
 
   
@@ -75,18 +63,16 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _moveInputVector = Vector3.zero;
-            _lookInputVector = Vector3.zero;
         }
 
         private Vector3 AirMovement(float delta, Vector3 velocity)
         {
-            if (_moveInputVector.sqrMagnitude > 0.01f)
+            if (_model.MoveInput.sqrMagnitude > 0.01f)
             {
-                Vector3 targetVelocity = _moveInputVector * _jumpScalableForwardSpeed;
+                Vector3 targetVelocity = _model.MoveInput * _model.AirAcceleration;
                 velocity = Vector3.Lerp(velocity,
                     new Vector3(targetVelocity.x, velocity.y, targetVelocity.z),
-                    1 - Mathf.Exp(-_airControlSharpness * delta));
+                    1 - Mathf.Exp(-_model.AirControlSharpness * delta));
             }
 
             return velocity;
@@ -94,8 +80,8 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            _moveInputVector = (Vector3)values[0];
-            _lookInputVector = values.Length > 1 ? (Vector3)values[1] : _moveInputVector;
+            _model.MoveInput = (Vector3)values[0];
+            _model.LookInput = values.Length > 1 ? (Vector3)values[1] : _model.MoveInput;
         }
     }
 }

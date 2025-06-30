@@ -1,6 +1,7 @@
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Player.New;
+using Player.Old;
 using UnityEngine;
 using KinematicCharacterMotor = KinematicCharacterController.KinematicCharacterMotor;
 
@@ -31,7 +32,8 @@ public class HammerController : MonoBehaviour
         motor = GetComponentInParent<KinematicCharacterMotor>();
         characterController = GetComponentInParent<ExampleCharacterController>();
 
-        animationEvents.AnimationComplete += OnAnimationComplete;
+        if(animationEvents) 
+            animationEvents.AnimationComplete += OnAnimationComplete;
     }
 
     // Update is called once per frame
