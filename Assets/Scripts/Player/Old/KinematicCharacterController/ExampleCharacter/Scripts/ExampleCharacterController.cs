@@ -568,6 +568,9 @@ namespace KinematicCharacterController.Examples
 
             // Makes the character skip ground probing/snapping on its next update
             Motor.ForceUnground();
+            
+            //Audio
+            //AkSoundEngine.PostEvent("play_player_jump", gameObject);
 
             // Add to the return velocity and reset jump state
             currentVelocity += (jumpDirection * Model.JumpUpSpeed) -
