@@ -12,6 +12,7 @@ namespace Enemies
         private string _onIdle = "Idle";
         private string _onSpecialAttack = "SpecialAttack";
         private string _onChase = "Chase";
+        private string _onImpulse = "Impulse";
         private string _onDeath = "Death";
 
         private void OnEnable()
