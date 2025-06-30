@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3352233999941462722}
   - component: {fileID: 8957241947310003480}
   - component: {fileID: 6946263649448154249}
+  - component: {fileID: 8625324188891851793}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Enemy
@@ -52,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
 --- !u!114 &5813122811278968515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 2440aa51b9ad3684e805274ef0fee782, type: 2}
   navMeshAgent: {fileID: 3352233999941462722}
+  rigidbody: {fileID: 8625324188891851793}
   hitBox: {fileID: 9095588081920352081}
 --- !u!114 &6952151925575430033
 MonoBehaviour:
@@ -267,6 +269,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateText: {fileID: 208887400935774378}
+--- !u!54 &8625324188891851793
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378120186435083909}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1941076761489559800
 GameObject:
   m_ObjectHideFlags: 0
