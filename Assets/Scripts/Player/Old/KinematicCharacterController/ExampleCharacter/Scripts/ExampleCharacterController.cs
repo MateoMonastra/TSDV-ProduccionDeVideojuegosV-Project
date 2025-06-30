@@ -570,7 +570,7 @@ namespace KinematicCharacterController.Examples
             Motor.ForceUnground();
             
             //Audio
-            AkSoundEngine.PostEvent("play_player_jump", gameObject);
+            //AkSoundEngine.PostEvent("play_player_jump", gameObject);
 
             // Add to the return velocity and reset jump state
             currentVelocity += (jumpDirection * Model.JumpUpSpeed) -
