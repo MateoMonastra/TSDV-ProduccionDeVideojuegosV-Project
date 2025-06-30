@@ -30,7 +30,7 @@ namespace Player.New
                 _motor.SmoothRotation(_model.LookInput, _model.RotationSharpness, delta);
             }
 
-            if (_motor.IsGrounded && velocity.y <= 0)
+            if (_motor.IsGrounded)
             {
                 _onLand?.Invoke();
             }
