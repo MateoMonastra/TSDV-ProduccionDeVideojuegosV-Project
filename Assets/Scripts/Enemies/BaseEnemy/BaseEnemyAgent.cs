@@ -54,7 +54,7 @@ namespace Enemies.BaseEnemy
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
-            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody, onImpulseStarted: onImpulseStarted.Invoke, onImpulseEnded: TransitionToChase);
+            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody, onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
@@ -149,12 +149,14 @@ namespace Enemies.BaseEnemy
 
         private void ImpulseOnStart()
         {
-            
+            onImpulseStarted?.Invoke();   
         }
 
         private void ImpulseOnEnd()
         {
+            onImpulseEnded?.Invoke();   
             
+            TransitionToChase();
         }
         
         private void SetGodModeValue(bool value)

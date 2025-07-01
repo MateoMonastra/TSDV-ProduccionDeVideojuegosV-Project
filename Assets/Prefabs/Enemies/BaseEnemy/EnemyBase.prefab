@@ -113,10 +113,34 @@ MonoBehaviour:
       m_Calls: []
   onImpulseStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetDamagedAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onImpulseEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetDamagedAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onChase:
     m_PersistentCalls:
       m_Calls:
