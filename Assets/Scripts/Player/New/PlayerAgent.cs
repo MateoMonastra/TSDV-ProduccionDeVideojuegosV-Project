@@ -1,6 +1,7 @@
 ﻿using FSM;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Player.New
 {
@@ -10,8 +11,9 @@ namespace Player.New
         public UnityEvent onWalkIdle;
         public UnityEvent onJump;
 
-        [Header("References")]
+        [Header("References")] 
         [SerializeField] private MyKinematicMotor motor;
+        [SerializeField] private MyCharacterCamera camera;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private InputReader inputReader;
         [SerializeField] private PlayerModel model;
@@ -22,19 +24,22 @@ namespace Player.New
         private const string ToJumpID = "ToJump";
         private const string ToFallID = "ToFall";
 
+        private InputDevice _lastInputDevice;
 
         private void OnEnable()
         {
             inputReader.OnMove += OnHandleMove;
-            inputReader.OnLook += OnHandleLook;
+            inputReader.OnLook += HandleCameraLook;
             inputReader.OnJump += TransitionToJump;
+            inputReader.OnClick += SetGameCameraLock;
         }
 
         private void OnDisable()
         {
             inputReader.OnMove -= OnHandleMove;
-            inputReader.OnLook -= OnHandleLook;
+            inputReader.OnLook -= HandleCameraLook;
             inputReader.OnJump -= TransitionToJump;
+            inputReader.OnClick -= SetGameCameraLock;
         }
 
         private void Start()
@@ -79,21 +84,61 @@ namespace Player.New
             SendInputToState();
         }
 
-        private void OnHandleLook(Vector2 input)
+        private void UpdateCamera(float deltaTime)
         {
-            model.LookInput = new Vector3(input.x, 0, input.y).normalized;
-            SendInputToState();
+            if (camera == null) return;
+
+            Vector3 rotationInput = new Vector3(model.LookInput.x, model.LookInput.y, 0f);
+
+            camera.UpdateCamera(
+                deltaTime,
+                0,
+                rotationInput,
+                _lastInputDevice
+            );
+        }
+
+        private void HandleCameraLook(Vector2 input, InputDevice device)
+        {
+            model.LookInput = input;
+
+            _lastInputDevice = device;
         }
 
         private void SendInputToState()
         {
-            _fsm?.GetCurrentState()?.HandleInput(model.MoveInput,  model.LookInput);
+            _fsm?.GetCurrentState()?.HandleInput(model.MoveInput, model.LookInput);
         }
 
+        private void SetGameCameraLock()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        private void AlignAgentToCamera()
+        {
+            if (camera == null) return;
+
+            Vector3 planarDir = camera.PlanarDirection;
+            planarDir.y = 0f;
+
+            if (planarDir.sqrMagnitude > 0.001f)
+            {
+                Quaternion lookRot = Quaternion.LookRotation(planarDir, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 10f);
+            }
+        }
+        
         private void Update()
         {
             _fsm?.Update();
             animationController.SetMovementVelocity(motor.Velocity.x, motor.Velocity.z);
+            UpdateCamera(Time.deltaTime);
+
+            if (model.MoveInput.sqrMagnitude > 0.01f)
+            {
+                AlignAgentToCamera();
+            }
         }
         
         private void FixedUpdate()

@@ -47,13 +47,7 @@ namespace Player.New
             velocity = AirMovement(delta, velocity);
 
             _motor.SetVelocity(velocity);
-
-            if (_model.LookInput.sqrMagnitude > 0.01f)
-            {
-                _motor.SmoothRotation(_model.LookInput, _model.RotationSharpness, delta);
-            }
-
-  
+            
             if (velocity.y <= 0 || _elapsedTime > 1.5f)
             {
                 _onFall?.Invoke();
@@ -81,7 +75,6 @@ namespace Player.New
         public override void HandleInput(params object[] values)
         {
             _model.MoveInput = (Vector3)values[0];
-            _model.LookInput = values.Length > 1 ? (Vector3)values[1] : _model.MoveInput;
         }
     }
 }

@@ -8,11 +8,12 @@ namespace Player
     public class InputReader : MonoBehaviour
     {
         public Action OnNavigate;
+        public Action OnClick;
         public Action OnPause;
         public Action OnJump;
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
-        public Action<Vector2> OnLook;
+        public Action<Vector2,InputDevice> OnLook;
         public Action OnFlyUp;
         public Action OnFlyUpCanceled;
         public Action OnFlyDown;
@@ -27,6 +28,11 @@ namespace Player
         public void HandleNavigate(InputAction.CallbackContext context)
         {
             OnNavigate?.Invoke();
+        }
+        
+        public void HandleClick(InputAction.CallbackContext context)
+        {
+            OnClick?.Invoke();
         }
 
         public void HandlePauseInput(InputAction.CallbackContext context)
@@ -46,10 +52,7 @@ namespace Player
         
         public void HandleLookInput(InputAction.CallbackContext context)
         {
-            Vector2 lookInput = new Vector2(
-                Input.GetAxis("Mouse X"), 
-                Input.GetAxis("Mouse Y"));
-            OnLook?.Invoke(lookInput);
+            OnLook?.Invoke(context.ReadValue<Vector2>(), context.control.device);
         }
 
 
