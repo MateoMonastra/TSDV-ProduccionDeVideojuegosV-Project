@@ -9,7 +9,6 @@ namespace Enemies.BaseEnemy.States
         private Rigidbody _rigidbody;
         private Action _onImpulseStarted;
         private Action _onImpulseEnded;
-        private float _impulseTimer = 0;
         private float _fallMultiplier = 2.5f;
         private float _lowJumpMultiplier = 2f;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
@@ -26,15 +25,16 @@ namespace Enemies.BaseEnemy.States
         public override void Enter()
         {
             base.Enter();
-            
+
             _onImpulseStarted?.Invoke();
-            _impulseTimer = 0;
             _rigidbody.isKinematic = false;
             _agent.enabled = false;
             Vector3 fromPlayer = player.forward;
             fromPlayer.y = 0;
 
-            _rigidbody.AddForce(fromPlayer.normalized * model.HorizontalImpulseForce + Vector3.up * model.VerticalImpulseForce, ForceMode.Impulse);
+            _rigidbody.AddForce(
+                fromPlayer.normalized * model.HorizontalImpulseForce + Vector3.up * model.VerticalImpulseForce,
+                ForceMode.Impulse);
         }
 
         public override void Tick(float delta)
@@ -49,21 +49,17 @@ namespace Enemies.BaseEnemy.States
             {
                 _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.LowJumpMultiplier - 1) * delta);
             }
-
-
+            
             GroundCheck();
         }
 
         private void GroundCheck()
         {
-            Ray groundRay = new Ray(enemy.position + Vector3.up * 0.5f, -enemy.up);
-            var hits = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, out var hit, 0.5f,
+            bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, 0.5f,
                 1 << LayerMask.NameToLayer("Default"));
 
-            if (hits)
+            if (isGrounded)
             {
-                Debug.Log("afirmativo capitan");
-                Debug.Log(hit.collider.gameObject.name);
                 _onImpulseEnded?.Invoke();
             }
         }

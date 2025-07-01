@@ -54,7 +54,8 @@ namespace Enemies.BaseEnemy
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
-            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody, onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
@@ -74,11 +75,11 @@ namespace Enemies.BaseEnemy
             Transition chaseToImpulse = new Transition() { From = chase, To = impulse, ID = ToImpulseID };
             chase.AddTransition(chaseToImpulse);
             _states.Add(chase);
-            
+
             //Atack Transitions
             Transition attackToChase = new Transition() { From = attack, To = chase, ID = ToChaseID };
             attack.AddTransition(attackToChase);
-            
+
             Transition attackToImpulse = new Transition() { From = attack, To = impulse, ID = ToImpulseID };
             attack.AddTransition(attackToImpulse);
             _states.Add(attack);
@@ -86,11 +87,14 @@ namespace Enemies.BaseEnemy
             //Impulse transitions
             Transition impulseToChase = new Transition() { From = impulse, To = chase, ID = ToChaseID };
             impulse.AddTransition(impulseToChase);
+
+            Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
+            impulse.AddTransition(impulseToImpulse);
             _states.Add(impulse);
-            
+
             _fsm = new Fsm(idle);
         }
-        
+
         private void OnEnable()
         {
             GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
@@ -128,7 +132,7 @@ namespace Enemies.BaseEnemy
         {
             _fsm.TryTransitionTo(ToImpulseID);
         }
-        
+
         private void TransitionToDeath()
         {
             onDeath?.Invoke();
@@ -149,16 +153,16 @@ namespace Enemies.BaseEnemy
 
         private void ImpulseOnStart()
         {
-            onImpulseStarted?.Invoke();   
+            onImpulseStarted?.Invoke();
         }
 
         private void ImpulseOnEnd()
         {
-            onImpulseEnded?.Invoke();   
-            
+            onImpulseEnded?.Invoke();
+
             TransitionToChase();
         }
-        
+
         private void SetGodModeValue(bool value)
         {
             _isGodModeActive = value;
