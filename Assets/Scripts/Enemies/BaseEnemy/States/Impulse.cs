@@ -31,6 +31,9 @@ namespace Enemies.BaseEnemy.States
             _agent.enabled = false;
             Vector3 fromPlayer = player.forward;
             fromPlayer.y = 0;
+            Vector3 toPlayer = player.position;
+            toPlayer.y = enemy.position.y;
+            enemy.LookAt(toPlayer);
 
             _rigidbody.AddForce(
                 fromPlayer.normalized * model.HorizontalImpulseForce + Vector3.up * model.VerticalImpulseForce,

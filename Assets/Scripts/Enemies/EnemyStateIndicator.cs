@@ -11,6 +11,7 @@ namespace Enemies
         private string _onAttack = "Attack";
         private string _onIdle = "Idle";
         private string _onSpecialAttack = "SpecialAttack";
+        private string _onDamaged = "Damaged";
         private string _onChase = "Chase";
         private string _onImpulse = "Impulse";
         private string _onDeath = "Death";
@@ -36,6 +37,12 @@ namespace Enemies
         {
             currentStateText.text = _onSpecialAttack;
             currentStateText.color = Color.magenta;
+        }
+
+        public void SetDamageState()
+        {
+            currentStateText.text = _onSpecialAttack;
+            currentStateText.color = Color.yellow;
         }
 
         public void SetChaseState()
