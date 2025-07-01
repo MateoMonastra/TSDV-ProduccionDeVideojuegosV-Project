@@ -38,11 +38,26 @@ namespace Player.New
                 1 - Mathf.Exp(-_model.RotationSharpness * delta)
             );
             
+            if (_model.MoveInput.sqrMagnitude > 0.001f)
+            {
+                Quaternion currentRot = _motor.transform.rotation;
+
+                Quaternion targetRot = Quaternion.LookRotation(_model.MoveInput.normalized, Vector3.up);
+
+                Quaternion newRot = Quaternion.Slerp(
+                    currentRot,
+                    targetRot,
+                    1 - Mathf.Exp(-_model.RotationSharpness * delta)
+                );
+
+                _motor.SetRotation(newRot);
+            }
+            
             if (!_motor.IsGrounded)
             {
-                currentVelocity.y += _model.Gravity * 0.1f * delta; 
+                currentVelocity.y += _model.Gravity * 0.1f * delta;
                 _ungroundedTime += delta;
-                
+
                 if (_ungroundedTime > 0.15f)
                 {
                     _onFall?.Invoke();
@@ -53,7 +68,7 @@ namespace Player.New
                 _ungroundedTime = 0f;
                 currentVelocity.y = Mathf.Min(currentVelocity.y, 0);
             }
-            
+
             _motor.SetVelocity(currentVelocity);
         }
 

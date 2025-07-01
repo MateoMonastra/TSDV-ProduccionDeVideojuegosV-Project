@@ -11,8 +11,9 @@ namespace Player.New
         public UnityEvent onWalkIdle;
         public UnityEvent onJump;
 
-        [Header("References")] 
-        [SerializeField] private MyKinematicMotor motor;
+        [Header("References")] [SerializeField]
+        private MyKinematicMotor motor;
+
         [SerializeField] private MyCharacterCamera camera;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private InputReader inputReader;
@@ -32,6 +33,7 @@ namespace Player.New
             inputReader.OnLook += HandleCameraLook;
             inputReader.OnJump += TransitionToJump;
             inputReader.OnClick += SetGameCameraLock;
+            GameEvents.GameEvents.OnGamePaused += OnPause;
         }
 
         private void OnDisable()
@@ -40,6 +42,7 @@ namespace Player.New
             inputReader.OnLook -= HandleCameraLook;
             inputReader.OnJump -= TransitionToJump;
             inputReader.OnClick -= SetGameCameraLock;
+            GameEvents.GameEvents.OnGamePaused -= OnPause;
         }
 
         private void Start()
@@ -80,9 +83,39 @@ namespace Player.New
 
         private void OnHandleMove(Vector2 input)
         {
-            model.MoveInput = new Vector3(input.x, 0, input.y).normalized;
+            if (camera == null)
+                return;
+
+            Vector3 cameraForward = camera.PlanarDirection;
+            Vector3 cameraRight = Vector3.Cross(Vector3.up, cameraForward);
+
+            Vector3 moveWorld =
+                cameraForward.normalized * input.y +
+                cameraRight.normalized * input.x;
+
+            model.MoveInput = moveWorld.normalized;
+
             SendInputToState();
         }
+
+        private void OnPause(bool isGamePaused)
+        {
+            if (isGamePaused)
+            {
+                inputReader.OnMove -= OnHandleMove;
+                inputReader.OnLook -= HandleCameraLook;
+                inputReader.OnJump -= TransitionToJump;
+                inputReader.OnClick -= SetGameCameraLock;
+            }
+            else
+            {
+                inputReader.OnMove += OnHandleMove;
+                inputReader.OnLook += HandleCameraLook;
+                inputReader.OnJump += TransitionToJump;
+                inputReader.OnClick += SetGameCameraLock;
+            }
+        }
+
 
         private void UpdateCamera(float deltaTime)
         {
@@ -128,7 +161,7 @@ namespace Player.New
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 10f);
             }
         }
-        
+
         private void Update()
         {
             _fsm?.Update();
@@ -140,7 +173,7 @@ namespace Player.New
                 AlignAgentToCamera();
             }
         }
-        
+
         private void FixedUpdate()
         {
             _fsm?.FixedUpdate();

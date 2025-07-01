@@ -7,6 +7,7 @@ namespace GameEvents
     {
         public static event Action<GameObject> OnPlayerDied;
         public static event Action<bool> OnPlayerGodMode;
+        public static event Action<bool> OnGamePaused;
         public static event Action OnPlayerBlinded;
 
         public static void PlayerDied(GameObject player)
@@ -22,6 +23,11 @@ namespace GameEvents
         public static void PlayerBlinded()
         {
             OnPlayerBlinded?.Invoke();
+        }
+
+        public static void GamePaused(bool isGamePaused)
+        {
+            OnGamePaused?.Invoke(isGamePaused);   
         }
     }
 }
