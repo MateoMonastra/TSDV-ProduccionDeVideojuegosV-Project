@@ -27,6 +27,7 @@ namespace Enemies.BaseEnemy.States
         {
             base.Enter();
             
+            _onImpulseStarted?.Invoke();
             _impulseTimer = 0;
             _rigidbody.isKinematic = false;
             _agent.enabled = false;
