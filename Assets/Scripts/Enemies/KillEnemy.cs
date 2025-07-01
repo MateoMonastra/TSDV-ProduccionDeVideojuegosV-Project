@@ -1,11 +1,12 @@
-using Enemies;
 using Health;
 using Platforms;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class KillEnemy : MonoBehaviour
 {
     [SerializeField] private HammerController hammerController;
+    private List<Collider> attacked = new();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +14,7 @@ public class KillEnemy : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent(out HealthController enemy))
             {
-                //enemy.Damage(1);
+                enemy.Damage(1);
             }
         }
 
