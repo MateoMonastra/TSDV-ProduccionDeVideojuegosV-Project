@@ -10,6 +10,9 @@ namespace Enemies.BaseEnemy.States
         private Action _onImpulseStarted;
         private Action _onImpulseEnded;
         private float _impulseTimer = 0;
+        private float _fallMultiplier = 2.5f;
+        private float _lowJumpMultiplier = 2f;
+        private readonly RaycastHit[] _hit = new RaycastHit[1];
 
         public Impulse(Transform enemy, Transform player, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
@@ -23,33 +26,45 @@ namespace Enemies.BaseEnemy.States
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("impulsing");
+            
             _impulseTimer = 0;
             _rigidbody.isKinematic = false;
             _agent.enabled = false;
-            Vector3 fromPlayer = enemy.position - player.position;
-            fromPlayer.y = 4;
+            Vector3 fromPlayer = player.forward;
+            fromPlayer.y = 0;
 
-            _rigidbody.AddForce(fromPlayer.normalized * model.ImpulseForce, ForceMode.Impulse);
+            _rigidbody.AddForce(fromPlayer.normalized * model.HorizontalImpulseForce + Vector3.up * model.VerticalImpulseForce, ForceMode.Impulse);
         }
 
         public override void Tick(float delta)
         {
             base.Tick(delta);
 
-            if (_impulseTimer < model.DamagedStunTime)
+            if (_rigidbody.linearVelocity.y < 0)
             {
-                _impulseTimer += delta;
+                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.FallMultiplier - 1) * delta);
             }
-            else
+            else if (_rigidbody.linearVelocity.y > 0)
             {
-                _onImpulseEnded?.Invoke();
+                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.LowJumpMultiplier - 1) * delta);
             }
+
+
+            GroundCheck();
         }
 
         private void GroundCheck()
         {
-            Physics.RaycastNonAlloc(player.position);
+            Ray groundRay = new Ray(enemy.position + Vector3.up * 0.5f, -enemy.up);
+            var hits = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, out var hit, 0.5f,
+                1 << LayerMask.NameToLayer("Default"));
+
+            if (hits)
+            {
+                Debug.Log("afirmativo capitan");
+                Debug.Log(hit.collider.gameObject.name);
+                _onImpulseEnded?.Invoke();
+            }
         }
 
         public override void FixedTick(float delta)

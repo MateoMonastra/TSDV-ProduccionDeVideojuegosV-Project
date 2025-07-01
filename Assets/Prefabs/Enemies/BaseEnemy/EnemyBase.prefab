@@ -111,6 +111,12 @@ MonoBehaviour:
   onAttackFinish:
     m_PersistentCalls:
       m_Calls: []
+  onImpulseStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onImpulseEnded:
+    m_PersistentCalls:
+      m_Calls: []
   onChase:
     m_PersistentCalls:
       m_Calls:
@@ -240,7 +246,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378120186435083909}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7cba1ac2c885829469767eb6d0b0165d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies.BaseEnemy
 {
@@ -10,7 +11,10 @@ namespace Enemies.BaseEnemy
         [SerializeField] private float attackRange;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelay;
-        [SerializeField] private float impulseForce;
+        [SerializeField] private float horizontalImpulseForce;
+        [SerializeField] private float verticalImpulseForce;
+        [SerializeField] private float lowJumpMultiplier;
+        [SerializeField] private float fallMultiplier;
         [SerializeField] private float damagedStunTime;
         [SerializeField] private float deathTime;
 
@@ -44,12 +48,30 @@ namespace Enemies.BaseEnemy
             set => attackDelay = value;
         }
 
-        public float ImpulseForce
+        public float HorizontalImpulseForce
         {
-            get => impulseForce;
-            set => impulseForce = value;
+            get => horizontalImpulseForce;
+            set => horizontalImpulseForce = value;
         }
 
+        public float VerticalImpulseForce
+        {
+            get => verticalImpulseForce;
+            set => verticalImpulseForce = value;
+        }
+        
+        public float LowJumpMultiplier
+        {
+            get => lowJumpMultiplier;
+            set => lowJumpMultiplier = value;
+        }
+
+        public float FallMultiplier
+        {
+            get => fallMultiplier;
+            set => fallMultiplier = value;
+        }
+        
         public float DamagedStunTime
         {
             get => damagedStunTime;
