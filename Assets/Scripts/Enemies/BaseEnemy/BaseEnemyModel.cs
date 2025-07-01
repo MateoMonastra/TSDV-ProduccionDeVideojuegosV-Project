@@ -6,11 +6,16 @@ namespace Enemies.BaseEnemy
     [CreateAssetMenu(fileName = "EnemyModel", menuName = "Models/Enemy")]
     public class BaseEnemyModel : ScriptableObject
     {
+        [Header("Detection Settings")]
         [SerializeField] private float innerRadius;
         [SerializeField] private float outerRadius;
+        
+        [Header("Attack Settings")]
         [SerializeField] private float attackRange;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelay;
+        
+        [Header("Damage Feedback Settings")]
         [SerializeField] private float horizontalImpulseForce;
         [SerializeField] private float verticalImpulseForce;
         [SerializeField] private float lowJumpMultiplier;
