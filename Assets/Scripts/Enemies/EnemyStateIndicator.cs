@@ -41,7 +41,7 @@ namespace Enemies
 
         public void SetDamageState()
         {
-            currentStateText.text = _onSpecialAttack;
+            currentStateText.text = _onDamaged;
             currentStateText.color = Color.yellow;
         }
 

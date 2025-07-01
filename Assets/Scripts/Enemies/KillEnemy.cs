@@ -13,7 +13,7 @@ public class KillEnemy : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent(out HealthController enemy))
             {
-                enemy.OnTakeDamage();
+                //enemy.Damage(1);
             }
         }
 
