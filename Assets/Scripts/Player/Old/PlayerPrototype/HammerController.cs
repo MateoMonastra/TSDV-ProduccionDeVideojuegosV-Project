@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem[] holdAttackParticles;
     [SerializeField] private ParticleSystem groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
@@ -102,6 +103,11 @@ public class HammerController : MonoBehaviour
     void HoldAttack()
     {
         StartAttack();
+
+        for (int i = 0; i < holdAttackParticles.Length; i++)
+        {
+            holdAttackParticles[i].Play();
+        }
 
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
