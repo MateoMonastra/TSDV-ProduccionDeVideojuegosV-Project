@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private ParticleSystem[] groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
@@ -129,15 +129,19 @@ public class HammerController : MonoBehaviour
         }
     }
 
-    void EndGroundSlam()
+    private void EndGroundSlam()
     {
+        if (!isAnimating)
+            return;
+        
         isAnimating = false;
         ToggleAttackCollider(true);
 
-        if (groundSlamParticles.isPlaying)
-            groundSlamParticles.Stop();
-
-        groundSlamParticles.Play();
+        for (int i = 0; i < groundSlamParticles.Length; i++)
+        {
+            groundSlamParticles[i].Play();
+        }
+        
         animator.SetTrigger("GroundSlamEnd");
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
