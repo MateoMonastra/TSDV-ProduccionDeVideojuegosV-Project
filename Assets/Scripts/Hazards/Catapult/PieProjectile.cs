@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 
@@ -7,14 +8,12 @@ namespace Hazards.Catapult
     public class PieProjectile : MonoBehaviour
     {
         [SerializeField] private LayerMask environmentLayer;
-        
-        private Rigidbody _rb;
-        private bool _hasCollided = false;
+        [SerializeField] private ParticleSystem environmentHit;
+        [SerializeField] private List<ParticleSystem> OnHit;
+        [SerializeField] private GameObject model;
 
-        private void OnEnable()
-        {
-            _rb = GetComponent<Rigidbody>();
-        }
+        private bool _hasCollided = false;
+        private float destroyOffset = 3.0f;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -26,13 +25,24 @@ namespace Hazards.Catapult
                 if (!other.GetComponent(typeof(ExampleCharacterController))) return;
 
                 GameEvents.GameEvents.PlayerBlinded();
+                PlayOnHit();
             }
             else if (other.gameObject.layer == environmentLayer)
             {
-                Debug.Log("Environment Hit");
+                environmentHit.Play();
+                PlayOnHit();
             }
 
-            Destroy(gameObject);
+            model.SetActive(false);
+            Destroy(gameObject, destroyOffset);
+        }
+
+        private void PlayOnHit()
+        {
+            foreach (var effect in OnHit)
+            {
+                effect.Play();
+            }
         }
     }
 }
