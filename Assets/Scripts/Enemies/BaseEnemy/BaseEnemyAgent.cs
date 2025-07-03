@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Enemies.BaseEnemy.States;
 using FSM;
@@ -14,6 +13,8 @@ namespace Enemies.BaseEnemy
         public UnityEvent onAttackDelay;
         public UnityEvent onAttackHit;
         public UnityEvent onAttackFinish;
+        public UnityEvent onImpulseStarted;
+        public UnityEvent onImpulseEnded;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
@@ -23,6 +24,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private Transform player;
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
+        [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
 
         private Fsm _fsm;
@@ -33,6 +35,7 @@ namespace Enemies.BaseEnemy
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
+        private const string ToImpulseID = "toImpulse";
 
         private void Awake()
         {
@@ -51,9 +54,15 @@ namespace Enemies.BaseEnemy
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
+            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
             idle.AddTransition(idleToChase);
+
+            Transition idleToImpulse = new Transition() { From = idle, To = impulse, ID = ToImpulseID };
+            idle.AddTransition(idleToImpulse);
             _states.Add(idle);
 
             //Chase Transitions
@@ -62,12 +71,26 @@ namespace Enemies.BaseEnemy
 
             Transition chaseToIdle = new Transition() { From = chase, To = idle, ID = ToIdleID };
             chase.AddTransition(chaseToIdle);
+
+            Transition chaseToImpulse = new Transition() { From = chase, To = impulse, ID = ToImpulseID };
+            chase.AddTransition(chaseToImpulse);
             _states.Add(chase);
 
             //Atack Transitions
             Transition attackToChase = new Transition() { From = attack, To = chase, ID = ToChaseID };
             attack.AddTransition(attackToChase);
+
+            Transition attackToImpulse = new Transition() { From = attack, To = impulse, ID = ToImpulseID };
+            attack.AddTransition(attackToImpulse);
             _states.Add(attack);
+
+            //Impulse transitions
+            Transition impulseToChase = new Transition() { From = impulse, To = chase, ID = ToChaseID };
+            impulse.AddTransition(impulseToChase);
+
+            Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
+            impulse.AddTransition(impulseToImpulse);
+            _states.Add(impulse);
 
             _fsm = new Fsm(idle);
         }
@@ -105,6 +128,11 @@ namespace Enemies.BaseEnemy
             _fsm.TryTransitionTo(ToIdleID);
         }
 
+        private void TransitionToImpulse()
+        {
+            _fsm.TryTransitionTo(ToImpulseID);
+        }
+
         private void TransitionToDeath()
         {
             onDeath?.Invoke();
@@ -121,6 +149,18 @@ namespace Enemies.BaseEnemy
         private void AttackOnHit()
         {
             onAttackHit?.Invoke();
+        }
+
+        private void ImpulseOnStart()
+        {
+            onImpulseStarted?.Invoke();
+        }
+
+        private void ImpulseOnEnd()
+        {
+            onImpulseEnded?.Invoke();
+
+            TransitionToChase();
         }
 
         private void SetGodModeValue(bool value)
@@ -154,8 +194,7 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked()
         {
-            if (!_isDeath)
-                TransitionToDeath();
+            TransitionToImpulse();
         }
     }
 }

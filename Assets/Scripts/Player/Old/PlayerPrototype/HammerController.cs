@@ -11,6 +11,7 @@ public class HammerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
     [SerializeField] private Collider collider;
+    [SerializeField] private KillEnemy killEnemy;
     private InputSystem_Actions inputs;
     private bool isAnimating = false;
     private float holdTimeThreshold = 0.2f; // Time in seconds to consider it a hold
@@ -87,7 +88,7 @@ public class HammerController : MonoBehaviour
     private void StartAttack()
     {
         isAnimating = true;
-        collider.enabled = true;
+        ToggleAttackCollider(true);
 
         animator.SetBool("IsAttacking", true);
     }
@@ -137,7 +138,7 @@ public class HammerController : MonoBehaviour
     void EndGroundSlam()
     {
         isAnimating = false;
-        collider.enabled = true;
+        ToggleAttackCollider(true);
 
         if (groundSlamParticles.isPlaying)
             groundSlamParticles.Stop();
@@ -157,7 +158,7 @@ public class HammerController : MonoBehaviour
         }
 
         animator.SetBool("IsAttacking", false);
-        collider.enabled = false;
+        ToggleAttackCollider(false);
         isGroundSlamming = false;
     }
 
@@ -170,7 +171,13 @@ public class HammerController : MonoBehaviour
             hammerAnimator.SetTrigger("InterruptGroundSlam");
             isGroundSlamming = false;
             isAnimating = false;
-            collider.enabled = false;
+            ToggleAttackCollider(false);
         }
+    }
+
+    public void ToggleAttackCollider(bool value)
+    {
+        collider.enabled = value;
+        killEnemy.StartAttack(true);
     }
 }

@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies.BaseEnemy
 {
     [CreateAssetMenu(fileName = "EnemyModel", menuName = "Models/Enemy")]
     public class BaseEnemyModel : ScriptableObject
     {
+        [Header("Detection Settings")]
         [SerializeField] private float innerRadius;
         [SerializeField] private float outerRadius;
+        
+        [Header("Attack Settings")]
         [SerializeField] private float attackRange;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackDelay;
+        
+        [Header("Damage Feedback Settings")]
+        [SerializeField] private float horizontalImpulseForce;
+        [SerializeField] private float verticalImpulseForce;
+        [SerializeField] private float lowJumpMultiplier;
+        [SerializeField] private float fallMultiplier;
+        [SerializeField] private float damagedStunTime;
         [SerializeField] private float deathTime;
 
         public float InnerRadius
@@ -42,6 +53,36 @@ namespace Enemies.BaseEnemy
             set => attackDelay = value;
         }
 
+        public float HorizontalImpulseForce
+        {
+            get => horizontalImpulseForce;
+            set => horizontalImpulseForce = value;
+        }
+
+        public float VerticalImpulseForce
+        {
+            get => verticalImpulseForce;
+            set => verticalImpulseForce = value;
+        }
+        
+        public float LowJumpMultiplier
+        {
+            get => lowJumpMultiplier;
+            set => lowJumpMultiplier = value;
+        }
+
+        public float FallMultiplier
+        {
+            get => fallMultiplier;
+            set => fallMultiplier = value;
+        }
+        
+        public float DamagedStunTime
+        {
+            get => damagedStunTime;
+            set => damagedStunTime = value;
+        }
+        
         public float DeathTime
         {
             get => deathTime;
