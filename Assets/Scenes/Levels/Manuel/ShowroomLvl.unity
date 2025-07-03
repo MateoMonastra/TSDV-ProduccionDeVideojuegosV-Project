@@ -898,6 +898,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!64 &158203488 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 7244453900348121905, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
+  m_PrefabInstance: {fileID: 738999393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &165149504
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,6 +2383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConfettiMinePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1854744173280586233, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2234068603448228059, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2387,8 +2396,16 @@ PrefabInstance:
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2805461497097787510, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 158203488}
+    - target: {fileID: 2805461497097787510, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
       propertyPath: mineRadius
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440359756248743409, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 80.464
       objectReference: {fileID: 0}
     - target: {fileID: 7714436184729803937, guid: 5e1fea2add0d8ae48879f54f7a371a11, type: 3}
       propertyPath: m_Enabled
