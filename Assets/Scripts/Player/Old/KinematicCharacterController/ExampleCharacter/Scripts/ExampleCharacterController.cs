@@ -56,6 +56,7 @@ namespace KinematicCharacterController.Examples
         [Header("Skill Unlocks")] [SerializeField]
         private bool isDashUnlocked;
 
+        [SerializeField] private ParticleSystem[] deathHitParticles;
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         private static readonly int IsDashing = Animator.StringToHash("IsDashing");
@@ -568,7 +569,7 @@ namespace KinematicCharacterController.Examples
 
             // Makes the character skip ground probing/snapping on its next update
             Motor.ForceUnground();
-            
+
             //Audio
             //AkSoundEngine.PostEvent("play_player_jump", gameObject);
 
@@ -611,7 +612,7 @@ namespace KinematicCharacterController.Examples
             {
                 animator.SetTrigger("Jump");
             }
-            
+
             _jumpRequested = false; // Reset jump request after executing
         }
 
@@ -852,11 +853,17 @@ namespace KinematicCharacterController.Examples
                 return;
 
             hammerController.InterruptGroundSlam();
+            
+            for (int i = 0; i < deathHitParticles.Length; i++)
+            {
+                deathHitParticles[i].Play();
+            }
+
             TransitionToState(CharacterState.Stunned);
 
             StartCoroutine(DeathCoroutine(damageOrigin));
         }
-        
+
         private IEnumerator DeathCoroutine(Vector3 damageOrigin)
         {
             animator.SetBool(IsDead, true);
