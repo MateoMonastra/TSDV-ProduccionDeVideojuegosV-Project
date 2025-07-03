@@ -426,6 +426,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d14e407d7dbcc3b4d960ce78daa960d1, type: 3}
+--- !u!198 &815684052569660534 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1768259163773898610, guid: d14e407d7dbcc3b4d960ce78daa960d1, type: 3}
+  m_PrefabInstance: {fileID: 1431012209320727300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6496747442936528461 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5328584526445129033, guid: d14e407d7dbcc3b4d960ce78daa960d1, type: 3}
+  m_PrefabInstance: {fileID: 1431012209320727300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7474713979119685176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8385841899979431228, guid: d14e407d7dbcc3b4d960ce78daa960d1, type: 3}
@@ -820,6 +830,18 @@ PrefabInstance:
       propertyPath: groundSlamParticles
       value: 
       objectReference: {fileID: 9030093686947633803}
+    - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: holdAttackParticles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: 'holdAttackParticles.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6496747442936528461}
+    - target: {fileID: 1066017755372728910, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+      propertyPath: 'holdAttackParticles.Array.data[1]'
+      value: 
+      objectReference: {fileID: 815684052569660534}
     - target: {fileID: 1081004494814539438, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       propertyPath: m_Layer
       value: 8
