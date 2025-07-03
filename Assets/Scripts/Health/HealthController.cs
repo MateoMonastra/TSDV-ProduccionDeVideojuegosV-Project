@@ -27,7 +27,7 @@ namespace Health
         {
             _currentHealth -= damage;
 
-            if (_currentHealth <= 0)
+            if (_currentHealth > 0)
                 OnTakeDamage?.Invoke();
             else
                 OnDeath?.Invoke();
