@@ -6,6 +6,7 @@ using UnityEngine;
 public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] holdAttackParticles;
+    [SerializeField] private ParticleSystem[] normalAttackParticles;
     [SerializeField] private ParticleSystem groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
@@ -96,6 +97,11 @@ public class HammerController : MonoBehaviour
     void NormalAttack()
     {
         StartAttack();
+
+        for (int i = 0; i < normalAttackParticles.Length; i++)
+        {
+            normalAttackParticles[i].Play();
+        }
 
         animator.SetTrigger("NormalAttack");
         hammerAnimator.SetTrigger("NormalAttack");
