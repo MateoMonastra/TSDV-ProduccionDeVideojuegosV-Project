@@ -185,6 +185,5 @@ public class HammerController : MonoBehaviour
     {
         collider.enabled = value;
         killEnemy.StartAttack(true);
-        Debug.Log("Turned " + collider.enabled);
     }
 }
