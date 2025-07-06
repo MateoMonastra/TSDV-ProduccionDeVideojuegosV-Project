@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using FSM;
-using Hazards.Catapult.States;
+using Hazards.Cannon.States;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Hazards.Catapult
+namespace Hazards.Cannon
 {
-    public class CatapultAgent : MonoBehaviour
+    public class CannonAgent : MonoBehaviour
     {
         public UnityEvent onAttack;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
 
-        [SerializeField] private CatapultModel model;
+        [SerializeField] private CannonModel model;
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private GameObject groundMarkPrefab;
         [SerializeField] private Transform shootPoint;

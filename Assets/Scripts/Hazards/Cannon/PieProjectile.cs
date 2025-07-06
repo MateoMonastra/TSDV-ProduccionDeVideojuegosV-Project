@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 
-namespace Hazards.Catapult
+namespace Hazards.Cannon
 {
     public class PieProjectile : MonoBehaviour
     {
