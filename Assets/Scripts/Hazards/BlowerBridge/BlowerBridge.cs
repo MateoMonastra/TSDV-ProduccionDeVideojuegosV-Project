@@ -72,7 +72,7 @@ namespace Hazards.BlowerBridge
 
             float deltaZ = targetScale.z - initialScale.z;
             Vector3 targetPosition = initialPosition - transform.forward * (deltaZ * _pivotCorrectionFactor);
-            Vector3 targetTipPosition = initialTipPosition + bridgeTip.forward * (deltaZ * 2 * _pivotCorrectionFactor);
+            Vector3 targetTipPosition = initialTipPosition + bridgeTip.forward * (deltaZ * 2.01f * (_pivotCorrectionFactor));
 
             while (elapsedTime < extendTime)
             {
@@ -105,7 +105,7 @@ namespace Hazards.BlowerBridge
 
             float deltaZ = initialScale.z - targetScale.z;
             Vector3 targetPosition = initialPosition + transform.forward * (deltaZ * _pivotCorrectionFactor);
-            Vector3 targetTipPosition = initialTipPosition - bridgeTip.forward * (deltaZ * 2 * _pivotCorrectionFactor);
+            Vector3 targetTipPosition = initialTipPosition - bridgeTip.forward * (deltaZ * 2.01f * _pivotCorrectionFactor);
 
             while (elapsedTime < extendTime)
             {
