@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem[] groundSlamParticles;
+    [SerializeField] private ParticleSystem[] holdAttackParticles;
+    [SerializeField] private ParticleSystem[] normalAttackParticles;
+    [SerializeField] private ParticleSystem groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
@@ -96,6 +98,11 @@ public class HammerController : MonoBehaviour
     {
         StartAttack();
 
+        for (int i = 0; i < normalAttackParticles.Length; i++)
+        {
+            normalAttackParticles[i].Play();
+        }
+
         animator.SetTrigger("NormalAttack");
         hammerAnimator.SetTrigger("NormalAttack");
     }
@@ -103,6 +110,11 @@ public class HammerController : MonoBehaviour
     void HoldAttack()
     {
         StartAttack();
+
+        for (int i = 0; i < holdAttackParticles.Length; i++)
+        {
+            holdAttackParticles[i].Play();
+        }
 
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
@@ -129,19 +141,15 @@ public class HammerController : MonoBehaviour
         }
     }
 
-    private void EndGroundSlam()
+    void EndGroundSlam()
     {
-        if (!isAnimating)
-            return;
-        
         isAnimating = false;
         ToggleAttackCollider(true);
 
-        for (int i = 0; i < groundSlamParticles.Length; i++)
-        {
-            groundSlamParticles[i].Play();
-        }
-        
+        if (groundSlamParticles.isPlaying)
+            groundSlamParticles.Stop();
+
+        groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
