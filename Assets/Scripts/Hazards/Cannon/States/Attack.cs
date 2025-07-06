@@ -3,7 +3,7 @@ using FSM;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Hazards.Catapult.States
+namespace Hazards.Cannon.States
 {
     public class Attack : State
     {
@@ -11,12 +11,12 @@ namespace Hazards.Catapult.States
         private GameObject _projectilePrefab;
         private GameObject _groundMarkPrefab;
         private Transform _target;
-        private CatapultModel _model;
+        private CannonModel _model;
         private Action _onAttackComplete;
         private float _elapsedTime;
 
         public Attack(Transform shootPoint, GameObject projectilePrefab, GameObject groundMarkPrefab, Transform target,
-            CatapultModel model, Action onAttackComplete)
+            CannonModel model, Action onAttackComplete)
         {
             _shootPoint = shootPoint;
             _projectilePrefab = projectilePrefab;
