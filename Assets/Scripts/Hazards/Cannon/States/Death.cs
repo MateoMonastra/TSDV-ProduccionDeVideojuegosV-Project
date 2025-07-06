@@ -1,7 +1,7 @@
 ﻿using FSM;
 using UnityEngine;
 
-namespace Hazards.Catapult.States
+namespace Hazards.Cannon.States
 {
     public class Death : State
     {

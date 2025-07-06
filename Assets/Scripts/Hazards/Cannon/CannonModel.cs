@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Hazards.Catapult
+namespace Hazards.Cannon
 {
-    [CreateAssetMenu(fileName = "CatapultModel", menuName = "Models/Catapult")]
-    public class CatapultModel : ScriptableObject
+    [CreateAssetMenu(fileName = "CannonModel", menuName = "Models/Cannon")]
+    public class CannonModel : ScriptableObject
     {
         [SerializeField] private float attackRange;
         [SerializeField] private float cooldownBetweenAttacks;
@@ -12,6 +12,7 @@ namespace Hazards.Catapult
         [SerializeField] private bool debugDrawTrajectory = false;
         [SerializeField] private int drawResolution = 30;
         [SerializeField] private float maxRayDistance;
+        [SerializeField] private float rotateVelocity;
 
         public float AttackRange
         {
@@ -47,6 +48,11 @@ namespace Hazards.Catapult
         {
             get => maxRayDistance;
             set => maxRayDistance = value;
+        }
+        public float RotateVelocity
+        {
+            get => rotateVelocity;
+            set => rotateVelocity = value;
         }
     }
 }
