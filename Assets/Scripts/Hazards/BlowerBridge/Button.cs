@@ -1,9 +1,10 @@
+using Platforms;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Hazards.BlowerBridge
 {
-    public class Button : MonoBehaviour
+    public class Button : MonoBehaviour, IBreakable
     {
         public UnityEvent onActivate;
 
@@ -15,24 +16,9 @@ namespace Hazards.BlowerBridge
 
         private bool _isOnCooldown = false;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (_isOnCooldown) return;
-
-            if (other.TryGetComponent(out HammerController hammer) && hammer.IsGroundSlamming)
-            {
-                ActivateButton();
-            }
-            else
-            {
-                Debug.Log(other.gameObject.name);
-            }
-        }
-
         private void ActivateButton()
         {
             _isOnCooldown = true;
-            Debug.Log("Activated button");
 
             if (animator)
             {
@@ -51,6 +37,12 @@ namespace Hazards.BlowerBridge
             if (!animator) return;
             animator.ResetTrigger(PressTrigger);
             animator.SetTrigger(IdleTrigger);
+        }
+
+        public void Break()
+        {
+            if (_isOnCooldown) return;
+            ActivateButton();
         }
     }
 }

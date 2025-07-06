@@ -11,7 +11,7 @@ public class HammerController : MonoBehaviour
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
-    [SerializeField] private Collider collider;
+    [SerializeField] private BoxCollider collider;
     [SerializeField] private KillEnemy killEnemy;
     private InputSystem_Actions inputs;
     private bool isAnimating = false;
@@ -120,7 +120,7 @@ public class HammerController : MonoBehaviour
         animator.SetTrigger("HoldAttack");
     }
 
-    void GroundSlamAttack()
+    private void GroundSlamAttack()
     {
         StartAttack();
 
@@ -185,5 +185,6 @@ public class HammerController : MonoBehaviour
     {
         collider.enabled = value;
         killEnemy.StartAttack(true);
+        Debug.Log("Turned " + collider.enabled);
     }
 }

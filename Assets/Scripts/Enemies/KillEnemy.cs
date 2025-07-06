@@ -11,6 +11,7 @@ public class KillEnemy : MonoBehaviour
     {
         if (_dealingDamage)
         {
+
             if (other.CompareTag("Enemy"))
             {
                 if (other.gameObject.TryGetComponent(out HealthController enemy))
@@ -24,8 +25,11 @@ public class KillEnemy : MonoBehaviour
             //TODO: YA HAY QUE SACAR ESTE BODRIO
             if (other.gameObject.TryGetComponent(out IBreakable breakable))
             {
+
                 if (hammerController.IsGroundSlamming)
+                {
                     breakable.Break();
+                }
             }
         }
     }
