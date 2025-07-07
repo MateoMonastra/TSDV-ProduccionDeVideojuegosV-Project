@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace PickUps
 {
     [RequireComponent(typeof(BoxCollider))]
     public class Pickup : MonoBehaviour
     {
+        [SerializeField] protected UnityEvent OnCooldown;
         [SerializeField] protected float cooldownTime = 5f;
         [SerializeField] private GameObject visuals;
         [SerializeField] bool activateLogs;
@@ -34,6 +36,8 @@ namespace PickUps
 
             yield return new WaitForSeconds(cooldownTime);
 
+            OnCooldown?.Invoke();
+            
             _collider.enabled = true;
             
             if (visuals)
