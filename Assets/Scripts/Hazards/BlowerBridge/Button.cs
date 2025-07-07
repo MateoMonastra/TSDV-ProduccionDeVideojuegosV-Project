@@ -7,6 +7,7 @@ namespace Hazards.BlowerBridge
     public class Button : MonoBehaviour, IBreakable
     {
         public UnityEvent onActivate;
+        public UnityEvent onDeactivate;
 
         private static readonly int IdleTrigger = Animator.StringToHash("Idle");
         private static readonly int PressTrigger = Animator.StringToHash("Pressed");
@@ -37,6 +38,8 @@ namespace Hazards.BlowerBridge
             if (!animator) return;
             animator.ResetTrigger(PressTrigger);
             animator.SetTrigger(IdleTrigger);
+            
+            onDeactivate?.Invoke();
         }
 
         public void Break()
