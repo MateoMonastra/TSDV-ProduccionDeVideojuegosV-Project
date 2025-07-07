@@ -1304,6 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hammerController: {fileID: 1066017755372728910}
+  damage: 1
 --- !u!114 &1066017755372728910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,8 +1317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab4f0a83bd22ee46b58e5717653d323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSlamParticles:
-  - {fileID: 0}
+  holdAttackParticles: []
+  normalAttackParticles: []
+  groundSlamParticles: {fileID: 0}
   animationEvents: {fileID: 8717590983609226268}
   animator: {fileID: 5594794976487381866}
   hammerAnimator: {fileID: 0}

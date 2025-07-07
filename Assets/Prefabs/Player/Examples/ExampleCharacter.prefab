@@ -183,6 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753339863101916252}
   - component: {fileID: 5466546563901152415}
+  - component: {fileID: 2927143226815642272}
   - component: {fileID: 2313745898053256665}
   - component: {fileID: 1340978461038787366}
   - component: {fileID: 8496954608601889243}
@@ -233,6 +234,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2927143226815642272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707034336329819259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
 --- !u!114 &2313745898053256665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,10 +261,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Model: {fileID: 11400000, guid: 469b7bb018787b54d83783f0019bd640, type: 2}
   Motor: {fileID: 1340978461038787366}
+  healthController: {fileID: 2927143226815642272}
   lastJumpParticles: {fileID: 4540289319572739265}
   dashParticles: {fileID: 2934052717053155075}
   isDashUnlocked: 1
-  deathHitParticles:
+  hitParticles:
   - {fileID: 6314056261424644524}
   - {fileID: 2634344119545537974}
   animator: {fileID: 271999709088441556}

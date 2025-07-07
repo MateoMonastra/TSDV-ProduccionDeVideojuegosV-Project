@@ -3334,14 +3334,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 37.685318
       objectReference: {fileID: 0}
-    - target: {fileID: 2778196741158179762, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: isDashUnlocked
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2778196741158179762, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: healthController
-      value: 
-      objectReference: {fileID: 861243823}
     - target: {fileID: 2805489497111585099, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 24.797726
@@ -4054,10 +4046,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 19.245256
       objectReference: {fileID: 0}
-    - target: {fileID: 7165156376258404349, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      propertyPath: damage
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7246271370439473855, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 8.431815
@@ -4423,9 +4411,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6594990196244328976, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 861243823}
     - targetCorrespondingSourceObject: {fileID: 5826309688614743784, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1377961091}
@@ -4464,19 +4449,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6594990196244328976, guid: e1f40268d0e9be34b926b5f93c5eda9d, type: 3}
   m_PrefabInstance: {fileID: 861243810}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &861243823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861243815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 2
 --- !u!1001 &870510049
 PrefabInstance:
   m_ObjectHideFlags: 0
