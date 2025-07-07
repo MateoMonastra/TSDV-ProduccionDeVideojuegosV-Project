@@ -1,3 +1,4 @@
+using Health;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 
@@ -5,17 +6,19 @@ namespace Enemies.RangeEnemy
 {
     public class ProjectileBehaviour : MonoBehaviour
     {
-        [Header("Stats")]
-        [SerializeField] private float damage;
+        [Header("Stats")] 
+        [SerializeField] private int damage = 1;
+        [SerializeField] private (int, int) knockback = (10,25);
         [SerializeField] private LayerMask environmentLayer;
         [SerializeField] private float lifeTime;
 
-        [Header("Impact VFX")]
-        [SerializeField] private GameObject impactParticlesPrefab;
+        [Header("Impact VFX")] [SerializeField]
+        private GameObject impactParticlesPrefab;
+
         [SerializeField] private float particlesLifeTime;
 
-        [Header("Debug")]
-        [SerializeField] private bool activateLogs;
+        [Header("Debug")] [SerializeField] private bool activateLogs;
+
         private void Start()
         {
             Destroy(gameObject, lifeTime);
@@ -25,20 +28,19 @@ namespace Enemies.RangeEnemy
         {
             if (other.CompareTag("Player"))
             {
-                //TODO: colocar daño al jugador
-                if(activateLogs)
+                if (activateLogs)
                     Debug.Log("Player hit");
-                
-                if (!other.TryGetComponent(out ExampleCharacterController characterController)) return;
-                characterController.DeathSequence(transform.position);
+
+                if (!other.TryGetComponent(out HealthController controller)) return;
+                controller.Damage(new DamageInfo(damage, -transform.position, knockback));
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }
             else if (environmentLayer != 0)
             {
-                if(activateLogs)
+                if (activateLogs)
                     Debug.Log("Environment hit");
-                
+
                 SpawnImpactParticles();
                 Destroy(gameObject);
             }
@@ -46,11 +48,9 @@ namespace Enemies.RangeEnemy
 
         private void SpawnImpactParticles()
         {
-            if (impactParticlesPrefab != null)
-            {
-                GameObject particles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
-                Destroy(particles, particlesLifeTime);
-            }
+            if (impactParticlesPrefab == null) return;
+            GameObject particles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
+            Destroy(particles, particlesLifeTime);
         }
     }
 }
