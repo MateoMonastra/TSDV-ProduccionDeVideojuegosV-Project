@@ -116,6 +116,8 @@ public class HammerController : MonoBehaviour
             holdAttackParticles[i].Play();
         }
 
+        killEnemy.ToggleMultipleHits(true);
+        
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
     }
@@ -161,6 +163,7 @@ public class HammerController : MonoBehaviour
             isAnimating = false;
             animator.ResetTrigger("GroundSlamEnd");
             hammerAnimator.ResetTrigger("GroundSlamEnd");
+            killEnemy.ToggleMultipleHits(false);
         }
 
         animator.SetBool("IsAttacking", false);
