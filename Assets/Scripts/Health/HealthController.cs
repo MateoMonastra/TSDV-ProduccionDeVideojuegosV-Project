@@ -9,8 +9,8 @@ namespace Health
         private int _currentHealth;
 
         public Action OnHeal;
-        public Action OnTakeDamage;
-        public Action OnDeath;
+        public Action<DamageInfo> OnTakeDamage;
+        public Action<DamageInfo> OnDeath;
 
         private void Awake()
         {
@@ -23,14 +23,45 @@ namespace Health
             OnHeal?.Invoke();
         }
 
-        public void Damage(int damage)
+        public void Damage(DamageInfo damageInfo)
         {
-            _currentHealth -= damage;
+            _currentHealth -= damageInfo.Damage;
 
             if (_currentHealth > 0)
-                OnTakeDamage?.Invoke();
+                OnTakeDamage?.Invoke(damageInfo);
             else
-                OnDeath?.Invoke();
+                OnDeath?.Invoke(damageInfo);
+        }
+
+        public void InstaKill(DamageInfo damageInfo)
+        {
+            OnDeath?.Invoke(damageInfo);
+        }
+
+        public void ResetHealth()
+        {
+            OnHeal?.Invoke();
+            _currentHealth = maxHealth;
+        }
+
+        public int GetCurrentHealth()
+        {
+            return _currentHealth;
         }
     }
+
+    public struct DamageInfo
+    {
+        public int Damage;
+        public Vector3 DamageOrigin;
+        public (int, int) Knockback;
+
+        public DamageInfo(int damage, Vector3 transformPosition, (int, int) knockback)
+        {
+            Damage = damage;
+            DamageOrigin = transformPosition;
+            Knockback = (knockback.Item1, knockback.Item2);
+        }
+    }
+    
 }

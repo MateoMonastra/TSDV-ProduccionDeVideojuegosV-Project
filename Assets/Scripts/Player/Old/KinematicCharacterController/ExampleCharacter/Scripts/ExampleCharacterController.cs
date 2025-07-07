@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using Health;
 using Player.Old.PlayerPrototype;
 using UnityEngine.Serialization;
 
@@ -49,6 +50,7 @@ namespace KinematicCharacterController.Examples
     {
         public PlayerModel Model;
         public KinematicCharacterMotor Motor;
+        public HealthController healthController;
         public ParticleSystem lastJumpParticles;
         public ParticleSystem dashParticles;
         private HammerController hammerController; // Reference to hammer controller
@@ -56,7 +58,9 @@ namespace KinematicCharacterController.Examples
         [Header("Skill Unlocks")] [SerializeField]
         private bool isDashUnlocked;
 
-        [SerializeField] private ParticleSystem[] deathHitParticles;
+        [FormerlySerializedAs("deathHitParticles")] [SerializeField]
+        private ParticleSystem[] hitParticles;
+
         [Header("Animation")] [SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         private static readonly int IsDashing = Animator.StringToHash("IsDashing");
@@ -106,6 +110,9 @@ namespace KinematicCharacterController.Examples
         private int _jumpsRemaining; // Track remaining jumps
         private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
 
+        private Coroutine _damageCoroutine;
+        private Coroutine _deathCoroutine;
+
         private void Awake()
         {
             // Handle initial state
@@ -125,6 +132,12 @@ namespace KinematicCharacterController.Examples
 
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
+        }
+
+        private void Start()
+        {
+            healthController.OnTakeDamage += DamageSequence;
+            healthController.OnDeath += DeathSequence;
         }
 
         /// <summary>
@@ -847,33 +860,58 @@ namespace KinematicCharacterController.Examples
             _extraJumpsRemaining = Math.Clamp(_extraJumpsRemaining + amount, 0, Model.MaxJumps);
         }
 
-        public void DeathSequence(Vector3 damageOrigin)
+        private void DeathSequence(DamageInfo damageInfo)
         {
             if (_isDead)
                 return;
 
             hammerController.InterruptGroundSlam();
-            
-            for (int i = 0; i < deathHitParticles.Length; i++)
+
+            for (int i = 0; i < hitParticles.Length; i++)
             {
-                deathHitParticles[i].Play();
+                hitParticles[i].Play();
             }
 
             TransitionToState(CharacterState.Stunned);
 
-            StartCoroutine(DeathCoroutine(damageOrigin));
+            _deathCoroutine = StartCoroutine(DeathCoroutine(damageInfo));
         }
 
-        private IEnumerator DeathCoroutine(Vector3 damageOrigin)
+        private IEnumerator DeathCoroutine(DamageInfo damageInfo)
         {
             animator.SetBool(IsDead, true);
-            Motor.ForceUnground();
-            Motor.BaseVelocity = (((damageOrigin - transform.position).normalized * 10.0f) + Vector3.up * 8.0f);
+            Motor.ForceUnground(0.2f);
+            Motor.BaseVelocity = (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) + Vector3.up * damageInfo.Knockback.Item2);
             _isDead = true;
             yield return new WaitForSeconds(0.7f);
             _isDead = false;
             animator.SetBool(IsDead, false);
             GameEvents.GameEvents.PlayerDied(gameObject);
+        }
+
+        private void DamageSequence(DamageInfo damageInfo)
+        {
+            hammerController.InterruptGroundSlam();
+
+            for (int i = 0; i < hitParticles.Length; i++)
+            {
+                hitParticles[i].Play();
+            }
+
+            TransitionToState(CharacterState.Stunned);
+
+            _damageCoroutine = StartCoroutine(DamagedCoroutine(damageInfo));
+        }
+
+        private IEnumerator DamagedCoroutine(DamageInfo damageInfo)
+        {
+            animator.SetBool(IsDead, true);
+            GameEvents.GameEvents.PlayerDamaged();
+            Motor.ForceUnground(0.2f);
+            Motor.BaseVelocity = (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) + Vector3.up * damageInfo.Knockback.Item2);
+            yield return new WaitForSeconds(0.5f);
+            animator.SetBool(IsDead, false);
+            TransitionToState(CharacterState.Default);
         }
 
         private bool CanJump()
