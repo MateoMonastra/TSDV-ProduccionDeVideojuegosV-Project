@@ -96,7 +96,6 @@ namespace Hazards.Cannon.States
 
             float dot = Vector3.Dot(forward.normalized, directionToPlayer);
 
-            Debug.Log(dot);
             return dot > threshold; 
         }
     }
