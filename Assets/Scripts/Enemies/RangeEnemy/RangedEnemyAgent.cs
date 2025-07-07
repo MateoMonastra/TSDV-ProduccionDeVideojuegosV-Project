@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Enemies.RangeEnemy.States;
 using FSM;
+using Health;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -121,7 +122,7 @@ namespace Enemies.RangeEnemy
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
 
-        public void OnBeingAttacked()
+        public void OnBeingAttacked(DamageInfo damageOrigin)
         {
             TransitionToDeath();
         }

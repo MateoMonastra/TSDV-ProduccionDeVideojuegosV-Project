@@ -6,6 +6,8 @@ using UnityEngine;
 public class KillEnemy : MonoBehaviour
 {
     [SerializeField] private HammerController hammerController;
+    [SerializeField] private int damage;
+    [SerializeField] private (int, int) knockback = (20,35);
     private bool _dealingDamage = false;
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +18,7 @@ public class KillEnemy : MonoBehaviour
             {
                 if (other.gameObject.TryGetComponent(out HealthController enemy))
                 {
-                    enemy.Damage(1);
+                    enemy.Damage(new DamageInfo(damage,transform.position,knockback));
                     hammerController.ToggleAttackCollider(false);
                     _dealingDamage = false;
                 }
