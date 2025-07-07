@@ -7,10 +7,15 @@ namespace UI
     {
         [SerializeField] private InputReader inputReader;
         [SerializeField] private SlidesManager slidesManager;
+        [SerializeField] private HUDManager hudManager;
         [SerializeField] private GameObject playerStats;
-        private void Start()
+        private void OnEnable()
         {
             inputReader.OnPause += InitPauseMenu;
+        }
+        private void OnDisable()
+        {
+            inputReader.OnPause -= InitPauseMenu;
         }
     
         private void InitPauseMenu()
@@ -29,6 +34,7 @@ namespace UI
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
+            hudManager.SwapLifeCards();
         }
     
         public void ExitGame()

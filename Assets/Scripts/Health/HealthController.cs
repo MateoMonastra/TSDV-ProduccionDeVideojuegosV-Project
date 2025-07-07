@@ -40,8 +40,8 @@ namespace Health
 
         public void ResetHealth()
         {
-            OnHeal?.Invoke();
             _currentHealth = maxHealth;
+            OnHeal?.Invoke();
         }
 
         public int GetCurrentHealth()

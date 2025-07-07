@@ -25,7 +25,6 @@ namespace UI
 
         private Coroutine _blindnessCoroutine;
         private Coroutine _damagedCoroutine;
-        
 
         private void OnEnable()
         {
@@ -39,7 +38,6 @@ namespace UI
             GameEvents.GameEvents.OnPlayerBlinded -= OnBlind;
             GameEvents.GameEvents.OnPlayerDamaged -= OnDamaged;
             characterController.healthController.OnHeal -= SwapLifeCards;
-            
         }
 
         private void Update()
@@ -74,10 +72,10 @@ namespace UI
             }
         }
 
-        private void SwapLifeCards()
+        public void SwapLifeCards()
         {
             if (playerHealthAnimator)
-                playerHealthAnimator.SetFloat(PlayerHealth,characterController.healthController.GetCurrentHealth());
+                playerHealthAnimator.SetInteger(PlayerHealth,characterController.healthController.GetCurrentHealth());
         }
 
         private void OnDamaged()
