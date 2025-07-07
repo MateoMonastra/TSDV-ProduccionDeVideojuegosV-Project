@@ -50,7 +50,7 @@ namespace Platforms
                 rbFragments[i].transform.localPosition = rbFragmentsPositions[i];
                 rbFragments[i].transform.localRotation = rbFragmentsRotations[i];
                 
-                rbFragments[i].velocity = Vector3.zero;
+                rbFragments[i].linearVelocity = Vector3.zero;
                 rbFragments[i].angularVelocity = Vector3.zero;
             }
         }
