@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Health
 {
     public class HealthController : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
+        [SerializeField] private float damageCooldown;
         private int _currentHealth;
+        private float _timer;
 
         public Action OnHeal;
         public Action<DamageInfo> OnTakeDamage;
@@ -25,12 +28,16 @@ namespace Health
 
         public void Damage(DamageInfo damageInfo)
         {
+            if (_timer <= damageCooldown) return;
+            
             _currentHealth -= damageInfo.Damage;
 
             if (_currentHealth > 0)
                 OnTakeDamage?.Invoke(damageInfo);
             else
                 OnDeath?.Invoke(damageInfo);
+
+            _timer = 0;
         }
 
         public void InstaKill(DamageInfo damageInfo)
@@ -47,6 +54,11 @@ namespace Health
         public int GetCurrentHealth()
         {
             return _currentHealth;
+        }
+
+        private void Update()
+        {
+            _timer += Time.deltaTime;
         }
     }
 

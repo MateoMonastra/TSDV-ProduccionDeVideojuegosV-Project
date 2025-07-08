@@ -8,7 +8,7 @@ namespace Enemies.RangeEnemy
     {
         [Header("Stats")] 
         [SerializeField] private int damage = 1;
-        [SerializeField] private (int, int) knockback = (10,25);
+        [SerializeField] private (int, int) knockback = (10,15);
         [SerializeField] private LayerMask environmentLayer;
         [SerializeField] private float lifeTime;
 

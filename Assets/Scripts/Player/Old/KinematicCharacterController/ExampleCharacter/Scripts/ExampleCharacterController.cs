@@ -100,6 +100,7 @@ namespace KinematicCharacterController.Examples
 
         private bool _isDashing = false;
         private bool _isDead = false;
+        private bool _isDamaged = false;
         private float _dashTimeRemaining = 0f;
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
@@ -891,6 +892,8 @@ namespace KinematicCharacterController.Examples
 
         private void DamageSequence(DamageInfo damageInfo)
         {
+            if (_isDamaged)
+                return;
             hammerController.InterruptGroundSlam();
 
             for (int i = 0; i < hitParticles.Length; i++)
@@ -906,12 +909,14 @@ namespace KinematicCharacterController.Examples
         private IEnumerator DamagedCoroutine(DamageInfo damageInfo)
         {
             animator.SetBool(IsDead, true);
+            _isDamaged = true;
             GameEvents.GameEvents.PlayerDamaged();
             Motor.ForceUnground(0.2f);
             Motor.BaseVelocity = (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) + Vector3.up * damageInfo.Knockback.Item2);
             yield return new WaitForSeconds(0.5f);
             animator.SetBool(IsDead, false);
             TransitionToState(CharacterState.Default);
+            _isDamaged = false;
         }
 
         private bool CanJump()
