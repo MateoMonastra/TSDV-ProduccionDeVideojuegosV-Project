@@ -35,6 +35,7 @@ namespace CheckPoint
                 {
                     characterController.TransitionToState(CharacterState.Default);
                     characterController.Motor.SetPositionAndRotation(_lastCheckpointPosition, Quaternion.identity);
+                    characterController.Motor.BaseVelocity = Vector3.zero;
                     characterController.healthController.ResetHealth();
                 }
             }
