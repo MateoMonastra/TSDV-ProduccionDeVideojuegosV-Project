@@ -7,7 +7,7 @@ namespace CheckPoint
 {
     public class KillBound : MonoBehaviour
     {
-        [SerializeField] private (int, int) knockback = (20,35);
+        [SerializeField] private (int, int) knockback = (20,5);
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
