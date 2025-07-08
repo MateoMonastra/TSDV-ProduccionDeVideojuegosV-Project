@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 990683695321628015}
   - component: {fileID: 7045124234364749166}
   - component: {fileID: 6132509427390379825}
+  - component: {fileID: 1590366126494893763}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -215,9 +216,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 4.5870924
+  m_Height: 4.37074
   m_Direction: 1
-  m_Center: {x: 0, y: 1.2935462, z: 0}
+  m_Center: {x: 0, y: 2.0776649, z: 0}
 --- !u!114 &7045124234364749166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +322,7 @@ MonoBehaviour:
   shootPoint: {fileID: 306028874904714175}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 4b220d659abec1845b1a9cde8eac6ecd, type: 2}
+  healthController: {fileID: 1590366126494893763}
 --- !u!114 &6132509427390379825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +336,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateText: {fileID: 8073609384425977292}
+--- !u!114 &1590366126494893763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799735417556798114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!1 &7704771142481383807
 GameObject:
   m_ObjectHideFlags: 0

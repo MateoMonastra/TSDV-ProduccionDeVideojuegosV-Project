@@ -22,6 +22,7 @@ namespace Enemies.RangeEnemy
         [SerializeField] private Transform shootPoint;
         [SerializeField] private Transform player;
         [SerializeField] private RangedEnemyModel model;
+        [SerializeField] private HealthController healthController;
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
@@ -68,11 +69,13 @@ namespace Enemies.RangeEnemy
         private void OnEnable()
         {
             GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
+            healthController.OnDeath += OnBeingAttacked;
         }
 
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
+            healthController.OnDeath -= OnBeingAttacked;
         }
 
         private void TransitionToAttack()
