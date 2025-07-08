@@ -30,7 +30,6 @@ namespace Enemies.BaseEnemy
         private Fsm _fsm;
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
-        private bool _isDeath = false;
 
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
@@ -128,7 +127,6 @@ namespace Enemies.BaseEnemy
         private void TransitionToDeath(DamageInfo damageOrigin)
         {
             onDeath?.Invoke();
-            _isDeath = true;
             State death = new Death(this.gameObject, model);
             _fsm.ForceSetCurrentState(death);
         }

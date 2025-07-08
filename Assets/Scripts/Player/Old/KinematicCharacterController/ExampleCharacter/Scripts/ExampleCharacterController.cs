@@ -14,6 +14,7 @@ namespace KinematicCharacterController.Examples
         Default,
         Dashing,
         Stunned,
+        Death,
     }
 
     public enum OrientationMethod
@@ -68,6 +69,8 @@ namespace KinematicCharacterController.Examples
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
         private static readonly int IsIdle = Animator.StringToHash("IsIdle");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private static readonly string DeathAnimationName = "IsDead";
+        private static readonly int IsDamaged = Animator.StringToHash("IsDamaged");
 
 
         [Header("Misc")] public List<Collider> IgnoredColliders = new List<Collider>();
@@ -77,6 +80,11 @@ namespace KinematicCharacterController.Examples
         public Transform CameraFollowPoint;
         public float CrouchedCapsuleHeight = 1f;
 
+
+        [Header("Cameras References")] [SerializeField]
+        private GameObject worldCamera;
+
+        [SerializeField] private GameObject deathCamera;
 
         private int _extraDashCharges = 0;
 
@@ -203,6 +211,11 @@ namespace KinematicCharacterController.Examples
             {
                 _moveInputVector = Vector3.zero;
                 return;
+            }
+
+            if (CurrentCharacterState == CharacterState.Death)
+            {
+                Motor.BaseVelocity =  Vector3.zero;
             }
 
             // Clamp input
@@ -868,11 +881,6 @@ namespace KinematicCharacterController.Examples
 
             hammerController.InterruptGroundSlam();
 
-            for (int i = 0; i < hitParticles.Length; i++)
-            {
-                hitParticles[i].Play();
-            }
-
             TransitionToState(CharacterState.Stunned);
 
             _deathCoroutine = StartCoroutine(DeathCoroutine(damageInfo));
@@ -880,15 +888,20 @@ namespace KinematicCharacterController.Examples
 
         private IEnumerator DeathCoroutine(DamageInfo damageInfo)
         {
-            animator.SetBool(IsDead, true);
-            Motor.ForceUnground(0.2f);
-            Motor.BaseVelocity = (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) + Vector3.up * damageInfo.Knockback.Item2);
+            animator.SetTrigger(IsDead);
             _isDead = true;
-            yield return new WaitForSeconds(0.7f);
+            SetDeathCamera();
+            
+            yield return null;
+
+            yield return new WaitUntil(() => IsCurrentAnimation(DeathAnimationName));
+
+            yield return new WaitUntil(HasCurrentAnimationFinished);
+
             _isDead = false;
-            animator.SetBool(IsDead, false);
             GameEvents.GameEvents.PlayerDied(gameObject);
         }
+
 
         private void DamageSequence(DamageInfo damageInfo)
         {
@@ -908,13 +921,15 @@ namespace KinematicCharacterController.Examples
 
         private IEnumerator DamagedCoroutine(DamageInfo damageInfo)
         {
-            animator.SetBool(IsDead, true);
+            animator.SetBool(IsDamaged, true);
             _isDamaged = true;
             GameEvents.GameEvents.PlayerDamaged();
             Motor.ForceUnground(0.2f);
-            Motor.BaseVelocity = (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) + Vector3.up * damageInfo.Knockback.Item2);
+            Motor.BaseVelocity =
+                (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) +
+                 Vector3.up * damageInfo.Knockback.Item2);
             yield return new WaitForSeconds(0.5f);
-            animator.SetBool(IsDead, false);
+            animator.SetBool(IsDamaged, false);
             TransitionToState(CharacterState.Default);
             _isDamaged = false;
         }
@@ -928,6 +943,32 @@ namespace KinematicCharacterController.Examples
 
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
+
+        public void SetDeathCamera()
+        {
+            deathCamera.SetActive(true);
+            worldCamera.SetActive(false);
+        }
+
+        public void SetGameplayCamera()
+        {
+            worldCamera.SetActive(true);
+            deathCamera.SetActive(false);
+        }
+
+        private bool IsCurrentAnimation(string stateName)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            return stateInfo.IsName(stateName);
+        }
+
+        private bool HasCurrentAnimationFinished()
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            bool finished = stateInfo.normalizedTime >= 1f && !animator.IsInTransition(0);
+            return finished;
+        }
+
 
         public bool HasExtraJumps() => _extraJumpsRemaining > 0;
     }

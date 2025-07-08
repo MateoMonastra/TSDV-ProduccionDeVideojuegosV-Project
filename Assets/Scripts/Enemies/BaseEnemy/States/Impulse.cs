@@ -9,8 +9,6 @@ namespace Enemies.BaseEnemy.States
         private Rigidbody _rigidbody;
         private Action _onImpulseStarted;
         private Action _onImpulseEnded;
-        private float _fallMultiplier = 2.5f;
-        private float _lowJumpMultiplier = 2f;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
 
         public Impulse(Transform enemy, Transform player, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,

@@ -9,7 +9,6 @@ namespace Hazards.CandyPendulum
     {
         [SerializeField] private float swingAngle = 45f;
         [SerializeField] private float swingSpeed = 1.5f;
-        [SerializeField] private float knockbackForce = 20f;
         [SerializeField] private int damage = 1;
         [SerializeField] private (int, int) knockback = (20,35);
 
