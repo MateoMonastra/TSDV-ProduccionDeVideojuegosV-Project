@@ -7,7 +7,7 @@ public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] holdAttackParticles;
     [SerializeField] private ParticleSystem[] normalAttackParticles;
-    [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private ParticleSystem[] groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
@@ -117,7 +117,7 @@ public class HammerController : MonoBehaviour
         }
 
         killEnemy.ToggleMultipleHits(true);
-        
+
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
     }
@@ -148,10 +148,12 @@ public class HammerController : MonoBehaviour
         isAnimating = false;
         ToggleAttackCollider(true);
 
-        if (groundSlamParticles.isPlaying)
-            groundSlamParticles.Stop();
+        for (int i = 0; i < groundSlamParticles.Length; i++)
+        {
+            if (!groundSlamParticles[i].isPlaying)
+                groundSlamParticles[i].Play();
+        }
 
-        groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
