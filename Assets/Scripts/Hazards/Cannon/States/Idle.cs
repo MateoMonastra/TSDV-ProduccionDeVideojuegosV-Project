@@ -28,7 +28,10 @@ namespace Hazards.Cannon.States
         public override void Tick(float delta)
         {
             base.Tick(delta);
-            float distance = Vector3.Distance(_enemy.position, _target.position);
+
+            Vector3 flatDifference = _target.position - _enemy.position;
+            flatDifference.y = 0f;
+            float distance = flatDifference.magnitude;
 
             if (_isInCooldown)
             {
@@ -45,14 +48,17 @@ namespace Hazards.Cannon.States
 
             if (!IsFacingTarget())
             {
+                Debug.Log(_enemy.gameObject.name + " is facing not target");
                 _needsUpdate = true;
                 return;
             }
-            
+
             _onEnterAttackRange?.Invoke();
+            Debug.Log("Shoted");
             _isInCooldown = true;
             _cooldownTimer = 0f;
         }
+
 
         public override void FixedTick(float delta)
         {
@@ -86,17 +92,18 @@ namespace Hazards.Cannon.States
         
         private bool IsFacingTarget()
         {
-            float threshold  = 0.99f;
-            
+            float threshold  = 0.95f;
+    
             Vector3 directionToPlayer = (_target.position - _enemy.position).normalized;
             directionToPlayer.y = 0f;
 
             Vector3 forward = _enemy.forward;
-            forward.y = 0f;
+            forward.y = 0f; 
 
             float dot = Vector3.Dot(forward.normalized, directionToPlayer);
 
             return dot > threshold; 
         }
+
     }
 }
