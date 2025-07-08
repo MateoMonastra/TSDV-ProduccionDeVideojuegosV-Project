@@ -1118,10 +1118,13 @@ PrefabInstance:
       addedObject: {fileID: 5594794976487381866}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1014531853128904603}
+      addedObject: {fileID: 8717590983609226268}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8717590983609226268}
+      addedObject: {fileID: 5952934300567670599}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: af674b5643004e74ea22937a31f15417, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4918293079226080794}
     - targetCorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6354720857541659468}
@@ -1189,7 +1192,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1014531853128904603
+--- !u!114 &8717590983609226268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052408848498248813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d981cd11a5364607a77ddab53e6b461a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5952934300567670599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1202,10 +1217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RootBones:
-  - {fileID: 2921732632884768669}
-  - {fileID: 5100290769331862135}
-  - {fileID: 5122879209172177343}
   - {fileID: 1363255706771835511}
+  - {fileID: 5122879209172177343}
   - {fileID: 589855784296042198}
   - {fileID: 715903559402205325}
   m_EndBones: []
@@ -1249,11 +1262,11 @@ MonoBehaviour:
   m_Iterations: 1
   m_SleepThreshold: 0.005
   m_GravityAligner: {fileID: 0}
-  m_Gravity: {x: 0, y: -2, z: 0}
+  m_Gravity: {x: 0, y: -0.5, z: 0}
   m_ForceModule: {fileID: 0}
-  m_ForceScale: 0.1
+  m_ForceScale: 1
   m_SimulateSpace: {fileID: 0}
---- !u!114 &8717590983609226268
+--- !u!114 &4918293079226080794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1262,9 +1275,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 7052408848498248813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d981cd11a5364607a77ddab53e6b461a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8aa2b9bccfefda549bd1cf67fd922ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RootBones:
+  - {fileID: 2921732632884768669}
+  - {fileID: 5100290769331862135}
+  m_EndBones: []
+  m_Material: {fileID: 0}
+  m_StartDepth: 0
+  m_SiblingConstraints: 0
+  m_ClosedSiblings: 0
+  m_SiblingRotationConstraints: 1
+  m_LengthUnification: 0
+  m_CollisionLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ExtraColliders: []
+  m_Radius: 0
+  m_RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_DeltaTimeMode: 0
+  m_ConstantDeltaTime: 0.03
+  m_Iterations: 1
+  m_SleepThreshold: 0.005
+  m_GravityAligner: {fileID: 0}
+  m_Gravity: {x: 0, y: -3, z: 0}
+  m_ForceModule: {fileID: 0}
+  m_ForceScale: 5
+  m_SimulateSpace: {fileID: 0}
 --- !u!1 &7320928428678493006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 614583244225167986, guid: af674b5643004e74ea22937a31f15417, type: 3}
