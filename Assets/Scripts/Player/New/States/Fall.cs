@@ -6,6 +6,8 @@ namespace Player.New
     public class Fall : LocomotionState
     {
         public const string ToWalkIdle = "Fall->WalkIdle";
+        public const string ToJumpAir  = "Fall->JumpAir";   // <<--- NUEVO
+
         private readonly float _settleTime;
         private float _groundedTimer;
 
@@ -19,6 +21,7 @@ namespace Player.New
             base.Enter();
             _anim?.SetFalling(true);
         }
+
         public override void Tick(float dt)
         {
             base.Tick(dt);
@@ -49,6 +52,19 @@ namespace Player.New
                 }
             }
             else _groundedTimer = 0f;
+        }
+
+        // <<--- NUEVO: permite doble salto mientras estás en Fall
+        public override void HandleInput(params object[] values)
+        {
+            if (values is { Length: >= 2 } && values[0] is string cmd && cmd == "Jump" &&
+                values[1] is bool pressed && pressed)
+            {
+                if (!Motor.IsGrounded && Model.JumpsLeft > 0)
+                {
+                    RequestTransition?.Invoke(ToJumpAir);
+                }
+            }
         }
     }
 }

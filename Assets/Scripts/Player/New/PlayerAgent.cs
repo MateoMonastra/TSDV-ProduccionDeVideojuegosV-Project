@@ -51,6 +51,7 @@ namespace Player.New
             _sJumpGround.AddTransition(new Transition{ From=_sJumpGround, To=_sJumpAir, ID=JumpGround.ToJumpAir });
             _sJumpAir.AddTransition(new Transition{ From=_sJumpAir,  To=_sFall,       ID=JumpAir.ToFall });
             _sFall.AddTransition(new Transition{ From=_sFall,        To=_sIdle,       ID=Fall.ToWalkIdle });
+            _sFall.AddTransition(new Transition{ From=_sFall, To=_sJumpAir, ID=Fall.ToJumpAir });
 
             // Dash desde cualquier estado de locomoción
             _sIdle.AddTransition(new Transition{ From=_sIdle,       To=_sDash, ID=Dash.ToDash });
