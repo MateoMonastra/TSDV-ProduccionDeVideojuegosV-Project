@@ -17,6 +17,7 @@ namespace Player.New
 
         [SerializeField] private float _maxSnapSpeed = 5f;
         [SerializeField] private float _rotationSpeed = 10f;
+        [SerializeField] private float gravity = 25f;
 
         [Header("Rotation Settings")] [SerializeField]
         private float _rotationSharpness = 10f;
@@ -86,7 +87,7 @@ namespace Player.New
             
             _ungroundTimer = Mathf.Max(0f, _ungroundTimer - deltaTime);
             
-            ApplyGravity(Physics.gravity.y, deltaTime);
+            ApplyGravity(gravity, deltaTime);
             
             if (_ungroundTimer <= 0f)
             {
