@@ -15,8 +15,9 @@ namespace Player.New
 
         public System.Action<float> OnSpinCooldownUI;
 
-        public SpinRelease(MyKinematicMotor m, PlayerModel model, System.Action<string> request)
-        { _m = m; _model = model; _req = request; }
+        private readonly PlayerAnimationController _anim;
+        public SpinRelease(MyKinematicMotor m, PlayerModel model, System.Action<string> request, PlayerAnimationController anim = null)
+        { _m = m; _model = model; _req = request; _anim = anim; }
 
         public override void Enter()
         {
@@ -30,7 +31,10 @@ namespace Player.New
             _model.SpinOnCooldown = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
             OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
-            // TODO anim/sfx
+            
+            _anim?.SetSpinCharging(false);
+            _anim?.TriggerSpinRelease();
+            if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
         }
 
         public override void Exit()
@@ -40,6 +44,7 @@ namespace Player.New
             _model.AimLockActive = false;
             _model.ActionMoveSpeedMultiplier = 1f;
             _model.AimLockDirection = Vector3.zero;
+            if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
         }
 
         public override void Tick(float dt)
@@ -64,6 +69,11 @@ namespace Player.New
                 _req?.Invoke(ToIdle);
                 Finish();
             }
+        }
+        
+        private void OnSpinDamageEvent()
+        {
+            // aplicar daño en área del 360° en el frame del evento
         }
     }
 }

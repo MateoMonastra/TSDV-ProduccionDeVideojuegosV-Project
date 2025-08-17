@@ -8,13 +8,20 @@ namespace Player.New
         public const string ToFall = "JumpAir->Fall";
         private readonly float _airDetectDelay;
         private float _t;
-
-        public JumpAir(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, float airDetectDelay = 0.02f)
-            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; }
+        private readonly PlayerAnimationController _anim;
+        
+        public JumpAir(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            float airDetectDelay = 0.02f, PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; _anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
+            
+            _anim?.TriggerDoubleJump();
+            _anim?.SetGrounded(false);
+            _anim?.SetFalling(false);
+            
             _t = 0f;
 
             if (Model.JumpsLeft > 0) Model.JumpsLeft--;

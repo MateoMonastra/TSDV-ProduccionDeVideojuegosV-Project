@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace FSM
@@ -6,41 +7,92 @@ namespace FSM
     {
         private State _current;
 
+        // Debug/inspección
+        public State Current => _current;
+        public State LastFrom { get; private set; }
+        public State LastTo { get; private set; }
+        public string LastTransitionId { get; private set; }
+        public bool LastTransitionSucceeded { get; private set; }
+
+        // Callback opcional para herramientas/telemetría
+        public event System.Action<State, string, bool, State> OnAfterTransitionAttempt;
+        // firma: (from, id, success, toIfSuccess)
+
         public Fsm(State current)
         {
             _current = current;
             _current.Enter();
         }
 
-        public void Update()
-        {
-            _current.Tick(Time.deltaTime);
-        }
-
-        public void FixedUpdate()
-        {
-            _current.FixedTick(Time.deltaTime);
-        }
+        public void Update()      => _current.Tick(Time.deltaTime);
+        public void FixedUpdate() => _current.FixedTick(Time.deltaTime);
 
         /// <summary>
-        /// Intenta transicionar usando un ID registrado en el estado actual.
+        /// Intenta transicionar por ID. Si falla, loguea el listado de IDs disponibles
+        /// en el estado actual (para detectar typos o transiciones no registradas).
         /// </summary>
         public bool TryTransitionTo(string id)
         {
+            return TryTransitionTo(id, warnIfMissing: true);
+        }
+
+        /// <summary>
+        /// Versión con control de logging.
+        /// </summary>
+        public bool TryTransitionTo(string id, bool warnIfMissing)
+        {
+            LastFrom = _current;
+            LastTransitionId = id;
+
             if (_current.TryGetTransition(id, out var transition))
             {
-                Debug.Log($"FSM: transition {_current} -> {id} (via ID), success");
-                transition.Do();                  // Exit -> OnTransition -> Enter
+                Debug.Log($"FSM: transition {LastFrom} -> {id} (success)");
+                transition.Do(); // Exit -> (OnTransition) -> Enter
                 _current = transition.To;
+
+                LastTo = _current;
+                LastTransitionSucceeded = true;
+                OnAfterTransitionAttempt?.Invoke(LastFrom, id, true, LastTo);
                 return true;
             }
 
-            Debug.Log($"FSM: transition {_current} -> {id} (via ID), failure");
+            LastTo = null;
+            LastTransitionSucceeded = false;
+
+            if (warnIfMissing)
+            {
+                var ids = (_current is ITransitionsDebug dbg && dbg.GetTransitionIds() != null)
+                    ? string.Join(", ", dbg.GetTransitionIds())
+                    : "(no expuesto)";
+
+                Debug.LogWarning(
+                    $"FSM: transition {LastFrom} -> \"{id}\" (FAIL). " +
+                    $"IDs disponibles desde {LastFrom}: {ids}"
+                );
+            }
+
+            OnAfterTransitionAttempt?.Invoke(LastFrom, id, false, null);
             return false;
         }
 
         /// <summary>
-        /// Transición forzada a un estado destino, sin requerir ID ni transición registrada.
+        /// Igual que TryTransitionTo pero exige éxito. Si falla, loguea error detallado.
+        /// </summary>
+        public bool ExpectTransition(string id)
+        {
+            if (TryTransitionTo(id, warnIfMissing: true))
+                return true;
+
+            Debug.LogError(
+                $"FSM: EXPECTED transition to \"{id}\" from {LastFrom}, pero no existe. " +
+                $"Revisá el registro de transiciones del estado actual o el ID."
+            );
+            return false;
+        }
+
+        /// <summary>
+        /// Transición forzada a un estado particular (sin ID). Útil para mecánicas
+        /// que deben cortar lo que esté pasando. Respeta Exit->OnTransition->Enter.
         /// </summary>
         public void ForceTransition(State to)
         {
@@ -50,22 +102,30 @@ namespace FSM
                 return;
             }
             if (ReferenceEquals(_current, to))
-            {
                 return;
-            }
-            
+
             var synthetic = new Transition
             {
                 From = _current,
-                To = to,
-                ID = "FORCED" // sólo informativo
+                To   = to,
+                ID   = "FORCED"
             };
 
-            Debug.Log($"FSM: FORCE transition {_current} -> {to}");
+            LastFrom = _current;
+            LastTransitionId = synthetic.ID;
+
+            Debug.Log($"FSM: FORCE transition {LastFrom} -> {to}");
             synthetic.Do();
             _current = to;
+
+            LastTo = _current;
+            LastTransitionSucceeded = true;
+            OnAfterTransitionAttempt?.Invoke(LastFrom, LastTransitionId, true, LastTo);
         }
 
-        public State GetCurrentState() => _current;
+        public State GetCurrentState()
+        {
+            return _current;
+        }
     }
 }

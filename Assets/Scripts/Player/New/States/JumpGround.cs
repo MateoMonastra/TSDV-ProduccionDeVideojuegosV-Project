@@ -10,13 +10,19 @@ namespace Player.New
 
         private readonly float _airDetectDelay;
         private float _t;
-
-        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, float airDetectDelay = 0.04f)
-            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; }
+        private readonly PlayerAnimationController _anim;
+        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            float airDetectDelay = 0.04f, PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; _anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
+            
+            _anim?.TriggerJump();
+            _anim?.SetGrounded(false);
+            _anim?.SetFalling(false);
+            
             _t = 0f;
 
             Model.JumpWasPureVertical = Model.RawMoveInput.sqrMagnitude <= 1e-4f;

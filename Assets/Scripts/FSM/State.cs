@@ -4,9 +4,15 @@ using UnityEngine;
 
 namespace FSM
 {
-    public abstract class State
+    public interface ITransitionsDebug
+    {
+        System.Collections.Generic.IEnumerable<string> GetTransitionIds();
+    }
+
+    public abstract class State : ITransitionsDebug
     {
         private List<Transition> _transitions = new();
+
         public Action OnEnter;
         public Action OnTick;
         public Action OnFixedTick;
@@ -14,11 +20,8 @@ namespace FSM
         public Action OnHandleInput;
 
         public virtual void Enter() => OnEnter?.Invoke();
-
         public virtual void Tick(float delta) => OnTick?.Invoke();
-
         public virtual void FixedTick(float delta) => OnFixedTick?.Invoke();
-
         public virtual void Exit() => OnExit?.Invoke();
         public virtual void HandleInput(params object[] values) => OnHandleInput?.Invoke();
 
@@ -36,7 +39,16 @@ namespace FSM
             transition = null;
             return false;
         }
-        
+
         public void AddTransition(Transition transition) => _transitions.Add(transition);
+        
+        public IEnumerable<string> GetTransitionIds()
+        {
+            foreach (var t in _transitions)
+                if (!string.IsNullOrEmpty(t.ID))
+                    yield return t.ID;
+        }
+
+        public override string ToString() => GetType().Name;
     }
 }

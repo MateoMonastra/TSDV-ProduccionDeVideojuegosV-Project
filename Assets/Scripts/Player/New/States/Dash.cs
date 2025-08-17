@@ -18,14 +18,15 @@ namespace Player.New
         private float _t;
 
         public System.Action<float> OnDashCooldownUI; // opcional UI
-
-        public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> request)
-        { _m = m; _model = model; _req = request; }
+        
+        private readonly PlayerAnimationController _anim;
+        public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null)
+        { _m = m; _model = model; _req = req; _anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
-
+            _anim?.TriggerDash();
             Vector3 forward = _m.transform.forward;
             Vector3 inputDir = _model.MoveInputWorld.sqrMagnitude > 1e-5f ? _model.MoveInputWorld.normalized : forward;
             _dir = new Vector3(inputDir.x, 0f, inputDir.z).normalized;

@@ -13,6 +13,7 @@ namespace Player.New
         [SerializeField] private Camera _cameraRef;
         [SerializeField] private MyKinematicMotor _motor;
         [SerializeField] private PlayerModel _model;
+        [SerializeField] private PlayerAnimationController _anim;
 
         // Locomoción
         private Fsm _locomotionFsm;
@@ -40,11 +41,11 @@ namespace Player.New
 
             // ----- Locomoción -----
             void LR(string id) => _locomotionFsm.TryTransitionTo(id);
-            _sIdle       = new WalkIdle(_motor, _model, _cameraRef.transform, LR, onWalk: null, coyoteTime: 0.12f);
-            _sJumpGround = new JumpGround(_motor, _model, _cameraRef.transform, LR, airDetectDelay: 0.04f);
-            _sJumpAir    = new JumpAir(_motor, _model, _cameraRef.transform, LR, airDetectDelay: 0.02f);
-            _sFall       = new Fall(_motor, _model, _cameraRef.transform, LR, settleTime: 0.04f);
-            _sDash       = new Dash(_motor, _model, LR);
+            _sIdle       = new WalkIdle(_motor, _model, _cameraRef.transform, LR, onWalk: null, coyoteTime: 0.12f, anim: _anim);
+            _sJumpGround = new JumpGround(_motor, _model, _cameraRef.transform, LR, airDetectDelay: 0.04f, anim: _anim);
+            _sJumpAir    = new JumpAir(_motor, _model, _cameraRef.transform, LR, airDetectDelay: 0.02f, anim: _anim);
+            _sFall       = new Fall(_motor, _model, _cameraRef.transform, LR, settleTime: 0.04f, anim: _anim);
+            _sDash       = new Dash(_motor, _model, LR, anim: _anim);
 
             _sIdle.AddTransition(new Transition{ From=_sIdle,       To=_sJumpGround, ID=WalkIdle.ToJump });
             _sIdle.AddTransition(new Transition{ From=_sIdle,       To=_sFall,       ID=WalkIdle.ToFall });
@@ -66,12 +67,12 @@ namespace Player.New
             // ----- Acciones -----
             void AR(string id) => _actionFsm.TryTransitionTo(id);
             _aIdle = new AttackIdle(_model, AR);
-            _a1          = new Attack1(_motor, _model, AR);
-            _a2          = new Attack2(_motor, _model, AR);
-            _a3          = new Attack3(_motor, _model, AR);
-            _aVertical   = new AttackVertical(_motor, _model, AR);
-            _aSpinCharge = new SpinCharge(_model, _cameraRef.transform, AR);
-            _aSpinRelease= new SpinRelease(_motor, _model, AR);
+            _a1          = new Attack1(_motor, _model, AR, anim: _anim);
+            _a2          = new Attack2(_motor, _model, AR, anim: _anim);
+            _a3          = new Attack3(_motor, _model, AR, anim: _anim);
+            _aVertical   = new AttackVertical(_motor, _model, AR, anim: _anim);
+            _aSpinCharge = new SpinCharge(_model, _cameraRef.transform, AR, anim: _anim);
+            _aSpinRelease= new SpinRelease(_motor, _model, AR, anim: _anim);
 
             _aIdle.AddTransition(new Transition{ From=_aIdle, To=_a1, ID=AttackIdle.ToA1 });
             _a1.AddTransition(new Transition{ From=_a1, To=_a2, ID=Attack1.ToA2 });

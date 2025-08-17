@@ -5,7 +5,8 @@ namespace Player.New
     public enum OrientationMethod { TowardsMovement, TowardsCamera }
 
     [System.Serializable]
-    public class PlayerModel
+    [CreateAssetMenu(fileName = "NewPlayerModel", menuName = "Models/NewPlayerModel")]
+    public class PlayerModel : ScriptableObject
     {
         [Header("Movement")]
         [Tooltip("Velocidad de movimiento en suelo")]

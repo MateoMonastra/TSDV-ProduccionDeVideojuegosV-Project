@@ -8,12 +8,17 @@ namespace Player.New
         public const string ToWalkIdle = "Fall->WalkIdle";
         private readonly float _settleTime;
         private float _groundedTimer;
+        
+        private readonly PlayerAnimationController _anim;
+        public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            float settleTime = 0.04f, PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req) { _settleTime = settleTime; _anim = anim; }
 
-        public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, float settleTime = 0.04f)
-            : base(m, mdl, cam, req) { _settleTime = settleTime; }
-
-        public override void Enter() { base.Enter(); _groundedTimer = 0f; }
-
+        public override void Enter()
+        {
+            base.Enter();
+            _anim?.SetFalling(true);
+        }
         public override void Tick(float dt)
         {
             base.Tick(dt);
@@ -25,6 +30,11 @@ namespace Player.New
                 _groundedTimer += dt;
                 if (_groundedTimer >= _settleTime)
                 {
+                    _anim?.SetFalling(false);
+                    _anim?.TriggerLand();
+                    _anim?.SetGrounded(true);
+                    _anim?.SetWalking(false);
+                    
                     var v = Motor.Velocity; v.x = 0f; v.z = 0f;
                     Motor.SetVelocity(v);
                     RequestTransition?.Invoke(ToWalkIdle);

@@ -12,10 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551bb5f85ff448b4990bf09cf79c635d, type: 3}
   m_Name: NewPlayerModel
   m_EditorClassIdentifier: 
-  moveSpeed: 14
-  jumpVelocity: 25
-  gravity: -40
-  airAcceleration: 15
-  maxAirSpeed: 10
-  rotationSharpness: 15
-  airControlSharpness: 5
+  MoveSpeed: 6
+  MoveAcceleration: 30
+  AirHorizontalSpeed: 6
+  OrientationMethod: 0
+  OrientationSharpness: 12
+  JumpSpeed: 7.5
+  MaxJumps: 2
+  DashDistance: 2
+  DashSpeed: 18
+  DashCooldown: 1.2
+  EnemyMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  AttackDamage: 10
+  AttackChainWindow: 0.3
+  AttackComboOnCooldown: 0
+  AttackComboCooldownLeft: 0
+  Attack1Duration: 0.25
+  Attack2Duration: 0.28
+  Attack3Duration: 0.34
+  AttackRange: 2
+  AttackComboCooldown: 0.4
+  AttackKnockbackDistance: 2.5
+  AttackStaggerTime: 0.35
+  VerticalAttackDuration: 0.5
+  VerticalAttackRadius: 2.8
+  VerticalAttackCooldown: 1
+  VerticalAttackPostStun: 0.25
+  SpinChargeMinTime: 0.6
+  SpinDuration: 0.7
+  SpinRadius: 2.8
+  SpinPushDistance: 2
+  SpinCooldown: 3
+  SpinMoveSpeedMultiplierWhileCharging: 0.6
+  SpinPostStun: 0.35
+  ActionMoveSpeedMultiplier: 1
+  AimLockActive: 0
+  AimLockDirection: {x: 0, y: 0, z: 0}
+  LocomotionBlocked: 0
+  InvulnerableToEnemies: 0
+  RawMoveInput: {x: 0, y: 0}
+  MoveInputWorld: {x: 0, y: 0, z: 0}
+  JumpsLeft: 0
+  JumpWasPureVertical: 0
+  DashOnCooldown: 0
+  DashCooldownLeft: 0
+  SpinOnCooldown: 0
+  SpinCooldownLeft: 0
+  VerticalOnCooldown: 0
+  VerticalCooldownLeft: 0

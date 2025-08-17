@@ -13,10 +13,9 @@ namespace Player.New
 
         private float _t;
         private bool _impactDone;
-
-        public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req)
-        { _m = m; _model = mdl; _req = req; }
-
+        private readonly PlayerAnimationController _anim;
+        public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
+        { _m = m; _model = mdl; _req = req; _anim = anim; }
         public override void Enter()
         {
             base.Enter();
@@ -26,7 +25,9 @@ namespace Player.New
 
             _t = 0f; _impactDone = false;
             _model.LocomotionBlocked = true;
-            // TODO anim/sfx vertical
+            
+            _anim?.TriggerVerticalStart();
+            if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
         }
 
         public override void Exit()
@@ -35,6 +36,7 @@ namespace Player.New
             _model.LocomotionBlocked = false;
             _model.VerticalOnCooldown = true;
             _model.VerticalCooldownLeft = _model.VerticalAttackCooldown;
+            if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
         }
 
         public override void Tick(float dt)
@@ -66,5 +68,11 @@ namespace Player.New
 
         public static bool CanUse(MyKinematicMotor m, PlayerModel mdl)
             => !m.IsGrounded && mdl.JumpWasPureVertical && !mdl.VerticalOnCooldown;
+        
+        private void OnAnimVerticalImpact()
+        {
+            // marcar impacto como hecho para sincronizar con la anim (si querés)
+            // _impactDone = true; daño en área aquí si corresponde
+        }
     }
 }

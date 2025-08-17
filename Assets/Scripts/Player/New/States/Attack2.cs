@@ -10,18 +10,18 @@ namespace Player.New
 
         private bool _waitingChain;
         private float _chainTimer;
-
-        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req) : base(m, mdl, req) { }
+        
+        private readonly PlayerAnimationController _anim;
+        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
+            : base(m, mdl, req) { _anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
-            t = 0f;
-            Duration = Model.Attack2Duration;
-            _waitingChain = false;
-            _chainTimer = 0f;
-            // TODO: anim/sfx A2
-        }
+            t = 0f; Duration = Model.Attack1Duration;
+            _anim?.TriggerAttack2();
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit; // animation event
+        } 
 
         public override void Tick(float dt)
         {
@@ -46,6 +46,13 @@ namespace Player.New
                 }
             }
         }
+        
+        public override void Exit()
+        {
+            base.Exit();
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+        }
+        private void OnAnimHit() => TryDoHitFrontal(0f);
 
         public override void HandleInput(params object[] values)
         {

@@ -15,8 +15,10 @@ namespace Player.New
         private float _t;
         private bool _releaseQueued;
 
-        public SpinCharge(PlayerModel model, Transform cam, System.Action<string> request)
-        { _model = model; _cam = cam; _req = request; }
+        private readonly PlayerAnimationController _anim;
+        public SpinCharge(PlayerModel model, Transform cam, System.Action<string> request, PlayerAnimationController anim = null)
+        { _model = model; _cam = cam; _req = request; _anim = anim; }
+
 
         public override void Enter()
         {
@@ -29,6 +31,8 @@ namespace Player.New
             Vector3 fwd = Vector3.ProjectOnPlane(_cam.forward, Vector3.up).normalized;
             if (fwd.sqrMagnitude < 1e-4f) fwd = _cam.forward;
             _model.AimLockDirection = fwd;
+            
+            _anim?.SetSpinCharging(true);
         }
 
         public override void Exit()
