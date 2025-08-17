@@ -21,7 +21,10 @@ namespace Player
         public Action OnGodModeCheat;
         public Action OnJumpPickUpCheat;
         public Action OnDashPickUpCheat;
-
+        public Action OnDash;
+        public Action OnAttackHeavyPressed;
+        public Action OnAttackHeavyReleased;
+        
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
 
@@ -120,6 +123,15 @@ namespace Player
             {
                 OnJumpPickUpCheat?.Invoke();
             }
+        }
+        public void HandleDashInput(InputAction.CallbackContext ctx)
+        {
+            if (ctx.started) OnDash?.Invoke();
+        }
+        public void HandleAttackHeavyInput(InputAction.CallbackContext ctx)
+        {
+            if (ctx.started) OnAttackHeavyPressed?.Invoke();
+            if (ctx.canceled) OnAttackHeavyReleased?.Invoke();
         }
     }
 }

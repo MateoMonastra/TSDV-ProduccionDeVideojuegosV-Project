@@ -1,85 +1,62 @@
-﻿using FSM;
+﻿using System;
+using FSM;
 using UnityEngine;
 
 namespace Player.New
 {
-    public class WalkIdle : State
+    public class WalkIdle : LocomotionState
     {
-        private readonly MyKinematicMotor _motor;
-        private System.Action _onFall;
-        private PlayerModel _model;
+        public const string ToJump = "WalkIdle->JumpGround";
+        public const string ToFall = "WalkIdle->Fall";
 
-        private float _ungroundedTime;
+        private readonly Action<bool> _onWalk;
+        private readonly float _coyoteTime;
+        private float _ungroundedTimer;
+        private bool _jumpRequested;
 
-        public WalkIdle(MyKinematicMotor motor, PlayerModel model, System.Action onFall)
-        {
-            _motor = motor;
-            _model = model;
-            _onFall = onFall;
-        }
+        public WalkIdle(MyKinematicMotor m, PlayerModel mdl, Transform cam, Action<string> req,
+            Action<bool> onWalk = null, float coyoteTime = 0.12f)
+            : base(m, mdl, cam, req)
+        { _onWalk = onWalk; _coyoteTime = coyoteTime; }
 
         public override void Enter()
         {
-            _ungroundedTime = 0f;
- 
-            Vector3 velocity = _motor.Velocity;
-            velocity.y = Mathf.Min(velocity.y, 0);
-            _motor.SetVelocity(velocity);
+            base.Enter();
+            Model.ResetJumps();
+            _ungroundedTimer = 0f;
+            _jumpRequested = false;
+            _onWalk?.Invoke(false);
         }
 
-        public override void Tick(float delta)
+        public override void Tick(float dt)
         {
-            Vector3 targetVelocity = _model.MoveInput * _model.MoveSpeed;
-            Vector3 currentVelocity = _motor.Velocity;
-            
-            currentVelocity = Vector3.Lerp(
-                currentVelocity,
-                new Vector3(targetVelocity.x, currentVelocity.y, targetVelocity.z),
-                1 - Mathf.Exp(-_model.RotationSharpness * delta)
-            );
-            
-            if (_model.MoveInput.sqrMagnitude > 0.001f)
+            base.Tick(dt);
+
+            ApplyLocomotion(dt, inAir: false);
+
+            var hv = Motor.Velocity; hv.y = 0f;
+            _onWalk?.Invoke(hv.sqrMagnitude > 0.01f);
+
+            if (_jumpRequested && Motor.IsGrounded && Model.JumpsLeft > 0)
             {
-                Quaternion currentRot = _motor.transform.rotation;
-
-                Quaternion targetRot = Quaternion.LookRotation(_model.MoveInput.normalized, Vector3.up);
-
-                Quaternion newRot = Quaternion.Slerp(
-                    currentRot,
-                    targetRot,
-                    1 - Mathf.Exp(-_model.RotationSharpness * delta)
-                );
-
-                _motor.SetRotation(newRot);
+                _jumpRequested = false;
+                RequestTransition?.Invoke(ToJump);
+                return;
             }
-            
-            if (!_motor.IsGrounded)
-            {
-                currentVelocity.y += _model.Gravity * 0.1f * delta;
-                _ungroundedTime += delta;
 
-                if (_ungroundedTime > 0.15f)
-                {
-                    _onFall?.Invoke();
-                }
-            }
+            if (Motor.IsGrounded) _ungroundedTimer = 0f;
             else
             {
-                _ungroundedTime = 0f;
-                currentVelocity.y = Mathf.Min(currentVelocity.y, 0);
+                _ungroundedTimer += dt;
+                if (_ungroundedTimer >= _coyoteTime)
+                    RequestTransition?.Invoke(ToFall);
             }
-
-            _motor.SetVelocity(currentVelocity);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         public override void HandleInput(params object[] values)
         {
-            _model.MoveInput = (Vector3)values[0];
+            if (values is { Length: >= 2 } && values[0] is string cmd && cmd == "Jump" &&
+                values[1] is bool pressed && pressed) _jumpRequested = true;
         }
     }
 }

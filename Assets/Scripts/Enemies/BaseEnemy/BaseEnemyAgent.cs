@@ -96,7 +96,7 @@ namespace Enemies.BaseEnemy
             onDeath?.Invoke();
             _isDeath = true;
             State death = new Death(this.gameObject, model);
-            _fsm.ForceSetCurrentState(death);
+            _fsm.ForceTransition(death);
         }
 
         private void AttackOnDelay()

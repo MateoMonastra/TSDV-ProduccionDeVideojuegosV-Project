@@ -22,29 +22,50 @@ namespace FSM
             _current.FixedTick(Time.deltaTime);
         }
 
+        /// <summary>
+        /// Intenta transicionar usando un ID registrado en el estado actual.
+        /// </summary>
         public bool TryTransitionTo(string id)
         {
             if (_current.TryGetTransition(id, out var transition))
             {
-                Debug.Log($"transition {_current} to {id}, success");
-                transition.Do();
+                Debug.Log($"FSM: transition {_current} -> {id} (via ID), success");
+                transition.Do();                  // Exit -> OnTransition -> Enter
                 _current = transition.To;
                 return true;
             }
 
-            Debug.Log($"transition {_current} to {id}, failure");
+            Debug.Log($"FSM: transition {_current} -> {id} (via ID), failure");
             return false;
         }
 
-        public State GetCurrentState()
+        /// <summary>
+        /// Transición forzada a un estado destino, sin requerir ID ni transición registrada.
+        /// </summary>
+        public void ForceTransition(State to)
         {
-            return _current;
+            if (to == null)
+            {
+                Debug.LogWarning("FSM: ForceTransition target is null");
+                return;
+            }
+            if (ReferenceEquals(_current, to))
+            {
+                return;
+            }
+            
+            var synthetic = new Transition
+            {
+                From = _current,
+                To = to,
+                ID = "FORCED" // sólo informativo
+            };
+
+            Debug.Log($"FSM: FORCE transition {_current} -> {to}");
+            synthetic.Do();
+            _current = to;
         }
 
-        public void ForceSetCurrentState(State state)
-        {
-            _current = state;
-            _current.Enter();
-        }
+        public State GetCurrentState() => _current;
     }
 }

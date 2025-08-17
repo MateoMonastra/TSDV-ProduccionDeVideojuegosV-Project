@@ -3,61 +3,34 @@ using UnityEngine;
 
 namespace Player.New
 {
-    public class Fall : State
+    public class Fall : LocomotionState
     {
-        private readonly MyKinematicMotor _motor;
-        private PlayerModel _model;
-        private System.Action _onLand;
+        public const string ToWalkIdle = "Fall->WalkIdle";
+        private readonly float _settleTime;
+        private float _groundedTimer;
 
-        public Fall(MyKinematicMotor motor,PlayerModel model, System.Action onLand)
+        public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, float settleTime = 0.04f)
+            : base(m, mdl, cam, req) { _settleTime = settleTime; }
+
+        public override void Enter() { base.Enter(); _groundedTimer = 0f; }
+
+        public override void Tick(float dt)
         {
-            _motor = motor;
-            _model = model;
-            _onLand = onLand;
-        }
+            base.Tick(dt);
 
-        public override void Tick(float delta)
-        {
-            Vector3 velocity = _motor.Velocity;
-            velocity.y += _model.Gravity * delta;
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
 
-            velocity = AirMovement(delta, velocity);
-
-            _motor.SetVelocity(velocity);
-
-            if (_motor.IsGrounded)
+            if (Motor.IsGrounded)
             {
-                _onLand?.Invoke();
-            }
-        }
-        
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
-        private Vector3 AirMovement(float delta, Vector3 velocity)
-        {
-            if (_model.MoveInput.sqrMagnitude > 0.01f)
-            {
-                Vector3 addedVelocity = _model.MoveInput * (_model.AirAcceleration * delta);
-
-                // Limitar velocidad horizontal
-                Vector3 horizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
-                if (horizontalVelocity.magnitude < _model.MaxAirSpeed)
+                _groundedTimer += dt;
+                if (_groundedTimer >= _settleTime)
                 {
-                    horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity + addedVelocity, _model.MaxAirSpeed);
-                    velocity.x = horizontalVelocity.x;
-                    velocity.z = horizontalVelocity.z;
+                    var v = Motor.Velocity; v.x = 0f; v.z = 0f;
+                    Motor.SetVelocity(v);
+                    RequestTransition?.Invoke(ToWalkIdle);
                 }
             }
-
-            return velocity;
-        }
-
-        public override void HandleInput(params object[] values)
-        {
-            _model.MoveInput = (Vector3)values[0];
+            else _groundedTimer = 0f;
         }
     }
 }
