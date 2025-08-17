@@ -35,7 +35,8 @@ namespace Player
         
         public void HandleClick(InputAction.CallbackContext context)
         {
-            OnClick?.Invoke();
+            if(context.started)
+                OnClick?.Invoke();
         }
 
         public void HandlePauseInput(InputAction.CallbackContext context)

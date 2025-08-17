@@ -11,19 +11,33 @@ namespace Player.New
         private float _chainTimer;
 
         private readonly PlayerAnimationController _anim;
-        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
-            : base(m, mdl, req) { _anim = anim; }
+
+        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+            PlayerAnimationController anim = null)
+            : base(m, mdl, req)
+        {
+            _anim = anim;
+        }
 
         public override void Enter()
         {
             base.Enter();
             t = 0f;
-            Duration = Model.attack2Duration;     // <--- FIX
-            _waitingChain = false;                // <--- FIX
-            _chainTimer = 0f;                     // <--- FIX
+            Duration = Model.attack2Duration;
+            _waitingChain = false;
+            _chainTimer = 0f;
+            _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _anim?.SetCombatActive(false);
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+        }
+
 
         public override void Tick(float dt)
         {
@@ -49,11 +63,6 @@ namespace Player.New
             }
         }
 
-        public override void Exit()
-        {
-            base.Exit();
-            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
-        }
         private void OnAnimHit() => TryDoHitFrontal(0f);
 
         public override void HandleInput(params object[] values)

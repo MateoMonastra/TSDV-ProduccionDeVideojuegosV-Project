@@ -8,7 +8,12 @@ namespace Player.New
     {
         [Header("Refs")]
         [SerializeField] private Animator _anim;
-        
+
+        [Header("Animator Layers")]
+        [SerializeField] private string _combatLayerName = "Combat";
+        private int _combatLayer = -1;
+
+        // Params
         static readonly int pIsWalking   = Animator.StringToHash("IsWalking");
         static readonly int pIsGrounded  = Animator.StringToHash("IsGrounded");
         static readonly int pIsFalling   = Animator.StringToHash("IsFalling");
@@ -24,11 +29,25 @@ namespace Player.New
         static readonly int bSpinCharging   = Animator.StringToHash("SpinCharging");
         static readonly int tSpinRelease    = Animator.StringToHash("SpinRelease");
 
-        void Reset()
+        [SerializeField] private bool _debugAnimEvents = false;
+
+        void Reset() { _anim = GetComponent<Animator>(); }
+
+        void Awake()
         {
-            _anim = GetComponent<Animator>();
+            if (!_anim) _anim = GetComponent<Animator>();
+            _combatLayer = _anim ? _anim.GetLayerIndex(_combatLayerName) : -1;
+            if (_combatLayer < 0)
+                Debug.LogWarning($"[Animator] No existe la layer '{_combatLayerName}'.");
         }
-        
+
+        void OnEnable()
+        {
+            // Combat apagada por defecto para no tapar locomoción
+            SetCombatActive(false);
+        }
+
+        // ------- API Animator -------
         public void SetWalking(bool v)   { if (_anim) _anim.SetBool(pIsWalking, v); }
         public void SetGrounded(bool v)  { if (_anim) _anim.SetBool(pIsGrounded, v); }
         public void SetFalling(bool v)   { if (_anim) _anim.SetBool(pIsFalling, v); }
@@ -47,17 +66,31 @@ namespace Player.New
 
         public void SetSpinCharging(bool v) { if (_anim) _anim.SetBool(bSpinCharging, v); }
         public void TriggerSpinRelease()    { if (_anim) _anim.SetTrigger(tSpinRelease); }
-        
-        
-        //Eventos de animacion para el futuro cuando metamos audio
-        public Action OnAnim_AttackHit;       
-        public Action OnAnim_VerticalImpact;  
-        public Action OnAnim_SpinDamage;      
-        public Action OnAnim_Footstep;        
-        
-        public void AnimEvent_AttackHit()      { OnAnim_AttackHit?.Invoke(); }
-        public void AnimEvent_VerticalImpact() { OnAnim_VerticalImpact?.Invoke(); }
-        public void AnimEvent_SpinDamage()     { OnAnim_SpinDamage?.Invoke(); }
-        public void AnimEvent_Footstep()       { OnAnim_Footstep?.Invoke(); }
+
+        // ------- Layer helpers -------
+        public void SetCombatActive(bool active)
+        {
+            if (_anim && _combatLayer >= 0)
+                _anim.SetLayerWeight(_combatLayer, active ? 1f : 0f);
+        }
+
+        [ContextMenu("Log Animator Layers")]
+        void LogAnimatorLayers()
+        {
+            if (!_anim) return;
+            for (int i = 0; i < _anim.layerCount; i++)
+                Debug.Log($"Layer[{i}] '{_anim.GetLayerName(i)}' weight={_anim.GetLayerWeight(i):0.00}");
+        }
+
+        // ------- Animation Events -------
+        public Action OnAnim_AttackHit;
+        public Action OnAnim_VerticalImpact;
+        public Action OnAnim_SpinDamage;
+        public Action OnAnim_Footstep;
+
+        public void AnimEvent_AttackHit()      { if (_debugAnimEvents) Debug.Log("[AnimEvent] AttackHit"); OnAnim_AttackHit?.Invoke(); }
+        public void AnimEvent_VerticalImpact() { if (_debugAnimEvents) Debug.Log("[AnimEvent] VerticalImpact"); OnAnim_VerticalImpact?.Invoke(); }
+        public void AnimEvent_SpinDamage()     { if (_debugAnimEvents) Debug.Log("[AnimEvent] SpinDamage"); OnAnim_SpinDamage?.Invoke(); }
+        public void AnimEvent_Footstep()       { if (_debugAnimEvents) Debug.Log("[AnimEvent] Footstep"); OnAnim_Footstep?.Invoke(); }
     }
 }

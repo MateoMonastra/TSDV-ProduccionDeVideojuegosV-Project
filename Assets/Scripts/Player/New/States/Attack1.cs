@@ -5,11 +5,12 @@ namespace Player.New
 {
     public class Attack1 : AttackBase
     {
-        public const string ToA2 = "Attack1->Attack2";
+        public const string ToA2   = "Attack1->Attack2";
         public const string ToIdle = "Attack1->AttackIdle";
 
         private bool _waitingChain;
         private float _chainTimer;
+
         private readonly PlayerAnimationController _anim;
         public Attack1(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
             : base(m, mdl, req) { _anim = anim; }
@@ -17,9 +18,28 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            t = 0f; Duration = Model.attack1Duration;
+
+            // 🔒 Duración y ventana con mínimos para evitar "corte instantáneo"
+            t = 0f;
+            float minDur = 0.05f; // nunca 0
+            float minWin = 0.05f; // nunca 0
+            Duration = Mathf.Max(minDur, Model.attack1Duration);            // usa tu PlayerModel (lowercase)
+            _waitingChain = false;
+            _chainTimer = 0f;
+
+            // Capa Combat visible durante el ataque
+            _anim?.SetCombatActive(true);
             _anim?.TriggerAttack1();
-            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit; // animation event
+
+            // Si tenés Animation Event de impacto, aprovechalo (opcional)
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+            _anim?.SetCombatActive(false); // apagar Combat al salir
         }
 
         public override void Tick(float dt)
@@ -27,15 +47,18 @@ namespace Player.New
             base.Tick(dt);
             t += dt;
 
-            // Hacer daño una vez (en el medio por defecto)
-            TryDoHitFrontal(0.5f, 55f);
+            // Impacto: a mitad del clip (o por Animation Event via OnAnimHit)
+            TryDoHitFrontal(0.5f, Model.attackHalfAngleDegrees);
 
+            // Abre ventana para encadenar SOLO al terminar la animación
             if (!_waitingChain && t >= Duration)
             {
                 _waitingChain = true;
-                _chainTimer = Model.attackChainWindow; // comienza ventana para encadenar
+                // Ventana nunca 0 para que no vuelva a Idle al instante
+                _chainTimer = Mathf.Max(0.05f, Model.attackChainWindow);
             }
 
+            // Si no encadena dentro de la ventana, vuelve a Idle
             if (_waitingChain)
             {
                 _chainTimer -= dt;
@@ -46,19 +69,13 @@ namespace Player.New
                 }
             }
         }
-        
-        public override void Exit()
-        {
-            base.Exit();
-            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
-        }
+
         private void OnAnimHit() => TryDoHitFrontal(0f);
 
         public override void HandleInput(params object[] values)
         {
-            if (!_waitingChain) return; // solo acepta input cuando terminó la anim y hay ventana
-
-            if (values is { Length: >=1 } && values[0] is string cmd && cmd == "AttackPressed")
+            if (!_waitingChain) return; // solo acepta input cuando ya terminó el clip y hay ventana
+            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == "AttackPressed")
             {
                 Req?.Invoke(ToA2);
                 Finish();

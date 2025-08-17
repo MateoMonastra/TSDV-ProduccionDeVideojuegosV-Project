@@ -23,16 +23,11 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
-
             _model.locomotionBlocked = true;
-            _model.aimLockActive = true;
-            _model.actionMoveSpeedMultiplier = 0f;
-
             _model.spinOnCooldown = true;
             _model.spinCooldownLeft = _model.spinCooldown;
-            OnSpinCooldownUI?.Invoke(_model.spinCooldownLeft);
 
-            _anim?.SetSpinCharging(false);
+            _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
         }
@@ -40,25 +35,16 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _model.locomotionBlocked = false;
-            _model.aimLockActive = false;
-            _model.actionMoveSpeedMultiplier = 1f;
-            _model.aimLockDirection = Vector3.zero;
+            _anim?.SetCombatActive(false);
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
+            _model.ClearActionLocks();
         }
+
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
             _t += dt;
-
-            // Cooldown UI
-            if (_model.spinOnCooldown)
-            {
-                _model.spinCooldownLeft = Mathf.Max(0f, _model.spinCooldownLeft - dt);
-                OnSpinCooldownUI?.Invoke(_model.spinCooldownLeft);
-                if (_model.spinCooldownLeft <= 0f) _model.spinOnCooldown = false;
-            }
 
             // Fin de anim + post-stun
             if (_t >= _model.spinDuration + _model.spinPostStun)

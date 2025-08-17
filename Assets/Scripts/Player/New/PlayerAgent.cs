@@ -65,7 +65,7 @@ namespace Player.New
 
             // ----- Acciones (opcional si ya las tenés) -----
             void AR(string id) => _actionFsm.TryTransitionTo(id);
-            _aIdle = new AttackIdle(_model, AR);
+            _aIdle = new AttackIdle(_model, AR, anim: _anim);
             _a1          = new Attack1(_motor, _model, AR, anim: _anim);
             _a2          = new Attack2(_motor, _model, AR, anim: _anim);
             _a3          = new Attack3(_motor, _model, AR, anim: _anim);
@@ -79,6 +79,7 @@ namespace Player.New
             _a2.AddTransition(new Transition{ From=_a2, To=_a3, ID=Attack2.ToA3 });
             _a2.AddTransition(new Transition{ From=_a2, To=_aIdle, ID=Attack2.ToIdle });
             _a3.AddTransition(new Transition{ From=_a3, To=_aIdle, ID=Attack3.ToIdle });
+            _aVertical.AddTransition(new Transition{ From=_aVertical, To=_aIdle, ID=AttackVertical.ToIdle });
 
             _aSpinCharge.AddTransition(new Transition{ From=_aSpinCharge, To=_aSpinRelease, ID=SpinCharge.ToRelease });
             _aSpinCharge.AddTransition(new Transition{ From=_aSpinCharge, To=_aIdle,        ID=SpinCharge.ToIdle });
@@ -161,17 +162,42 @@ namespace Player.New
 
         private void Update()
         {
-            // 🔸 Cooldowns globales (ahora el dash sí vuelve de cooldown aun fuera del estado)
+            float dt = Time.deltaTime;
+
+            // --- D A S H ---
             if (_model.dashOnCooldown)
             {
-                _model.dashCooldownLeft = Mathf.Max(0f, _model.dashCooldownLeft - Time.deltaTime);
+                _model.dashCooldownLeft = Mathf.Max(0f, _model.dashCooldownLeft - dt);
                 if (_model.dashCooldownLeft <= 0f) _model.dashOnCooldown = false;
                 _sDash?.OnDashCooldownUI?.Invoke(_model.dashCooldownLeft);
+            }
+
+            // --- S P I N 360° ---
+            if (_model.spinOnCooldown)
+            {
+                _model.spinCooldownLeft = Mathf.Max(0f, _model.spinCooldownLeft - dt);
+                if (_model.spinCooldownLeft <= 0f) _model.spinOnCooldown = false;
+                _aSpinRelease?.OnSpinCooldownUI?.Invoke(_model.spinCooldownLeft);
+            }
+
+            // --- A T T A C K  V E R T I C A L ---
+            if (_model.verticalOnCooldown)
+            {
+                _model.verticalCooldownLeft = Mathf.Max(0f, _model.verticalCooldownLeft - dt);
+                if (_model.verticalCooldownLeft <= 0f) _model.verticalOnCooldown = false;
+            }
+
+            // (opcional) cooldown del combo básico
+            if (_model.attackComboOnCooldown)
+            {
+                _model.attackComboCooldownLeft = Mathf.Max(0f, _model.attackComboCooldownLeft - dt);
+                if (_model.attackComboCooldownLeft <= 0f) _model.attackComboOnCooldown = false;
             }
 
             _locomotionFsm.Update();
             _actionFsm.Update();
         }
+
 
         private void FixedUpdate()
         {

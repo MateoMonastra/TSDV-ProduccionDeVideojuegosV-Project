@@ -186,5 +186,13 @@ namespace Player.New
         // ──────────────────────────────── UTILITIES ────────────────────────────────
         [ContextMenu("Reset Jumps")]
         public void ResetJumps() => jumpsLeft = maxJumps;
+        public void ClearActionLocks()
+        {
+            locomotionBlocked = false;
+            aimLockActive = false;
+            actionMoveSpeedMultiplier = 1f;
+            invulnerableToEnemies = false;
+            aimLockDirection = Vector3.zero;
+        }
     }
 }

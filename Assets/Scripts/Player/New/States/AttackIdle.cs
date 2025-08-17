@@ -9,10 +9,19 @@ namespace Player.New
 
         private readonly System.Action<string> _req;
         private readonly PlayerModel _model;
+        private readonly PlayerAnimationController _anim;
 
-        public AttackIdle(PlayerModel model, System.Action<string> request)
-        { _model = model; _req = request; }
+        public AttackIdle(PlayerModel model, System.Action<string> request,PlayerAnimationController anim)
+        { _model = model; _req = request; _anim = anim; }
 
+        
+        public override void Enter()
+        {
+            base.Enter();
+            _model.ClearActionLocks();
+            _anim?.SetCombatActive(false);
+        }
+        
         public override void Tick(float delta)
         {
             base.Tick(delta);

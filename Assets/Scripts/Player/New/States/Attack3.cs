@@ -12,10 +12,18 @@
         {
             base.Enter();
             t = 0f;
-            Duration = Model.attack3Duration; // <--- FIX
+            Duration = Model.attack3Duration;
+            _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
         }
+        public override void Exit()
+        {
+            base.Exit();
+            _anim?.SetCombatActive(false);
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+        }
+
 
         public override void Tick(float dt)
         {
@@ -32,12 +40,6 @@
                 Req?.Invoke(ToIdle);
                 Finish();
             }
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
         }
         private void OnAnimHit() => TryDoHitFrontal(0f);
     }

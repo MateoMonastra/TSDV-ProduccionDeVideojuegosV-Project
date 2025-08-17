@@ -23,23 +23,21 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            if (_model.spinOnCooldown) { _req?.Invoke(ToIdle); return; }
-
-            _t = 0f; _releaseQueued = false;
+            _model.locomotionBlocked = false; // se puede mover lento mientras carga
             _model.actionMoveSpeedMultiplier = _model.spinMoveSpeedMultiplierWhileCharging;
-            _model.aimLockActive = true;
-            Vector3 fwd = Vector3.ProjectOnPlane(_cam.forward, Vector3.up).normalized;
-            if (fwd.sqrMagnitude < 1e-4f) fwd = _cam.forward;
-            _model.aimLockDirection = fwd;
-            
+
+            _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
         }
 
         public override void Exit()
         {
             base.Exit();
-            // limpio en Release
+            _anim?.SetSpinCharging(false);
+            _anim?.SetCombatActive(false);
+            _model.actionMoveSpeedMultiplier = 1f;
         }
+
 
         public override void Tick(float dt)
         {
