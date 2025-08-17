@@ -31,10 +31,10 @@ namespace Player.New
             Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
             if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
             Vector3 camRight = Vector3.Cross(up, camFwd);
-            Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f) Model.MoveInputWorld.Normalize();
+            Model.moveInputWorld = camFwd * Model.rawMoveInput.y + camRight * Model.rawMoveInput.x;
+            if (Model.moveInputWorld.sqrMagnitude > 1e-6f) Model.moveInputWorld.Normalize();
 
-            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.airHorizontalSpeed);
 
             if (Motor.IsGrounded)
             {
@@ -60,7 +60,7 @@ namespace Player.New
             if (values is { Length: >= 2 } && values[0] is string cmd && cmd == "Jump" &&
                 values[1] is bool pressed && pressed)
             {
-                if (!Motor.IsGrounded && Model.JumpsLeft > 0)
+                if (!Motor.IsGrounded && Model.jumpsLeft > 0)
                 {
                     RequestTransition?.Invoke(ToJumpAir);
                 }

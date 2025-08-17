@@ -16,7 +16,7 @@ namespace Player.New
         protected void ApplyLocomotion(float dt, bool inAir, bool limitAirSpeed = false, float maxAirSpeed = 7f)
         {
             // Si está bloqueada la locomoción (ataque vertical, spin release), no mover ni rotar
-            if (Model.LocomotionBlocked)
+            if (Model.locomotionBlocked)
             {
                 ZeroHorizontalIfGrounded();
                 return;
@@ -30,12 +30,12 @@ namespace Player.New
             Vector3 camPlanarRight = Vector3.Cross(up, camPlanarForward);
 
             // Dirección cámara-relativa (input crudo clamp a 1)
-            Vector3 desiredDir = (camPlanarForward * Model.RawMoveInput.y + camPlanarRight * Model.RawMoveInput.x);
+            Vector3 desiredDir = (camPlanarForward * Model.rawMoveInput.y + camPlanarRight * Model.rawMoveInput.x);
             desiredDir = Vector3.ClampMagnitude(desiredDir, 1f);
 
             // Velocidad deseada (suelo/aire) con multiplicador de Acciones
-            float baseSpeed = inAir ? Model.AirHorizontalSpeed : Model.MoveSpeed;
-            float targetSpeed = baseSpeed * Mathf.Max(0f, Model.ActionMoveSpeedMultiplier);
+            float baseSpeed = inAir ? Model.airHorizontalSpeed : Model.moveSpeed;
+            float targetSpeed = baseSpeed * Mathf.Max(0f, Model.actionMoveSpeedMultiplier);
             Vector3 desiredVel = desiredDir * targetSpeed;
 
             Vector3 v = Motor.Velocity;
@@ -44,7 +44,7 @@ namespace Player.New
             if (inAir)
             {
                 // Aire: nos acercamos con aceleración fija (suave) y cap opcional
-                horiz = Vector3.MoveTowards(horiz, desiredVel, Model.MoveAcceleration * dt);
+                horiz = Vector3.MoveTowards(horiz, desiredVel, Model.moveAcceleration * dt);
                 if (limitAirSpeed && horiz.magnitude > maxAirSpeed)
                     horiz = horiz.normalized * maxAirSpeed;
             }
@@ -57,7 +57,7 @@ namespace Player.New
                 }
                 else
                 {
-                    horiz = Vector3.MoveTowards(horiz, desiredVel, Model.MoveAcceleration * dt);
+                    horiz = Vector3.MoveTowards(horiz, desiredVel, Model.moveAcceleration * dt);
                 }
             }
 
@@ -66,14 +66,14 @@ namespace Player.New
 
             // Rotación (aim-lock si aplica)
             Vector3 lookDir;
-            if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > 1e-6f)
-                lookDir = Model.AimLockDirection.normalized;
+            if (Model.aimLockActive && Model.aimLockDirection.sqrMagnitude > 1e-6f)
+                lookDir = Model.aimLockDirection.normalized;
             else
-                lookDir = (Model.OrientationMethod == OrientationMethod.TowardsCamera)
+                lookDir = (Model.orientationMethod == OrientationMethod.TowardsCamera)
                     ? camPlanarForward
                     : (desiredDir.sqrMagnitude > 1e-5f ? desiredDir : camPlanarForward);
 
-            Motor.SmoothRotation(lookDir, Model.OrientationSharpness, dt);
+            Motor.SmoothRotation(lookDir, Model.orientationSharpness, dt);
         }
 
         protected void ZeroHorizontalIfGrounded()

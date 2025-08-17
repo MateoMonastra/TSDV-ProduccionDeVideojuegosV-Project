@@ -38,37 +38,37 @@ namespace Player.New
 
             // Dirección: input si hay, sino forward del personaje
             Vector3 forward = _m.transform.forward;
-            Vector3 inputDir = _model.MoveInputWorld.sqrMagnitude > 1e-5f ? _model.MoveInputWorld.normalized : forward;
+            Vector3 inputDir = _model.moveInputWorld.sqrMagnitude > 1e-5f ? _model.moveInputWorld.normalized : forward;
             _dir = new Vector3(inputDir.x, 0f, inputDir.z).normalized;
             if (_dir.sqrMagnitude < 1e-5f) _dir = forward;
 
             // Duración = distancia / velocidad
-            _duration = Mathf.Max(0.01f, _model.DashDistance / Mathf.Max(0.01f, _model.DashSpeed));
+            _duration = Mathf.Max(0.01f, _model.dashDistance / Mathf.Max(0.01f, _model.dashSpeed));
             _t = 0f;
 
             _recovering = false;
             _recoverT = 0f;
 
             // Invulnerable durante la fase "rápida"
-            _model.InvulnerableToEnemies = true;
+            _model.invulnerableToEnemies = true;
 
             // Velocidad horizontal constante
             var v = _m.Velocity;
-            v.x = _dir.x * _model.DashSpeed;
-            v.z = _dir.z * _model.DashSpeed;
+            v.x = _dir.x * _model.dashSpeed;
+            v.z = _dir.z * _model.dashSpeed;
             _m.SetVelocity(v);
 
             // Cooldown
-            _model.DashOnCooldown = true;
-            _model.DashCooldownLeft = _model.DashCooldown;
-            OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
+            _model.dashOnCooldown = true;
+            _model.dashCooldownLeft = _model.dashCooldown;
+            OnDashCooldownUI?.Invoke(_model.dashCooldownLeft);
         }
 
         public override void Exit()
         {
             base.Exit();
             // por las dudas, aseguramos que no quede invulnerable
-            _model.InvulnerableToEnemies = false;
+            _model.invulnerableToEnemies = false;
         }
 
         public override void Tick(float dt)
@@ -81,8 +81,8 @@ namespace Player.New
                 _t += dt;
 
                 var v = _m.Velocity;
-                v.x = _dir.x * _model.DashSpeed;
-                v.z = _dir.z * _model.DashSpeed;
+                v.x = _dir.x * _model.dashSpeed;
+                v.z = _dir.z * _model.dashSpeed;
                 _m.SetVelocity(v);
 
                 if (_t >= _duration)
@@ -92,7 +92,7 @@ namespace Player.New
                     _recoverT = 0f;
 
                     // Vuelve a ser vulnerable al terminar el desplazamiento "rápido"
-                    _model.InvulnerableToEnemies = false;
+                    _model.invulnerableToEnemies = false;
                 }
                 return;
             }
@@ -108,25 +108,25 @@ namespace Player.New
             //      * en suelo: hacia 0 (pero de forma suave)
             //      * en aire: mantener dirección del dash, a velocidad aérea
             Vector3 desiredDir =
-                _model.MoveInputWorld.sqrMagnitude > 1e-5f
-                    ? _model.MoveInputWorld
+                _model.moveInputWorld.sqrMagnitude > 1e-5f
+                    ? _model.moveInputWorld
                     : (inAir ? _dir : Vector3.zero);
 
-            float targetSpeed = inAir ? _model.AirHorizontalSpeed : _model.MoveSpeed;
+            float targetSpeed = inAir ? _model.airHorizontalSpeed : _model.moveSpeed;
             Vector3 targetHoriz = desiredDir * targetSpeed;
 
             var vel = _m.Velocity;
             Vector3 horiz = new Vector3(vel.x, 0f, vel.z);
 
             // Interpolación suave: expo hacia el target
-            float alpha = 1f - Mathf.Exp(-_model.DashExitSharpness * dt);
+            float alpha = 1f - Mathf.Exp(-_model.dashExitSharpness * dt);
             horiz = Vector3.Lerp(horiz, targetHoriz, alpha);
 
             vel.x = horiz.x; vel.z = horiz.z;
             _m.SetVelocity(vel);
 
             // Fin de la recuperación: ahora sí salimos del estado
-            if (_recoverT >= _model.DashExitBlendTime)
+            if (_recoverT >= _model.dashExitBlendTime)
             {
                 if (inAir) _req?.Invoke(ToFall);
                 else       _req?.Invoke(ToWalkIdle);
@@ -134,6 +134,6 @@ namespace Player.New
             }
         }
 
-        public static bool CanUse(PlayerModel model) => !model.DashOnCooldown;
+        public static bool CanUse(PlayerModel model) => !model.dashOnCooldown;
     }
 }

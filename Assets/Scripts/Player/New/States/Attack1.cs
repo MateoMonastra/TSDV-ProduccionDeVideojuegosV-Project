@@ -17,7 +17,7 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            t = 0f; Duration = Model.Attack1Duration;
+            t = 0f; Duration = Model.attack1Duration;
             _anim?.TriggerAttack1();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit; // animation event
         }
@@ -33,7 +33,7 @@ namespace Player.New
             if (!_waitingChain && t >= Duration)
             {
                 _waitingChain = true;
-                _chainTimer = Model.AttackChainWindow; // comienza ventana para encadenar
+                _chainTimer = Model.attackChainWindow; // comienza ventana para encadenar
             }
 
             if (_waitingChain)

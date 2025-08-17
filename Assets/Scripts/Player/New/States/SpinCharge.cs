@@ -23,14 +23,14 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            if (_model.SpinOnCooldown) { _req?.Invoke(ToIdle); return; }
+            if (_model.spinOnCooldown) { _req?.Invoke(ToIdle); return; }
 
             _t = 0f; _releaseQueued = false;
-            _model.ActionMoveSpeedMultiplier = _model.SpinMoveSpeedMultiplierWhileCharging;
-            _model.AimLockActive = true;
+            _model.actionMoveSpeedMultiplier = _model.spinMoveSpeedMultiplierWhileCharging;
+            _model.aimLockActive = true;
             Vector3 fwd = Vector3.ProjectOnPlane(_cam.forward, Vector3.up).normalized;
             if (fwd.sqrMagnitude < 1e-4f) fwd = _cam.forward;
-            _model.AimLockDirection = fwd;
+            _model.aimLockDirection = fwd;
             
             _anim?.SetSpinCharging(true);
         }
@@ -46,7 +46,7 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            if (_releaseQueued && _t >= _model.SpinChargeMinTime)
+            if (_releaseQueued && _t >= _model.spinChargeMinTime)
                 _req?.Invoke(ToRelease);
         }
 

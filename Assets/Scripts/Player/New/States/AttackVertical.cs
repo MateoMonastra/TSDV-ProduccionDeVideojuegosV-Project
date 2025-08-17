@@ -14,18 +14,20 @@ namespace Player.New
         private float _t;
         private bool _impactDone;
         private readonly PlayerAnimationController _anim;
+
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
         { _m = m; _model = mdl; _req = req; _anim = anim; }
+
         public override void Enter()
         {
             base.Enter();
 
-            if (_m.IsGrounded || !_model.JumpWasPureVertical || _model.VerticalOnCooldown)
+            if (_m.IsGrounded || !_model.jumpWasPureVertical || _model.verticalOnCooldown)
             { _req?.Invoke(ToIdle); Finish(); return; }
 
             _t = 0f; _impactDone = false;
-            _model.LocomotionBlocked = true;
-            
+            _model.locomotionBlocked = true;
+
             _anim?.TriggerVerticalStart();
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
         }
@@ -33,9 +35,9 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _model.LocomotionBlocked = false;
-            _model.VerticalOnCooldown = true;
-            _model.VerticalCooldownLeft = _model.VerticalAttackCooldown;
+            _model.locomotionBlocked = false;
+            _model.verticalOnCooldown = true;
+            _model.verticalCooldownLeft = _model.verticalAttackCooldown;
             if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
         }
 
@@ -44,35 +46,59 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            if (_m.IsGrounded && !_impactDone)
+            // Evitar desplazamiento horizontal mientras cae/impacta
+            var v = _m.Velocity;
+            v.x = 0f; v.z = 0f;
+            _m.SetVelocity(v);
+
+            // Fallback: si no usás Animation Event, detectá impacto por grounded
+            if (!_impactDone && _m.IsGrounded)
             {
-                _impactDone = true;
-                // TODO daño en área (_model.VerticalAttackRadius)
-                _model.LocomotionBlocked = true;
-                _t = 0f; // post-stun
+                DoVerticalImpact();
             }
 
-            if (_impactDone && _t >= _model.VerticalAttackPostStun)
+            // Post-stun
+            if (_impactDone)
             {
-                _model.LocomotionBlocked = false;
-                _req?.Invoke(ToIdle);
-                Finish();
+                if (_t >= _model.verticalAttackPostStun)
+                {
+                    _req?.Invoke(ToIdle);
+                    Finish();
+                }
             }
 
-            if (_model.VerticalOnCooldown)
+            // CD
+            if (_model.verticalOnCooldown)
             {
-                _model.VerticalCooldownLeft = Mathf.Max(0f, _model.VerticalCooldownLeft - dt);
-                if (_model.VerticalCooldownLeft <= 0f) _model.VerticalOnCooldown = false;
+                _model.verticalCooldownLeft = Mathf.Max(0f, _model.verticalCooldownLeft - dt);
+                if (_model.verticalCooldownLeft <= 0f) _model.verticalOnCooldown = false;
+            }
+        }
+
+        private void OnAnimVerticalImpact() => DoVerticalImpact();
+
+        private void DoVerticalImpact()
+        {
+            if (_impactDone) return;
+            _impactDone = true;
+            _t = 0f;
+
+            // Daño en área
+            Vector3 center = _m.transform.position;
+            Collider[] hits = Physics.OverlapSphere(center, _model.verticalAttackRadius, _model.enemyMask, QueryTriggerInteraction.Ignore);
+            foreach (var c in hits)
+            {
+                var d = c.GetComponentInParent<IDamageable>();
+                if (d == null) continue;
+                Vector3 dir = (c.bounds.center - center); dir.y = 0f;
+                if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
+                d.TakeDamage(_model.verticalDamage);
+                d.ApplyKnockback(dir, _model.verticalKnockbackDistance);
+                d.ApplyStagger(_model.verticalStaggerTime);
             }
         }
 
         public static bool CanUse(MyKinematicMotor m, PlayerModel mdl)
-            => !m.IsGrounded && mdl.JumpWasPureVertical && !mdl.VerticalOnCooldown;
-        
-        private void OnAnimVerticalImpact()
-        {
-            // marcar impacto como hecho para sincronizar con la anim (si querés)
-            // _impactDone = true; daño en área aquí si corresponde
-        }
+            => !m.IsGrounded && mdl.jumpWasPureVertical && !mdl.verticalOnCooldown;
     }
 }

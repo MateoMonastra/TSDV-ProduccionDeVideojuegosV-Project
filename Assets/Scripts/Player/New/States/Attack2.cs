@@ -1,5 +1,4 @@
 ﻿using FSM;
-using UnityEngine;
 
 namespace Player.New
 {
@@ -10,7 +9,7 @@ namespace Player.New
 
         private bool _waitingChain;
         private float _chainTimer;
-        
+
         private readonly PlayerAnimationController _anim;
         public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
             : base(m, mdl, req) { _anim = anim; }
@@ -18,10 +17,13 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            t = 0f; Duration = Model.Attack1Duration;
+            t = 0f;
+            Duration = Model.attack2Duration;     // <--- FIX
+            _waitingChain = false;                // <--- FIX
+            _chainTimer = 0f;                     // <--- FIX
             _anim?.TriggerAttack2();
-            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit; // animation event
-        } 
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+        }
 
         public override void Tick(float dt)
         {
@@ -33,7 +35,7 @@ namespace Player.New
             if (!_waitingChain && t >= Duration)
             {
                 _waitingChain = true;
-                _chainTimer = Model.AttackChainWindow;
+                _chainTimer = Model.attackChainWindow;
             }
 
             if (_waitingChain)
@@ -46,7 +48,7 @@ namespace Player.New
                 }
             }
         }
-        
+
         public override void Exit()
         {
             base.Exit();
@@ -57,7 +59,7 @@ namespace Player.New
         public override void HandleInput(params object[] values)
         {
             if (!_waitingChain) return;
-            if (values is { Length: >=1 } && values[0] is string cmd && cmd == "AttackPressed")
+            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == "AttackPressed")
             {
                 Req?.Invoke(ToA3);
                 Finish();

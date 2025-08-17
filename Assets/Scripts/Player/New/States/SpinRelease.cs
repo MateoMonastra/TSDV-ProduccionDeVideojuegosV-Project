@@ -24,14 +24,14 @@ namespace Player.New
             base.Enter();
             _t = 0f;
 
-            _model.LocomotionBlocked = true;
-            _model.AimLockActive = true;
-            _model.ActionMoveSpeedMultiplier = 0f;
+            _model.locomotionBlocked = true;
+            _model.aimLockActive = true;
+            _model.actionMoveSpeedMultiplier = 0f;
 
-            _model.SpinOnCooldown = true;
-            _model.SpinCooldownLeft = _model.SpinCooldown;
-            OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
-            
+            _model.spinOnCooldown = true;
+            _model.spinCooldownLeft = _model.spinCooldown;
+            OnSpinCooldownUI?.Invoke(_model.spinCooldownLeft);
+
             _anim?.SetSpinCharging(false);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
@@ -40,10 +40,10 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _model.LocomotionBlocked = false;
-            _model.AimLockActive = false;
-            _model.ActionMoveSpeedMultiplier = 1f;
-            _model.AimLockDirection = Vector3.zero;
+            _model.locomotionBlocked = false;
+            _model.aimLockActive = false;
+            _model.actionMoveSpeedMultiplier = 1f;
+            _model.aimLockDirection = Vector3.zero;
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
         }
 
@@ -52,28 +52,37 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            if (Mathf.Abs(_t - _model.SpinDuration * 0.5f) < 0.02f)
+            // Cooldown UI
+            if (_model.spinOnCooldown)
             {
-                // TODO daño en área (_model.SpinRadius) + push (_model.SpinPushDistance)
+                _model.spinCooldownLeft = Mathf.Max(0f, _model.spinCooldownLeft - dt);
+                OnSpinCooldownUI?.Invoke(_model.spinCooldownLeft);
+                if (_model.spinCooldownLeft <= 0f) _model.spinOnCooldown = false;
             }
 
-            if (_model.SpinOnCooldown)
-            {
-                _model.SpinCooldownLeft = Mathf.Max(0f, _model.SpinCooldownLeft - dt);
-                OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
-                if (_model.SpinCooldownLeft <= 0f) _model.SpinOnCooldown = false;
-            }
-
-            if (_t >= _model.SpinDuration + _model.SpinPostStun)
+            // Fin de anim + post-stun
+            if (_t >= _model.spinDuration + _model.spinPostStun)
             {
                 _req?.Invoke(ToIdle);
                 Finish();
             }
         }
-        
+
         private void OnSpinDamageEvent()
         {
-            // aplicar daño en área del 360° en el frame del evento
+            // Daño 360° + push radial
+            Vector3 center = _m.transform.position;
+            Collider[] hits = Physics.OverlapSphere(center, _model.spinRadius, _model.enemyMask, QueryTriggerInteraction.Ignore);
+            foreach (var c in hits)
+            {
+                var d = c.GetComponentInParent<IDamageable>();
+                if (d == null) continue;
+                Vector3 dir = (c.bounds.center - center); dir.y = 0f;
+                if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
+                d.TakeDamage(_model.spinDamage);
+                d.ApplyKnockback(dir, _model.spinPushDistance);
+                d.ApplyStagger(_model.spinStaggerTime);
+            }
         }
     }
 }

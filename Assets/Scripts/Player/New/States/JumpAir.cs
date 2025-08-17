@@ -21,11 +21,11 @@ namespace Player.New
 
             Motor.ForceUnground(0.10f);
 
-            if (Model.JumpsLeft > 0) Model.JumpsLeft--;
+            if (Model.jumpsLeft > 0) Model.jumpsLeft--;
 
             var v = Motor.Velocity;
             if (v.y < 0f) v.y = 0f;
-            v.y += Model.JumpSpeed;
+            v.y += Model.jumpSpeed;
             Motor.SetVelocity(v);
 
             _anim?.TriggerDoubleJump();
@@ -43,10 +43,10 @@ namespace Player.New
             Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
             if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
             Vector3 camRight = Vector3.Cross(up, camFwd);
-            Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f) Model.MoveInputWorld.Normalize();
+            Model.moveInputWorld = camFwd * Model.rawMoveInput.y + camRight * Model.rawMoveInput.x;
+            if (Model.moveInputWorld.sqrMagnitude > 1e-6f) Model.moveInputWorld.Normalize();
 
-            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.airHorizontalSpeed);
 
             if (_t >= _airDetectDelay && !Motor.IsGrounded)
                 RequestTransition?.Invoke(ToFall);

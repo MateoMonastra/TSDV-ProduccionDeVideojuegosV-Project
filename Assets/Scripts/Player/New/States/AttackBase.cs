@@ -33,16 +33,16 @@ namespace Player.New
             Vector3 origin = M.transform.position;
             Vector3 forward = M.transform.forward;
 
-            if (HitboxUtils.TryGetClosestInFront(origin, forward, Model.AttackRange, halfAngleDeg,
-                    Model.EnemyMask, out var target, out var targetTf))
+            if (HitboxUtils.TryGetClosestInFront(origin, forward, Model.attackRange, halfAngleDeg,
+                    Model.enemyMask, out var target, out var targetTf))
             {
                 // Direccion horizontal hacia el objetivo para el empuje
                 Vector3 dir = (targetTf.position - origin); dir.y = 0f;
                 dir = dir.sqrMagnitude > 1e-6f ? dir.normalized : forward;
 
-                target.TakeDamage(Model.AttackDamage);
-                target.ApplyKnockback(dir, Model.AttackKnockbackDistance);
-                target.ApplyStagger(Model.AttackStaggerTime);
+                target.TakeDamage(Model.attackDamage);
+                target.ApplyKnockback(dir, Model.attackKnockbackDistance);
+                target.ApplyStagger(Model.attackStaggerTime);
             }
             // TODO: SFX de impacto, VFX, hitstop…
         }

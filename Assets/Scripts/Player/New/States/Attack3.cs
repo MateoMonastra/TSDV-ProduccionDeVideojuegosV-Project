@@ -11,9 +11,10 @@
         public override void Enter()
         {
             base.Enter();
-            t = 0f; Duration = Model.Attack1Duration;
+            t = 0f;
+            Duration = Model.attack3Duration; // <--- FIX
             _anim?.TriggerAttack3();
-            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit; // animation event
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
         }
 
         public override void Tick(float dt)
@@ -25,15 +26,14 @@
 
             if (t >= Duration)
             {
-                // Al terminar el 3er golpe, activar cooldown del combo
-                Model.AttackComboOnCooldown = true;
-                Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
+                Model.attackComboOnCooldown = true;
+                Model.attackComboCooldownLeft = Model.attackComboCooldown;
 
                 Req?.Invoke(ToIdle);
                 Finish();
             }
         }
-        
+
         public override void Exit()
         {
             base.Exit();

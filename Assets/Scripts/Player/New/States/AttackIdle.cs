@@ -17,16 +17,16 @@ namespace Player.New
         {
             base.Tick(delta);
             // Tick de cooldown del combo
-            if (_model.AttackComboOnCooldown)
+            if (_model.attackComboOnCooldown)
             {
-                _model.AttackComboCooldownLeft = Mathf.Max(0f, _model.AttackComboCooldownLeft - delta);
-                if (_model.AttackComboCooldownLeft <= 0f) _model.AttackComboOnCooldown = false;
+                _model.attackComboCooldownLeft = Mathf.Max(0f, _model.attackComboCooldownLeft - delta);
+                if (_model.attackComboCooldownLeft <= 0f) _model.attackComboOnCooldown = false;
             }
         }
 
         public override void HandleInput(params object[] values)
         {
-            if (_model.AttackComboOnCooldown) return; // aún en CD tras 3er golpe
+            if (_model.attackComboOnCooldown) return; // aún en CD tras 3er golpe
 
             if (values is { Length: >=1 } && values[0] is string cmd && cmd == "AttackPressed")
             {

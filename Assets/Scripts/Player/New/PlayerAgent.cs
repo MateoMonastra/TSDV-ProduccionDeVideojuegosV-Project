@@ -29,7 +29,7 @@ namespace Player.New
         private SpinCharge _aSpinCharge;
         private SpinRelease _aSpinRelease;
 
-        private bool IsActionBlocked() => _model != null && _model.LocomotionBlocked;
+        private bool IsActionBlocked() => _model != null && _model.locomotionBlocked;
 
         private void Awake()
         {
@@ -117,7 +117,7 @@ namespace Player.New
             }
         }
 
-        private void OnMove(Vector2 move) => _model.RawMoveInput = Vector2.ClampMagnitude(move, 1f);
+        private void OnMove(Vector2 move) => _model.rawMoveInput = Vector2.ClampMagnitude(move, 1f);
 
         private void OnJump()
         {
@@ -148,7 +148,7 @@ namespace Player.New
         {
             if (IsActionBlocked()) return;
             if (!_motor.IsGrounded) return;       // no iniciar carga en el aire
-            if (_model.SpinOnCooldown) return;
+            if (_model.spinOnCooldown) return;
 
             _actionFsm.GetCurrentState()?.HandleInput("AttackHeavyPressed");
         }
@@ -162,11 +162,11 @@ namespace Player.New
         private void Update()
         {
             // 🔸 Cooldowns globales (ahora el dash sí vuelve de cooldown aun fuera del estado)
-            if (_model.DashOnCooldown)
+            if (_model.dashOnCooldown)
             {
-                _model.DashCooldownLeft = Mathf.Max(0f, _model.DashCooldownLeft - Time.deltaTime);
-                if (_model.DashCooldownLeft <= 0f) _model.DashOnCooldown = false;
-                _sDash?.OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
+                _model.dashCooldownLeft = Mathf.Max(0f, _model.dashCooldownLeft - Time.deltaTime);
+                if (_model.dashCooldownLeft <= 0f) _model.dashOnCooldown = false;
+                _sDash?.OnDashCooldownUI?.Invoke(_model.dashCooldownLeft);
             }
 
             _locomotionFsm.Update();
