@@ -1,8 +1,6 @@
 ﻿using FSM;
 using UnityEngine;
 
-// tu InputReader
-
 namespace Player.New
 {
     [RequireComponent(typeof(MyKinematicMotor))]
@@ -23,7 +21,7 @@ namespace Player.New
         private Fall _sFall;
         private Dash _sDash;
 
-        // Acciones
+        // Acciones (si ya las tenés; si no, podés ignorar estas refs)
         private Fsm _actionFsm;
         private AttackIdle _aIdle;
         private Attack1 _a1; private Attack2 _a2; private Attack3 _a3;
@@ -37,7 +35,7 @@ namespace Player.New
         {
             if (_cameraRef == null) _cameraRef = Camera.main;
             if (_motor == null) _motor = GetComponent<MyKinematicMotor>();
-            if (_model == null) _model = new PlayerModel();
+            if (_model == null) _model = ScriptableObject.CreateInstance<PlayerModel>(); // <-- importante
 
             // ----- Locomoción -----
             void LR(string id) => _locomotionFsm.TryTransitionTo(id);
@@ -64,7 +62,7 @@ namespace Player.New
 
             _locomotionFsm = new Fsm(_sIdle);
 
-            // ----- Acciones -----
+            // ----- Acciones (opcional si ya las tenés) -----
             void AR(string id) => _actionFsm.TryTransitionTo(id);
             _aIdle = new AttackIdle(_model, AR);
             _a1          = new Attack1(_motor, _model, AR, anim: _anim);
@@ -88,8 +86,8 @@ namespace Player.New
             _actionFsm = new Fsm(_aIdle);
 
             // (Opcional) UI cooldowns
-            _sDash.OnDashCooldownUI = t => { /* UI dash */ };
-            _aSpinRelease.OnSpinCooldownUI = t => { /* UI spin */ };
+            _sDash.OnDashCooldownUI = t => { /* actualizar UI de dash si querés */ };
+            _aSpinRelease.OnSpinCooldownUI = t => { /* actualizar UI de spin si querés */ };
         }
 
         private void OnEnable()
@@ -104,6 +102,7 @@ namespace Player.New
                 _input.OnAttackHeavyReleased += OnAttackHeavyReleased;
             }
         }
+
         private void OnDisable()
         {
             if (_input != null)
@@ -161,9 +160,18 @@ namespace Player.New
 
         private void Update()
         {
+            // 🔸 Cooldowns globales (ahora el dash sí vuelve de cooldown aun fuera del estado)
+            if (_model.DashOnCooldown)
+            {
+                _model.DashCooldownLeft = Mathf.Max(0f, _model.DashCooldownLeft - Time.deltaTime);
+                if (_model.DashCooldownLeft <= 0f) _model.DashOnCooldown = false;
+                _sDash?.OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
+            }
+
             _locomotionFsm.Update();
             _actionFsm.Update();
         }
+
         private void FixedUpdate()
         {
             _locomotionFsm.FixedUpdate();

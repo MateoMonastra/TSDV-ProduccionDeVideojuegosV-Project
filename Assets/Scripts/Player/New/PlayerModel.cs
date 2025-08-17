@@ -33,6 +33,10 @@ namespace Player.New
         public float DashSpeed = 18f;
         [Tooltip("CD del dash (s)")]
         public float DashCooldown = 1.2f;
+        [Tooltip("cuánto dura la transición suave al terminar el dash")]
+        public float DashExitBlendTime = 0.12f;
+        [Tooltip("cuán rápido interpola hacia la velocidad objetivo")]
+        [Range(1f, 30f)] public float DashExitSharpness = 10f;
         
         [Header("Combat")]
         public LayerMask EnemyMask = ~0;           // Layers de enemigos (configurable en Inspector)

@@ -8,7 +8,7 @@ namespace Player.New
         public const string ToWalkIdle = "Fall->WalkIdle";
         private readonly float _settleTime;
         private float _groundedTimer;
-        
+
         private readonly PlayerAnimationController _anim;
         public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
             float settleTime = 0.04f, PlayerAnimationController anim = null)
@@ -23,6 +23,14 @@ namespace Player.New
         {
             base.Tick(dt);
 
+            // mantener MoveInputWorld actualizado
+            Vector3 up = Motor.CharacterUp;
+            Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
+            if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
+            Vector3 camRight = Vector3.Cross(up, camFwd);
+            Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
+            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f) Model.MoveInputWorld.Normalize();
+
             ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
 
             if (Motor.IsGrounded)
@@ -34,7 +42,7 @@ namespace Player.New
                     _anim?.TriggerLand();
                     _anim?.SetGrounded(true);
                     _anim?.SetWalking(false);
-                    
+
                     var v = Motor.Velocity; v.x = 0f; v.z = 0f;
                     Motor.SetVelocity(v);
                     RequestTransition?.Invoke(ToWalkIdle);

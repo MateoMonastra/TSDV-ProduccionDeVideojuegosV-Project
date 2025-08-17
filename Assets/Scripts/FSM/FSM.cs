@@ -25,7 +25,7 @@ namespace FSM
         }
 
         public void Update()      => _current.Tick(Time.deltaTime);
-        public void FixedUpdate() => _current.FixedTick(Time.deltaTime);
+        public void FixedUpdate() => _current.FixedTick(Time.fixedDeltaTime);
 
         /// <summary>
         /// Intenta transicionar por ID. Si falla, loguea el listado de IDs disponibles

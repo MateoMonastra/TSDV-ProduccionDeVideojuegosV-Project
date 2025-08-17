@@ -30,6 +30,9 @@ namespace Player.New
         [SerializeField] private float _groundedOffset = 0.1f;
         [SerializeField] private float _fallDetectionMultiplier = 2f;
         [SerializeField] private float _minGroundDotForSnap = 0.85f;
+        
+        [SerializeField] private float _ungroundTimeAfterJump = 0.1f;
+        private float _ungroundTimer;
 
         private MovementSolver _movementSolver;
         private GroundingSolver _groundingSolver;
@@ -42,7 +45,9 @@ namespace Player.New
         private bool _wasGrounded;
 
         public Vector3 Velocity => _velocity;
-        public bool IsGrounded => _groundingReport.IsStableOnGround && _groundingReport.FoundAnyGround;
+        public bool IsGrounded => _ungroundTimer <= 0f
+                                  && _groundingReport.IsStableOnGround
+                                  && _groundingReport.FoundAnyGround;
         public Quaternion SmoothedRotation
         {
             get => _smoothedRotation;
@@ -79,10 +84,20 @@ namespace Player.New
         {
             float deltaTime = Time.fixedDeltaTime;
             
+            _ungroundTimer = Mathf.Max(0f, _ungroundTimer - deltaTime);
+            
             ApplyGravity(Physics.gravity.y, deltaTime);
             
-            float preMoveProbeDistance = _groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
-            _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity, ref _groundingReport);
+            if (_ungroundTimer <= 0f)
+            {
+                float preMoveProbeDistance = _groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
+                _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity, ref _groundingReport);
+            }
+            else
+            {
+                // Limpio el grounding report para que no cuente como grounded
+                _groundingReport = default;
+            }
             
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
@@ -109,6 +124,12 @@ namespace Player.New
             {
                 _velocity.y += gravity * deltaTime;
             }
+        }
+        
+        /// <summary>Ignora detección de suelo durante "duration" segundos.</summary>
+        public void ForceUnground(float duration)
+        {
+            _ungroundTimer = Mathf.Max(_ungroundTimer, duration);
         }
 
         private void OnDrawGizmos()
