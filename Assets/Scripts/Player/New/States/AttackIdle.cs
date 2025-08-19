@@ -10,11 +10,13 @@ namespace Player.New
         private readonly System.Action<string> _req;
         private readonly PlayerModel _model;
         private readonly PlayerAnimationController _anim;
+        private readonly MyKinematicMotor _motor;
 
-        public AttackIdle(PlayerModel model, System.Action<string> request,PlayerAnimationController anim)
-        { _model = model; _req = request; _anim = anim; }
+        public AttackIdle(PlayerModel model, System.Action<string> request, PlayerAnimationController anim = null, MyKinematicMotor motor = null)
+        {
+            _model = model; _req = request; _anim = anim; _motor = motor;
+        }
 
-        
         public override void Enter()
         {
             base.Enter();
@@ -25,7 +27,7 @@ namespace Player.New
         public override void Tick(float delta)
         {
             base.Tick(delta);
-            // Tick de cooldown del combo
+            
             if (_model.attackComboOnCooldown)
             {
                 _model.attackComboCooldownLeft = Mathf.Max(0f, _model.attackComboCooldownLeft - delta);
@@ -35,12 +37,11 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            if (_model.attackComboOnCooldown) return; // aún en CD tras 3er golpe
+            if (_model.attackComboOnCooldown) return;
+            if (_motor != null && !_motor.IsGrounded) return;
 
-            if (values is { Length: >=1 } && values[0] is string cmd && cmd == "AttackPressed")
-            {
+            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == "AttackPressed")
                 _req?.Invoke(ToA1);
-            }
         }
     }
 }

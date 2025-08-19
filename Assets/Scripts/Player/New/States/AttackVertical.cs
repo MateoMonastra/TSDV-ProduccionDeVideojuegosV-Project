@@ -14,8 +14,7 @@ namespace Player.New
         private float _t;
         private bool _impactDone;
         private readonly PlayerAnimationController _anim;
-
-        // Hard cap por si nada dispara el impacto (seg).
+        
         private const float FailSafeExtra = 0.5f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)

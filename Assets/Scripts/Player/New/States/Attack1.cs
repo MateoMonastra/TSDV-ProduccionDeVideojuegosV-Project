@@ -18,22 +18,25 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
+            
+            if (!M.IsGrounded)
+            {
+                Req?.Invoke(ToIdle);
+                Finish();
+                return;
+            }
 
-            // 🔒 Duración y ventana con mínimos para evitar "corte instantáneo"
             t = 0f;
-            float minDur = 0.05f; // nunca 0
-            float minWin = 0.05f; // nunca 0
-            Duration = Mathf.Max(minDur, Model.attack1Duration);            // usa tu PlayerModel (lowercase)
+            float minDur = 0.05f;
+            Duration = Mathf.Max(minDur, Model.attack1Duration);
             _waitingChain = false;
             _chainTimer = 0f;
 
-            // Capa Combat visible durante el ataque
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack1();
-
-            // Si tenés Animation Event de impacto, aprovechalo (opcional)
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
         }
+
 
         public override void Exit()
         {

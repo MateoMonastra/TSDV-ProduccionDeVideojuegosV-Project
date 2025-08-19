@@ -125,14 +125,14 @@ namespace Player
                 OnJumpPickUpCheat?.Invoke();
             }
         }
-        public void HandleDashInput(InputAction.CallbackContext ctx)
+        public void HandleDashInput(InputAction.CallbackContext context)
         {
-            if (ctx.started) OnDash?.Invoke();
+            if (context.started) OnDash?.Invoke();
         }
-        public void HandleAttackHeavyInput(InputAction.CallbackContext ctx)
+        public void HandleAttackHeavyInput(InputAction.CallbackContext context)
         {
-            if (ctx.started) OnAttackHeavyPressed?.Invoke();
-            if (ctx.canceled) OnAttackHeavyReleased?.Invoke();
+            if (context.started) OnAttackHeavyPressed?.Invoke();
+            if (context.canceled) OnAttackHeavyReleased?.Invoke();
         }
     }
 }
