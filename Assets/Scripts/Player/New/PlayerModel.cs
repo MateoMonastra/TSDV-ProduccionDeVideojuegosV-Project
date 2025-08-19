@@ -128,8 +128,21 @@ namespace Player.New
         [Tooltip("Tiempo mínimo de carga (mantener presionado) para habilitar el release.")]
         public float spinChargeMinTime = 0.6f;
 
-        [Tooltip("Duración del giro/ejecución del ataque (s).")]
+        [Tooltip("Tiempo de carga para alcanzar potencia/duración máximas.")]
+        public float spinChargeMaxTime = 1.6f;
+
+        [Header("Spin: duraciones escalables")]
+        [Tooltip("Duración mínima del giro (s).")]
+        public float spinMinDuration = 0.55f;
+
+        [Tooltip("Duración máxima del giro (s).")]
+        public float spinMaxDuration = 1.10f;
+
+        [Tooltip("Duración base (legacy). No se usa cuando hay carga escalable.")]
         public float spinDuration = 0.7f;
+
+        [Tooltip("Tiempo que el jugador queda inmóvil luego del release (s).")]
+        public float spinPostStun = 0.35f;
 
         [Tooltip("Radio del área de daño del giro (m).")]
         public float spinRadius = 2.8f;
@@ -149,8 +162,18 @@ namespace Player.New
         [Tooltip("Multiplicador de velocidad de movimiento mientras se está cargando (0.6 = 60%).")]
         public float spinMoveSpeedMultiplierWhileCharging = 0.6f;
 
-        [Tooltip("Tiempo que el jugador queda inmóvil luego del release (s).")]
-        public float spinPostStun = 0.35f;
+        [Header("Self Stun por Spin (escalable)")]
+        [Tooltip("Luego del spin, el jugador queda knockdown.")]
+        public bool spinCausesSelfStun = true;
+
+        [Tooltip("Derribo mínimo (s).")]
+        public float selfStunMinDuration = 0.60f;
+
+        [Tooltip("Derribo máximo (s).")]
+        public float selfStunMaxDuration = 2.00f;
+
+        [Tooltip("Tiempo antes de terminar el derribo para disparar 'GetUp' (s).")]
+        public float selfStunGetUpLeadTime = 0.25f;
 
         // ───────────────────────────── ACTION MODIFIERS/RUNTIME ─────────────────────
         [Header("Action Modifiers (capa de Acciones)")]
@@ -188,7 +211,14 @@ namespace Player.New
 
         [HideInInspector] public bool attackComboOnCooldown;
         [HideInInspector] public float attackComboCooldownLeft;
-        
+
+        // Spin runtime (carga y knockdown efectivos)
+        [HideInInspector] public float spinChargeRatio;   // 0..1 calculado al soltar
+        [HideInInspector] public bool  isSelfStunned;
+        [HideInInspector] public float selfStunTimeLeft;
+        [HideInInspector] public float selfStunDuration;  // seteado por SpinRelease
+
+        // ──────────────────────────────── UTILITIES ────────────────────────────────
         [ContextMenu("Reset Jumps")] public void ResetJumps() => jumpsLeft = maxJumps;
 
         public void ClearActionLocks()
@@ -200,6 +230,7 @@ namespace Player.New
             aimLockDirection = Vector3.zero;
         }
 
+        // ───────────────────────────── Legacy API (PascalCase) ─────────────────────
         // Movement
         public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
         public float MoveAcceleration { get => moveAcceleration; set => moveAcceleration = value; }
@@ -245,18 +276,25 @@ namespace Player.New
         public bool  VerticalOnCooldown { get => verticalOnCooldown; set => verticalOnCooldown = value; }
         public float VerticalCooldownLeft { get => verticalCooldownLeft; set => verticalCooldownLeft = value; }
 
-        // Spin
+        // Spin (base + escalable)
         public float SpinChargeMinTime { get => spinChargeMinTime; set => spinChargeMinTime = value; }
-        public float SpinDuration { get => spinDuration; set => spinDuration = value; }
-        public float SpinPostStun { get => spinPostStun; set => spinPostStun = value; }
-        public float SpinRadius { get => spinRadius; set => spinRadius = value; }
-        public float SpinDamage { get => spinDamage; set => spinDamage = value; }
-        public float SpinPushDistance { get => spinPushDistance; set => spinPushDistance = value; }
-        public float SpinStaggerTime { get => spinStaggerTime; set => spinStaggerTime = value; }
-        public float SpinCooldown { get => spinCooldown; set => spinCooldown = value; }
+        public float SpinChargeMaxTime { get => spinChargeMaxTime; set => spinChargeMaxTime = value; }
+        public float SpinMinDuration   { get => spinMinDuration;   set => spinMinDuration = value; }
+        public float SpinMaxDuration   { get => spinMaxDuration;   set => spinMaxDuration = value; }
+        public float SpinDuration      { get => spinDuration;      set => spinDuration = value; }
+        public float SpinPostStun      { get => spinPostStun;      set => spinPostStun = value; }
+        public float SpinRadius        { get => spinRadius;        set => spinRadius = value; }
+        public float SpinDamage        { get => spinDamage;        set => spinDamage = value; }
+        public float SpinPushDistance  { get => spinPushDistance;  set => spinPushDistance = value; }
+        public float SpinStaggerTime   { get => spinStaggerTime;   set => spinStaggerTime = value; }
+        public float SpinCooldown      { get => spinCooldown;      set => spinCooldown = value; }
         public float SpinMoveSpeedMultiplierWhileCharging { get => spinMoveSpeedMultiplierWhileCharging; set => spinMoveSpeedMultiplierWhileCharging = value; }
         public bool  SpinOnCooldown { get => spinOnCooldown; set => spinOnCooldown = value; }
         public float SpinCooldownLeft { get => spinCooldownLeft; set => spinCooldownLeft = value; }
+        public bool  SpinCausesSelfStun { get => spinCausesSelfStun; set => spinCausesSelfStun = value; }
+        public float SelfStunMinDuration { get => selfStunMinDuration; set => selfStunMinDuration = value; }
+        public float SelfStunMaxDuration { get => selfStunMaxDuration; set => selfStunMaxDuration = value; }
+        public float SelfStunGetUpLeadTime { get => selfStunGetUpLeadTime; set => selfStunGetUpLeadTime = value; }
 
         // Targeting
         public LayerMask EnemyMask { get => enemyMask; set => enemyMask = value; }
@@ -275,5 +313,11 @@ namespace Player.New
         public bool  InvulnerableToEnemies { get => invulnerableToEnemies; set => invulnerableToEnemies = value; }
         public OrientationMethod Orientation { get => orientationMethod; set => orientationMethod = value; }
         public float OrientationSharpness { get => orientationSharpness; set => orientationSharpness = value; }
+
+        // Spin runtime wrappers
+        public float SpinChargeRatio { get => spinChargeRatio; set => spinChargeRatio = value; }
+        public bool  IsSelfStunned   { get => isSelfStunned;  set => isSelfStunned = value; }
+        public float SelfStunTimeLeft{ get => selfStunTimeLeft; set => selfStunTimeLeft = value; }
+        public float SelfStunDuration{ get => selfStunDuration; set => selfStunDuration = value; }
     }
 }

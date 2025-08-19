@@ -3247,11 +3247,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!4 &1569884669 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3648591514961844894, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
-  m_PrefabInstance: {fileID: 259587031690338009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1569884672 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4016432044499400295, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
@@ -3427,17 +3422,12 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 517133972936816084, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
   m_PrefabInstance: {fileID: 259587031690338009}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1704504749 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5047515412822201820, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
-  m_PrefabInstance: {fileID: 259587031690338009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1704504751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2785973603497686730, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
   m_PrefabInstance: {fileID: 259587031690338009}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704504749}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca1118aa1c082644fb499c894ec25276, type: 3}
@@ -3448,55 +3438,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2723831544457437987, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
   m_PrefabInstance: {fileID: 259587031690338009}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704504749}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc36c7643fc2e3548abfdb4b38e271f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1704504756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704504749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e01bbc74bf4f9e41b6f12e8f4c20974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 11400000, guid: b500ce0009cf57f4e8bfa79ec0eccd22, type: 2}
-  motor: {fileID: 1704504751}
-  cam: {fileID: 1569884669}
-  onlyWhenSelected: 1
-  groundOffset: 0.05
-  axisLength: 0.6
-  showAxes: 1
-  showCamera: 0
-  showGroundedDisc: 1
-  showVelocity: 1
-  showMoveInput: 1
-  showDashPreview: 1
-  showAttackCone: 1
-  showVerticalAoE: 1
-  showSpinAoE: 1
-  showAimLock: 1
-  showCooldowns: 1
-  axesX: {r: 1, g: 0, b: 0, a: 0.9}
-  axesY: {r: 0, g: 1, b: 0, a: 0.9}
-  axesZ: {r: 0, g: 0, b: 1, a: 0.9}
-  camFwd: {r: 0.2, g: 0.6, b: 1, a: 0.8}
-  camRight: {r: 1, g: 0.6, b: 0.2, a: 0.8}
-  groundedTrue: {r: 0.2, g: 1, b: 0.2, a: 0.35}
-  groundedFalse: {r: 1, g: 0.2, b: 0.2, a: 0.35}
-  velColor: {r: 1, g: 0.9, b: 0.1, a: 0.9}
-  inputColor: {r: 0.1, g: 1, b: 0.9, a: 0.9}
-  dashColor: {r: 0.9, g: 0.3, b: 1, a: 0.9}
-  attackColor: {r: 1, g: 0.4, b: 0.2, a: 0.9}
-  verticalColor: {r: 0.2, g: 0.8, b: 1, a: 0.6}
-  spinColor: {r: 1, g: 0.7, b: 0.2, a: 0.6}
-  aimLockColor: {r: 1, g: 1, b: 1, a: 0.9}
 --- !u!1001 &259587031690338009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3616,10 +3563,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5047515412822201820, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1704504756}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
 --- !u!1001 &4198275304448247818
 PrefabInstance:

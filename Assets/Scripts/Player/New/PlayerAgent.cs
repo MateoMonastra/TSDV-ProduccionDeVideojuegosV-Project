@@ -7,11 +7,14 @@ namespace Player.New
     [RequireComponent(typeof(MyKinematicMotor))]
     public class PlayerAgent : MonoBehaviour
     {
-        [Header("Refs")] [SerializeField] private InputReader input;
+        [Header("Refs")] 
+        [SerializeField] private InputReader input;
         [SerializeField] private Camera cameraRef;
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
         [SerializeField] private PlayerAnimationController anim;
+        [SerializeField] private UI.CombatUIController combatUI;
+
 
         // Locomoción
         private Fsm _locomotionFsm;
@@ -30,6 +33,7 @@ namespace Player.New
         private AttackVertical _aVertical;
         private SpinCharge _aSpinCharge;
         private SpinRelease _aSpinRelease;
+        private SelfStun _aSelfStun;
 
         private bool IsActionBlocked() => model != null && model.locomotionBlocked;
 
@@ -55,18 +59,20 @@ namespace Player.New
             _sJumpAir.AddTransition(new Transition { From = _sJumpAir, To = _sFall, ID = JumpAir.ToFall });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sIdle, ID = Fall.ToWalkIdle });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sJumpAir, ID = Fall.ToJumpAir });
+            _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });
 
             _locomotionFsm = new Fsm(_sIdle);
 
             // ----- Acciones -----
             void AR(string id) => _actionFsm.TryTransitionTo(id);
-            _aIdle = new AttackIdle(model, AR, anim: anim, motor);
-            _a1 = new Attack1(motor, model, AR, anim: anim);
-            _a2 = new Attack2(motor, model, AR, anim: anim);
-            _a3 = new Attack3(motor, model, AR, anim: anim);
-            _aVertical = new AttackVertical(motor, model, AR, anim: anim);
+            _aIdle = new AttackIdle(model, AR, anim, motor);
+            _a1 = new Attack1(motor, model, AR, anim);
+            _a2 = new Attack2(motor, model, AR, anim);
+            _a3 = new Attack3(motor, model, AR, anim);
+            _aVertical = new AttackVertical(motor, model, AR, anim);
             _aSpinCharge  = new SpinCharge(model, AR, cameraRef.transform, motor, anim);
             _aSpinRelease = new SpinRelease(motor, model, AR, anim);
+            _aSelfStun    = new SelfStun(motor, model, AR, anim);
 
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToA1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToA2 });
@@ -75,22 +81,23 @@ namespace Player.New
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
             _a3.AddTransition(new Transition { From = _a3, To = _aIdle, ID = Attack3.ToIdle });
             _aVertical.AddTransition(new Transition { From = _aVertical, To = _aIdle, ID = AttackVertical.ToIdle });
-
+            
             _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aSpinRelease, ID=SpinCharge.ToRelease });
             _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aIdle,        ID=SpinCharge.ToIdle     });
+            _aSpinRelease.AddTransition(new Transition{ From=_aSpinRelease, To=_aSelfStun,    ID=SpinRelease.ToSelfStun});
             _aSpinRelease.AddTransition(new Transition{ From=_aSpinRelease, To=_aIdle,        ID=SpinRelease.ToIdle    });
+            _aSelfStun.AddTransition   (new Transition{ From=_aSelfStun,    To=_aIdle,        ID=SelfStun.ToIdle       });
+
 
             _actionFsm = new Fsm(_aIdle);
 
-            //UI cooldowns
-            _sDash.OnDashCooldownUI = t =>
+            if (combatUI)
             {
-                /* actualizar UI de dash */
-            };
-            _aSpinRelease.OnSpinCooldownUI = t =>
-            {
-                /* actualizar UI de spin */
-            };
+                _aSpinCharge.OnSpinChargeProgress += combatUI.OnSpinChargeProgress;
+                _aSpinCharge.OnSpinChargeEnd      += combatUI.OnSpinChargeEnd;
+
+                _aSpinRelease.OnSpinCooldownUI    += combatUI.OnSpinCooldown;
+            }
         }
 
         private void OnEnable()

@@ -1,12 +1,13 @@
 ﻿using FSM;
 using UnityEngine;
+using Player; // IDamageable
 
 namespace Player.New
 {
-
     public class SpinRelease : FinishableState
     {
-        public const string ToIdle = "SpinRelease->AttackIdle";
+        public const string ToIdle     = "SpinRelease->AttackIdle";
+        public const string ToSelfStun = "SpinRelease->SelfStun";
 
         private readonly MyKinematicMotor _m;
         private readonly PlayerModel _model;
@@ -15,6 +16,11 @@ namespace Player.New
 
         private float _t;
         private bool  _damageTicked;
+        private bool  _nextIsSelfStun;
+
+        private float _execDuration;   // duración efectiva del giro
+        private float _postStun;       // post-stun (sigue saliendo del model)
+        private float _damageMoment;   // momento del daño (si no hay evento)
 
         public System.Action<float> OnSpinCooldownUI;
 
@@ -24,18 +30,29 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            
+            _t = 0f; _damageTicked = false; _nextIsSelfStun = false;
+
+            // Bloqueos durante el giro
             _model.locomotionBlocked = true;
             _model.actionMoveSpeedMultiplier = 0f;
             _model.invulnerableToEnemies = true;
             _model.aimLockActive = false;
-            
+
+            // Cooldown
             _model.SpinOnCooldown   = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
             OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
 
-            _t = 0f;
-            _damageTicked = false;
+            // Duraciones escaladas por carga
+            float r = Mathf.Clamp01(_model.spinChargeRatio);
+            _execDuration = Mathf.Lerp(_model.spinMinDuration, _model.spinMaxDuration, r);
+            _postStun     = _model.SpinPostStun;
+
+            // SelfStun escalable
+            _model.selfStunDuration = Mathf.Lerp(_model.selfStunMinDuration, _model.selfStunMaxDuration, r);
+
+            // Momento del daño (fallback) ~40% del giro (podés tunearlo si querés)
+            _damageMoment = Mathf.Clamp01(0.4f) * _execDuration;
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
@@ -47,7 +64,10 @@ namespace Player.New
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
 
-            _model.ClearActionLocks();
+            // Si NO voy a SelfStun, libero locks acá.
+            if (!_nextIsSelfStun)
+                _model.ClearActionLocks();
+
             _anim?.SetCombatActive(false);
         }
 
@@ -55,30 +75,40 @@ namespace Player.New
         {
             base.Tick(dt);
             _t += dt;
-            
-            if (!_damageTicked && _t >= _model.SpinDuration * 0.4f)
+
+            // Fallback de daño si no hay Animation Event
+            if (!_damageTicked && _t >= _damageMoment)
             {
                 DoSpinDamage();
                 _damageTicked = true;
             }
-            
-            if (_t >= _model.SpinDuration + _model.SpinPostStun)
+
+            // Termina giro + post-stun → decidir destino
+            if (_t >= _execDuration + _postStun)
             {
-                _req?.Invoke(ToIdle);
+                if (_model.spinCausesSelfStun)
+                {
+                    _nextIsSelfStun = true;
+                    _req?.Invoke(ToSelfStun);
+                }
+                else
+                {
+                    _req?.Invoke(ToIdle);
+                }
                 Finish();
             }
         }
 
         private void OnSpinDamageEvent()
         {
-            DoSpinDamage();
+            DoSpinDamage(); // impact exacto si existe el evento
+            _damageTicked = true;
         }
 
         private void DoSpinDamage()
         {
             Vector3 center = _m.transform.position;
             Collider[] hits = Physics.OverlapSphere(center, _model.SpinRadius, _model.enemyMask, QueryTriggerInteraction.Ignore);
-
             foreach (var c in hits)
             {
                 var d = c.GetComponentInParent<IDamageable>();
