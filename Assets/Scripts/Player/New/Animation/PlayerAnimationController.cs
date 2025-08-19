@@ -43,7 +43,6 @@ namespace Player.New
 
         void OnEnable()
         {
-            // Combat apagada por defecto para no tapar locomoción
             SetCombatActive(false);
         }
 

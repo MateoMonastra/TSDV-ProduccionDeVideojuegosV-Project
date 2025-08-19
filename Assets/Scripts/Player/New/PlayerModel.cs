@@ -96,9 +96,6 @@ namespace Player.New
 
         // ───────────────────────────── ATTACK: VERTICAL (AIR) ───────────────────────
         [Header("Attack Vertical (Aéreo)")]
-        [Tooltip("Duración total (desde input en aire hasta impacto). Referencia para la animación.")]
-        public float verticalAttackDuration = 0.5f;
-
         [Tooltip("Radio del área de daño al impactar con el suelo (m).")]
         public float verticalAttackRadius = 2.8f;
 
@@ -116,6 +113,15 @@ namespace Player.New
 
         [Tooltip("Tiempo que el jugador queda inmóvil luego del impacto (s).")]
         public float verticalAttackPostStun = 0.25f;
+
+        [Tooltip("Aceleración extra hacia abajo durante el vertical (m/s²).")]
+        public float verticalSlamExtraAccel = 40f;
+
+        [Tooltip("Límite de velocidad hacia abajo durante el vertical (m/s).")]
+        public float verticalSlamMaxDownSpeed = 30f;
+
+        [Tooltip("Impulso inicial mínimo hacia abajo al empezar el vertical (m/s). 0 = sin impulso.")]
+        public float verticalSlamStartDownSpeed = 0f;
 
         // ───────────────────────────── ATTACK: 360° (CHARGE) ───────────────────────
         [Header("Attack 360° (Carga)")]
@@ -182,10 +188,9 @@ namespace Player.New
 
         [HideInInspector] public bool attackComboOnCooldown;
         [HideInInspector] public float attackComboCooldownLeft;
+        
+        [ContextMenu("Reset Jumps")] public void ResetJumps() => jumpsLeft = maxJumps;
 
-        // ──────────────────────────────── UTILITIES ────────────────────────────────
-        [ContextMenu("Reset Jumps")]
-        public void ResetJumps() => jumpsLeft = maxJumps;
         public void ClearActionLocks()
         {
             locomotionBlocked = false;
@@ -194,5 +199,81 @@ namespace Player.New
             invulnerableToEnemies = false;
             aimLockDirection = Vector3.zero;
         }
+
+        // Movement
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+        public float MoveAcceleration { get => moveAcceleration; set => moveAcceleration = value; }
+        public float AirHorizontalSpeed { get => airHorizontalSpeed; set => airHorizontalSpeed = value; }
+
+        // Jump
+        public float JumpSpeed { get => jumpSpeed; set => jumpSpeed = value; }
+        public int MaxJumps { get => maxJumps; set => maxJumps = value; }
+
+        // Dash
+        public float DashDistance { get => dashDistance; set => dashDistance = value; }
+        public float DashSpeed { get => dashSpeed; set => dashSpeed = value; }
+        public float DashCooldown { get => dashCooldown; set => dashCooldown = value; }
+        public float DashExitBlendTime { get => dashExitBlendTime; set => dashExitBlendTime = value; }
+        public float DashExitSharpness { get => dashExitSharpness; set => dashExitSharpness = value; }
+        public bool  DashOnCooldown { get => dashOnCooldown; set => dashOnCooldown = value; }
+        public float DashCooldownLeft { get => dashCooldownLeft; set => dashCooldownLeft = value; }
+
+        // Basic combo
+        public float AttackDamage { get => attackDamage; set => attackDamage = value; }
+        public float Attack1Duration { get => attack1Duration; set => attack1Duration = value; }
+        public float Attack2Duration { get => attack2Duration; set => attack2Duration = value; }
+        public float Attack3Duration { get => attack3Duration; set => attack3Duration = value; }
+        public float AttackRange { get => attackRange; set => attackRange = value; }
+        public float AttackHalfAngleDegrees { get => attackHalfAngleDegrees; set => attackHalfAngleDegrees = value; }
+        public float AttackChainWindow { get => attackChainWindow; set => attackChainWindow = value; }
+        public float AttackKnockbackDistance { get => attackKnockbackDistance; set => attackKnockbackDistance = value; }
+        public float AttackStaggerTime { get => attackStaggerTime; set => attackStaggerTime = value; }
+        public float AttackComboCooldown { get => attackComboCooldown; set => attackComboCooldown = value; }
+        public bool  AttackComboOnCooldown { get => attackComboOnCooldown; set => attackComboOnCooldown = value; }
+        public float AttackComboCooldownLeft { get => attackComboCooldownLeft; set => attackComboCooldownLeft = value; }
+
+        // Vertical
+        public float VerticalAttackRadius { get => verticalAttackRadius; set => verticalAttackRadius = value; }
+        public float VerticalDamage { get => verticalDamage; set => verticalDamage = value; }
+        public float VerticalKnockbackDistance { get => verticalKnockbackDistance; set => verticalKnockbackDistance = value; }
+        public float VerticalStaggerTime { get => verticalStaggerTime; set => verticalStaggerTime = value; }
+        public float VerticalAttackCooldown { get => verticalAttackCooldown; set => verticalAttackCooldown = value; }
+        public float VerticalAttackPostStun { get => verticalAttackPostStun; set => verticalAttackPostStun = value; }
+        public float VerticalSlamExtraAccel { get => verticalSlamExtraAccel; set => verticalSlamExtraAccel = value; }
+        public float VerticalSlamMaxDownSpeed { get => verticalSlamMaxDownSpeed; set => verticalSlamMaxDownSpeed = value; }
+        public float VerticalSlamStartDownSpeed { get => verticalSlamStartDownSpeed; set => verticalSlamStartDownSpeed = value; }
+        public bool  VerticalOnCooldown { get => verticalOnCooldown; set => verticalOnCooldown = value; }
+        public float VerticalCooldownLeft { get => verticalCooldownLeft; set => verticalCooldownLeft = value; }
+
+        // Spin
+        public float SpinChargeMinTime { get => spinChargeMinTime; set => spinChargeMinTime = value; }
+        public float SpinDuration { get => spinDuration; set => spinDuration = value; }
+        public float SpinPostStun { get => spinPostStun; set => spinPostStun = value; }
+        public float SpinRadius { get => spinRadius; set => spinRadius = value; }
+        public float SpinDamage { get => spinDamage; set => spinDamage = value; }
+        public float SpinPushDistance { get => spinPushDistance; set => spinPushDistance = value; }
+        public float SpinStaggerTime { get => spinStaggerTime; set => spinStaggerTime = value; }
+        public float SpinCooldown { get => spinCooldown; set => spinCooldown = value; }
+        public float SpinMoveSpeedMultiplierWhileCharging { get => spinMoveSpeedMultiplierWhileCharging; set => spinMoveSpeedMultiplierWhileCharging = value; }
+        public bool  SpinOnCooldown { get => spinOnCooldown; set => spinOnCooldown = value; }
+        public float SpinCooldownLeft { get => spinCooldownLeft; set => spinCooldownLeft = value; }
+
+        // Targeting
+        public LayerMask EnemyMask { get => enemyMask; set => enemyMask = value; }
+
+        // Inputs cache
+        public Vector2 RawMoveInput { get => rawMoveInput; set => rawMoveInput = value; }
+        public Vector3 MoveInputWorld { get => moveInputWorld; set => moveInputWorld = value; }
+        public bool   JumpWasPureVertical { get => jumpWasPureVertical; set => jumpWasPureVertical = value; }
+        public int    JumpsLeft { get => jumpsLeft; set => jumpsLeft = value; }
+
+        // Locks
+        public float ActionMoveSpeedMultiplier { get => actionMoveSpeedMultiplier; set => actionMoveSpeedMultiplier = value; }
+        public bool  AimLockActive { get => aimLockActive; set => aimLockActive = value; }
+        public Vector3 AimLockDirection { get => aimLockDirection; set => aimLockDirection = value; }
+        public bool  LocomotionBlocked { get => locomotionBlocked; set => locomotionBlocked = value; }
+        public bool  InvulnerableToEnemies { get => invulnerableToEnemies; set => invulnerableToEnemies = value; }
+        public OrientationMethod Orientation { get => orientationMethod; set => orientationMethod = value; }
+        public float OrientationSharpness { get => orientationSharpness; set => orientationSharpness = value; }
     }
 }

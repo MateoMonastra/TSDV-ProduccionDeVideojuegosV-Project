@@ -65,8 +65,8 @@ namespace Player.New
             _a2 = new Attack2(motor, model, AR, anim: anim);
             _a3 = new Attack3(motor, model, AR, anim: anim);
             _aVertical = new AttackVertical(motor, model, AR, anim: anim);
-            _aSpinCharge = new SpinCharge(model, cameraRef.transform, AR, anim: anim);
-            _aSpinRelease = new SpinRelease(motor, model, AR, anim: anim);
+            _aSpinCharge  = new SpinCharge(model, AR, cameraRef.transform, motor, anim);
+            _aSpinRelease = new SpinRelease(motor, model, AR, anim);
 
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToA1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToA2 });
@@ -76,10 +76,9 @@ namespace Player.New
             _a3.AddTransition(new Transition { From = _a3, To = _aIdle, ID = Attack3.ToIdle });
             _aVertical.AddTransition(new Transition { From = _aVertical, To = _aIdle, ID = AttackVertical.ToIdle });
 
-            _aSpinCharge.AddTransition(new Transition
-                { From = _aSpinCharge, To = _aSpinRelease, ID = SpinCharge.ToRelease });
-            _aSpinCharge.AddTransition(new Transition { From = _aSpinCharge, To = _aIdle, ID = SpinCharge.ToIdle });
-            _aSpinRelease.AddTransition(new Transition { From = _aSpinRelease, To = _aIdle, ID = SpinRelease.ToIdle });
+            _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aSpinRelease, ID=SpinCharge.ToRelease });
+            _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aIdle,        ID=SpinCharge.ToIdle     });
+            _aSpinRelease.AddTransition(new Transition{ From=_aSpinRelease, To=_aIdle,        ID=SpinRelease.ToIdle    });
 
             _actionFsm = new Fsm(_aIdle);
 
@@ -102,8 +101,8 @@ namespace Player.New
                 input.OnJump += OnJump;
                 input.OnClick += OnAttackBasic;
                 input.OnDash += OnDash;
-                input.OnAttackHeavyPressed += OnAttackHeavyPressed;
-                input.OnAttackHeavyReleased += OnAttackHeavyReleased;
+                input.OnAttackHeavyPressed += OnHeavyPressed;
+                input.OnAttackHeavyReleased += OnHeavyReleased;
             }
         }
 
@@ -115,8 +114,8 @@ namespace Player.New
                 input.OnJump -= OnJump;
                 input.OnClick -= OnAttackBasic;
                 input.OnDash -= OnDash;
-                input.OnAttackHeavyPressed -= OnAttackHeavyPressed;
-                input.OnAttackHeavyReleased -= OnAttackHeavyReleased;
+                input.OnAttackHeavyPressed -= OnHeavyPressed;
+                input.OnAttackHeavyReleased -= OnHeavyReleased;
             }
         }
 
@@ -153,20 +152,17 @@ namespace Player.New
         }
 
 
-        private void OnAttackHeavyPressed()
+        private void OnHeavyPressed()
         {
-            if (IsActionBlocked()) return;
-            if (!motor.IsGrounded) return;
-            if (model.spinOnCooldown) return;
-
-            _actionFsm.GetCurrentState()?.HandleInput("AttackHeavyPressed");
+            if (motor.IsGrounded && !model.SpinOnCooldown)
+                _actionFsm.ForceTransition(_aSpinCharge);
         }
 
-        private void OnAttackHeavyReleased()
+        private void OnHeavyReleased()
         {
-            if (IsActionBlocked()) return;
             _actionFsm.GetCurrentState()?.HandleInput("AttackHeavyReleased");
         }
+
 
         private void Update()
         {
