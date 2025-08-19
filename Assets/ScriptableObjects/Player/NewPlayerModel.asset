@@ -37,22 +37,31 @@ MonoBehaviour:
   attackKnockbackDistance: 2.5
   attackStaggerTime: 0.35
   attackComboCooldown: 0.4
-  verticalAttackDuration: 0.5
   verticalAttackRadius: 2.8
   verticalDamage: 12
   verticalKnockbackDistance: 2.5
   verticalStaggerTime: 0.35
   verticalAttackCooldown: 1
   verticalAttackPostStun: 0.25
+  verticalSlamExtraAccel: 40
+  verticalSlamMaxDownSpeed: 30
+  verticalSlamStartDownSpeed: 0
   spinChargeMinTime: 0.6
+  spinChargeMaxTime: 1.6
+  spinMinDuration: 0.55
+  spinMaxDuration: 3
   spinDuration: 0.7
+  spinPostStun: 0.35
   spinRadius: 2.8
   spinDamage: 10
   spinPushDistance: 2
   spinStaggerTime: 0.3
   spinCooldown: 3
   spinMoveSpeedMultiplierWhileCharging: 0.6
-  spinPostStun: 0.35
+  spinCausesSelfStun: 1
+  selfStunMinDuration: 0.6
+  selfStunMaxDuration: 2
+  selfStunGetUpLeadTime: 0.25
   actionMoveSpeedMultiplier: 1
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
@@ -70,3 +79,7 @@ MonoBehaviour:
   verticalCooldownLeft: 0
   attackComboOnCooldown: 0
   attackComboCooldownLeft: 0
+  spinChargeRatio: 1
+  isSelfStunned: 0
+  selfStunTimeLeft: 0
+  selfStunDuration: 2
