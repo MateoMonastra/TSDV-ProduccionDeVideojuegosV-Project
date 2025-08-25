@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8801759034548020238}
   - component: {fileID: 8737857756895801831}
   - component: {fileID: 8849222996993031085}
+  - component: {fileID: 673944922727793435}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -49,67 +50,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb22dcdedde24188a9108685ea3c40f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onFall:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8801759034548020238}
-        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
-        m_MethodName: SetFallAnimation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 8801759034548020238}
-        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
-        m_MethodName: SetJumpAnimation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onWalkIdle:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8801759034548020238}
-        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
-        m_MethodName: SetFallAnimation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onJump:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8801759034548020238}
-        m_TargetAssemblyTypeName: Player.New.PlayerAnimationController, Assembly-CSharp
-        m_MethodName: SetJumpAnimation
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+  input: {fileID: 0}
+  cameraRef: {fileID: 0}
   motor: {fileID: 8737857756895801831}
-  animationController: {fileID: 8801759034548020238}
-  inputReader: {fileID: 0}
   model: {fileID: 11400000, guid: b500ce0009cf57f4e8bfa79ec0eccd22, type: 2}
+  anim: {fileID: 0}
+  combatUI: {fileID: 0}
 --- !u!114 &8801759034548020238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc36c7643fc2e3548abfdb4b38e271f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6397334637099430649}
+  _anim: {fileID: 0}
+  _combatLayerName: Combat
+  _debugAnimEvents: 0
 --- !u!114 &8737857756895801831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,11 +93,13 @@ MonoBehaviour:
   _characterMass: 1
   _maxSnapSpeed: 5
   _rotationSpeed: 10
+  gravity: 25
   _rotationSharpness: 10
   _groundSnapDistance: 0.2
   _groundedOffset: 0.05
   _fallDetectionMultiplier: 2
   _minGroundDotForSnap: 0.85
+  _ungroundTimeAfterJump: 0.1
 --- !u!136 &8849222996993031085
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -173,6 +123,28 @@ CapsuleCollider:
   m_Height: 2.3182793
   m_Direction: 1
   m_Center: {x: 0, y: 1.0995846, z: 0}
+--- !u!95 &673944922727793435
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866390101230211825}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6378388398201364938
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +369,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 8717590983609226268, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+    - {fileID: 4918293079226080794, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+    - {fileID: 5952934300567670599, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8696891615648172953, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
     - {fileID: 2973502247403683279, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
@@ -404,29 +378,11 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6699394637162710193}
-    - targetCorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6397334637099430649}
   m_SourcePrefab: {fileID: 100100000, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
---- !u!4 &2349432370594584750 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1363255706771835511, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
-  m_PrefabInstance: {fileID: 3634859670779253465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3996355031352745667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 361548175956298778, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
-  m_PrefabInstance: {fileID: 3634859670779253465}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4205811374185257999 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 589855784296042198, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
-  m_PrefabInstance: {fileID: 3634859670779253465}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4296148043623555668 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 715903559402205325, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
   m_PrefabInstance: {fileID: 3634859670779253465}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6029948159763914420 stripped
@@ -434,68 +390,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7052408848498248813, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
   m_PrefabInstance: {fileID: 3634859670779253465}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6699394637162710193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6029948159763914420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aa2b9bccfefda549bd1cf67fd922ad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RootBones:
-  - {fileID: 8460437286943834982}
-  - {fileID: 2349432370594584750}
-  - {fileID: 4296148043623555668}
-  - {fileID: 4205811374185257999}
-  m_EndBones: []
-  m_Material: {fileID: 0}
-  m_StartDepth: 0
-  m_SiblingConstraints: 0
-  m_ClosedSiblings: 0
-  m_SiblingRotationConstraints: 1
-  m_LengthUnification: 0
-  m_CollisionLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  m_ExtraColliders: []
-  m_Radius: 0
-  m_RadiusCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_DeltaTimeMode: 0
-  m_ConstantDeltaTime: 0.03
-  m_Iterations: 1
-  m_SleepThreshold: 0.005
-  m_GravityAligner: {fileID: 0}
-  m_Gravity: {x: 0, y: -15, z: 0}
-  m_ForceModule: {fileID: 0}
-  m_ForceScale: 1
-  m_SimulateSpace: {fileID: 0}
 --- !u!95 &6397334637099430649
 Animator:
   serializedVersion: 7
@@ -518,8 +412,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!4 &8460437286943834982 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5122879209172177343, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
-  m_PrefabInstance: {fileID: 3634859670779253465}
-  m_PrefabAsset: {fileID: 0}
