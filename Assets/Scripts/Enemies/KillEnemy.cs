@@ -1,26 +1,66 @@
-using Enemies;
+using Health;
 using Platforms;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class KillEnemy : MonoBehaviour
 {
     [SerializeField] private HammerController hammerController;
+    [SerializeField] private int damage;
+    [SerializeField] private (int, int) knockback = (20,35);
+    private bool _dealingDamage = false;
+    private bool _multipleHits = false;
+
+    private List<Collider> hitColliders = new List<Collider>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        //run through list to not hit same collider twice
+        foreach (Collider collider in hitColliders)
         {
-            if (other.gameObject.TryGetComponent(out IEnemy enemy))
-            {
-                enemy.OnBeingAttacked();
-            }
+            if (collider == other)
+                return;
         }
 
-        //TODO: YA HAY QUE SACAR ESTE BODRIO
-        if (other.gameObject.TryGetComponent(out IBreakable breakable))
+        if (_dealingDamage)
         {
-            if (hammerController.IsGroundSlamming)
-                breakable.Break();
+
+            if (other.CompareTag("Enemy"))
+            {
+                if (other.gameObject.TryGetComponent(out HealthController enemy))
+                {
+                    hitColliders.Add(other);
+                    enemy.Damage(new DamageInfo(damage,transform.position,knockback));
+
+                    if (!_multipleHits)
+                    {
+                        hammerController.ToggleAttackCollider(false);
+                        _dealingDamage = false;
+                    }
+                }
+            }
+
+            //TODO: YA HAY QUE SACAR ESTE BODRIO
+            if (other.gameObject.TryGetComponent(out IBreakable breakable))
+            {
+
+                if (hammerController.IsGroundSlamming)
+                {
+                    breakable.Break();
+                }
+            }
         }
+    }
+
+    public void StartAttack(bool value)
+    {
+        _dealingDamage = value;
+        hitColliders.Clear();
+    }
+
+    public void ToggleMultipleHits(bool value)
+    {
+        _multipleHits = value;
+        hitColliders.Clear();
     }
 }

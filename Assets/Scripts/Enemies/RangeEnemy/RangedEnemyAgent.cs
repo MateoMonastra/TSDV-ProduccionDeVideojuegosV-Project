@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Enemies.RangeEnemy.States;
 using FSM;
+using Health;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +15,7 @@ namespace Enemies.RangeEnemy
         public UnityEvent onDeath;
 
         //TODO: pasar conocimiento del player a un scriptable object
+        [SerializeField] private ParticleSystem shootParticle;
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private GameObject specialBulletPrefab;
         [SerializeField] private GameObject groundMarkerPrefab;
@@ -37,7 +39,7 @@ namespace Enemies.RangeEnemy
             State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
                 groundMarkerPrefab, specialBulletPrefab, shootPoint.position);
 
-            State attack = new Attack(this.transform, player, model, bulletPrefab, shootPoint,
+            State attack = new Attack(this.transform, player, model, bulletPrefab, shootParticle, shootPoint,
                 TransitionToIdle);
 
             //Idle Transitions
@@ -121,7 +123,7 @@ namespace Enemies.RangeEnemy
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
 
-        public void OnBeingAttacked()
+        public void OnBeingAttacked(DamageInfo damageOrigin)
         {
             TransitionToDeath();
         }
