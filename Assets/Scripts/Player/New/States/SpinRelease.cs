@@ -63,11 +63,11 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
-
+            
             // Si NO voy a SelfStun, libero locks acá.
             if (!_nextIsSelfStun)
                 _model.ClearActionLocks();
-
+            
             _anim?.SetCombatActive(false);
         }
 
