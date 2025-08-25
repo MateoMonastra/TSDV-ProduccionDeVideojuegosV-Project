@@ -6,17 +6,14 @@ namespace FSM
     public class Fsm
     {
         private State _current;
-
-        // Debug/inspección
+        
         public State Current => _current;
         public State LastFrom { get; private set; }
         public State LastTo { get; private set; }
         public string LastTransitionId { get; private set; }
         public bool LastTransitionSucceeded { get; private set; }
-
-        // Callback opcional para herramientas/telemetría
+        
         public event System.Action<State, string, bool, State> OnAfterTransitionAttempt;
-        // firma: (from, id, success, toIfSuccess)
 
         public Fsm(State current)
         {
@@ -29,7 +26,6 @@ namespace FSM
 
         /// <summary>
         /// Intenta transicionar por ID. Si falla, loguea el listado de IDs disponibles
-        /// en el estado actual (para detectar typos o transiciones no registradas).
         /// </summary>
         public bool TryTransitionTo(string id)
         {
@@ -47,7 +43,7 @@ namespace FSM
             if (_current.TryGetTransition(id, out var transition))
             {
                 Debug.Log($"FSM: transition {LastFrom} -> {id} (success)");
-                transition.Do(); // Exit -> (OnTransition) -> Enter
+                transition.Do();
                 _current = transition.To;
 
                 LastTo = _current;
@@ -76,23 +72,8 @@ namespace FSM
         }
 
         /// <summary>
-        /// Igual que TryTransitionTo pero exige éxito. Si falla, loguea error detallado.
-        /// </summary>
-        public bool ExpectTransition(string id)
-        {
-            if (TryTransitionTo(id, warnIfMissing: true))
-                return true;
-
-            Debug.LogError(
-                $"FSM: EXPECTED transition to \"{id}\" from {LastFrom}, pero no existe. " +
-                $"Revisá el registro de transiciones del estado actual o el ID."
-            );
-            return false;
-        }
-
-        /// <summary>
         /// Transición forzada a un estado particular (sin ID). Útil para mecánicas
-        /// que deben cortar lo que esté pasando. Respeta Exit->OnTransition->Enter.
+        /// que deben cortar lo que esté pasando.
         /// </summary>
         public void ForceTransition(State to)
         {
