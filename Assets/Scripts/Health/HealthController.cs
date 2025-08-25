@@ -1,16 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Health
 {
     public class HealthController : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
+        [SerializeField] private float damageCooldown;
         private int _currentHealth;
+        private float _timer;
 
         public Action OnHeal;
-        public Action OnTakeDamage;
-        public Action OnDeath;
+        public Action<DamageInfo> OnTakeDamage;
+        public Action<DamageInfo> OnDeath;
 
         private void Awake()
         {
@@ -23,14 +26,54 @@ namespace Health
             OnHeal?.Invoke();
         }
 
-        public void Damage(int damage)
+        public void Damage(DamageInfo damageInfo)
         {
-            _currentHealth -= damage;
+            if (_timer <= damageCooldown) return;
+            
+            _currentHealth -= damageInfo.Damage;
 
             if (_currentHealth > 0)
-                OnTakeDamage?.Invoke();
+                OnTakeDamage?.Invoke(damageInfo);
             else
-                OnDeath?.Invoke();
+                OnDeath?.Invoke(damageInfo);
+
+            _timer = 0;
+        }
+
+        public void InstaKill(DamageInfo damageInfo)
+        {
+            OnDeath?.Invoke(damageInfo);
+        }
+
+        public void ResetHealth()
+        {
+            _currentHealth = maxHealth;
+            OnHeal?.Invoke();
+        }
+
+        public int GetCurrentHealth()
+        {
+            return _currentHealth;
+        }
+
+        private void Update()
+        {
+            _timer += Time.deltaTime;
         }
     }
+
+    public struct DamageInfo
+    {
+        public int Damage;
+        public Vector3 DamageOrigin;
+        public (int, int) Knockback;
+
+        public DamageInfo(int damage, Vector3 transformPosition, (int, int) knockback)
+        {
+            Damage = damage;
+            DamageOrigin = transformPosition;
+            Knockback = (knockback.Item1, knockback.Item2);
+        }
+    }
+    
 }

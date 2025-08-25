@@ -30,18 +30,11 @@ namespace Enemies.BaseEnemy
         private Fsm _fsm;
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
-        private bool _isDeath = false;
 
         private const string ToChaseID = "toChase";
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
         private const string ToImpulseID = "toImpulse";
-
-        private void Awake()
-        {
-            healthController.OnTakeDamage += OnBeingAttacked;
-            healthController.OnDeath += TransitionToDeath;
-        }
 
         private void Start()
         {
@@ -76,7 +69,7 @@ namespace Enemies.BaseEnemy
             chase.AddTransition(chaseToImpulse);
             _states.Add(chase);
 
-            //Atack Transitions
+            //Attack Transitions
             Transition attackToChase = new Transition() { From = attack, To = chase, ID = ToChaseID };
             attack.AddTransition(attackToChase);
 
@@ -98,15 +91,13 @@ namespace Enemies.BaseEnemy
         private void OnEnable()
         {
             GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
+            healthController.OnTakeDamage += OnBeingAttacked;
+            healthController.OnDeath += TransitionToDeath;
         }
 
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
-        }
-
-        private void OnDestroy()
-        {
             healthController.OnTakeDamage -= OnBeingAttacked;
             healthController.OnDeath -= TransitionToDeath;
         }
@@ -133,10 +124,9 @@ namespace Enemies.BaseEnemy
             _fsm.TryTransitionTo(ToImpulseID);
         }
 
-        private void TransitionToDeath()
+        private void TransitionToDeath(DamageInfo damageOrigin)
         {
             onDeath?.Invoke();
-            _isDeath = true;
             State death = new Death(this.gameObject, model);
             _fsm.ForceSetCurrentState(death);
         }
@@ -192,7 +182,7 @@ namespace Enemies.BaseEnemy
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
 
-        public void OnBeingAttacked()
+        public void OnBeingAttacked(DamageInfo damageOrigin)
         {
             TransitionToImpulse();
         }

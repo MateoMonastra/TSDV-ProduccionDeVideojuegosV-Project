@@ -7,11 +7,11 @@ public class HammerController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] holdAttackParticles;
     [SerializeField] private ParticleSystem[] normalAttackParticles;
-    [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private ParticleSystem[] groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
-    [SerializeField] private Collider collider;
+    [SerializeField] private BoxCollider collider;
     [SerializeField] private KillEnemy killEnemy;
     private InputSystem_Actions inputs;
     private bool isAnimating = false;
@@ -116,11 +116,13 @@ public class HammerController : MonoBehaviour
             holdAttackParticles[i].Play();
         }
 
+        killEnemy.ToggleMultipleHits(true);
+
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
     }
 
-    void GroundSlamAttack()
+    private void GroundSlamAttack()
     {
         StartAttack();
 
@@ -146,10 +148,12 @@ public class HammerController : MonoBehaviour
         isAnimating = false;
         ToggleAttackCollider(true);
 
-        if (groundSlamParticles.isPlaying)
-            groundSlamParticles.Stop();
+        for (int i = 0; i < groundSlamParticles.Length; i++)
+        {
+            if (!groundSlamParticles[i].isPlaying)
+                groundSlamParticles[i].Play();
+        }
 
-        groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
@@ -161,6 +165,7 @@ public class HammerController : MonoBehaviour
             isAnimating = false;
             animator.ResetTrigger("GroundSlamEnd");
             hammerAnimator.ResetTrigger("GroundSlamEnd");
+            killEnemy.ToggleMultipleHits(false);
         }
 
         animator.SetBool("IsAttacking", false);
