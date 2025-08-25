@@ -12,6 +12,7 @@ namespace Hazards.BlowerBridge
             Button
         }
 
+        [SerializeField] private Transform bridgeTip;
         [SerializeField] private ActivationMode mode = ActivationMode.Interval;
 
         [SerializeField] private float extendTime = 5f;
@@ -67,14 +68,17 @@ namespace Hazards.BlowerBridge
             targetScale.z += extendValue;
 
             Vector3 initialPosition = transform.position;
+            Vector3 initialTipPosition = bridgeTip.position;
 
             float deltaZ = targetScale.z - initialScale.z;
             Vector3 targetPosition = initialPosition - transform.forward * (deltaZ * _pivotCorrectionFactor);
+            Vector3 targetTipPosition = initialTipPosition + bridgeTip.forward * (deltaZ * 2.01f * (_pivotCorrectionFactor));
 
             while (elapsedTime < extendTime)
             {
                 float t = elapsedTime / extendTime;
 
+                bridgeTip.position = Vector3.Lerp(initialTipPosition, targetTipPosition, t);
                 transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
                 transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
 
@@ -84,6 +88,8 @@ namespace Hazards.BlowerBridge
 
             transform.localScale = targetScale;
             transform.position = targetPosition;
+
+            bridgeTip.position = targetTipPosition;
         }
 
         private IEnumerator Retract()
@@ -95,14 +101,17 @@ namespace Hazards.BlowerBridge
             targetScale.z -= extendValue;
 
             Vector3 initialPosition = transform.position;
+            Vector3 initialTipPosition = bridgeTip.position;
 
             float deltaZ = initialScale.z - targetScale.z;
             Vector3 targetPosition = initialPosition + transform.forward * (deltaZ * _pivotCorrectionFactor);
+            Vector3 targetTipPosition = initialTipPosition - bridgeTip.forward * (deltaZ * 2.01f * _pivotCorrectionFactor);
 
             while (elapsedTime < extendTime)
             {
                 float t = elapsedTime / extendTime;
 
+                bridgeTip.position = Vector3.Lerp(initialTipPosition, targetTipPosition, t);
                 transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
                 transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
 
@@ -112,6 +121,9 @@ namespace Hazards.BlowerBridge
 
             transform.localScale = targetScale;
             transform.position = targetPosition;
+            
+            bridgeTip.position = targetTipPosition;
+
             _isActive = false;
         }
     }

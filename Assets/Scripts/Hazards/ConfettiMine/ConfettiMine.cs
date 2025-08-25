@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using KinematicCharacterController.Examples;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hazards.ConfettiMine
 {
@@ -10,11 +11,12 @@ namespace Hazards.ConfettiMine
         [SerializeField] private float mineRadius;
         [SerializeField] private float knockbackForce = 20f;
         [SerializeField] private float activationDelay = 2f;
-        [SerializeField] private ParticleSystem explosionEffect;
+        [SerializeField] private ParticleSystem[] explosionEffects;
         [SerializeField] private Renderer mineRenderer;
         [SerializeField] private Material baseMaterial;
         [SerializeField] private Material warningMaterial;
         [SerializeField] private AnimationCurve blinkCurve;
+        [SerializeField] private Collider collider;
 
         private bool _isTriggered = false;
         private Coroutine _warningCoroutine;
@@ -41,9 +43,10 @@ namespace Hazards.ConfettiMine
             if (_warningCoroutine != null)
                 StopCoroutine(_warningCoroutine);
 
-            
+            mineRenderer.enabled = true;
+            collider.enabled = true;
             _isTriggered = false;
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -73,13 +76,19 @@ namespace Hazards.ConfettiMine
                 yield return new WaitForSeconds(blinkInterval);
                 elapsed += blinkInterval;
             }
+
             _explodeCoroutine = StartCoroutine(Explode());
         }
 
         private IEnumerator Explode()
         {
-            if (explosionEffect)
-                explosionEffect.Play();
+            for (int i = 0; i < explosionEffects.Length; i++)
+            {
+                explosionEffects[i].Play();
+            }
+
+            collider.enabled = false;
+            mineRenderer.enabled = false;
             
             // hecho asi por si quieren integrar que los enemigos les afecte tambien 
             Collider[] colliders = Physics.OverlapSphere(transform.position, mineRadius);
@@ -95,7 +104,7 @@ namespace Hazards.ConfettiMine
                      Vector3.up * knockbackForce);
             }
 
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             yield break;
         }
 

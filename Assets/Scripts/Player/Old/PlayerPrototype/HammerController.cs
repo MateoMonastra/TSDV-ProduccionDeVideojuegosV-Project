@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class HammerController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem groundSlamParticles;
+    [SerializeField] private ParticleSystem[] holdAttackParticles;
+    [SerializeField] private ParticleSystem[] normalAttackParticles;
+    [SerializeField] private ParticleSystem[] groundSlamParticles;
     [SerializeField] private PlayerAnimationEvents animationEvents;
     [SerializeField] private Animator animator;
     [SerializeField] private Animator hammerAnimator;
-    [SerializeField] private Collider collider;
+    [SerializeField] private BoxCollider collider;
+    [SerializeField] private KillEnemy killEnemy;
     private InputSystem_Actions inputs;
     private bool isAnimating = false;
     private float holdTimeThreshold = 0.2f; // Time in seconds to consider it a hold
@@ -86,7 +89,7 @@ public class HammerController : MonoBehaviour
     private void StartAttack()
     {
         isAnimating = true;
-        collider.enabled = true;
+        ToggleAttackCollider(true);
 
         animator.SetBool("IsAttacking", true);
     }
@@ -94,6 +97,11 @@ public class HammerController : MonoBehaviour
     void NormalAttack()
     {
         StartAttack();
+
+        for (int i = 0; i < normalAttackParticles.Length; i++)
+        {
+            normalAttackParticles[i].Play();
+        }
 
         animator.SetTrigger("NormalAttack");
         hammerAnimator.SetTrigger("NormalAttack");
@@ -103,11 +111,18 @@ public class HammerController : MonoBehaviour
     {
         StartAttack();
 
+        for (int i = 0; i < holdAttackParticles.Length; i++)
+        {
+            holdAttackParticles[i].Play();
+        }
+
+        killEnemy.ToggleMultipleHits(true);
+
         hammerAnimator.SetTrigger("HoldAttack");
         animator.SetTrigger("HoldAttack");
     }
 
-    void GroundSlamAttack()
+    private void GroundSlamAttack()
     {
         StartAttack();
 
@@ -131,12 +146,14 @@ public class HammerController : MonoBehaviour
     void EndGroundSlam()
     {
         isAnimating = false;
-        collider.enabled = true;
+        ToggleAttackCollider(true);
 
-        if (groundSlamParticles.isPlaying)
-            groundSlamParticles.Stop();
+        for (int i = 0; i < groundSlamParticles.Length; i++)
+        {
+            if (!groundSlamParticles[i].isPlaying)
+                groundSlamParticles[i].Play();
+        }
 
-        groundSlamParticles.Play();
         animator.SetTrigger("GroundSlamEnd");
         hammerAnimator.SetTrigger("GroundSlamEnd");
     }
@@ -148,10 +165,11 @@ public class HammerController : MonoBehaviour
             isAnimating = false;
             animator.ResetTrigger("GroundSlamEnd");
             hammerAnimator.ResetTrigger("GroundSlamEnd");
+            killEnemy.ToggleMultipleHits(false);
         }
 
         animator.SetBool("IsAttacking", false);
-        collider.enabled = false;
+        ToggleAttackCollider(false);
         isGroundSlamming = false;
     }
 
@@ -164,7 +182,13 @@ public class HammerController : MonoBehaviour
             hammerAnimator.SetTrigger("InterruptGroundSlam");
             isGroundSlamming = false;
             isAnimating = false;
-            collider.enabled = false;
+            ToggleAttackCollider(false);
         }
+    }
+
+    public void ToggleAttackCollider(bool value)
+    {
+        collider.enabled = value;
+        killEnemy.StartAttack(true);
     }
 }
