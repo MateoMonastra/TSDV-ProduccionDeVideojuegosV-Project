@@ -60,6 +60,7 @@ namespace Player.New
             _sFall.AddTransition(new Transition { From = _sFall, To = _sIdle, ID = Fall.ToWalkIdle });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sJumpAir, ID = Fall.ToJumpAir });
             _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });
+            _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
 
             _locomotionFsm = new Fsm(_sIdle);
 

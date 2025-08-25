@@ -126,6 +126,6 @@ namespace Player.New
         }
 
         public static bool CanUse(MyKinematicMotor m, PlayerModel mdl)
-            => !m.IsGrounded && mdl.jumpWasPureVertical && !mdl.verticalOnCooldown;
+            => !m.IsGrounded && !mdl.verticalOnCooldown;
     }
 }
