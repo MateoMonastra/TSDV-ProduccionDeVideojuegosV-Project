@@ -8,20 +8,26 @@ public class SlidesManager : MonoBehaviour
     [SerializeField] private Slider mouseSens;
     [SerializeField] private Slider joystickSens;
 
-    [SerializeField] private ExampleCharacterCamera camera; 
+    [SerializeField] private ExampleCharacterCamera camera;
+
     private void Start()
     {
-        mouseSens.value = camera.MouseRotationSpeed;
-        joystickSens.value = camera.JoystickRotationSpeed;
+        if (mouseSens != null)
+            mouseSens.value = camera.MouseRotationSpeed;
+
+        if (joystickSens != null)
+            joystickSens.value = camera.JoystickRotationSpeed;
     }
-    
+
     public void ChangeMouseSensibility()
     {
-        camera.MouseRotationSpeed = mouseSens.value;
+        if (camera != null)
+            camera.MouseRotationSpeed = mouseSens.value;
     }
 
     public void ChangeJoystickSensibility()
     {
-        camera.JoystickRotationSpeed = joystickSens.value;
+        if (camera != null)
+            camera.JoystickRotationSpeed = joystickSens.value;
     }
 }

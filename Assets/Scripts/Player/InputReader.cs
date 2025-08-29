@@ -27,6 +27,8 @@ namespace Player
         
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
+        [SerializeField] private string levelConceptSceneName;
+        [SerializeField] private string characterBoxSceneName;
 
         public void HandleNavigate(InputAction.CallbackContext context)
         {
@@ -99,6 +101,18 @@ namespace Player
         public void HandleLevelInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(levelSceneName);
+            Time.timeScale = 1;
+        }
+        
+        public void HandleNewCharacterBoxInput(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(characterBoxSceneName);
+            Time.timeScale = 1;
+        }
+        
+        public void HandleLevelConceptInput(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(levelConceptSceneName);
             Time.timeScale = 1;
         }
 

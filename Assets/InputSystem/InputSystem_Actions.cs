@@ -209,6 +209,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""LoadNewPlayerBoxRoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc4634ba-7bce-467d-a1e0-36dedafa75e5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LoadNewLevelConcept"",
+                    ""type"": ""Button"",
+                    ""id"": ""934a0157-5b63-44c8-b581-af0c555c9d52"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""GodModeCheat"",
                     ""type"": ""Button"",
                     ""id"": ""812323b6-aeef-4a8d-b3d9-8373345f2d94"",
@@ -723,6 +741,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""LoadLevelRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e20232bd-6c38-412d-9cae-fd33134dc8d2"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""LoadNewPlayerBoxRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4609a65-a77c-42f6-8614-f5d0643c665e"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""LoadNewLevelConcept"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1389,6 +1429,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_LoadShowRoom = m_Player.FindAction("LoadShowRoom", throwIfNotFound: true);
         m_Player_LoadLevelRoom = m_Player.FindAction("LoadLevelRoom", throwIfNotFound: true);
+        m_Player_LoadNewPlayerBoxRoom = m_Player.FindAction("LoadNewPlayerBoxRoom", throwIfNotFound: true);
+        m_Player_LoadNewLevelConcept = m_Player.FindAction("LoadNewLevelConcept", throwIfNotFound: true);
         m_Player_GodModeCheat = m_Player.FindAction("GodModeCheat", throwIfNotFound: true);
         m_Player_GetDashPickUpCheat = m_Player.FindAction("GetDashPickUpCheat", throwIfNotFound: true);
         m_Player_GetJumpPickUpCheat = m_Player.FindAction("GetJumpPickUpCheat", throwIfNotFound: true);
@@ -1501,6 +1543,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_LoadShowRoom;
     private readonly InputAction m_Player_LoadLevelRoom;
+    private readonly InputAction m_Player_LoadNewPlayerBoxRoom;
+    private readonly InputAction m_Player_LoadNewLevelConcept;
     private readonly InputAction m_Player_GodModeCheat;
     private readonly InputAction m_Player_GetDashPickUpCheat;
     private readonly InputAction m_Player_GetJumpPickUpCheat;
@@ -1570,6 +1614,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LoadLevelRoom".
         /// </summary>
         public InputAction @LoadLevelRoom => m_Wrapper.m_Player_LoadLevelRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadNewPlayerBoxRoom".
+        /// </summary>
+        public InputAction @LoadNewPlayerBoxRoom => m_Wrapper.m_Player_LoadNewPlayerBoxRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadNewLevelConcept".
+        /// </summary>
+        public InputAction @LoadNewLevelConcept => m_Wrapper.m_Player_LoadNewLevelConcept;
         /// <summary>
         /// Provides access to the underlying input action "Player/GodModeCheat".
         /// </summary>
@@ -1659,6 +1711,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started += instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed += instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled += instance.OnLoadLevelRoom;
+            @LoadNewPlayerBoxRoom.started += instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewPlayerBoxRoom.performed += instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewPlayerBoxRoom.canceled += instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewLevelConcept.started += instance.OnLoadNewLevelConcept;
+            @LoadNewLevelConcept.performed += instance.OnLoadNewLevelConcept;
+            @LoadNewLevelConcept.canceled += instance.OnLoadNewLevelConcept;
             @GodModeCheat.started += instance.OnGodModeCheat;
             @GodModeCheat.performed += instance.OnGodModeCheat;
             @GodModeCheat.canceled += instance.OnGodModeCheat;
@@ -1727,6 +1785,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled -= instance.OnLoadLevelRoom;
+            @LoadNewPlayerBoxRoom.started -= instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewPlayerBoxRoom.performed -= instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewPlayerBoxRoom.canceled -= instance.OnLoadNewPlayerBoxRoom;
+            @LoadNewLevelConcept.started -= instance.OnLoadNewLevelConcept;
+            @LoadNewLevelConcept.performed -= instance.OnLoadNewLevelConcept;
+            @LoadNewLevelConcept.canceled -= instance.OnLoadNewLevelConcept;
             @GodModeCheat.started -= instance.OnGodModeCheat;
             @GodModeCheat.performed -= instance.OnGodModeCheat;
             @GodModeCheat.canceled -= instance.OnGodModeCheat;
@@ -2136,6 +2200,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLoadLevelRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadNewPlayerBoxRoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadNewPlayerBoxRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadNewLevelConcept" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadNewLevelConcept(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "GodModeCheat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

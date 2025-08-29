@@ -4,6 +4,7 @@ using KinematicCharacterController.Examples;
 using Player;
 using Player.New;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PlayerCheats
 {
@@ -17,16 +18,16 @@ namespace PlayerCheats
         [SerializeField] private float flySpeed;
 
         private ExampleCharacterController _playerCharacterController;
-        private MyKinematicMotor _myKinematicMotor;
+        private KinematicCharacterMotor _myKinematicMotor;
         private Vector2 _currentFlyInput;
         private float _currentVerticalInput;
 
-        private bool _isGodModeActive = false;
+        public bool isGodModeActive = false;
 
         private void OnEnable()
         {
             _playerCharacterController = character.GetComponent<ExampleCharacterController>();
-            _myKinematicMotor = character.GetComponent<MyKinematicMotor>();
+            _myKinematicMotor = character.GetComponent<KinematicCharacterMotor>();
 
             if (_playerCharacterController == null)
             {
@@ -41,6 +42,26 @@ namespace PlayerCheats
             inputReader.OnDashPickUpCheat += _playerCharacterController.AddExtraDashCharge;
             inputReader.OnJumpPickUpCheat += OnJumpPickUpCheat;
             inputReader.OnGodModeCheat += SwitchGodMode;
+
+            if (isGodModeActive)
+            {
+                GameEvents.GameEvents.PlayerGodMode(true);
+
+                isGodModeActive = true;
+                _playerCharacterController.enabled = false;
+                _myKinematicMotor.enabled = false;
+                hammer?.SetActive(false);
+                godModeInstructions?.SetActive(true);
+
+                inputReader.OnFlyDown += PlayerFlyDown;
+                inputReader.OnFlyUp += PlayerFlyUp;
+                inputReader.OnFlyDownCanceled += StopVerticalMovement;
+                inputReader.OnFlyUpCanceled += StopVerticalMovement;
+                inputReader.OnFlyMove += PlayerMovement;
+
+                inputReader.OnDashPickUpCheat -= _playerCharacterController.AddExtraDashCharge;
+                inputReader.OnJumpPickUpCheat -= OnJumpPickUpCheat;
+            }
         }
 
         private void OnDisable()
@@ -62,7 +83,7 @@ namespace PlayerCheats
 
         private void SwitchGodMode()
         {
-            if (_isGodModeActive)
+            if (isGodModeActive)
             {
                 GameEvents.GameEvents.PlayerGodMode(false);
 
@@ -83,13 +104,13 @@ namespace PlayerCheats
                 _playerCharacterController.Motor.SetPositionAndRotation(
                     _playerCharacterController.gameObject.transform.position, Quaternion.identity);
 
-                _isGodModeActive = false;
+                isGodModeActive = false;
             }
             else
             {
                 GameEvents.GameEvents.PlayerGodMode(true);
 
-                _isGodModeActive = true;
+                isGodModeActive = true;
                 _playerCharacterController.enabled = false;
                 _myKinematicMotor.enabled = false;
                 hammer?.SetActive(false);
@@ -128,7 +149,7 @@ namespace PlayerCheats
 
         private void FixedUpdate()
         {
-            if (!_isGodModeActive) return;
+            if (!isGodModeActive) return;
             
             Vector3 cameraForward = cameraTransform.forward;
             Vector3 cameraRight = cameraTransform.right;

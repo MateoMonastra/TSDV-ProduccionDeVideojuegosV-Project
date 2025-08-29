@@ -8,6 +8,7 @@ namespace UI
         [SerializeField] private InputReader inputReader;
         [SerializeField] private SlidesManager slidesManager;
         [SerializeField] private GameObject playerStats;
+
         private void OnEnable()
         {
             inputReader.OnPause += InitPauseMenu;
@@ -17,27 +18,37 @@ namespace UI
         {
             inputReader.OnPause -= InitPauseMenu;
         }
-    
+
         private void InitPauseMenu()
         {
             GameEvents.GameEvents.GamePaused(true);
-            slidesManager.gameObject.SetActive(true);
-            playerStats.SetActive(false);
+            
+            if (playerStats)
+                playerStats.SetActive(false);
+            
+            if (slidesManager)
+                slidesManager.gameObject.SetActive(true);
+            
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
         }
-    
+
         public void Return()
         {
             GameEvents.GameEvents.GamePaused(false);
-            playerStats.SetActive(true);
-            slidesManager.gameObject.SetActive(false);
+
+            if (playerStats)
+                playerStats.SetActive(true);
+
+            if (slidesManager)
+                slidesManager.gameObject.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
         }
-    
+
         public void ExitGame()
         {
             Application.Quit();

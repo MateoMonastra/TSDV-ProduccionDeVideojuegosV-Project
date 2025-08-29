@@ -71,7 +71,8 @@ namespace Player.New
             if (inputReader != null)
             {
                 inputReader.OnLook += OnLook;
-                // Si tu InputReader expone un evento de zoom, podés suscribirlo aquí.
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
 
