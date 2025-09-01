@@ -23,6 +23,14 @@ namespace Player.New
         [Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         public float airHorizontalSpeed = 6f;
 
+        // ─────────────────────────────── SPRINT ───────────────────────────────
+        [Header("Sprint")]
+        [Tooltip("Multiplicador de velocidad al correr (moverse*X).")]
+        public float sprintSpeedMultiplier = 2.0f;
+
+        [Tooltip("Velocidad horizontal mínima (m/s) para mantener el sprint.")]
+        public float sprintMinSpeedToKeep = 0.2f;
+        
         // ──────────────────────────────── ORIENTATION ───────────────────────────────
         [Header("Orientation")]
         [Tooltip("Cómo se orienta el personaje: hacia el movimiento o hacia la cámara.")]
@@ -211,12 +219,14 @@ namespace Player.New
 
         [HideInInspector] public bool attackComboOnCooldown;
         [HideInInspector] public float attackComboCooldownLeft;
-
-        // Spin runtime (carga y knockdown efectivos)
-        [HideInInspector] public float spinChargeRatio;   // 0..1 calculado al soltar
+        
+        [HideInInspector] public float spinChargeRatio;
         [HideInInspector] public bool  isSelfStunned;
         [HideInInspector] public float selfStunTimeLeft;
-        [HideInInspector] public float selfStunDuration;  // seteado por SpinRelease
+        [HideInInspector] public float selfStunDuration;
+        
+        [HideInInspector] public bool sprintArmed;
+        [HideInInspector] public bool dashHeld;
 
         // ──────────────────────────────── UTILITIES ────────────────────────────────
         [ContextMenu("Reset Jumps")] public void ResetJumps() => jumpsLeft = maxJumps;

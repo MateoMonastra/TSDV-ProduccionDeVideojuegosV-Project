@@ -24,6 +24,8 @@ namespace Player
         public Action OnDash;
         public Action OnAttackHeavyPressed;
         public Action OnAttackHeavyReleased;
+        public Action<bool> OnDashHeldChanged;
+
         
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
@@ -127,8 +129,11 @@ namespace Player
         }
         public void HandleDashInput(InputAction.CallbackContext context)
         {
-            if (context.started) OnDash?.Invoke();
+            if (context.started)   OnDash?.Invoke();   
+            if (context.performed) OnDashHeldChanged?.Invoke(true);
+            if (context.canceled)  OnDashHeldChanged?.Invoke(false);
         }
+
         public void HandleAttackHeavyInput(InputAction.CallbackContext context)
         {
             if (context.started) OnAttackHeavyPressed?.Invoke();

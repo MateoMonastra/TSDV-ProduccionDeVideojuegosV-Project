@@ -30,6 +30,8 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
+            
+            _model.sprintArmed = false;
 
             // Evitar que el snap al suelo corte el inicio
             _m.ForceUnground(0.08f);
@@ -68,6 +70,7 @@ namespace Player.New
         {
             base.Exit();
             // por las dudas, aseguramos que no quede invulnerable
+            _model.sprintArmed = true;
             _model.invulnerableToEnemies = false;
         }
 

@@ -8,6 +8,7 @@ namespace Player.New
     {
         public const string ToJump = "WalkIdle->JumpGround";
         public const string ToFall = "WalkIdle->Fall";
+        public const string ToSprint = "WalkIdle->Sprint";
 
         private readonly Action<bool> _onWalk;
         private readonly PlayerAnimationController _anim;
@@ -67,6 +68,11 @@ namespace Player.New
                 _ungroundedTimer += dt;
                 if (_ungroundedTimer >= _coyoteTime)
                     RequestTransition?.Invoke(ToFall);
+            }
+            
+            if (Model.sprintArmed && Model.dashHeld && walking && Motor.IsGrounded)
+            {
+                RequestTransition?.Invoke(ToSprint);
             }
         }
 

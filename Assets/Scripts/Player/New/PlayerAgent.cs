@@ -7,8 +7,7 @@ namespace Player.New
     [RequireComponent(typeof(MyKinematicMotor))]
     public class PlayerAgent : MonoBehaviour
     {
-        [Header("Refs")] 
-        [SerializeField] private InputReader input;
+        [Header("Refs")] [SerializeField] private InputReader input;
         [SerializeField] private Camera cameraRef;
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
@@ -23,6 +22,7 @@ namespace Player.New
         private JumpAir _sJumpAir;
         private Fall _sFall;
         private Dash _sDash;
+        private Sprint _sSprint;
 
         // Acciones
         private Fsm _actionFsm;
@@ -50,9 +50,17 @@ namespace Player.New
             _sJumpAir = new JumpAir(motor, model, cameraRef.transform, LR, airDetectDelay: 0.02f, anim: anim);
             _sFall = new Fall(motor, model, cameraRef.transform, LR, settleTime: 0.04f, anim: anim);
             _sDash = new Dash(motor, model, LR, anim: anim);
+            _sSprint = new Sprint(motor, model, cameraRef.transform, LR, anim);
 
+
+            _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
+            _sSprint.AddTransition(new Transition { From = _sSprint, To = _sJumpGround, ID = Sprint.ToJump });
+            _sSprint.AddTransition(new Transition { From = _sSprint, To = _sFall, ID = Sprint.ToFall });
+
+            _sIdle.AddTransition(new Transition { From = _sIdle, To = _sSprint, ID = WalkIdle.ToSprint });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sJumpGround, ID = WalkIdle.ToJump });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sFall, ID = WalkIdle.ToFall });
+
             _sJumpGround.AddTransition(new Transition { From = _sJumpGround, To = _sFall, ID = JumpGround.ToFall });
             _sJumpGround.AddTransition(
                 new Transition { From = _sJumpGround, To = _sJumpAir, ID = JumpGround.ToJumpAir });
@@ -71,9 +79,9 @@ namespace Player.New
             _a2 = new Attack2(motor, model, AR, anim);
             _a3 = new Attack3(motor, model, AR, anim);
             _aVertical = new AttackVertical(motor, model, AR, anim);
-            _aSpinCharge  = new SpinCharge(model, AR, cameraRef.transform, motor, anim);
+            _aSpinCharge = new SpinCharge(model, AR, cameraRef.transform, motor, anim);
             _aSpinRelease = new SpinRelease(motor, model, AR, anim);
-            _aSelfStun    = new SelfStun(motor, model, AR, anim);
+            _aSelfStun = new SelfStun(motor, model, AR, anim);
 
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToA1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToA2 });
@@ -82,12 +90,14 @@ namespace Player.New
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
             _a3.AddTransition(new Transition { From = _a3, To = _aIdle, ID = Attack3.ToIdle });
             _aVertical.AddTransition(new Transition { From = _aVertical, To = _aIdle, ID = AttackVertical.ToIdle });
-            
-            _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aSpinRelease, ID=SpinCharge.ToRelease });
-            _aSpinCharge.AddTransition (new Transition{ From=_aSpinCharge,  To=_aIdle,        ID=SpinCharge.ToIdle     });
-            _aSpinRelease.AddTransition(new Transition{ From=_aSpinRelease, To=_aSelfStun,    ID=SpinRelease.ToSelfStun});
-            _aSpinRelease.AddTransition(new Transition{ From=_aSpinRelease, To=_aIdle,        ID=SpinRelease.ToIdle    });
-            _aSelfStun.AddTransition   (new Transition{ From=_aSelfStun,    To=_aIdle,        ID=SelfStun.ToIdle       });
+
+            _aSpinCharge.AddTransition(new Transition
+                { From = _aSpinCharge, To = _aSpinRelease, ID = SpinCharge.ToRelease });
+            _aSpinCharge.AddTransition(new Transition { From = _aSpinCharge, To = _aIdle, ID = SpinCharge.ToIdle });
+            _aSpinRelease.AddTransition(new Transition
+                { From = _aSpinRelease, To = _aSelfStun, ID = SpinRelease.ToSelfStun });
+            _aSpinRelease.AddTransition(new Transition { From = _aSpinRelease, To = _aIdle, ID = SpinRelease.ToIdle });
+            _aSelfStun.AddTransition(new Transition { From = _aSelfStun, To = _aIdle, ID = SelfStun.ToIdle });
 
 
             _actionFsm = new Fsm(_aIdle);
@@ -95,9 +105,9 @@ namespace Player.New
             if (combatUI)
             {
                 _aSpinCharge.OnSpinChargeProgress += combatUI.OnSpinChargeProgress;
-                _aSpinCharge.OnSpinChargeEnd      += combatUI.OnSpinChargeEnd;
+                _aSpinCharge.OnSpinChargeEnd += combatUI.OnSpinChargeEnd;
 
-                _aSpinRelease.OnSpinCooldownUI    += combatUI.OnSpinCooldown;
+                _aSpinRelease.OnSpinCooldownUI += combatUI.OnSpinCooldown;
             }
         }
 
@@ -111,6 +121,7 @@ namespace Player.New
                 input.OnDash += OnDash;
                 input.OnAttackHeavyPressed += OnHeavyPressed;
                 input.OnAttackHeavyReleased += OnHeavyReleased;
+                input.OnDashHeldChanged += OnDashHeldChanged;
             }
         }
 
@@ -124,6 +135,7 @@ namespace Player.New
                 input.OnDash -= OnDash;
                 input.OnAttackHeavyPressed -= OnHeavyPressed;
                 input.OnAttackHeavyReleased -= OnHeavyReleased;
+                input.OnDashHeldChanged -= OnDashHeldChanged;
             }
         }
 
@@ -159,7 +171,6 @@ namespace Player.New
             _actionFsm.GetCurrentState()?.HandleInput("AttackPressed");
         }
 
-
         private void OnHeavyPressed()
         {
             if (motor.IsGrounded && !model.SpinOnCooldown)
@@ -169,6 +180,11 @@ namespace Player.New
         private void OnHeavyReleased()
         {
             _actionFsm.GetCurrentState()?.HandleInput("AttackHeavyReleased");
+        }
+
+        private void OnDashHeldChanged(bool held)
+        {
+            model.dashHeld = held;
         }
 
 
