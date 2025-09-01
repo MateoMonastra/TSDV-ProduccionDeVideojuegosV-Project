@@ -72,7 +72,7 @@ namespace Player.New
         private void Awake()
         {
             _rigidbodyHandler = new RigidbodyInteractionHandler(_characterMass);
-            _movementSolver = new MovementSolver(_capsule, _collisionMask, _rigidbodyHandler);
+            _movementSolver = new MovementSolver(_capsule, _collisionMask | _groundMask, _rigidbodyHandler);
             _groundingSolver = new GroundingSolver(_capsule, _groundMask);
 
             _position = transform.position;
@@ -84,26 +84,34 @@ namespace Player.New
         private void FixedUpdate()
         {
             float deltaTime = Time.fixedDeltaTime;
-            
+
             _ungroundTimer = Mathf.Max(0f, _ungroundTimer - deltaTime);
-            
+
             ApplyGravity(gravity, deltaTime);
-            
+
             if (_ungroundTimer <= 0f)
             {
                 float preMoveProbeDistance = _groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
                 _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity, ref _groundingReport);
+
+                // ✅ PRE-SNAP: si estamos cerca del suelo estable y no hay “snapping prevented”
+                if (_velocity.y <= _maxSnapSpeed)
+                    TrySnapToGround(_groundSnapDistance);
             }
             else
             {
-                // Limpio el grounding report para que no cuente como grounded
                 _groundingReport = default;
             }
-            
+
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
+
+            // ✅ POST-SNAP: por seguridad, luego de movernos
+            if (_ungroundTimer <= 0f && _velocity.y <= _maxSnapSpeed)
+                TrySnapToGround(_groundSnapDistance);
 
             transform.SetPositionAndRotation(_position, _rotation);
         }
+
         public void SetRotation(Vector3 direction)
         {
             if (direction != Vector3.zero)
@@ -131,6 +139,47 @@ namespace Player.New
         public void ForceUnground(float duration)
         {
             _ungroundTimer = Mathf.Max(_ungroundTimer, duration);
+        }
+        
+        // === Helpers locales del motor (mismos cálculos que usa MovementSolver) ===
+        private Vector3 GetCapsuleBottomAt(Vector3 pos)
+        {
+            return pos + _capsule.center + Vector3.down * (_capsule.height * 0.5f - _capsule.radius);
+        }
+
+        private Vector3 GetCapsuleTopAt(Vector3 pos)
+        {
+            return pos + _capsule.center + Vector3.up * (_capsule.height * 0.5f - _capsule.radius);
+        }
+
+        /// <summary>Snap vertical suave al suelo estable si estamos cerca.</summary>
+        private bool TrySnapToGround(float maxSnapDist)
+        {
+            if (_groundingReport.SnappingPrevented || !_groundingReport.IsStableOnGround || !_groundingReport.FoundAnyGround)
+                return false;
+
+            // Chequeo de ángulo (usamos tu threshold “para snap”)
+            float upDot = Vector3.Dot(_groundingReport.GroundNormal, Vector3.up);
+            if (upDot < _minGroundDotForSnap)
+                return false;
+
+            // Distancia vertical desde el bottom del capsule al plano de contacto deseado
+            Vector3 bottom = GetCapsuleBottomAt(_position);
+            // Queremos que el bottom quede a radius + _groundedOffset sobre el punto del suelo
+            float desiredBottomY = _groundingReport.GroundPoint.y + _capsule.radius + _groundedOffset;
+            float deltaY = desiredBottomY - bottom.y;
+
+            if (deltaY >= -maxSnapDist && deltaY <= maxSnapDist)
+            {
+                // Mover sólo en Y para “pegar” el capsule al suelo
+                _position.y += deltaY;
+
+                // Si veníamos con velocidad negativa, la cancelamos para que no vuelva a hundirse
+                if (_velocity.y < 0f) _velocity.y = 0f;
+                return true;
+            }
+
+            return false;
         }
 
         private void OnDrawGizmos()

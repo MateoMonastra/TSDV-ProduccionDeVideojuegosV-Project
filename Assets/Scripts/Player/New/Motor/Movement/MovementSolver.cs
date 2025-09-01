@@ -6,8 +6,8 @@ namespace Player.New
     {
         private readonly CapsuleCollider _capsule;
         private readonly LayerMask _collidableLayers;
-        private readonly float _collisionOffset = 0.01f;
-        private readonly int _maxMovementIterations = 5;
+        private readonly float _collisionOffset = 0.02f;
+        private readonly int _maxMovementIterations = 8;
         private readonly RigidbodyInteractionHandler _rigidbodyHandler;
 
         public MovementSolver(CapsuleCollider capsule, LayerMask collidableLayers,

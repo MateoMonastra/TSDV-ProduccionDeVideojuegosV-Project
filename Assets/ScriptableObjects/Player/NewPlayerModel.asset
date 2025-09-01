@@ -16,7 +16,7 @@ MonoBehaviour:
   moveAcceleration: 30
   airHorizontalSpeed: 8
   sprintSpeedMultiplier: 2
-  sprintMinSpeedToKeep: 0.2
+  sprintMinSpeedToKeep: 0.1
   orientationMethod: 0
   orientationSharpness: 12
   jumpSpeed: 18
@@ -66,11 +66,11 @@ MonoBehaviour:
   selfStunMinDuration: 0.6
   selfStunMaxDuration: 2
   selfStunGetUpLeadTime: 0.25
-  actionMoveSpeedMultiplier: 0
-  actionJumpSpeedMultiplier: 0.5
+  actionMoveSpeedMultiplier: 1
+  actionJumpSpeedMultiplier: 1
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
-  locomotionBlocked: 1
+  locomotionBlocked: 0
   invulnerableToEnemies: 0
   rawMoveInput: {x: 0, y: 0}
   moveInputWorld: {x: 0, y: 0, z: 0}
