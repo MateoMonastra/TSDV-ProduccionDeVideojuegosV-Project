@@ -17,6 +17,8 @@ MonoBehaviour:
   airHorizontalSpeed: 8
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
+  sprintArmWindow: 0.8
+  sprintHoldTime: 0.3
   orientationMethod: 0
   orientationSharpness: 12
   jumpSpeed: 18
@@ -85,8 +87,10 @@ MonoBehaviour:
   attackComboOnCooldown: 0
   attackComboCooldownLeft: 0
   spinChargeRatio: 1
-  isSelfStunned: 1
-  selfStunTimeLeft: 0.09552431
+  isSelfStunned: 0
+  selfStunTimeLeft: 0
   selfStunDuration: 2
   sprintArmed: 0
   dashHeld: 0
+  sprintArmTimeLeft: 0.49856377
+  sprintHoldCounter: 0
