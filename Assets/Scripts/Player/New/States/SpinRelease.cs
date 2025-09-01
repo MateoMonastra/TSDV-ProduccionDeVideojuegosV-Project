@@ -32,10 +32,12 @@ namespace Player.New
             base.Enter();
             _t = 0f; _damageTicked = false; _nextIsSelfStun = false;
 
-            // Bloqueos durante el giro
-            _model.locomotionBlocked = true;
-            _model.actionMoveSpeedMultiplier = 0f;
-            _model.invulnerableToEnemies = true;
+            // Permitir moverse/saltar durante el giro con multiplicadores
+            _model.locomotionBlocked = false;
+            _model.actionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.spinMoveSpeedMultiplierWhileExecuting);
+            _model.actionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.spinJumpSpeedMultiplier);
+
+            _model.invulnerableToEnemies = false;
             _model.aimLockActive = false;
 
             // Cooldown
@@ -43,15 +45,12 @@ namespace Player.New
             _model.SpinCooldownLeft = _model.SpinCooldown;
             OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
 
-            // Duraciones escaladas por carga
+            // Duraciones por carga
             float r = Mathf.Clamp01(_model.spinChargeRatio);
             _execDuration = Mathf.Lerp(_model.spinMinDuration, _model.spinMaxDuration, r);
             _postStun     = _model.SpinPostStun;
-
-            // SelfStun escalable
             _model.selfStunDuration = Mathf.Lerp(_model.selfStunMinDuration, _model.selfStunMaxDuration, r);
 
-            // Momento del daño (fallback) ~40% del giro (podés tunearlo si querés)
             _damageMoment = Mathf.Clamp01(0.4f) * _execDuration;
 
             _anim?.SetCombatActive(true);
@@ -63,11 +62,10 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
-            
-            // Si NO voy a SelfStun, libero locks acá.
+        
             if (!_nextIsSelfStun)
-                _model.ClearActionLocks();
-            
+                _model.ClearActionLocks(); // también resetea actionJumpSpeedMultiplier
+        
             _anim?.SetCombatActive(false);
         }
 

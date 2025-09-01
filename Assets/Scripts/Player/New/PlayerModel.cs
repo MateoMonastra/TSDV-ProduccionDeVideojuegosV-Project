@@ -30,7 +30,7 @@ namespace Player.New
 
         [Tooltip("Velocidad horizontal mínima (m/s) para mantener el sprint.")]
         public float sprintMinSpeedToKeep = 0.2f;
-        
+
         // ──────────────────────────────── ORIENTATION ───────────────────────────────
         [Header("Orientation")]
         [Tooltip("Cómo se orienta el personaje: hacia el movimiento o hacia la cámara.")]
@@ -139,6 +139,12 @@ namespace Player.New
         [Tooltip("Tiempo de carga para alcanzar potencia/duración máximas.")]
         public float spinChargeMaxTime = 1.6f;
 
+        [Tooltip("Multiplicador de velocidad MIENTRAS se ejecuta el Spin (no bloquea locomoción).")]
+        public float spinMoveSpeedMultiplierWhileExecuting = 0.6f;
+
+        [Tooltip("Multiplicador de velocidad de SALTO mientras dura el SpinRelease.")]
+        public float spinJumpSpeedMultiplier = 1.15f;
+
         [Header("Spin: duraciones escalables")]
         [Tooltip("Duración mínima del giro (s).")]
         public float spinMinDuration = 0.55f;
@@ -188,6 +194,9 @@ namespace Player.New
         [Tooltip("Multiplica la velocidad de locomoción por acciones (cargar, etc.).")]
         public float actionMoveSpeedMultiplier = 1f;
 
+        [Tooltip("Multiplica la velocidad/impulso de salto por acciones (spin, etc.).")]
+        public float actionJumpSpeedMultiplier = 1f;
+
         [Tooltip("Bloqueo de orientación (p.ej., fijar mira durante una acción).")]
         public bool aimLockActive = false;
 
@@ -219,12 +228,12 @@ namespace Player.New
 
         [HideInInspector] public bool attackComboOnCooldown;
         [HideInInspector] public float attackComboCooldownLeft;
-        
+
         [HideInInspector] public float spinChargeRatio;
         [HideInInspector] public bool  isSelfStunned;
         [HideInInspector] public float selfStunTimeLeft;
         [HideInInspector] public float selfStunDuration;
-        
+
         [HideInInspector] public bool sprintArmed;
         [HideInInspector] public bool dashHeld;
 
@@ -236,6 +245,7 @@ namespace Player.New
             locomotionBlocked = false;
             aimLockActive = false;
             actionMoveSpeedMultiplier = 1f;
+            actionJumpSpeedMultiplier = 1f; // ← reset del salto
             invulnerableToEnemies = false;
             aimLockDirection = Vector3.zero;
         }
@@ -317,6 +327,7 @@ namespace Player.New
 
         // Locks
         public float ActionMoveSpeedMultiplier { get => actionMoveSpeedMultiplier; set => actionMoveSpeedMultiplier = value; }
+        public float ActionJumpSpeedMultiplier { get => actionJumpSpeedMultiplier; set => actionJumpSpeedMultiplier = value; }
         public bool  AimLockActive { get => aimLockActive; set => aimLockActive = value; }
         public Vector3 AimLockDirection { get => aimLockDirection; set => aimLockDirection = value; }
         public bool  LocomotionBlocked { get => locomotionBlocked; set => locomotionBlocked = value; }

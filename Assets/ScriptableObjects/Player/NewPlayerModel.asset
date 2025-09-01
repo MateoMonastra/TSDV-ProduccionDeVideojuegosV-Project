@@ -50,6 +50,8 @@ MonoBehaviour:
   verticalSlamStartDownSpeed: 50
   spinChargeMinTime: 0.6
   spinChargeMaxTime: 1.6
+  spinMoveSpeedMultiplierWhileExecuting: 0.6
+  spinJumpSpeedMultiplier: 0.5
   spinMinDuration: 0.55
   spinMaxDuration: 3
   spinDuration: 0.7
@@ -64,13 +66,14 @@ MonoBehaviour:
   selfStunMinDuration: 0.6
   selfStunMaxDuration: 2
   selfStunGetUpLeadTime: 0.25
-  actionMoveSpeedMultiplier: 1
+  actionMoveSpeedMultiplier: 0
+  actionJumpSpeedMultiplier: 0.5
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
-  locomotionBlocked: 0
+  locomotionBlocked: 1
   invulnerableToEnemies: 0
   rawMoveInput: {x: 0, y: 0}
-  moveInputWorld: {x: 0, y: 0, z: -0}
+  moveInputWorld: {x: 0, y: 0, z: 0}
   jumpsLeft: 2
   jumpWasPureVertical: 0
   dashOnCooldown: 0
@@ -81,9 +84,9 @@ MonoBehaviour:
   verticalCooldownLeft: 0
   attackComboOnCooldown: 0
   attackComboCooldownLeft: 0
-  spinChargeRatio: 0.46999156
+  spinChargeRatio: 1
   isSelfStunned: 1
-  selfStunTimeLeft: 1.1528084
-  selfStunDuration: 1.2579882
+  selfStunTimeLeft: 0.09552431
+  selfStunDuration: 2
   sprintArmed: 0
   dashHeld: 0

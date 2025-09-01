@@ -25,7 +25,11 @@ namespace Player.New
 
             var v = Motor.Velocity;
             if (v.y < 0f) v.y = 0f;
-            v.y += Model.jumpSpeed;
+
+            // ⬇️ APLICA MULTIPLICADOR DE SALTO TAMBIÉN EN DOBLE SALTO
+            float jumpV = Model.jumpSpeed * Mathf.Max(0.01f, Model.actionJumpSpeedMultiplier);
+            v.y += jumpV;
+
             Motor.SetVelocity(v);
 
             _anim?.TriggerDoubleJump();
