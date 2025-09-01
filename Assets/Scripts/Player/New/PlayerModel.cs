@@ -31,6 +31,12 @@ namespace Player.New
         [Tooltip("Velocidad horizontal mínima (m/s) para mantener el sprint.")]
         public float sprintMinSpeedToKeep = 0.2f;
 
+        [Tooltip("Ventana tras el dash en la que puedo iniciar sprint manteniendo el botón (s).")]
+        public float sprintArmWindow = 0.8f;
+
+        [Tooltip("Tiempo que hay que mantener presionado el botón de Dash para iniciar Sprint (s).")]
+        public float sprintHoldTime = 0.25f;
+        
         // ──────────────────────────────── ORIENTATION ───────────────────────────────
         [Header("Orientation")]
         [Tooltip("Cómo se orienta el personaje: hacia el movimiento o hacia la cámara.")]
@@ -236,6 +242,8 @@ namespace Player.New
 
         [HideInInspector] public bool sprintArmed;
         [HideInInspector] public bool dashHeld;
+        [HideInInspector] public float sprintArmTimeLeft;
+        [HideInInspector] public float sprintHoldCounter;
 
         // ──────────────────────────────── UTILITIES ────────────────────────────────
         [ContextMenu("Reset Jumps")] public void ResetJumps() => jumpsLeft = maxJumps;

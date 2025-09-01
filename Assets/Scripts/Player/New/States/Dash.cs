@@ -69,10 +69,16 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            // por las dudas, aseguramos que no quede invulnerable
-            _model.sprintArmed = true;
+            // sale de invulnerabilidad
             _model.invulnerableToEnemies = false;
+
+            // ✅ armar sprint: abre una ventana donde, si el jugador mantiene dash,
+            //    y cumple el tiempo de hold, podrá entrar a Sprint
+            _model.sprintArmed = true;
+            _model.sprintArmTimeLeft = _model.sprintArmWindow;
+            _model.sprintHoldCounter = 0f;
         }
+
 
         public override void Tick(float dt)
         {
