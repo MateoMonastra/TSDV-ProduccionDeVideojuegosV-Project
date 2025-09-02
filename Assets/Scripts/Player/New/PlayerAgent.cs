@@ -267,7 +267,7 @@ namespace Player.New
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToAttack2 });
             _a1.AddTransition(new Transition { From = _a1, To = _aIdle, ID = Attack1.ToIdle });
-            _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });s
+            _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
             _a3.AddTransition(new Transition { From = _a3, To = _aIdle, ID = Attack3.ToIdle });
             _aVertical.AddTransition(new Transition { From = _aVertical, To = _aIdle, ID = AttackVertical.ToIdle });
