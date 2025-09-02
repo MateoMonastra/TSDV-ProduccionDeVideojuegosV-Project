@@ -215,7 +215,7 @@ namespace KinematicCharacterController.Examples
 
             if (CurrentCharacterState == CharacterState.Death)
             {
-                Motor.BaseVelocity =  Vector3.zero;
+                Motor.BaseVelocity = Vector3.zero;
             }
 
             // Clamp input
@@ -232,6 +232,23 @@ namespace KinematicCharacterController.Examples
             }
 
             Quaternion cameraPlanarRotation = Quaternion.LookRotation(cameraPlanarDirection, Motor.CharacterUp);
+
+            Collider[] colls = Physics.OverlapSphere(transform.position, 22.0f, LayerMask.GetMask("Interact"));
+
+            foreach (var VARIABLE in colls)
+            {
+                if (VARIABLE.TryGetComponent(out IInteractable interactable))
+                {
+                    if (Vector3.Distance(transform.position, VARIABLE.transform.position) > 20)
+                    {
+                        interactable.ToggleIndicator(false);
+                    }
+                    else
+                    {
+                        interactable.ToggleIndicator(true);
+                    }
+                }
+            }
 
             switch (CurrentCharacterState)
             {
@@ -891,7 +908,7 @@ namespace KinematicCharacterController.Examples
             animator.SetTrigger(IsDead);
             _isDead = true;
             SetDeathCamera();
-            
+
             yield return null;
 
             yield return new WaitUntil(() => IsCurrentAnimation(DeathAnimationName));
