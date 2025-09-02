@@ -17,7 +17,8 @@ namespace Player.New
 
         // ───────────────────────────────────────────────────────────────────────
 
-        [Header("Refs")] [SerializeField] private InputReader input;
+        [Header("Refs")] 
+        [SerializeField] private InputReader input;
         [SerializeField] private Camera cameraRef;
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
@@ -341,6 +342,7 @@ namespace Player.New
 
         /// <summary>Verdadero cuando una acción bloquea la locomoción (vertical, knockdown, etc.).</summary>
         private bool IsActionBlocked() => model != null && model.LocomotionBlocked;
+        public PlayerModel GetPlayerModel() => model;
 
         #endregion
     }

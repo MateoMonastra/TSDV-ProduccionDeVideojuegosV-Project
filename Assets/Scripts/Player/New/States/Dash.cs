@@ -40,30 +40,41 @@ namespace Player.New
 
             // Dirección: input mundo si hay, si no, forward del carácter
             Vector3 up = _m.CharacterUp;
-            Vector3 camFwd = Vector3.ProjectOnPlane(_m.transform.forward, up); // fallback
-            _dir = camFwd.normalized;
+            Vector3 charFwd = Vector3.ProjectOnPlane(_m.transform.forward, up); // fallback
+            _dir = charFwd.sqrMagnitude > 1e-6f ? charFwd.normalized : _m.transform.forward;
 
-            // si hay input, usarlo
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
 
-            // Duración = distancia / velocidad
-            _duration = (_model.DashDistance / Mathf.Max(0.01f, _model.DashSpeed));
+            // === Distancia efectiva (consume el buff si estaba pendiente) ===
+            float baseDistance = _model.DashDistance;
+            float effectiveDistance = baseDistance;
+
+            if (_model.DashBuffPending)
+            {
+                float mult = Mathf.Max(0.01f, _model.DashBuffDistanceMultiplier);
+                effectiveDistance *= mult;
+                _model.DashBuffPending = false; // se consume en este dash
+            }
+
+            // Duración = distancia / velocidad (con clamps de seguridad)
+            float speed = Mathf.Max(0.01f, _model.DashSpeed);
+            _duration = effectiveDistance / speed;
             _t = 0f;
 
             // Anim y flags
             _anim?.TriggerDash();
             _model.InvulnerableToEnemies = true;
 
-            // Cooldown
-            _model.DashOnCooldown = true;
+            // Cooldown (el pickup puede haberlo reseteado antes; acá simplemente lo rearmamos)
+            _model.DashOnCooldown   = true;
             _model.DashCooldownLeft = _model.DashCooldown;
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
 
-            // Velocidad instantánea
+            // Velocidad instantánea (solo horizontal)
             var v = _m.Velocity;
-            v.x = _dir.x * _model.DashSpeed;
-            v.z = _dir.z * _model.DashSpeed;
+            v.x = _dir.x * speed;
+            v.z = _dir.z * speed;
             _m.SetVelocity(v);
         }
 

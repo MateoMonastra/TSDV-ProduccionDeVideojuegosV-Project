@@ -34,6 +34,13 @@ namespace Player.New
         
         [SerializeField] private float _ungroundTimeAfterJump = 0.1f;
         private float _ungroundTimer;
+        
+        [Header("Pickups / Triggers")]
+        [SerializeField] private LayerMask _pickupMask;
+        [SerializeField] private int _maxPickupsPerFrame = 8;
+        
+        private readonly Collider[] _pickupHits = new Collider[16];
+
 
         private MovementSolver _movementSolver;
         private GroundingSolver _groundingSolver;
@@ -93,8 +100,7 @@ namespace Player.New
             {
                 float preMoveProbeDistance = _groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
                 _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity, ref _groundingReport);
-
-                // ✅ PRE-SNAP: si estamos cerca del suelo estable y no hay “snapping prevented”
+                
                 if (_velocity.y <= _maxSnapSpeed)
                     TrySnapToGround(_groundSnapDistance);
             }
@@ -104,11 +110,12 @@ namespace Player.New
             }
 
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
-
-            // ✅ POST-SNAP: por seguridad, luego de movernos
+            
             if (_ungroundTimer <= 0f && _velocity.y <= _maxSnapSpeed)
                 TrySnapToGround(_groundSnapDistance);
 
+            DetectPickups();
+            
             transform.SetPositionAndRotation(_position, _rotation);
         }
 
@@ -181,6 +188,36 @@ namespace Player.New
 
             return false;
         }
+        
+        /// <summary>Detecta pickups overlapeando el cápsule actual y les notifica.</summary>
+        private void DetectPickups()
+        {
+            if (_pickupMask == 0) return;
+            
+            Vector3 bottom = GetCapsuleBottomAt(_position);
+            Vector3 top    = GetCapsuleTopAt(_position);
+            
+            int count = Physics.OverlapCapsuleNonAlloc(
+                bottom, top, _capsule.radius,
+                _pickupHits, _pickupMask,
+                QueryTriggerInteraction.Collide);
+
+            if (count <= 0) return;
+            
+            var agent = GetComponentInParent<Player.New.PlayerAgent>();
+            if (agent == null) return;
+
+            for (int i = 0; i < count; i++)
+            {
+                var col = _pickupHits[i];
+                if (col == null) continue;
+
+                // Cualquier script de pickup puede implementar este callback
+                // (evitamos depender de OnTriggerEnter)
+                col.SendMessage("OnMotorTouch", agent, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
 
         private void OnDrawGizmos()
         {

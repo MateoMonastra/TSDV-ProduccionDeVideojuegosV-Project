@@ -22,14 +22,28 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
+            
+            if (Model.JumpsLeft > 0)
+            {
+                Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
+            }
+            else if (Model.HasExtraJump)
+            {
+                Model.HasExtraJump = false;
+            }
+            else
+            {
+                RequestTransition?.Invoke(ToFall);
+                return;
+            }
 
-            Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
             var v = Motor.Velocity;
             v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
 
             _anim?.TriggerDoubleJump();
         }
+
 
         public override void Tick(float dt)
         {

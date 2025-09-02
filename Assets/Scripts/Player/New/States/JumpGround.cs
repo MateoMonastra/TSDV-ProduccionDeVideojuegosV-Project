@@ -65,10 +65,11 @@ namespace Player.New
             if (values is { Length: >= 2 } && values[0] is string cmd && cmd == CommandKeys.Jump)
             {
                 bool pressed = (bool)values[1];
-                if (pressed && Model.JumpsLeft > 0)
+                if (pressed && (Model.JumpsLeft > 0 || Model.HasExtraJump))
                 {
                     RequestTransition?.Invoke(ToJumpAir);
                 }
+
             }
         }
     }

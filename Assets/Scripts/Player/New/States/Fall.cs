@@ -80,10 +80,11 @@ namespace Player.New
                 cmd == CommandKeys.Jump &&
                 values[1] is bool pressed && pressed)
             {
-                if (!Motor.IsGrounded && Model.JumpsLeft > 0)
+                if (Model.JumpsLeft > 0 || Model.HasExtraJump)
                 {
                     RequestTransition?.Invoke(ToJumpAir);
                 }
+
             }
         }
 
