@@ -5,17 +5,17 @@ namespace Player.New
 {
     /// <summary>
     /// Orquesta entrada de usuario, máquinas de estados (locomoción/acciones),
-    /// y enfila cooldowns/retroalimentación UI para el jugador.
+    /// aplica cooldowns y conecta anim/UI. No contiene tuning: toma todo de PlayerModel.
     /// </summary>
     [RequireComponent(typeof(MyKinematicMotor))]
     [DisallowMultipleComponent]
     public class PlayerAgent : MonoBehaviour
     {
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        #region Inspector Refs
+        #region Inspector References
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
         [Header("Refs")] [SerializeField] private InputReader input;
         [SerializeField] private Camera cameraRef;
@@ -26,12 +26,13 @@ namespace Player.New
 
         #endregion
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        #region FSM: Locomotion
+        #region FSMs (Locomotion / Actions)
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
+        // Locomoción
         private Fsm _locomotionFsm;
         private WalkIdle _sIdle;
         private JumpGround _sJumpGround;
@@ -40,14 +41,7 @@ namespace Player.New
         private Dash _sDash;
         private Sprint _sSprint;
 
-        #endregion
-
-        // ─────────────────────────────────────────────────────────────────────────
-
-        #region FSM: Actions
-
-        // ─────────────────────────────────────────────────────────────────────────
-
+        // Acciones
         private Fsm _actionFsm;
         private AttackIdle _aIdle;
         private Attack1 _a1;
@@ -60,11 +54,11 @@ namespace Player.New
 
         #endregion
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
         #region Unity Messages
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
         private void Awake()
         {
@@ -80,7 +74,6 @@ namespace Player.New
         private void Update()
         {
             float dt = Time.deltaTime;
-
             UpdateCooldowns(dt);
 
             _locomotionFsm.Update();
@@ -95,23 +88,23 @@ namespace Player.New
 
         #endregion
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
         #region Input Handlers
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        /// <summary>Movimiento 2D crudo (clamp a 1).</summary>
+        /// <summary>Actualiza el input de movimiento (clamp a 1 para diagonales).</summary>
         private void OnMove(Vector2 move) => model.RawMoveInput = Vector2.ClampMagnitude(move, 1f);
 
-        /// <summary>Saltos: se enruta al estado actual de locomoción.</summary>
+        /// <summary>Reenvía el comando de salto al estado actual de locomoción.</summary>
         private void OnJump()
         {
             if (IsActionBlocked()) return;
             _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
         }
 
-        /// <summary>Dash: chequea bloqueo y cooldown global.</summary>
+        /// <summary>Solicita Dash (si no hay bloqueo ni cooldown).</summary>
         private void OnDash()
         {
             if (IsActionBlocked()) return;
@@ -119,7 +112,7 @@ namespace Player.New
             _locomotionFsm.ForceTransition(_sDash);
         }
 
-        /// <summary>Click ataque básico o vertical aéreo.</summary>
+        /// <summary>Click: ataque básico en suelo, o vertical aéreo si no estamos grounded.</summary>
         private void OnAttackBasic()
         {
             if (IsActionBlocked()) return;
@@ -134,108 +127,105 @@ namespace Player.New
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
         }
 
-        /// <summary>Heavy (spin) presionado: entra a carga si hay suelo y no hay cooldown.</summary>
-        private void OnHeavyPressed()
+        /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
+        private void OnAttackHeavyPressed()
         {
             if (motor.IsGrounded && !model.SpinOnCooldown)
                 _actionFsm.ForceTransition(_aSpinCharge);
         }
 
-        /// <summary>Heavy soltado: se notifica al estado actual de acciones.</summary>
-        private void OnHeavyReleased()
+        /// <summary>Heavy soltado: lo procesa el estado actual (p. ej. SpinCharge → Release).</summary>
+        private void OnAttackHeavyReleased()
         {
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackHeavyReleased);
         }
 
-        /// <summary>Dash mantenido: se cachea en el modelo (usado por WalkIdle/Sprint).</summary>
+        /// <summary>Estado de “dash mantenido” para la mecánica de sprint.</summary>
         private void OnDashHeldChanged(bool held) => model.DashHeld = held;
 
         #endregion
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
         #region Cooldowns & UI
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        /// <summary>Aplica el tick de todos los cooldowns y actualiza UI asociada.</summary>
+        /// <summary>Aplica tick a todos los cooldowns y actualiza la UI (si existe).</summary>
         private void UpdateCooldowns(float dt)
         {
-            UpdateDashCooldown(dt);
-            UpdateSpinCooldown(dt);
-            UpdateVerticalCooldown(dt);
-            UpdateComboCooldown(dt);
-        }
+            // Dash
+            if (model.DashOnCooldown)
+            {
+                model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
+                if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
+                _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
+            }
 
-        private void UpdateDashCooldown(float dt)
-        {
-            if (!model.DashOnCooldown) return;
+            // Spin
+            if (model.SpinOnCooldown)
+            {
+                model.SpinCooldownLeft = Mathf.Max(0f, model.SpinCooldownLeft - dt);
+                if (model.SpinCooldownLeft <= 0f) model.SpinOnCooldown = false;
+                _aSpinRelease?.OnSpinCooldownUI?.Invoke(model.SpinCooldownLeft);
+            }
 
-            model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
-            if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
+            // Vertical attack
+            if (model.VerticalOnCooldown)
+            {
+                model.VerticalCooldownLeft = Mathf.Max(0f, model.VerticalCooldownLeft - dt);
+                if (model.VerticalCooldownLeft <= 0f) model.VerticalOnCooldown = false;
+            }
 
-            _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
-        }
-
-        private void UpdateSpinCooldown(float dt)
-        {
-            if (!model.SpinOnCooldown) return;
-
-            model.SpinCooldownLeft = Mathf.Max(0f, model.SpinCooldownLeft - dt);
-            if (model.SpinCooldownLeft <= 0f) model.SpinOnCooldown = false;
-
-            _aSpinRelease?.OnSpinCooldownUI?.Invoke(model.SpinCooldownLeft);
-        }
-
-        private void UpdateVerticalCooldown(float dt)
-        {
-            if (!model.VerticalOnCooldown) return;
-
-            model.VerticalCooldownLeft = Mathf.Max(0f, model.VerticalCooldownLeft - dt);
-            if (model.VerticalCooldownLeft <= 0f) model.VerticalOnCooldown = false;
-        }
-
-        private void UpdateComboCooldown(float dt)
-        {
-            if (!model.AttackComboOnCooldown) return;
-
-            model.AttackComboCooldownLeft = Mathf.Max(0f, model.AttackComboCooldownLeft - dt);
-            if (model.AttackComboCooldownLeft <= 0f) model.AttackComboOnCooldown = false;
+            // Combo
+            if (model.AttackComboOnCooldown)
+            {
+                model.AttackComboCooldownLeft = Mathf.Max(0f, model.AttackComboCooldownLeft - dt);
+                if (model.AttackComboCooldownLeft <= 0f) model.AttackComboOnCooldown = false;
+            }
         }
 
         #endregion
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        #region Helpers (setup / guards / wiring)
+        #region Setup / Wiring
 
-        // ─────────────────────────────────────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────
 
-        /// <summary>Inicializa referencias de cámara, motor y modelo.</summary>
+        /// <summary>Inicializa referencias si no fueron seteadas por Inspector.</summary>
         private void InitRefs()
         {
             if (cameraRef == null) cameraRef = Camera.main;
             if (motor == null) motor = GetComponent<MyKinematicMotor>();
             if (model == null) model = ScriptableObject.CreateInstance<PlayerModel>();
         }
-        
-        /// <summary>Construye la FSM de locomoción y define sus transiciones.</summary>
+
+        /// <summary>
+        /// Construye la FSM de locomoción (Idle, JumpGround/Air, Fall, Dash, Sprint).
+        /// Los parámetros (coyote, delays, settle time) se toman del <see cref="PlayerModel"/>.
+        /// </summary>
         private void BuildLocomotionFsm()
         {
-            // Local function con nombre claro para pedir una transición de locomoción
+            // Función local descriptiva para solicitar transiciones de locomoción
             void RequestLocomotionTransition(string transitionId) => _locomotionFsm.TryTransitionTo(transitionId);
 
-            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, onWalk: null,
-                coyoteTime: 0.12f, anim: anim);
+            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition,
+                onWalk: null, coyoteTime: model.CoyoteTime, anim: anim);
+
             _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                airDetectDelay: 0.04f, anim: anim);
+                airDetectDelay: model.JumpGroundAirDetectDelay, anim: anim);
+
             _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                airDetectDelay: 0.02f, anim: anim);
-            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, settleTime: 0.04f,
-                anim: anim);
+                airDetectDelay: model.JumpAirAirDetectDelay, anim: anim);
+
+            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition,
+                settleTime: model.FallSettleTime, anim: anim);
+
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
             _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim);
 
+            // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sJumpGround, ID = Sprint.ToJump });
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sFall, ID = Sprint.ToFall });
@@ -256,10 +246,12 @@ namespace Player.New
             _locomotionFsm = new Fsm(_sIdle);
         }
 
-        /// <summary>Construye la FSM de acciones (combo, vertical, spin, self-stun).</summary>
+        /// <summary>
+        /// Construye la FSM de acciones (Idle, combo básico, vertical, spin, self-stun).
+        /// </summary>
         private void BuildActionFsm()
         {
-            // Local function con nombre claro para pedir una transición de acciones
+            // Función local descriptiva para solicitar transiciones de acciones
             void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
 
             _aIdle = new AttackIdle(model, RequestActionTransition, anim, motor);
@@ -271,10 +263,11 @@ namespace Player.New
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, anim);
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, anim);
 
+            // Transiciones de acciones
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToAttack2 });
             _a1.AddTransition(new Transition { From = _a1, To = _aIdle, ID = Attack1.ToIdle });
-            _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });
+            _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });s
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
             _a3.AddTransition(new Transition { From = _a3, To = _aIdle, ID = Attack3.ToIdle });
             _aVertical.AddTransition(new Transition { From = _aVertical, To = _aIdle, ID = AttackVertical.ToIdle });
@@ -289,8 +282,8 @@ namespace Player.New
 
             _actionFsm = new Fsm(_aIdle);
         }
-        
-        /// <summary>Conecta eventos de los estados a la UI (cooldowns, carga, etc.).</summary>
+
+        /// <summary>Conecta eventos de estados a la UI de combate (carga, cooldowns).</summary>
         private void WireCombatUI()
         {
             if (!combatUI) return;
@@ -307,7 +300,7 @@ namespace Player.New
             }
         }
 
-        /// <summary>Suscribe/Desuscribe inputs del <see cref="InputReader"/>.</summary>
+        /// <summary>Suscribe o desuscribe callbacks del <see cref="InputReader"/>.</summary>
         private void SubscribeInputs(bool subscribe)
         {
             if (input == null) return;
@@ -318,8 +311,8 @@ namespace Player.New
                 input.OnJump += OnJump;
                 input.OnClick += OnAttackBasic;
                 input.OnDash += OnDash;
-                input.OnAttackHeavyPressed += OnHeavyPressed;
-                input.OnAttackHeavyReleased += OnHeavyReleased;
+                input.OnAttackHeavyPressed += OnAttackHeavyPressed;
+                input.OnAttackHeavyReleased += OnAttackHeavyReleased;
                 input.OnDashHeldChanged += OnDashHeldChanged;
             }
             else
@@ -328,13 +321,13 @@ namespace Player.New
                 input.OnJump -= OnJump;
                 input.OnClick -= OnAttackBasic;
                 input.OnDash -= OnDash;
-                input.OnAttackHeavyPressed -= OnHeavyPressed;
-                input.OnAttackHeavyReleased -= OnHeavyReleased;
+                input.OnAttackHeavyPressed -= OnAttackHeavyPressed;
+                input.OnAttackHeavyReleased -= OnAttackHeavyReleased;
                 input.OnDashHeldChanged -= OnDashHeldChanged;
             }
         }
 
-        /// <summary>Verdadero cuando alguna acción bloquea la locomoción.</summary>
+        /// <summary>Verdadero cuando una acción bloquea la locomoción (vertical, knockdown, etc.).</summary>
         private bool IsActionBlocked() => model != null && model.LocomotionBlocked;
 
         #endregion
