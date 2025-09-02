@@ -3,38 +3,32 @@ using UnityEngine;
 
 namespace Player.New
 {
+    /// <summary>
+    /// Doble salto en aire. Aplica nuevo impulso vertical y controla movimiento en aire.
+    /// Al comenzar a descender (tras breve delay) transiciona a <see cref="Fall"/>.
+    /// </summary>
     public class JumpAir : LocomotionState
     {
-        public const string ToFall = "JumpAir->Fall";
-        private readonly float _airDetectDelay;
+        public const string ToFall = "ToFall";
+        
         private float _t;
         private readonly PlayerAnimationController _anim;
 
-        public JumpAir(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
-            float airDetectDelay = 0.02f, PlayerAnimationController anim = null)
-            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; _anim = anim; }
+        public JumpAir(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req)
+        { _anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
             _t = 0f;
 
-            Motor.ForceUnground(0.10f);
-
-            if (Model.jumpsLeft > 0) Model.jumpsLeft--;
-
+            Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
             var v = Motor.Velocity;
-            if (v.y < 0f) v.y = 0f;
-
-            // ⬇️ APLICA MULTIPLICADOR DE SALTO TAMBIÉN EN DOBLE SALTO
-            float jumpV = Model.jumpSpeed * Mathf.Max(0.01f, Model.actionJumpSpeedMultiplier);
-            v.y += jumpV;
-
+            v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
 
             _anim?.TriggerDoubleJump();
-            _anim?.SetGrounded(false);
-            _anim?.SetFalling(false);
         }
 
         public override void Tick(float dt)
@@ -42,18 +36,12 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            // mantener MoveInputWorld actualizado
-            Vector3 up = Motor.CharacterUp;
-            Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
-            if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
-            Vector3 camRight = Vector3.Cross(up, camFwd);
-            Model.moveInputWorld = camFwd * Model.rawMoveInput.y + camRight * Model.rawMoveInput.x;
-            if (Model.moveInputWorld.sqrMagnitude > 1e-6f) Model.moveInputWorld.Normalize();
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
 
-            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.airHorizontalSpeed);
-
-            if (_t >= _airDetectDelay && !Motor.IsGrounded)
+            if (_t >= Model.JumpAirAirDetectDelay && Motor.Velocity.y <= 0f)
+            {
                 RequestTransition?.Invoke(ToFall);
+            }
         }
     }
 }
