@@ -14,9 +14,7 @@ namespace Player.New
         public const string ToFall   = "ToFall";
         public const string ToSprint = "ToSprint";
         // ──────────────────────────────────────────────────────────────────────
-
-        private readonly System.Action<bool> _onWalk;
-        private readonly float _coyoteTime;
+        
         private float _timeSinceUngrounded;
         private readonly PlayerAnimationController _anim;
 
@@ -27,13 +25,9 @@ namespace Player.New
                         PlayerModel mdl,
                         Transform cam,
                         System.Action<string> requestTransition,
-                        System.Action<bool> onWalk = null,
-                        float coyoteTime = 0.12f,
                         PlayerAnimationController anim = null)
             : base(m, mdl, cam, requestTransition)
         {
-            _onWalk = onWalk;
-            _coyoteTime = Mathf.Max(0f, coyoteTime);
             _anim = anim;
         }
 
@@ -51,7 +45,6 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _onWalk?.Invoke(false);
             _anim?.SetWalking(false);
         }
 
@@ -70,7 +63,6 @@ namespace Player.New
             ApplyLocomotion(dt, inAir: false);
 
             bool walking = ComputeIsWalking();
-            _onWalk?.Invoke(walking);
             _anim?.SetWalking(walking);
             
             if (UpdateSprintWindowAndMaybeStart(dt, walking, Motor.IsGrounded))
@@ -85,7 +77,7 @@ namespace Player.New
             if (values is { Length: >= 2 } && values[0] is string cmd && cmd == CommandKeys.Jump)
             {
                 bool pressed = (bool)values[1];
-                if (pressed && (Motor.IsGrounded || _timeSinceUngrounded <= _coyoteTime) && Model.JumpsLeft > 0)
+                if (pressed && (Motor.IsGrounded || _timeSinceUngrounded <= Model.CoyoteTime) && Model.JumpsLeft > 0)
                 {
                     RequestTransition?.Invoke(ToJump);
                 }
@@ -127,7 +119,7 @@ namespace Player.New
             }
 
             _timeSinceUngrounded += dt;
-            if (_timeSinceUngrounded > _coyoteTime)
+            if (_timeSinceUngrounded > Model.CoyoteTime)
             {
                 RequestTransition?.Invoke(ToFall);
                 return true;
