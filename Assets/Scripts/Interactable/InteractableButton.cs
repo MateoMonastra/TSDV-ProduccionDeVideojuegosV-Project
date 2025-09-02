@@ -9,11 +9,14 @@ namespace Interactable
     {
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
-        [FormerlySerializedAs("interactorTargetPosition")] [SerializeField] private Transform interactorTargetTransform;
+
+        [FormerlySerializedAs("interactorTargetPosition")] [SerializeField]
+        private Transform interactorTargetTransform;
+
         [SerializeField] private float interactionRange;
         private bool interacting;
 
-        public bool IsInteractable()
+        public bool IsBeingInteracted()
         {
             return interacting;
         }
@@ -25,15 +28,10 @@ namespace Interactable
 
         public bool TryInteractionRange(Vector3 interactor)
         {
-            if(Vector3.Distance(interactorTargetTransform.position,interactor) <= interactionRange)
-            {
-                return true;
-            }
-
-            return false;
+            return Vector3.Distance(interactorTargetTransform.position, interactor) <= interactionRange;
         }
 
-        public void ToggleIndicator(bool value)
+        public void SetIndicator(bool value)
         {
             indicator.SetActive(value);
         }

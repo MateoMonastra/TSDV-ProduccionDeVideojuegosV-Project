@@ -18,6 +18,7 @@ namespace KinematicCharacterController.Examples
         {
             Collider[] colls = Physics.OverlapSphere(transform.position, 22.0f, LayerMask.GetMask("Interact"));
 
+            interactionTarget = null;
             IInteractable closestInteractable = null;
             float closestDistance = float.MaxValue;
 
@@ -25,16 +26,8 @@ namespace KinematicCharacterController.Examples
             {
                 if (VARIABLE.TryGetComponent(out IInteractable interactable))
                 {
-                    if (closestInteractable == null)
-                    {
-                        closestInteractable = interactable;
-                    }
-                    
-
                     float newDistance = Vector3.Distance(interactable.GetInteractionPoint(), transform.position);
 
-                    
-                    
                     if (interactable.TryInteractionRange(transform.position) && newDistance < closestDistance)
                     {
                         closestInteractable = interactable;
@@ -42,19 +35,15 @@ namespace KinematicCharacterController.Examples
                     }
                     else
                     {
-                        interactable.ToggleIndicator(false);
+                        interactable.SetIndicator(false);
                     }
                 }
             }
 
-            if (closestInteractable != null && Vector3.Distance(closestInteractable.GetInteractionPoint(),transform.position) < 20.0f)
+            if (closestInteractable != null)
             {
-                closestInteractable.ToggleIndicator(true);
+                closestInteractable.SetIndicator(true);
                 interactionTarget = closestInteractable;
-            }
-            else if(closestInteractable != null)
-            {
-                closestInteractable.ToggleIndicator(false);
             }
         }
     }

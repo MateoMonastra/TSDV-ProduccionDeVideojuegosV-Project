@@ -1882,6 +1882,7 @@ Transform:
   m_Children:
   - {fileID: 1978458612}
   - {fileID: 304791007}
+  - {fileID: 1812134409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &501102528
@@ -1898,7 +1899,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1812134408}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   indicator: {fileID: 1978458611}
   interactorTargetTransform: {fileID: 304791007}
   interactionRange: 5
@@ -6637,6 +6650,81 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738289479895680587, guid: c89bbcbc469bc4a45ad55cb3e4302729, type: 3}
   m_PrefabInstance: {fileID: 870510049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1812134407
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 501102527}
+    m_Modifications:
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.994
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284311102779637651, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+      propertyPath: m_Name
+      value: VFX_Explosion_Pastel_Air
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+--- !u!198 &1812134408 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2583776570707890309, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+  m_PrefabInstance: {fileID: 1812134407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1812134409 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2970271649618853449, guid: 097a65dbd6fcabb44a7dcc29cf62ce0e, type: 3}
+  m_PrefabInstance: {fileID: 1812134407}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1875298276
 GameObject:
