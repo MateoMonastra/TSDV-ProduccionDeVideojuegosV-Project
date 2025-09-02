@@ -1,124 +1,160 @@
 ﻿using FSM;
 using UnityEngine;
-using Player; // IDamageable
 
 namespace Player.New
 {
+    /// <summary>
+    /// Ejecución del ataque 360° tras la carga. Permite moverse/saltar con multiplicadores,
+    /// aplica daño circular una vez (por evento de anim o fallback temporal) y al finalizar
+    /// decide si pasa a SelfStun o vuelve a Idle.
+    /// </summary>
     public class SpinRelease : FinishableState
     {
-        public const string ToIdle     = "SpinRelease->AttackIdle";
-        public const string ToSelfStun = "SpinRelease->SelfStun";
+        // ──────────────────────────────────────────────────────────────────────
+        public const string ToIdle     = "ToIdle";
+        public const string ToSelfStun = "ToSelfStun";
+        // ──────────────────────────────────────────────────────────────────────
 
-        private readonly MyKinematicMotor _m;
+        private readonly MyKinematicMotor _motor;
         private readonly PlayerModel _model;
-        private readonly System.Action<string> _req;
+        private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
 
         private float _t;
         private bool  _damageTicked;
         private bool  _nextIsSelfStun;
 
-        private float _execDuration;   // duración efectiva del giro
-        private float _postStun;       // post-stun (sigue saliendo del model)
-        private float _damageMoment;   // momento del daño (si no hay evento)
+        private float _execDuration;
+        private float _postStun;
+        private float _damageMoment;
 
         public System.Action<float> OnSpinCooldownUI;
 
-        public SpinRelease(MyKinematicMotor m, PlayerModel model, System.Action<string> request, PlayerAnimationController anim = null)
-        { _m = m; _model = model; _req = request; _anim = anim; }
+        public SpinRelease(MyKinematicMotor motor,
+                           PlayerModel model,
+                           System.Action<string> requestTransition,
+                           PlayerAnimationController anim = null)
+        {
+            _motor = motor;
+            _model = model;
+            _requestTransition = requestTransition;
+            _anim = anim;
+        }
 
+        /// <summary>Entrar al release: setea multiplicadores, cooldown y calcula duraciones.</summary>
         public override void Enter()
         {
             base.Enter();
-            _t = 0f; _damageTicked = false; _nextIsSelfStun = false;
+            _t = 0f;
+            _damageTicked = false;
+            _nextIsSelfStun = false;
 
-            // Permitir moverse/saltar durante el giro con multiplicadores
-            _model.locomotionBlocked = false;
-            _model.actionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.spinMoveSpeedMultiplierWhileExecuting);
-            _model.actionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.spinJumpSpeedMultiplier);
+            // Permitir moverse/saltar durante el giro con multiplicadores configurables
+            _model.LocomotionBlocked        = false;
+            _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
+            _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
 
-            _model.invulnerableToEnemies = false;
-            _model.aimLockActive = false;
+            // Flags de acción
+            _model.InvulnerableToEnemies = false;
+            _model.AimLockActive = false;
 
-            // Cooldown
+            // Cooldown del spin
             _model.SpinOnCooldown   = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
             OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
 
-            // Duraciones por carga
-            float r = Mathf.Clamp01(_model.spinChargeRatio);
-            _execDuration = Mathf.Lerp(_model.spinMinDuration, _model.spinMaxDuration, r);
+            // Duraciones en función de la carga
+            float r = Mathf.Clamp01(_model.SpinChargeRatio);
+            _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
             _postStun     = _model.SpinPostStun;
-            _model.selfStunDuration = Mathf.Lerp(_model.selfStunMinDuration, _model.selfStunMaxDuration, r);
+            _model.SelfStunDuration = Mathf.Lerp(_model.SelfStunMinDuration, _model.SelfStunMaxDuration, r);
 
-            _damageMoment = Mathf.Clamp01(0.4f) * _execDuration;
-
+            // Animación
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
         }
 
+        /// <summary>Salir del release: desuscribe evento y limpia locks si corresponde.</summary>
         public override void Exit()
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
-        
+
+            // Si vamos a SelfStun, no limpiamos aquí.
             if (!_nextIsSelfStun)
-                _model.ClearActionLocks(); // también resetea actionJumpSpeedMultiplier
-        
+                _model.ClearActionLocks();
+
             _anim?.SetCombatActive(false);
         }
 
+        /// <summary>Avanza el tiempo, aplica daño si corresponde y resuelve transición final.</summary>
         public override void Tick(float dt)
         {
             base.Tick(dt);
             _t += dt;
 
-            // Fallback de daño si no hay Animation Event
+            // Fallback de daño si no llegó evento de anim
             if (!_damageTicked && _t >= _damageMoment)
             {
                 DoSpinDamage();
                 _damageTicked = true;
             }
 
-            // Termina giro + post-stun → decidir destino
+            // Fin del giro + post-stun → decidir destino
             if (_t >= _execDuration + _postStun)
             {
-                if (_model.spinCausesSelfStun)
+                if (_model.SpinCausesSelfStun)
                 {
                     _nextIsSelfStun = true;
-                    _req?.Invoke(ToSelfStun);
+                    _requestTransition?.Invoke(ToSelfStun);
                 }
                 else
                 {
-                    _req?.Invoke(ToIdle);
+                    _requestTransition?.Invoke(ToIdle);
                 }
                 Finish();
             }
         }
 
+        // ──────────────────────────────────────────────────────────────────────
+        #region Anim Events & Damage
+        // ──────────────────────────────────────────────────────────────────────
+
+        /// <summary>Llamado por Animation Event para sincronizar el impacto exacto.</summary>
         private void OnSpinDamageEvent()
         {
-            DoSpinDamage(); // impact exacto si existe el evento
+            DoSpinDamage();
             _damageTicked = true;
         }
 
+        /// <summary>Aplica daño/knockback/stagger en un radio alrededor del jugador.</summary>
         private void DoSpinDamage()
         {
-            Vector3 center = _m.transform.position;
-            Collider[] hits = Physics.OverlapSphere(center, _model.SpinRadius, _model.enemyMask, QueryTriggerInteraction.Ignore);
+            Vector3 center = _motor.transform.position;
+            Collider[] hits = Physics.OverlapSphere(
+                center,
+                _model.SpinRadius,
+                _model.EnemyMask,
+                QueryTriggerInteraction.Ignore
+            );
+
             foreach (var c in hits)
             {
-                var d = c.GetComponentInParent<IDamageable>();
-                if (d == null) continue;
+                var dmg = c.GetComponentInParent<IDamageable>();
+                if (dmg == null) continue;
 
-                Vector3 dir = (c.bounds.center - center); dir.y = 0f;
+                // Dirección horizontal desde el centro del jugador hacia el objetivo
+                Vector3 dir = (c.bounds.center - center);
+                dir.y = 0f;
                 if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
 
-                d.TakeDamage(_model.SpinDamage);
-                d.ApplyKnockback(dir, _model.SpinPushDistance);
-                d.ApplyStagger(_model.SpinStaggerTime);
+                dmg.TakeDamage(_model.SpinDamage);
+                dmg.ApplyKnockback(dir, _model.SpinPushDistance);
+                dmg.ApplyStagger(_model.SpinStaggerTime);
             }
         }
+
+        #endregion
     }
 }
