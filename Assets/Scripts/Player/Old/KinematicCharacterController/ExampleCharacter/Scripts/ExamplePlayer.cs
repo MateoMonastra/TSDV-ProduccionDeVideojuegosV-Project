@@ -85,7 +85,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.MoveAxisRight = inputs.Player.Move.ReadValue<Vector2>().x;
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
             characterInputs.JumpDown = inputs.Player.Jump.WasPerformedThisFrame();
-            characterInputs.InteractDown = inputs.Player.Interact.WasPerformedThisFrame();
+            characterInputs.InteractDown = inputs.Player.Interact.WasPressedThisFrame();
             characterInputs.InteractUp = inputs.Player.Interact.WasReleasedThisFrame();
             //characterInputs.CrouchDown = inputs.Player.Crouch.WasPerformedThisFrame();
             //characterInputs.CrouchUp = inputs.Player.Crouch.WasReleasedThisFrame();

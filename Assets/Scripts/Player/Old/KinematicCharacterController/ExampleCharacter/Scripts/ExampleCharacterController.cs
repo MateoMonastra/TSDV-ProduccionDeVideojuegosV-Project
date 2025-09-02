@@ -315,7 +315,7 @@ namespace KinematicCharacterController.Examples
 
                     if (inputs.InteractDown)
                     {
-                        
+                        _interactController.Interact();
                     }
 
                     break;

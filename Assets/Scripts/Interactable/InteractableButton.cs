@@ -20,7 +20,6 @@ namespace Interactable
 
         public void Interact()
         {
-            Debug.Log("success");
             onInteract?.Invoke();
         }
 
