@@ -28,6 +28,8 @@ namespace KinematicCharacterController.Examples
         public float MoveAxisForward;
         public float MoveAxisRight;
         public Quaternion CameraRotation;
+        public bool InteractDown;
+        public bool InteractUp;
         public bool JumpDown;
         public bool CrouchDown;
         public bool CrouchUp;
@@ -55,7 +57,8 @@ namespace KinematicCharacterController.Examples
         public ParticleSystem lastJumpParticles;
         public ParticleSystem dashParticles;
         private HammerController hammerController; // Reference to hammer controller
-
+        private InteractController _interactController;
+        
         [Header("Skill Unlocks")] [SerializeField]
         private bool isDashUnlocked;
 
@@ -119,6 +122,8 @@ namespace KinematicCharacterController.Examples
         private int _jumpsRemaining; // Track remaining jumps
         private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
 
+        private IInteractable targettedInteractable;
+        
         private Coroutine _damageCoroutine;
         private Coroutine _deathCoroutine;
 
@@ -138,6 +143,8 @@ namespace KinematicCharacterController.Examples
 
             // Get hammer controller reference
             hammerController = GetComponentInChildren<HammerController>();
+            
+            _interactController = GetComponent<InteractController>();
 
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
@@ -233,22 +240,7 @@ namespace KinematicCharacterController.Examples
 
             Quaternion cameraPlanarRotation = Quaternion.LookRotation(cameraPlanarDirection, Motor.CharacterUp);
 
-            Collider[] colls = Physics.OverlapSphere(transform.position, 22.0f, LayerMask.GetMask("Interact"));
-
-            foreach (var VARIABLE in colls)
-            {
-                if (VARIABLE.TryGetComponent(out IInteractable interactable))
-                {
-                    if (Vector3.Distance(transform.position, VARIABLE.transform.position) > 20)
-                    {
-                        interactable.ToggleIndicator(false);
-                    }
-                    else
-                    {
-                        interactable.ToggleIndicator(true);
-                    }
-                }
-            }
+            _interactController.DetectInteractions();
 
             switch (CurrentCharacterState)
             {
@@ -319,6 +311,11 @@ namespace KinematicCharacterController.Examples
                     else if (inputs.CrouchUp)
                     {
                         _shouldBeCrouching = false;
+                    }
+
+                    if (inputs.InteractDown)
+                    {
+                        
                     }
 
                     break;
