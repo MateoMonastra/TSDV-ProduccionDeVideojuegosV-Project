@@ -210,17 +210,13 @@ namespace Player.New
             // Función local descriptiva para solicitar transiciones de locomoción
             void RequestLocomotionTransition(string transitionId) => _locomotionFsm.TryTransitionTo(transitionId);
 
-            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                onWalk: null, coyoteTime: model.CoyoteTime, anim: anim);
+            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
-            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                airDetectDelay: model.JumpGroundAirDetectDelay, anim: anim);
+            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
-            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                airDetectDelay: model.JumpAirAirDetectDelay, anim: anim);
+            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
-            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition,
-                settleTime: model.FallSettleTime, anim: anim);
+            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
             _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim);
