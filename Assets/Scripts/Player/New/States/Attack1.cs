@@ -1,16 +1,14 @@
 ﻿using FSM;
-using UnityEngine;
 
 namespace Player.New
 {
-    /// <summary>Primer golpe del combo. Permite encadenar a A2 durante una ventana.</summary>
+    /// <summary>Primer golpe del combo. Buffer + late-grace para encadenar a A2.</summary>
     public class Attack1 : AttackBase
     {
         public const string ToAttack2 = "ToAttack2";
         public const string ToIdle    = "ToIdle";
 
-        private bool _waitingChain;
-        private float _chainTimer;
+        private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
 
         public Attack1(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
@@ -22,11 +20,19 @@ namespace Player.New
 
             if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
 
-            t = 0f;
-            Duration = Model.Attack1Duration;
+            Duration = Model.Attack1Duration;   // ← usa la duración específica
+            _windowOpen = false;
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack1();
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+            // CombatActive lo apagamos al volver a Idle para evitar flicker entre golpes
         }
 
         public override void Tick(float dt)
@@ -34,30 +40,37 @@ namespace Player.New
             base.Tick(dt);
             t += dt;
 
-            // Hacer daño (una vez) hacia el frente
+            // Hit a mitad del clip (o por evento de anim)
             TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
-            // Ventana para chain
-            if (!_waitingChain && t >= Duration - Model.AttackChainWindow)
-            {
-                _waitingChain = true;
-                _chainTimer = 0f;
-            }
+            float chainWindow = Model.AttackChainWindow;
+            float lateGrace   = Model.AttackLateChainGrace;
 
-            if (_waitingChain)
+            // Abrir ventana ANTES de terminar el clip
+            if (!_windowOpen && t >= Duration - chainWindow)
             {
-                _chainTimer += dt;
-                if (_chainTimer > Model.AttackChainWindow)
+                _windowOpen = true;
+
+                // Si ya había buffer, encadenar de inmediato
+                if (ChainBuffered)
                 {
-                    // se cerró la ventana sin input
-                    Req?.Invoke(ToIdle);
+                    Req?.Invoke(ToAttack2);
                     Finish();
+                    return;
                 }
             }
 
-            // auto-salida si llegó al final y no hubo chain input
+            // Fin del clip → aceptar late-grace si hubo buffer
             if (t >= Duration)
             {
+                if (ChainBuffered && (t - Duration) <= lateGrace)
+                {
+                    Req?.Invoke(ToAttack2);
+                    Finish();
+                    return;
+                }
+
+                // Sin chain → Idle
                 Req?.Invoke(ToIdle);
                 Finish();
             }
@@ -65,11 +78,21 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            if (_waitingChain && values is { Length: >= 1 } && values[0] is string cmd && cmd == CommandKeys.AttackPressed)
+            if (values is { Length: >= 1 } &&
+                values[0] is string cmd &&
+                cmd == CommandKeys.AttackPressed)
             {
-                Req?.Invoke(ToAttack2);
-                Finish();
+                BufferChain();
+
+                // Si la ventana ya está abierta o estamos dentro del late-grace, encadenar ahora
+                if (_windowOpen || (t >= Duration && (t - Duration) <= Model.AttackLateChainGrace))
+                {
+                    Req?.Invoke(ToAttack2);
+                    Finish();
+                }
             }
         }
+
+        private void OnAnimHit() => TryDoHitFrontal(0f);
     }
 }

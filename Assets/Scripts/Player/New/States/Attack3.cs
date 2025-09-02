@@ -1,6 +1,6 @@
 ﻿namespace Player.New
 {
-    /// <summary>Tercer golpe del combo. Termina el combo y aplica cooldown.</summary>
+    /// <summary>Tercer golpe del combo. Cierra y aplica cooldown del combo.</summary>
     public class Attack3 : AttackBase
     {
         public const string ToIdle = "ToIdle";
@@ -13,11 +13,17 @@
         public override void Enter()
         {
             base.Enter();
-            t = 0f;
-            Duration = Model.Attack3Duration;
+            Duration = Model.Attack3Duration;  // ← duración específica
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
         }
 
         public override void Tick(float dt)
@@ -29,13 +35,14 @@
 
             if (t >= Duration)
             {
-                // aplicar cooldown de combo
-                Model.AttackComboOnCooldown = true;
+                Model.AttackComboOnCooldown   = true;
                 Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
 
                 Req?.Invoke(ToIdle);
                 Finish();
             }
         }
+
+        private void OnAnimHit() => TryDoHitFrontal(0f);
     }
 }

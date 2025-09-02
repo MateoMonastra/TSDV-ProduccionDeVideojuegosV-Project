@@ -30,14 +30,15 @@ MonoBehaviour:
   dashExitSharpness: 10
   enemyMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 128
   attackDamage: 10
-  attack1Duration: 0.25
-  attack2Duration: 0.28
-  attack3Duration: 0.34
+  attack1Duration: 0.4
+  attack2Duration: 0.4
+  attack3Duration: 0.4
   attackRange: 2
   attackHalfAngleDegrees: 55
   attackChainWindow: 0.3
+  attackLateChainGrace: 0.08
   attackKnockbackDistance: 2.5
   attackStaggerTime: 0.35
   attackComboCooldown: 0.4
@@ -70,27 +71,11 @@ MonoBehaviour:
   selfStunGetUpLeadTime: 0.25
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
-  aimLockActive: 0
-  aimLockDirection: {x: 0, y: 0, z: 0}
   locomotionBlocked: 0
   invulnerableToEnemies: 0
-  rawMoveInput: {x: 0, y: 0}
-  moveInputWorld: {x: 0, y: 0, z: 0}
-  jumpsLeft: 2
-  jumpWasPureVertical: 0
-  dashOnCooldown: 0
-  dashCooldownLeft: 0
-  spinOnCooldown: 0
-  spinCooldownLeft: 0
-  verticalOnCooldown: 0
-  verticalCooldownLeft: 0
-  attackComboOnCooldown: 0
-  attackComboCooldownLeft: 0
-  spinChargeRatio: 1
-  isSelfStunned: 0
-  selfStunTimeLeft: 0
-  selfStunDuration: 2
-  sprintArmed: 0
-  dashHeld: 0
-  sprintArmTimeLeft: 0.49856377
-  sprintHoldCounter: 0
+  aimLockActive: 0
+  aimLockDirection: {x: 0, y: 0, z: 0}
+  coyoteTime: 0.12
+  jumpGroundAirDetectDelay: 0.04
+  jumpAirAirDetectDelay: 0.04
+  fallSettleTime: 0.04

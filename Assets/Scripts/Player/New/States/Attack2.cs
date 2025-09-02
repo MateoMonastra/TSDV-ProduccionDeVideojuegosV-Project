@@ -2,14 +2,13 @@
 
 namespace Player.New
 {
-    /// <summary>Segundo golpe del combo. Permite encadenar a A3 durante una ventana.</summary>
+    /// <summary>Segundo golpe del combo. Buffer + late-grace para encadenar a A3.</summary>
     public class Attack2 : AttackBase
     {
         public const string ToAttack3 = "ToAttack3";
         public const string ToIdle    = "ToIdle";
 
-        private bool _waitingChain;
-        private float _chainTimer;
+        private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
 
         public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
@@ -18,13 +17,21 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
+
             if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
 
-            t = 0f;
-            Duration = Model.Attack2Duration;
+            Duration = Model.Attack2Duration;  // ← duración específica
+            _windowOpen = false;
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
+            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
         }
 
         public override void Tick(float dt)
@@ -34,23 +41,30 @@ namespace Player.New
 
             TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
-            if (!_waitingChain && t >= Duration - Model.AttackChainWindow)
+            float chainWindow = Model.AttackChainWindow;
+            float lateGrace   = Model.AttackLateChainGrace;
+
+            if (!_windowOpen && t >= Duration - chainWindow)
             {
-                _waitingChain = true;
-                _chainTimer = 0f;
-            }
-            if (_waitingChain)
-            {
-                _chainTimer += dt;
-                if (_chainTimer > Model.AttackChainWindow)
+                _windowOpen = true;
+
+                if (ChainBuffered)
                 {
-                    Req?.Invoke(ToIdle);
+                    Req?.Invoke(ToAttack3);
                     Finish();
+                    return;
                 }
             }
 
             if (t >= Duration)
             {
+                if (ChainBuffered && (t - Duration) <= lateGrace)
+                {
+                    Req?.Invoke(ToAttack3);
+                    Finish();
+                    return;
+                }
+
                 Req?.Invoke(ToIdle);
                 Finish();
             }
@@ -58,11 +72,20 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            if (_waitingChain && values is { Length: >= 1 } && values[0] is string cmd && cmd == CommandKeys.AttackPressed)
+            if (values is { Length: >= 1 } &&
+                values[0] is string cmd &&
+                cmd == CommandKeys.AttackPressed)
             {
-                Req?.Invoke(ToAttack3);
-                Finish();
+                BufferChain();
+
+                if (_windowOpen || (t >= Duration && (t - Duration) <= Model.AttackLateChainGrace))
+                {
+                    Req?.Invoke(ToAttack3);
+                    Finish();
+                }
             }
         }
+
+        private void OnAnimHit() => TryDoHitFrontal(0f);
     }
 }

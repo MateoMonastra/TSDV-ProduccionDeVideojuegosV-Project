@@ -170,6 +170,7 @@ namespace Player.New
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")] private float attackRange = 2.0f;
         [SerializeField, Range(5f, 90f), Tooltip("Semiancho del cono frontal (°).")] private float attackHalfAngleDegrees = 55f;
         [SerializeField, Tooltip("Ventana para encadenar siguiente golpe (s).")] private float attackChainWindow = 0.30f;
+        [SerializeField, Tooltip("Tolerancia posterior al fin del ataque para aceptar el chain (s).")] private float attackLateChainGrace = 0.08f;
         [SerializeField, Tooltip("Empuje al enemigo impactado (m).")] private float attackKnockbackDistance = 2.5f;
         [SerializeField, Tooltip("Tiempo de stagger al enemigo (s).")] private float attackStaggerTime = 0.35f;
         [SerializeField, Tooltip("Cooldown al terminar el 3er golpe (s).")] private float attackComboCooldown = 0.4f;
@@ -181,6 +182,7 @@ namespace Player.New
         public float AttackRange { get => attackRange; set => attackRange = value; }
         public float AttackHalfAngleDegrees { get => attackHalfAngleDegrees; set => attackHalfAngleDegrees = value; }
         public float AttackChainWindow { get => attackChainWindow; set => attackChainWindow = value; }
+        public float AttackLateChainGrace { get => attackLateChainGrace; set => attackLateChainGrace = value; }
         public float AttackKnockbackDistance { get => attackKnockbackDistance; set => attackKnockbackDistance = value; }
         public float AttackStaggerTime { get => attackStaggerTime; set => attackStaggerTime = value; }
         public float AttackComboCooldown { get => attackComboCooldown; set => attackComboCooldown = value; }

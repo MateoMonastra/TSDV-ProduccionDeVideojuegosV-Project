@@ -97,13 +97,6 @@ namespace Player.New
         /// <summary>Actualiza el input de movimiento (clamp a 1 para diagonales).</summary>
         private void OnMove(Vector2 move) => model.RawMoveInput = Vector2.ClampMagnitude(move, 1f);
 
-        /// <summary>Reenvía el comando de salto al estado actual de locomoción.</summary>
-        private void OnJump()
-        {
-            if (IsActionBlocked()) return;
-            _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
-        }
-
         /// <summary>Solicita Dash (si no hay bloqueo ni cooldown).</summary>
         private void OnDash()
         {
@@ -112,21 +105,46 @@ namespace Player.New
             _locomotionFsm.ForceTransition(_sDash);
         }
 
-        /// <summary>Click: ataque básico en suelo, o vertical aéreo si no estamos grounded.</summary>
+        private void OnJump()
+        {
+            if (IsActionBlocked())
+            {
+                Debug.Log("[Agent] Jump ignored (LocomotionBlocked)");
+                return;
+            }
+
+            Debug.Log("[Agent] Jump pressed -> forwarding to locomotion FSM");
+            _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
+        }
+
         private void OnAttackBasic()
         {
-            if (IsActionBlocked()) return;
+            if (IsActionBlocked())
+            {
+                Debug.Log("[Agent] Attack ignored (LocomotionBlocked)");
+                return;
+            }
 
             if (!motor.IsGrounded)
             {
                 if (AttackVertical.CanUse(motor, model))
+                {
+                    Debug.Log("[Agent] Air attack -> AttackVertical");
                     _actionFsm.ForceTransition(_aVertical);
+                }
+                else
+                {
+                    Debug.Log("[Agent] Air attack ignored (not pure vertical or on cooldown)");
+                }
                 return;
             }
 
+            // activar capa combate ANTES del trigger para no perderlo
+            anim?.SetCombatActive(true);
+            Debug.Log("[Agent] Ground attack -> forwarding AttackPressed to action FSM");
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
         }
-
+        
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
         private void OnAttackHeavyPressed()
         {
