@@ -11,11 +11,9 @@ namespace Player.New
     /// </summary>
     public class Sprint : LocomotionState
     {
-        // ──────────────────────────────────────────────────────────────────────
-        public const string ToWalkIdle = "ToWalkIdle";
-        public const string ToFall     = "ToFall";
-        public const string ToJump     = "ToJump";
-        // ──────────────────────────────────────────────────────────────────────
+        public const string ToWalkIdle = "Sprint->WalkIdle";
+        public const string ToFall     = "Sprint->Fall";
+        public const string ToJump     = "Sprint->JumpGround";
 
         private readonly PlayerAnimationController _anim;
 
@@ -29,31 +27,27 @@ namespace Player.New
             _anim = anim;
         }
 
-        /// <summary>Al entrar: aplica multiplicador de sprint y enciende anim de movimiento.</summary>
         public override void Enter()
         {
             base.Enter();
+            // multiplicador de acción para reutilizar ApplyLocomotion sin tocarla
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
-            _anim?.SetWalking(true); // Lugarcito para poner la animacion de Run
+            _anim?.SetWalking(true); // usa el bool de caminar/correr que ya tengas
         }
 
-        /// <summary>Al salir: limpia multiplicadores y desarma el sprint.</summary>
         public override void Exit()
         {
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
-            Model.SprintArmed = false;
+            Model.SprintArmed = false;      // se necesita un nuevo dash para rearmar
             _anim?.SetWalking(false);
         }
 
-        /// <summary>
-        /// Tick por frame: input→mundo, locomoción, checks de movimiento/suelo/bloqueos.
-        /// </summary>
         public override void Tick(float dt)
         {
             base.Tick(dt);
 
-            // Si otra mecánica bloquea locomoción, terminamos sprint.
+            // si otra mecánica bloquea locomoción (vertical/slam/spin), cortar
             if (Model.LocomotionBlocked)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
@@ -61,16 +55,18 @@ namespace Player.New
             }
 
             UpdateMoveInputWorld();
+            ApplyLocomotion(dt, inAir: false); // suelo
 
-            // Locomoción en suelo (stop instantáneo si no hay input)
-            ApplyLocomotion(dt, inAir: false);
-
-            if (!IsMovingEnough())
+            // cortar si ya no nos movemos lo suficiente
+            var hv = Motor.Velocity; hv.y = 0f;
+            bool moving = hv.sqrMagnitude > Model.SprintMinSpeedToKeep * Model.SprintMinSpeedToKeep;
+            if (!moving)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
                 return;
             }
 
+            // caer si perdimos el suelo
             if (!Motor.IsGrounded)
             {
                 RequestTransition?.Invoke(ToFall);
@@ -78,11 +74,9 @@ namespace Player.New
             }
         }
 
-        /// <summary>
-        /// Permite salto durante sprint: corta el sprint y transiciona a JumpGround.
-        /// </summary>
         public override void HandleInput(params object[] values)
         {
+            // permite saltar desde sprint (lo interrumpe)
             if (values is { Length: >= 2 } &&
                 values[0] is string cmd &&
                 cmd == CommandKeys.Jump &&
@@ -95,38 +89,18 @@ namespace Player.New
             }
         }
 
-        // ──────────────────────────────────────────────────────────────────────
-        #region Helpers
-        // ──────────────────────────────────────────────────────────────────────
+        // ----------------- Helpers -----------------
 
-        /// <summary>Convierte el input 2D a dirección de mundo según la cámara.</summary>
         private void UpdateMoveInputWorld()
         {
             Vector3 up = Motor.CharacterUp;
 
             Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
-            if (camFwd.sqrMagnitude < 1e-4f)
-                camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
+            if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
 
             Vector3 camRight = Vector3.Cross(up, camFwd);
-
             Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f)
-                Model.MoveInputWorld = Model.MoveInputWorld.normalized;
+            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f) Model.MoveInputWorld = Model.MoveInputWorld.normalized;
         }
-
-        /// <summary>
-        /// Comprueba si la magnitud horizontal de la velocidad actual supera el mínimo
-        /// para mantener el sprint.
-        /// </summary>
-        private bool IsMovingEnough()
-        {
-            Vector3 hv = Motor.Velocity;
-            hv.y = 0f;
-            float min = Model.SprintMinSpeedToKeep;
-            return hv.sqrMagnitude > (min * min);
-        }
-
-        #endregion
     }
 }

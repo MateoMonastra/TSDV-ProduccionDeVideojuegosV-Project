@@ -4,91 +4,150 @@ using UnityEngine;
 namespace Player.New
 {
     /// <summary>
-    /// Locomoción en suelo: idle + caminar. Resuelve input en espacio mundo,
-    /// coyote jump y el armado/hold para iniciar Sprint.
+    /// Locomoción en suelo: movimiento orientado por cámara, coyote para transición a Fall
+    /// y manejo del salto (suelo o dentro del coyote).
     /// </summary>
     public class WalkIdle : LocomotionState
     {
-        // ──────────────────────────────────────────────────────────────────────
-        public const string ToJump   = "ToJump";
-        public const string ToFall   = "ToFall";
+        public const string ToJump = "ToJump";
+        public const string ToFall = "ToFall";
         public const string ToSprint = "ToSprint";
-        // ──────────────────────────────────────────────────────────────────────
-        
+
         private float _timeSinceUngrounded;
+        private int _ungroundedFrames;
+
         private readonly PlayerAnimationController _anim;
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public WalkIdle(MyKinematicMotor m,
-                        PlayerModel mdl,
-                        Transform cam,
-                        System.Action<string> requestTransition,
-                        PlayerAnimationController anim = null)
-            : base(m, mdl, cam, requestTransition)
+        public WalkIdle(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req)
         {
             _anim = anim;
         }
 
-        /// <summary>Entra al estado: resetea coyote y flags de anim.</summary>
         public override void Enter()
         {
             base.Enter();
             _timeSinceUngrounded = 0f;
+            _ungroundedFrames = 0;
+
+            // aseguramos stock de saltos al tocar suelo
+            Model.ResetJumps();
+
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
             _anim?.SetWalking(false);
         }
 
-        /// <summary>Sale del estado: apaga eventos/animación de caminar.</summary>
-        public override void Exit()
-        {
-            base.Exit();
-            _anim?.SetWalking(false);
-        }
-
-        /// <summary>
-        /// Tick por frame: input → mundo, coyote/fall, locomoción y ventana de sprint.
-        /// </summary>
         public override void Tick(float dt)
         {
             base.Tick(dt);
 
+            // actualizar input mundo (lo usan Dash/Sprint)
             UpdateMoveInputWorld();
-            
-            if (HandleCoyoteFall(dt))
-                return;
-            
+
+            // aplicar locomoción en suelo
             ApplyLocomotion(dt, inAir: false);
 
-            bool walking = ComputeIsWalking();
-            _anim?.SetWalking(walking);
+            _anim?.SetWalking(Model.RawMoveInput.sqrMagnitude > 1e-5f);
+
+            // manejo de coyote → Fall
+            if (!Motor.IsGrounded)
+            {
+                _timeSinceUngrounded += dt;
+                _ungroundedFrames++;
+
+                if (_timeSinceUngrounded > Model.CoyoteTime && _ungroundedFrames >= 2) // filtro de flicker
+                {
+                    RequestTransition?.Invoke(ToFall);
+                    return;
+                }
+            }
+            else
+            {
+                _timeSinceUngrounded = 0f;
+                _ungroundedFrames = 0;
+            }
             
-            if (UpdateSprintWindowAndMaybeStart(dt, walking, Motor.IsGrounded))
-                return;
+            HandleSprintWindow(dt);
         }
 
         /// <summary>
-        /// Entrada de comandos (evita strings mágicos usando CommandKeys).
+        /// Si Dash armó la ventana: cuenta hold mientras se mantiene el botón de dash
+        /// y hay intención de movimiento; cuando llega al tiempo de hold → entra en Sprint.
+        /// La ventana caduca tras un tiempo. Si se pierde suelo, se cancela.
         /// </summary>
+        private void HandleSprintWindow(float dt)
+        {
+            // cancelar si no estamos en suelo
+            if (!Motor.IsGrounded)
+            {
+                Model.SprintArmed = false;
+                Model.SprintHoldCounter = 0f;
+                return;
+            }
+
+            if (!Model.SprintArmed)
+                return; // no hay ventana activa (la arma Dash al terminar)
+
+            // consumir ventana
+            Model.SprintArmTimeLeft -= dt;
+            if (Model.SprintArmTimeLeft <= 0f)
+            {
+                Model.SprintArmed = false;
+                Model.SprintHoldCounter = 0f;
+                return;
+            }
+
+            // acumular hold solo mientras se mantiene el botón de dash
+            if (Model.DashHeld) Model.SprintHoldCounter += dt;
+            else Model.SprintHoldCounter = 0f;
+
+            // requerir intención de movimiento (input) para iniciar sprint
+            bool hasMoveInput = Model.RawMoveInput.sqrMagnitude > 1e-5f;
+
+            if (Model.SprintHoldCounter >= Model.SprintHoldTime && hasMoveInput)
+            {
+                // ¡A correr!
+                RequestTransition?.Invoke(ToSprint);
+
+                // limpiar el contador; el "armed" se limpia en Sprint.Exit()
+                Model.SprintHoldCounter = 0f;
+            }
+        }
+
+
         public override void HandleInput(params object[] values)
         {
-            if (values is { Length: >= 2 } && values[0] is string cmd && cmd == CommandKeys.Jump)
+            // Salto
+            if (values is { Length: >= 2 } &&
+                values[0] is string cmd &&
+                cmd == CommandKeys.Jump &&
+                values[1] is bool pressed && pressed)
             {
-                bool pressed = (bool)values[1];
-                if (pressed && (Motor.IsGrounded || _timeSinceUngrounded <= Model.CoyoteTime) && Model.JumpsLeft > 0)
+                // permitir si está en suelo o dentro del coyote
+                bool canJumpFromCoyote = _timeSinceUngrounded <= Model.CoyoteTime;
+                if (Motor.IsGrounded || canJumpFromCoyote)
                 {
-                    RequestTransition?.Invoke(ToJump);
+                    if (Model.JumpsLeft > 0)
+                    {
+                        Debug.Log("[WalkIdle] Jump request -> JumpGround");
+                        RequestTransition?.Invoke(ToJump);
+                    }
+                    else
+                    {
+                        Debug.Log("[WalkIdle] Jump ignored (JumpsLeft == 0)");
+                    }
+                }
+                else
+                {
+                    Debug.Log("[WalkIdle] Jump ignored (no grounded & out of coyote)");
                 }
             }
         }
 
-        // ──────────────────────────────────────────────────────────────────────
-        #region Helpers
-        // ──────────────────────────────────────────────────────────────────────
-
-        /// <summary>Convierte el input local (WASD/arrows) a un vector de mundo según la cámara.</summary>
+        // ──────────────────────────────────────────────────────────────────
+        // Helpers
         private void UpdateMoveInputWorld()
         {
             Vector3 up = Motor.CharacterUp;
@@ -103,72 +162,5 @@ namespace Player.New
             if (Model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 Model.MoveInputWorld = Model.MoveInputWorld.normalized;
         }
-
-        /// <summary>
-        /// Maneja coyote time y dispara caída cuando corresponde.
-        /// Devuelve true si transicionó a <see cref="ToFall"/>.
-        /// </summary>
-        private bool HandleCoyoteFall(float dt)
-        {
-            if (Motor.IsGrounded)
-            {
-                _timeSinceUngrounded = 0f;
-                _anim?.SetGrounded(true);
-                _anim?.SetFalling(false);
-                return false;
-            }
-
-            _timeSinceUngrounded += dt;
-            if (_timeSinceUngrounded > Model.CoyoteTime)
-            {
-                RequestTransition?.Invoke(ToFall);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>Detecta si estamos caminando (velocidad horizontal + input válido).</summary>
-        private bool ComputeIsWalking()
-        {
-            Vector3 hv = Motor.Velocity;
-            hv.y = 0f;
-            return hv.sqrMagnitude > 0.0001f && Model.MoveInputWorld.sqrMagnitude > 0f;
-        }
-
-        /// <summary>
-        /// Gestiona la ventana y el hold para iniciar Sprint.
-        /// Devuelve true si transicionó a <see cref="ToSprint"/>.
-        /// </summary>
-        private bool UpdateSprintWindowAndMaybeStart(float dt, bool walking, bool grounded)
-        {
-            if (!Model.SprintArmed)
-                return false;
-
-            Model.SprintArmTimeLeft -= dt;
-            if (Model.SprintArmTimeLeft <= 0f)
-            {
-                Model.SprintArmed = false;
-                Model.SprintHoldCounter = 0f;
-                return false;
-            }
-
-            // hold acumulado solo cuando el botón está mantenido
-            Model.SprintHoldCounter = Model.DashHeld ? (Model.SprintHoldCounter + dt) : 0f;
-
-            if (Model.SprintHoldCounter >= Model.SprintHoldTime && walking && grounded)
-            {
-                // cerrar ventana antes de salir
-                Model.SprintArmed = false;
-                Model.SprintHoldCounter = 0f;
-
-                RequestTransition?.Invoke(ToSprint);
-                return true;
-            }
-
-            return false;
-        }
-
-        #endregion
     }
 }

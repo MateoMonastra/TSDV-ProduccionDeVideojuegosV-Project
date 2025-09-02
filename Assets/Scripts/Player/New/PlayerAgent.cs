@@ -138,9 +138,7 @@ namespace Player.New
                 }
                 return;
             }
-
-            // activar capa combate ANTES del trigger para no perderlo
-            anim?.SetCombatActive(true);
+            
             Debug.Log("[Agent] Ground attack -> forwarding AttackPressed to action FSM");
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
         }

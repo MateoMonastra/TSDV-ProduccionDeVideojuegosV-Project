@@ -70,6 +70,7 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
+            _model.BeginSprintWindow();
             _model.InvulnerableToEnemies = false;
         }
 
