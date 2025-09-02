@@ -3,41 +3,45 @@ using UnityEngine;
 
 namespace Player.New
 {
+    /// <summary>
+    /// Primer salto desde el suelo. Aplica impulso vertical y, tras un pequeño delay
+    /// de detección de aire, pasa a <see cref="Fall"/> cuando comienza a descender.
+    /// Permite pedir el doble salto (→ <see cref="JumpAir"/>).
+    /// </summary>
     public class JumpGround : LocomotionState
     {
-        public const string ToFall = "JumpGround->Fall";
-        public const string ToJumpAir = "JumpGround->JumpAir";
-
-        private readonly float _airDetectDelay;
+        public const string ToFall    = "ToFall";
+        public const string ToJumpAir = "ToJumpAir";
+        
         private float _t;
         private readonly PlayerAnimationController _anim;
 
-        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
-            float airDetectDelay = 0.04f, PlayerAnimationController anim = null)
-            : base(m, mdl, cam, req) { _airDetectDelay = airDetectDelay; _anim = anim; }
+        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, PlayerAnimationController anim = null)
+            : base(m, mdl, cam, req)
+        {_anim = anim; }
 
         public override void Enter()
         {
             base.Enter();
             _t = 0f;
 
-            Motor.ForceUnground(0.10f);
-
-            Model.jumpWasPureVertical = Model.rawMoveInput.sqrMagnitude <= 1e-4f;
-            if (Model.jumpsLeft > 0) Model.jumpsLeft--;
-
+            // Consumir un salto y aplicar impulso vertical (con multiplicador de acción)
+            Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
             var v = Motor.Velocity;
-            if (v.y < 0f) v.y = 0f;
-
-            // ⬇️ APLICA MULTIPLICADOR DE SALTO
-            float jumpV = Model.jumpSpeed * Mathf.Max(0.01f, Model.actionJumpSpeedMultiplier);
-            v.y += jumpV;
-
+            v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
 
-            _anim?.TriggerJump();
+            // Marcar si fue puro vertical (para ataque vertical en aire)
+            Model.JumpWasPureVertical = Model.RawMoveInput.sqrMagnitude <= 1e-6f;
+
             _anim?.SetGrounded(false);
-            _anim?.SetFalling(false);
+            _anim?.TriggerJump();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _anim?.SetFalling(true);
         }
 
         public override void Tick(float dt)
@@ -45,27 +49,26 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            // Actualizar MoveInputWorld mientras estamos en el aire
-            Vector3 up = Motor.CharacterUp;
-            Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
-            if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
-            Vector3 camRight = Vector3.Cross(up, camFwd);
-            Model.moveInputWorld = camFwd * Model.rawMoveInput.y + camRight * Model.rawMoveInput.x;
-            if (Model.moveInputWorld.sqrMagnitude > 1e-6f) Model.moveInputWorld.Normalize();
+            // Movimiento aéreo controlable
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
 
-            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.airHorizontalSpeed);
-
-            if (_t >= _airDetectDelay && !Motor.IsGrounded)
+            // Pasar a caída cuando empieza a descender (tras el pequeño delay)
+            if (_t >= Model.JumpGroundAirDetectDelay && Motor.Velocity.y <= 0f)
+            {
                 RequestTransition?.Invoke(ToFall);
+            }
         }
 
+        /// <summary>Permite doble salto si queda stock.</summary>
         public override void HandleInput(params object[] values)
         {
-            if (values is { Length: >= 2 } && values[0] is string cmd && cmd == "Jump" &&
-                values[1] is bool pressed && pressed)
+            if (values is { Length: >= 2 } && values[0] is string cmd && cmd == CommandKeys.Jump)
             {
-                if (!Motor.IsGrounded && Model.jumpsLeft > 0)
+                bool pressed = (bool)values[1];
+                if (pressed && Model.JumpsLeft > 0)
+                {
                     RequestTransition?.Invoke(ToJumpAir);
+                }
             }
         }
     }
