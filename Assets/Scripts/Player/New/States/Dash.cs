@@ -3,11 +3,15 @@ using UnityEngine;
 
 namespace Player.New
 {
+    /// <summary>
+    /// Desplazamiento rápido en dirección de movimiento (o mirada si no hay input).
+    /// Tiene cooldown y un ease-out configurable para evitar “frenada seca”.
+    /// Al terminar, arma la ventana de Sprint.
+    /// </summary>
     public class Dash : FinishableState
     {
-        public const string ToFall = "Dash->Fall";
-        public const string ToWalkIdle = "Dash->WalkIdle";
-        public const string ToDash = "Locomotion->Dash";
+        public const string ToFall     = "ToFall";
+        public const string ToWalkIdle = "ToWalkIdle";
 
         private readonly MyKinematicMotor _m;
         private readonly PlayerModel _model;
@@ -15,70 +19,59 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
 
         private Vector3 _dir;
-        private float _duration;
-        private float _t;
+        private float   _duration;
+        private float   _t;
 
         // Recuperación (ease-out)
-        private bool _recovering;
+        private bool  _recovering;
         private float _recoverT;
 
-        public System.Action<float> OnDashCooldownUI; // opcional UI
+        public System.Action<float> OnDashCooldownUI;
 
         public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null)
         { _m = m; _model = model; _req = req; _anim = anim; }
 
+        /// <summary>Usable cuando no está en cooldown.</summary>
+        public static bool CanUse(PlayerModel mdl) => !mdl.DashOnCooldown;
+
         public override void Enter()
         {
             base.Enter();
-            
-            _model.sprintArmed = false;
 
-            // Evitar que el snap al suelo corte el inicio
-            _m.ForceUnground(0.08f);
+            // Dirección: input mundo si hay, si no, forward del carácter
+            Vector3 up = _m.CharacterUp;
+            Vector3 camFwd = Vector3.ProjectOnPlane(_m.transform.forward, up); // fallback
+            _dir = camFwd.normalized;
 
-            _anim?.TriggerDash();
-
-            // Dirección: input si hay, sino forward del personaje
-            Vector3 forward = _m.transform.forward;
-            Vector3 inputDir = _model.moveInputWorld.sqrMagnitude > 1e-5f ? _model.moveInputWorld.normalized : forward;
-            _dir = new Vector3(inputDir.x, 0f, inputDir.z).normalized;
-            if (_dir.sqrMagnitude < 1e-5f) _dir = forward;
+            // si hay input, usarlo
+            if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
+                _dir = _model.MoveInputWorld.normalized;
 
             // Duración = distancia / velocidad
-            _duration = Mathf.Max(0.01f, _model.dashDistance / Mathf.Max(0.01f, _model.dashSpeed));
+            _duration = (_model.DashDistance / Mathf.Max(0.01f, _model.DashSpeed));
             _t = 0f;
 
-            _recovering = false;
-            _recoverT = 0f;
-
-            // Invulnerable durante la fase "rápida"
-            _model.invulnerableToEnemies = true;
-
-            // Velocidad horizontal constante
-            var v = _m.Velocity;
-            v.x = _dir.x * _model.dashSpeed;
-            v.z = _dir.z * _model.dashSpeed;
-            _m.SetVelocity(v);
+            // Anim y flags
+            _anim?.TriggerDash();
+            _model.InvulnerableToEnemies = true;
 
             // Cooldown
-            _model.dashOnCooldown = true;
-            _model.dashCooldownLeft = _model.dashCooldown;
-            OnDashCooldownUI?.Invoke(_model.dashCooldownLeft);
+            _model.DashOnCooldown = true;
+            _model.DashCooldownLeft = _model.DashCooldown;
+            OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
+
+            // Velocidad instantánea
+            var v = _m.Velocity;
+            v.x = _dir.x * _model.DashSpeed;
+            v.z = _dir.z * _model.DashSpeed;
+            _m.SetVelocity(v);
         }
 
         public override void Exit()
         {
             base.Exit();
-            // sale de invulnerabilidad
-            _model.invulnerableToEnemies = false;
-
-            // ✅ armar sprint: abre una ventana donde, si el jugador mantiene dash,
-            //    y cumple el tiempo de hold, podrá entrar a Sprint
-            _model.sprintArmed = true;
-            _model.sprintArmTimeLeft = _model.sprintArmWindow;
-            _model.sprintHoldCounter = 0f;
+            _model.InvulnerableToEnemies = false;
         }
-
 
         public override void Tick(float dt)
         {
@@ -86,63 +79,46 @@ namespace Player.New
 
             if (!_recovering)
             {
-                // Fase rápida
                 _t += dt;
 
+                // mantener dirección constante durante el dash
                 var v = _m.Velocity;
-                v.x = _dir.x * _model.dashSpeed;
-                v.z = _dir.z * _model.dashSpeed;
+                v.x = _dir.x * _model.DashSpeed;
+                v.z = _dir.z * _model.DashSpeed;
                 _m.SetVelocity(v);
 
                 if (_t >= _duration)
                 {
-                    // Inicia la fase de recuperación (suavizado)
+                    // Inicia fase de ease-out
                     _recovering = true;
                     _recoverT = 0f;
 
-                    // Vuelve a ser vulnerable al terminar el desplazamiento "rápido"
-                    _model.invulnerableToEnemies = false;
+                    // Abrir ventana de Sprint
+                    _model.BeginSprintWindow();
                 }
-                return;
             }
-
-            // ---------- FASE DE RECUPERACIÓN (EASE-OUT) ----------
-            _recoverT += dt;
-
-            bool inAir = !_m.IsGrounded;
-
-            // Target de velocidad horizontal:
-            // - Si hay input, hacia el movimiento normal (Walk/Air).
-            // - Si NO hay input:
-            //      * en suelo: hacia 0 (pero de forma suave)
-            //      * en aire: mantener dirección del dash, a velocidad aérea
-            Vector3 desiredDir =
-                _model.moveInputWorld.sqrMagnitude > 1e-5f
-                    ? _model.moveInputWorld
-                    : (inAir ? _dir : Vector3.zero);
-
-            float targetSpeed = inAir ? _model.airHorizontalSpeed : _model.moveSpeed;
-            Vector3 targetHoriz = desiredDir * targetSpeed;
-
-            var vel = _m.Velocity;
-            Vector3 horiz = new Vector3(vel.x, 0f, vel.z);
-
-            // Interpolación suave: expo hacia el target
-            float alpha = 1f - Mathf.Exp(-_model.dashExitSharpness * dt);
-            horiz = Vector3.Lerp(horiz, targetHoriz, alpha);
-
-            vel.x = horiz.x; vel.z = horiz.z;
-            _m.SetVelocity(vel);
-
-            // Fin de la recuperación: ahora sí salimos del estado
-            if (_recoverT >= _model.dashExitBlendTime)
+            else
             {
-                if (inAir) _req?.Invoke(ToFall);
-                else       _req?.Invoke(ToWalkIdle);
-                Finish();
+                // Ease-out: mezcla exponencial hacia la velocidad objetivo del movimiento normal
+                _recoverT += dt;
+                float k = Mathf.Clamp01(_recoverT / Mathf.Max(0.01f, _model.DashExitBlendTime));
+
+                // velocidad objetivo actual según input
+                Vector3 desired = _model.MoveInputWorld * _model.MoveSpeed;
+                Vector3 v = _m.Velocity;
+                Vector3 h = new Vector3(v.x, 0f, v.z);
+                h = Vector3.Lerp(h, desired, 1f - Mathf.Exp(-_model.DashExitSharpness * k * dt));
+                v.x = h.x; v.z = h.z;
+                _m.SetVelocity(v);
+
+                if (_recoverT >= _model.DashExitBlendTime)
+                {
+                    // terminar
+                    _recovering = false;
+                    _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
+                    Finish();
+                }
             }
         }
-
-        public static bool CanUse(PlayerModel model) => !model.dashOnCooldown;
     }
 }
