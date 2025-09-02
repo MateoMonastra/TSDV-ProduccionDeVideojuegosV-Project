@@ -39,13 +39,13 @@ namespace Player.New.UI
             if (!model) return;
 
             // SPIN (cooldown)
-            UpdateCooldown(spinCdFill, spinCdText, model.spinOnCooldown ? model.spinCooldownLeft : 0f, model.spinCooldown);
+            UpdateCooldown(spinCdFill, spinCdText, model.SpinOnCooldown ? model.SpinCooldownLeft : 0f, model.SpinCooldown);
 
             // DASH (cooldown)
-            UpdateCooldown(dashCdFill, dashCdText, model.dashOnCooldown ? model.dashCooldownLeft : 0f, model.dashCooldown);
+            UpdateCooldown(dashCdFill, dashCdText, model.DashOnCooldown ? model.DashCooldownLeft : 0f, model.DashCooldown);
 
             // VERTICAL (cooldown)
-            UpdateCooldown(vertCdFill, vertCdText, model.verticalOnCooldown ? model.verticalCooldownLeft : 0f, model.verticalAttackCooldown);
+            UpdateCooldown(vertCdFill, vertCdText, model.VerticalOnCooldown ? model.VerticalCooldownLeft : 0f, model.VerticalAttackCooldown);
         }
 
         private void UpdateCooldown(Image fill, Text txt, float left, float total)
