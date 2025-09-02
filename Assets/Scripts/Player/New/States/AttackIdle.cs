@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace Player.New
 {
+    /// <summary>
+    /// Reposo del combo. Escucha clic para iniciar el primer golpe si está en suelo.
+    /// </summary>
     public class AttackIdle : State
     {
-        public const string ToA1 = "AttackIdle->Attack1";
+        public const string ToAttack1 = "ToAttack1";
 
         private readonly System.Action<string> _req;
         private readonly PlayerModel _model;
@@ -13,9 +16,7 @@ namespace Player.New
         private readonly MyKinematicMotor _motor;
 
         public AttackIdle(PlayerModel model, System.Action<string> request, PlayerAnimationController anim = null, MyKinematicMotor motor = null)
-        {
-            _model = model; _req = request; _anim = anim; _motor = motor;
-        }
+        { _model = model; _req = request; _anim = anim; _motor = motor; }
 
         public override void Enter()
         {
@@ -23,25 +24,16 @@ namespace Player.New
             _model.ClearActionLocks();
             _anim?.SetCombatActive(false);
         }
-        
-        public override void Tick(float delta)
-        {
-            base.Tick(delta);
-            
-            if (_model.attackComboOnCooldown)
-            {
-                _model.attackComboCooldownLeft = Mathf.Max(0f, _model.attackComboCooldownLeft - delta);
-                if (_model.attackComboCooldownLeft <= 0f) _model.attackComboOnCooldown = false;
-            }
-        }
 
         public override void HandleInput(params object[] values)
         {
-            if (_model.attackComboOnCooldown) return;
-            if (_motor != null && !_motor.IsGrounded) return;
-
-            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == "AttackPressed")
-                _req?.Invoke(ToA1);
+            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == CommandKeys.AttackPressed)
+            {
+                if (_motor == null || _motor.IsGrounded)
+                {
+                    _req?.Invoke(ToAttack1);
+                }
+            }
         }
     }
 }
