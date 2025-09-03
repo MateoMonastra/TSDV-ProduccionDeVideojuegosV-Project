@@ -39,6 +39,7 @@ namespace Interactable
                 if (_currentExitTime >= exitTime)
                 {
                     _currentExitTime = 0;
+                    interacting = false;
                     onExitTimer?.Invoke();
                 }
             }
@@ -46,8 +47,11 @@ namespace Interactable
 
         public void Interact()
         {
+            if(interacting)
+                return;
+            
             onInteract?.Invoke();
-
+            interacting = true;
             isOnTimer = true;
         }
 
