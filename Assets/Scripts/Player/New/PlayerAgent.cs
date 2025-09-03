@@ -216,6 +216,10 @@ namespace Player.New
             if (cameraRef == null) cameraRef = Camera.main;
             if (motor == null) motor = GetComponent<MyKinematicMotor>();
             if (model == null) model = ScriptableObject.CreateInstance<PlayerModel>();
+
+            if (!model) return;
+            model.HasExtraJump = false;
+            model.DashBuffPending = false;
         }
 
         /// <summary>
