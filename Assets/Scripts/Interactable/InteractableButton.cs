@@ -8,7 +8,8 @@ namespace Interactable
 {
     public class InteractableButton : MonoBehaviour, IInteractable
     {
-        [Header("Settings")] 
+        [Header("Settings")]
+        [SerializeField] private InteractData interactData;
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
 
@@ -45,14 +46,20 @@ namespace Interactable
             }
         }
 
-        public void Interact()
+        public InteractData Interact()
         {
+            interactData.successInteraction = false;
+
             if(interacting)
-                return;
+                return interactData;
             
             onInteract?.Invoke();
             interacting = true;
             isOnTimer = true;
+
+            interactData.interactPos = interactorTargetTransform.position;
+            interactData.successInteraction = true;
+            return interactData;
         }
 
         public bool TryInteractionRange(Vector3 interactor)

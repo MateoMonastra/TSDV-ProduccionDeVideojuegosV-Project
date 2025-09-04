@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace KinematicCharacterController.Examples
 {
@@ -6,11 +7,17 @@ namespace KinematicCharacterController.Examples
     {
         private IInteractable interactionTarget;
 
+        public Action<InteractData> OnInteractAction;
         public void Interact()
         {
             if (interactionTarget != null)
             {
-                interactionTarget.Interact();
+                InteractData data = interactionTarget.Interact();
+
+                if(data.successInteraction)
+                {
+                    OnInteractAction?.Invoke(data);
+                }
             }
         }
 
