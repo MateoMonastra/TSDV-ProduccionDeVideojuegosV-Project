@@ -14,6 +14,7 @@ namespace KinematicCharacterController.Examples
         Default,
         Dashing,
         Stunned,
+        Interacting,
         Death,
     }
 
@@ -127,6 +128,7 @@ namespace KinematicCharacterController.Examples
 
         private IInteractable targettedInteractable;
 
+        private Coroutine _interactCoroutine;
         private Coroutine _damageCoroutine;
         private Coroutine _deathCoroutine;
 
@@ -148,12 +150,7 @@ namespace KinematicCharacterController.Examples
             hammerController = GetComponentInChildren<HammerController>();
 
             _interactController = GetComponent<InteractController>();
-            _interactController.OnInteractAction += (posta) =>
-                {
-                    Motor.BaseVelocity = Vector3.zero;
-
-                    Motor.SetPosition(posta.interactPos);
-                };
+            _interactController.OnInteractAction += InteractSequence;
 
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
@@ -955,6 +952,23 @@ namespace KinematicCharacterController.Examples
             animator.SetBool(IsDamaged, false);
             TransitionToState(CharacterState.Default);
             _isDamaged = false;
+        }
+
+        private void InteractSequence(InteractData interactData)
+        {
+            Motor.BaseVelocity = Vector3.zero;
+            animator.SetTrigger(interactData.animTrigger);
+            Motor.SetPosition(interactData.interactPos);
+
+            TransitionToState(CharacterState.Interacting);
+
+            _interactCoroutine = StartCoroutine(InteractCoroutine(interactData));
+        }
+
+        private IEnumerator InteractCoroutine(InteractData interactData)
+        {
+            yield return new WaitForSeconds(interactData.interactionTime);
+            TransitionToState(CharacterState.Default);
         }
 
         private bool CanJump()
