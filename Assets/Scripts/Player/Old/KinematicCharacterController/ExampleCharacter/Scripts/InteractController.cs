@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Data;
 using UnityEngine;
 
 namespace KinematicCharacterController.Examples
@@ -7,7 +9,8 @@ namespace KinematicCharacterController.Examples
     {
         private IInteractable interactionTarget;
 
-        public Action<InteractData> OnInteractAction;
+        public Action<InteractData> OnStartInteractAction;
+        public Action<InteractData> OnEndInteractAction;
         public void Interact()
         {
             if (interactionTarget != null)
@@ -16,7 +19,7 @@ namespace KinematicCharacterController.Examples
 
                 if(data.successInteraction)
                 {
-                    OnInteractAction?.Invoke(data);
+                    StartCoroutine(InteractionCoroutine(data));
                 }
             }
         }
@@ -52,6 +55,13 @@ namespace KinematicCharacterController.Examples
                 closestInteractable.SetIndicator(true);
                 interactionTarget = closestInteractable;
             }
+        }
+
+        private IEnumerator InteractionCoroutine(InteractData data)
+        {
+            OnStartInteractAction?.Invoke(data);
+            yield return new WaitForSeconds(data.interactionTime);
+            OnEndInteractAction?.Invoke(data);
         }
     }
 }

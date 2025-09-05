@@ -150,7 +150,7 @@ namespace KinematicCharacterController.Examples
             hammerController = GetComponentInChildren<HammerController>();
 
             _interactController = GetComponent<InteractController>();
-            _interactController.OnInteractAction += InteractSequence;
+            _interactController.OnStartInteractAction += InteractSequence;
 
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
