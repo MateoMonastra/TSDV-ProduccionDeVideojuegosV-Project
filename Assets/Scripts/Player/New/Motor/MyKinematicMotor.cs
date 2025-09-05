@@ -39,6 +39,11 @@ namespace Player.New
         [SerializeField] private LayerMask _pickupMask;
         [SerializeField] private int _maxPickupsPerFrame = 8;
         
+        [SerializeField, Tooltip("Publicar pose con RB kinemático para que Unity dispare OnTrigger/OnCollision")]
+        private bool useRigidbodyForPose = true;
+        private Rigidbody _rb;
+
+        
         private readonly Collider[] _pickupHits = new Collider[16];
 
 
@@ -78,6 +83,15 @@ namespace Player.New
         }
         private void Awake()
         {
+            _rb = GetComponent<Rigidbody>();
+            if (_rb != null)
+            {
+                _rb.isKinematic = true;
+                _rb.useGravity  = false;
+                _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                _rb.interpolation = RigidbodyInterpolation.Interpolate;
+            }
+            
             _rigidbodyHandler = new RigidbodyInteractionHandler(_characterMass);
             _movementSolver = new MovementSolver(_capsule, _collisionMask | _groundMask, _rigidbodyHandler);
             _groundingSolver = new GroundingSolver(_capsule, _groundMask);
@@ -114,9 +128,18 @@ namespace Player.New
             if (_ungroundTimer <= 0f && _velocity.y <= _maxSnapSpeed)
                 TrySnapToGround(_groundSnapDistance);
 
-            DetectPickups();
+            // DetectPickups();
             
-            transform.SetPositionAndRotation(_position, _rotation);
+            if (useRigidbodyForPose && _rb != null)
+            {
+                _rb.MovePosition(_position);
+                _rb.MoveRotation(_rotation);
+            }
+            else
+            {
+                transform.SetPositionAndRotation(_position, _rotation);
+                Physics.SyncTransforms();
+            }
         }
 
         public void SetRotation(Vector3 direction)
@@ -190,33 +213,33 @@ namespace Player.New
         }
         
         /// <summary>Detecta pickups overlapeando el cápsule actual y les notifica.</summary>
-        private void DetectPickups()
-        {
-            if (_pickupMask == 0) return;
-            
-            Vector3 bottom = GetCapsuleBottomAt(_position);
-            Vector3 top    = GetCapsuleTopAt(_position);
-            
-            int count = Physics.OverlapCapsuleNonAlloc(
-                bottom, top, _capsule.radius,
-                _pickupHits, _pickupMask,
-                QueryTriggerInteraction.Collide);
-
-            if (count <= 0) return;
-            
-            var agent = GetComponentInParent<Player.New.PlayerAgent>();
-            if (agent == null) return;
-
-            for (int i = 0; i < count; i++)
-            {
-                var col = _pickupHits[i];
-                if (col == null) continue;
-
-                // Cualquier script de pickup puede implementar este callback
-                // (evitamos depender de OnTriggerEnter)
-                col.SendMessage("OnMotorTouch", agent, SendMessageOptions.DontRequireReceiver);
-            }
-        }
+        // private void DetectPickups()
+        // {
+        //     if (_pickupMask == 0) return;
+        //     
+        //     Vector3 bottom = GetCapsuleBottomAt(_position);
+        //     Vector3 top    = GetCapsuleTopAt(_position);
+        //     
+        //     int count = Physics.OverlapCapsuleNonAlloc(
+        //         bottom, top, _capsule.radius,
+        //         _pickupHits, _pickupMask,
+        //         QueryTriggerInteraction.Collide);
+        //
+        //     if (count <= 0) return;
+        //     
+        //     var agent = GetComponentInParent<Player.New.PlayerAgent>();
+        //     if (agent == null) return;
+        //
+        //     for (int i = 0; i < count; i++)
+        //     {
+        //         var col = _pickupHits[i];
+        //         if (col == null) continue;
+        //
+        //         // Cualquier script de pickup puede implementar este callback
+        //         // (evitamos depender de OnTriggerEnter)
+        //         col.SendMessage("OnMotorTouch", agent, SendMessageOptions.DontRequireReceiver);
+        //     }
+        // }
 
 
         private void OnDrawGizmos()
