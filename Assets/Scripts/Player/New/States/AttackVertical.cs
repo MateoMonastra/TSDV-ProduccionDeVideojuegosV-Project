@@ -28,7 +28,7 @@ namespace Player.New
 
         /// <summary>Puede usarse si está en aire, no hay cooldown y el salto fue vertical.</summary>
         public static bool CanUse(MyKinematicMotor m, PlayerModel model)
-            => !m.IsGrounded && !model.VerticalOnCooldown && model.JumpWasPureVertical;
+            => !m.IsGrounded && !model.VerticalOnCooldown;
 
         public override void Enter()
         {
