@@ -59,9 +59,11 @@ namespace Player.New
                     _anim?.SetGrounded(true);
                     _anim?.SetWalking(false);
 
-                    // Frenar horizontal al aterrizar
-                    var v = Motor.Velocity; v.x = 0f; v.z = 0f;
-                    Motor.SetVelocity(v);
+                    if (Model.LandStopsHorizontal)
+                    {
+                        var v = Motor.Velocity; v.x = 0f; v.z = 0f;
+                        Motor.SetVelocity(v);
+                    }
 
                     RequestTransition?.Invoke(ToWalkIdle);
                 }

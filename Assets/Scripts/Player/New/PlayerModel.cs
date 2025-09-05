@@ -25,7 +25,17 @@ namespace Player.New
 
         [SerializeField, Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         private float airHorizontalSpeed = 6f;
+        
+        [SerializeField, Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
+        private bool landStopsHorizontal = false;
 
+        /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
+        public bool LandStopsHorizontal
+        {
+            get => landStopsHorizontal;
+            set => landStopsHorizontal = value;
+        }
+        
         /// <summary>Velocidad de movimiento en suelo (m/s).</summary>
         public float MoveSpeed
         {
