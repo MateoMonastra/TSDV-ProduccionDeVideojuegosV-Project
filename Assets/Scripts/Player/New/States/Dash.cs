@@ -38,45 +38,47 @@ namespace Player.New
         {
             base.Enter();
 
-            // Dirección: input mundo si hay, si no, forward del carácter
+            // Dirección: input mundo si hay, sino forward del carácter
             Vector3 up = _m.CharacterUp;
-            Vector3 charFwd = Vector3.ProjectOnPlane(_m.transform.forward, up); // fallback
+            Vector3 charFwd = Vector3.ProjectOnPlane(_m.transform.forward, up);
             _dir = charFwd.sqrMagnitude > 1e-6f ? charFwd.normalized : _m.transform.forward;
-
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
 
-            // === Distancia efectiva (consume el buff si estaba pendiente) ===
-            float baseDistance = _model.DashDistance;
-            float effectiveDistance = baseDistance;
+            // ===== Valores efectivos =====
+            float effectiveDistance = Mathf.Max(0.01f, _model.DashDistance);
+            float effectiveSpeed    = Mathf.Max(0.01f, _model.DashSpeed);
 
             if (_model.DashBuffPending)
             {
-                float mult = Mathf.Max(0.01f, _model.DashBuffDistanceMultiplier);
-                effectiveDistance *= mult;
-                _model.DashBuffPending = false; // se consume en este dash
+                // usar los valores ABSOLUTOS del buff
+                effectiveDistance = Mathf.Max(0.01f, _model.DashBuffDistance);
+                effectiveSpeed    = Mathf.Max(0.01f, _model.DashBuffSpeed);
+
+                // consumir el buff (aplica sólo al PRÓXIMO dash)
+                _model.DashBuffPending = false;
             }
 
-            // Duración = distancia / velocidad (con clamps de seguridad)
-            float speed = Mathf.Max(0.01f, _model.DashSpeed);
-            _duration = effectiveDistance / speed;
+            // Duración = distancia / velocidad
+            _duration = effectiveDistance / effectiveSpeed;
             _t = 0f;
 
             // Anim y flags
             _anim?.TriggerDash();
             _model.InvulnerableToEnemies = true;
 
-            // Cooldown (el pickup puede haberlo reseteado antes; acá simplemente lo rearmamos)
+            // Cooldown
             _model.DashOnCooldown   = true;
             _model.DashCooldownLeft = _model.DashCooldown;
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
 
-            // Velocidad instantánea (solo horizontal)
+            // Velocidad instantánea (sólo horizontal)
             var v = _m.Velocity;
-            v.x = _dir.x * speed;
-            v.z = _dir.z * speed;
+            v.x = _dir.x * effectiveSpeed;
+            v.z = _dir.z * effectiveSpeed;
             _m.SetVelocity(v);
         }
+
 
         public override void Exit()
         {

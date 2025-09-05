@@ -3,54 +3,67 @@ using Player.New;
 
 namespace PickUps
 {
-    /// <summary>
-    /// Marca un buff para el próximo dash (multiplica la distancia) y
-    /// resetea el cooldown a 0 para permitir usarlo ya.
-    /// Si el jugador ya tiene un dash buff pendiente, ignora el pickup.
-    /// </summary>
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class DashRefresher : Pickup
     {
-        [Header("Buff")]
-        [SerializeField, Tooltip("Override opcional del multiplicador; si <= 0 usa el del PlayerModel.")]
-        private float distanceMultiplierOverride = 0f;
+        [Header("Buff (valores absolutos)")]
+        [SerializeField, Tooltip("Distancia del PRÓXIMO dash (m).")]
+        private float buffDistance = 3.0f;
+
+        [SerializeField, Tooltip("Velocidad del PRÓXIMO dash (m/s).")]
+        private float buffSpeed = 24f;
 
         [Header("FX / UI (opcionales)")]
         [SerializeField] private ParticleSystem pickUpParticles;
         [SerializeField] private AudioSource sfx;
 
-        /// <summary>
-        /// Llamado por el motor kinemático mediante SendMessage cuando
-        /// el capsule del jugador solapa este pickup.
-        /// </summary>
+        private Collider _col;
+        private Rigidbody _rb;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _col = GetComponent<Collider>();
+            _rb  = GetComponent<Rigidbody>();
+            _col.isTrigger = true;
+            _rb.isKinematic = true;
+            _rb.useGravity  = false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var agent = other.GetComponentInParent<PlayerAgent>();
+            if (agent != null) OnMotorTouch(agent);
+        }
+
+        // Si usás el callback del motor kinemático:
         public void OnMotorTouch(PlayerAgent agent)
         {
             if (agent == null) return;
             var model = agent.GetPlayerModel();
-            
+
+            // Si ya hay un buff pendiente, ignorar hasta que se consuma
             if (model.DashBuffPending) return;
 
-            model.DashBuffPending = true;
-            
-            if (distanceMultiplierOverride > 0f)
-                model.DashBuffDistanceMultiplier = distanceMultiplierOverride;
-            
+            // Setear valores absolutos para el PRÓXIMO dash
+            model.DashBuffPending  = true;
+            model.DashBuffDistance = buffDistance;
+            model.DashBuffSpeed    = buffSpeed;
+
+            // Resetear cooldown: usable YA
             model.DashCooldownLeft = 0f;
             model.DashOnCooldown   = false;
-            
+
+            // FX/UI
             if (pickUpParticles)
             {
                 if (pickUpParticles.isPlaying) pickUpParticles.Stop();
                 pickUpParticles.Play();
             }
             if (sfx) sfx.Play();
-
-            RefreshCooldown();
-        }
-        
-        private void OnTriggerEnter(Collider other)
-        {
-            var agent = other.GetComponentInParent<PlayerAgent>();
-            if (agent != null) OnMotorTouch(agent);
+            
+             RefreshCooldown();
         }
     }
 }

@@ -25,8 +25,9 @@ namespace Player.New
 
         [SerializeField, Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         private float airHorizontalSpeed = 6f;
-        
-        [SerializeField, Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
+
+        [SerializeField,
+         Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
         private bool landStopsHorizontal = false;
 
         /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
@@ -35,7 +36,7 @@ namespace Player.New
             get => landStopsHorizontal;
             set => landStopsHorizontal = value;
         }
-        
+
         /// <summary>Velocidad de movimiento en suelo (m/s).</summary>
         public float MoveSpeed
         {
@@ -228,19 +229,34 @@ namespace Player.New
         }
 
         #endregion
-      
+
         // ───────────────────────────────────────────────────────────────────────
-        
+
         #region Pickups
-      
+
         [Header("Pickups")] [SerializeField, Tooltip("¿Tiene un salto extra pendiente de uso?")]
         private bool hasExtraJump = false;
 
         [SerializeField, Tooltip("¿Hay un dash buff pendiente para el próximo dash?")]
         private bool dashBuffPending = false;
 
-        [SerializeField, Tooltip("Multiplicador de distancia para el dash mejorado (sólo el siguiente dash).")]
-        private float dashBuffDistanceMultiplier = 1.5f;
+        [SerializeField, Tooltip("Distancia total del PRÓXIMO dash cuando hay buff (m).")]
+        private float dashBuffDistance = 3.0f;
+
+        [SerializeField, Tooltip("Velocidad del PRÓXIMO dash cuando hay buff (m/s).")]
+        private float dashBuffSpeed = 24f;
+
+        public float DashBuffDistance
+        {
+            get => dashBuffDistance;
+            set => dashBuffDistance = value;
+        }
+
+        public float DashBuffSpeed
+        {
+            get => dashBuffSpeed;
+            set => dashBuffSpeed = value;
+        }
 
         /// <summary>True si el jugador tiene un salto extra pendiente.</summary>
         public bool HasExtraJump
@@ -256,17 +272,10 @@ namespace Player.New
             set => dashBuffPending = value;
         }
 
-        /// <summary>Multiplicador de distancia para el dash buff.</summary>
-        public float DashBuffDistanceMultiplier
-        {
-            get => dashBuffDistanceMultiplier;
-            set => dashBuffDistanceMultiplier = value;
-        }
-        
         #endregion
 
         // ───────────────────────────────────────────────────────────────────────
-        
+
         #region Combat Targeting
 
         // ───────────────────────────────────────────────────────────────────────
