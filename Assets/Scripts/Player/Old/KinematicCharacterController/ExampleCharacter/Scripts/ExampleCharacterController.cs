@@ -965,8 +965,10 @@ namespace KinematicCharacterController.Examples
         private IEnumerator InteractCoroutine(InteractData interactData)
         {
             Motor.BaseVelocity = Vector3.zero;
+            Motor.RotateCharacter(interactData.interactRot);
             animator.SetTrigger(interactData.animTrigger);
             Motor.SetPosition(interactData.interactPos);
+            
             animator.SetBool("IsInteracting", true);
 
             yield return new WaitForSeconds(interactData.interactionTime);

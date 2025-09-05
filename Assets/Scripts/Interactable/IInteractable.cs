@@ -14,6 +14,7 @@ public interface IInteractable
 public struct InteractData
 {
     public Vector3 interactPos;
+    public Quaternion interactRot;
     public float interactionTime;
     public bool successInteraction;
     public string animTrigger;
