@@ -6,6 +6,7 @@ public interface IInteractable
     public bool IsBeingInteracted();
     public InteractData Interact();
     public void FinishInteraction();
+    public void InterruptInteraction();
     public bool TryInteractionRange(Vector3 interactor);
     public Vector3 GetInteractionPoint();
     public void SetIndicator(bool value);

@@ -71,6 +71,11 @@ namespace Interactable
                 isOnTimer = true;
         }
 
+        public void InterruptInteraction()
+        {
+            interacting = false;
+        }
+
         public bool TryInteractionRange(Vector3 interactor)
         {
             return Vector3.Distance(interactorTargetTransform.position, interactor) <= interactionRange;

@@ -71,6 +71,7 @@ namespace KinematicCharacterController.Examples
         public void InterruptInteraction()
         {
             StopCoroutine(_interactionCoroutine);
+            interactionTarget.InterruptInteraction();
         }
     }
 }
