@@ -50,12 +50,14 @@ namespace Interactable
         {
             interactData.successInteraction = false;
 
-            if(interacting)
+            if (interacting)
                 return interactData;
-            
+
             onInteract?.Invoke();
             interacting = true;
             isOnTimer = true;
+
+            SetIndicator(false);
 
             interactData.interactPos = interactorTargetTransform.position;
             interactData.successInteraction = true;
@@ -69,7 +71,10 @@ namespace Interactable
 
         public void SetIndicator(bool value)
         {
-            indicator.SetActive(value);
+            if (interacting)
+                indicator.SetActive(false);
+            else
+                indicator.SetActive(value);
         }
 
         public Vector3 GetInteractionPoint()

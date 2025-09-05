@@ -956,10 +956,7 @@ namespace KinematicCharacterController.Examples
 
         private void InteractSequence(InteractData interactData)
         {
-            Motor.BaseVelocity = Vector3.zero;
-            animator.SetTrigger(interactData.animTrigger);
-            Motor.SetPosition(interactData.interactPos);
-
+            
             TransitionToState(CharacterState.Interacting);
 
             _interactCoroutine = StartCoroutine(InteractCoroutine(interactData));
@@ -967,7 +964,15 @@ namespace KinematicCharacterController.Examples
 
         private IEnumerator InteractCoroutine(InteractData interactData)
         {
+            Motor.BaseVelocity = Vector3.zero;
+            animator.SetTrigger(interactData.animTrigger);
+            Motor.SetPosition(interactData.interactPos);
+            animator.SetBool("IsInteracting", true);
+
             yield return new WaitForSeconds(interactData.interactionTime);
+
+            animator.SetBool("IsInteracting", false);
+
             TransitionToState(CharacterState.Default);
         }
 
