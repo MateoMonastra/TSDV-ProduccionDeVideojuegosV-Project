@@ -16,7 +16,6 @@ namespace Interactable
         [SerializeField] private bool exitTimerEnabled;
         [SerializeField] private UnityEvent onExitTimer;
 
-
         [SerializeField] private float exitTime;
 
         [SerializeField] private Transform interactorTargetTransform;
