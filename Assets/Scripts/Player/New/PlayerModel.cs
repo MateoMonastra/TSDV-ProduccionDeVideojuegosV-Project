@@ -127,6 +127,15 @@ namespace Player.New
         [SerializeField, Range(1f, 30f), Tooltip("Qué tan rápido interpola la rotación hacia el objetivo.")]
         private float orientationSharpness = 12f;
 
+        [SerializeField, Tooltip("Si es true, el personaje orienta con la cámara cuando está quieto. Si es false, en idle NO gira al mover la cámara.")]
+        private bool orientWithCameraWhileIdle = false;
+
+        public bool OrientWithCameraWhileIdle
+        {
+            get => orientWithCameraWhileIdle;
+            set => orientWithCameraWhileIdle = value;
+        }
+
         /// <summary>Método de orientación (movimiento/cámara).</summary>
         public OrientationMethod Orientation
         {

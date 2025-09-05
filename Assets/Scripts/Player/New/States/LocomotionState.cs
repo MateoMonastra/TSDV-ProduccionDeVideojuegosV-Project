@@ -16,7 +16,10 @@ namespace Player.New
 
         protected LocomotionState(MyKinematicMotor motor, PlayerModel model, Transform cam, System.Action<string> req)
         {
-            Motor = motor; Model = model; Cam = cam; RequestTransition = req;
+            Motor = motor;
+            Model = model;
+            Cam = cam;
+            RequestTransition = req;
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace Player.New
             desiredDir = Vector3.ClampMagnitude(desiredDir, 1f);
 
             // Velocidad objetivo (suelo/aire) con multiplicador de acciones
-            float baseSpeed  = inAir ? Model.AirHorizontalSpeed : Model.MoveSpeed;
+            float baseSpeed = inAir ? Model.AirHorizontalSpeed : Model.MoveSpeed;
             float targetSpeed = baseSpeed * Mathf.Max(0f, Model.ActionMoveSpeedMultiplier);
             Vector3 desiredVel = desiredDir * targetSpeed;
 
@@ -63,24 +66,50 @@ namespace Player.New
             else
             {
                 if (desiredDir.sqrMagnitude <= 1e-5f)
-                    horiz = Vector3.zero;                             // frena en seco
+                    horiz = Vector3.zero; // frena en seco
                 else
                     horiz = Vector3.MoveTowards(horiz, desiredVel, Model.MoveAcceleration * dt);
             }
 
-            v.x = horiz.x; v.z = horiz.z;
+            v.x = horiz.x;
+            v.z = horiz.z;
             Motor.SetVelocity(v);
 
-            // Rotación (aim-lock tiene prioridad)
-            Vector3 lookDir;
-            if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > 1e-6f)
-                lookDir = Model.AimLockDirection.normalized;
-            else
-                lookDir = (Model.Orientation == PlayerModel.OrientationMethod.TowardsCamera)
-                    ? camPlanarForward
-                    : (desiredDir.sqrMagnitude > 1e-5f ? desiredDir : camPlanarForward);
+            // Rotación (aim-lock tiene prioridad; si no hay input, NO seguimos la cámara)
+            Vector3 lookDir = Vector3.zero;
 
-            Motor.SmoothRotation(lookDir, Model.OrientationSharpness, dt);
+            // 1) Aim-Lock manda
+            if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > 1e-6f)
+            {
+                lookDir = Model.AimLockDirection.normalized;
+            }
+            else
+            {
+                // 2) Si hay intención de movimiento, rotar hacia el desplazamiento deseado
+                if (desiredDir.sqrMagnitude > 1e-5f)
+                {
+                    lookDir = desiredDir; // hacia la dirección de movimiento (relativa a cámara)
+                }
+                else
+                {
+                    // 3) En idle: NO seguir cámara, salvo que se habilite explícitamente el toggle
+                    if (Model.Orientation == PlayerModel.OrientationMethod.TowardsCamera &&
+                        Model.OrientWithCameraWhileIdle)
+                    {
+                        lookDir = camPlanarForward; // comportamiento legacy opcional
+                    }
+                    else
+                    {
+                        // lookDir queda en cero: no rotamos este frame
+                    }
+                }
+            }
+
+            // Aplicar rotación solo si hay una dirección válida
+            if (lookDir.sqrMagnitude > 1e-6f)
+            {
+                Motor.SmoothRotation(lookDir, Model.OrientationSharpness, dt);
+            }
         }
 
         /// <summary>Si está en suelo, anula el movimiento horizontal.</summary>
@@ -89,7 +118,8 @@ namespace Player.New
             if (Motor.IsGrounded)
             {
                 var v = Motor.Velocity;
-                v.x = 0f; v.z = 0f;
+                v.x = 0f;
+                v.z = 0f;
                 Motor.SetVelocity(v);
             }
         }

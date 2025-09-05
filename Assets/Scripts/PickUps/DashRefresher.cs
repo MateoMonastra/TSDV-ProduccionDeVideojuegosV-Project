@@ -3,8 +3,6 @@ using Player.New;
 
 namespace PickUps
 {
-    [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class DashRefresher : Pickup
     {
         [Header("Buff (valores absolutos)")]
