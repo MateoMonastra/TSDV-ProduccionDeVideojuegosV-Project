@@ -8,18 +8,21 @@ namespace KinematicCharacterController.Examples
     public class InteractController : MonoBehaviour
     {
         private IInteractable interactionTarget;
+        private Coroutine _interactionCoroutine;
 
         public Action<InteractData> OnStartInteractAction;
         public Action<InteractData> OnEndInteractAction;
+
+
         public void Interact()
         {
             if (interactionTarget != null)
             {
                 InteractData data = interactionTarget.Interact();
 
-                if(data.successInteraction)
+                if (data.successInteraction)
                 {
-                    StartCoroutine(InteractionCoroutine(data));
+                    _interactionCoroutine = StartCoroutine(InteractionCoroutine(data));
                 }
             }
         }
@@ -62,6 +65,12 @@ namespace KinematicCharacterController.Examples
             OnStartInteractAction?.Invoke(data);
             yield return new WaitForSeconds(data.interactionTime);
             OnEndInteractAction?.Invoke(data);
+            interactionTarget.FinishInteraction();
+        }
+
+        public void InterruptInteraction()
+        {
+            StopCoroutine(_interactionCoroutine);
         }
     }
 }

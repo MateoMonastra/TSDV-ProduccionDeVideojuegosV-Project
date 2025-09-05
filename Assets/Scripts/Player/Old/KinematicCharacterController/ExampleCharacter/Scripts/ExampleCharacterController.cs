@@ -128,7 +128,6 @@ namespace KinematicCharacterController.Examples
 
         private IInteractable targettedInteractable;
 
-        private Coroutine _interactCoroutine;
         private Coroutine _damageCoroutine;
         private Coroutine _deathCoroutine;
 
@@ -151,6 +150,7 @@ namespace KinematicCharacterController.Examples
 
             _interactController = GetComponent<InteractController>();
             _interactController.OnStartInteractAction += InteractSequence;
+            _interactController.OnEndInteractAction += EndInteractSequence;
 
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
@@ -900,6 +900,7 @@ namespace KinematicCharacterController.Examples
                 return;
 
             hammerController.InterruptGroundSlam();
+            _interactController.InterruptInteraction();
 
             TransitionToState(CharacterState.Stunned);
 
@@ -927,8 +928,10 @@ namespace KinematicCharacterController.Examples
         {
             if (_isDamaged)
                 return;
+            
             hammerController.InterruptGroundSlam();
-
+            _interactController.InterruptInteraction();
+            
             for (int i = 0; i < hitParticles.Length; i++)
             {
                 hitParticles[i].Play();
@@ -956,23 +959,18 @@ namespace KinematicCharacterController.Examples
 
         private void InteractSequence(InteractData interactData)
         {
-            
             TransitionToState(CharacterState.Interacting);
 
-            _interactCoroutine = StartCoroutine(InteractCoroutine(interactData));
-        }
-
-        private IEnumerator InteractCoroutine(InteractData interactData)
-        {
             Motor.BaseVelocity = Vector3.zero;
             Motor.RotateCharacter(interactData.interactRot);
             animator.SetTrigger(interactData.animTrigger);
             Motor.SetPosition(interactData.interactPos);
             
             animator.SetBool("IsInteracting", true);
+        }
 
-            yield return new WaitForSeconds(interactData.interactionTime);
-
+        private void EndInteractSequence(InteractData interactData)
+        {
             animator.SetBool("IsInteracting", false);
 
             TransitionToState(CharacterState.Default);

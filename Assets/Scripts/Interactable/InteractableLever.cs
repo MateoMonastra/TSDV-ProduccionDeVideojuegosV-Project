@@ -12,8 +12,9 @@ namespace Interactable
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
 
-        [Header("Timer Settings")] 
-        [SerializeField] private bool exitTimerEnabled;
+        [Header("Timer Settings")] [SerializeField]
+        private bool exitTimerEnabled;
+
         [SerializeField] private UnityEvent onExitTimer;
 
         [SerializeField] private float exitTime;
@@ -52,17 +53,22 @@ namespace Interactable
             if (interacting)
                 return interactData;
 
-            onInteract?.Invoke();
             interacting = true;
 
-            if (exitTimerEnabled)
-                isOnTimer = true;
 
             SetIndicator(false);
 
             interactData.interactPos = interactorTargetTransform.position;
             interactData.successInteraction = true;
             return interactData;
+        }
+
+        public void FinishInteraction()
+        {
+            onInteract?.Invoke();
+            
+            if (exitTimerEnabled)
+                isOnTimer = true;
         }
 
         public bool TryInteractionRange(Vector3 interactor)
