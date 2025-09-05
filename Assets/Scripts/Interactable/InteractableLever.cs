@@ -6,16 +6,16 @@ using UnityEngine.UIElements;
 
 namespace Interactable
 {
-    public class InteractableButton : MonoBehaviour, IInteractable
+    public class InteractableLever : MonoBehaviour, IInteractable
     {
-        [Header("Settings")]
-        [SerializeField] private InteractData interactData;
+        [Header("Settings")] [SerializeField] private InteractData interactData;
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
 
-        [Header("Timer Settings")]
-        [SerializeField] private UnityEvent onExitTimer;
+        [Header("Timer Settings")] 
         [SerializeField] private bool exitTimerEnabled;
+        [SerializeField] private UnityEvent onExitTimer;
+
 
         [SerializeField] private float exitTime;
 
@@ -55,7 +55,9 @@ namespace Interactable
 
             onInteract?.Invoke();
             interacting = true;
-            isOnTimer = true;
+
+            if (exitTimerEnabled)
+                isOnTimer = true;
 
             SetIndicator(false);
 
