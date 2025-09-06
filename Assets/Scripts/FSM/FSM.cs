@@ -42,7 +42,6 @@ namespace FSM
 
             if (_current.TryGetTransition(id, out var transition))
             {
-                Debug.Log($"FSM: transition {LastFrom} -> {id} (success)");
                 transition.Do();
                 _current = transition.To;
 
@@ -94,8 +93,7 @@ namespace FSM
 
             LastFrom = _current;
             LastTransitionId = synthetic.ID;
-
-            Debug.Log($"FSM: FORCE transition {LastFrom} -> {to}");
+            
             synthetic.Do();
             _current = to;
 
