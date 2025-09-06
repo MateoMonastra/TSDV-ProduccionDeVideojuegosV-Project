@@ -13,28 +13,28 @@ namespace PickUps
         [SerializeField] private GameObject visuals;
         [SerializeField] bool activateLogs;
 
-        private Coroutine _cooldownCoroutine;
-        private Collider _collider;
-        private Rigidbody _rb;
+        protected Coroutine CooldownCoroutine;
+        protected Collider Collider;
+        protected Rigidbody Rb;
 
         protected virtual void Awake()
         {
-            _collider = GetComponent<Collider>();
-            _collider.isTrigger = true;
+            Collider = GetComponent<Collider>();
+            Collider.isTrigger = true;
 
-            _rb = GetComponent<Rigidbody>();
-            _rb.isKinematic = true;
-            _rb.useGravity  = false;
+            Rb = GetComponent<Rigidbody>();
+            Rb.isKinematic = true;
+            Rb.useGravity  = false;
         }
 
         protected void RefreshCooldown()
         {
-            _cooldownCoroutine ??= StartCoroutine(CooldownRoutine());
+            CooldownCoroutine ??= StartCoroutine(CooldownRoutine());
         }
 
         private IEnumerator CooldownRoutine()
         {
-            _collider.enabled = false;
+            Collider.enabled = false;
             if (visuals) visuals.SetActive(false);
             if (activateLogs) Debug.Log("Pickup Off");
 
@@ -42,11 +42,11 @@ namespace PickUps
 
             OnCooldown?.Invoke();
 
-            _collider.enabled = true;
+            Collider.enabled = true;
             if (visuals) visuals.SetActive(true);
             if (activateLogs) Debug.Log("Pickup On");
 
-            _cooldownCoroutine = null;
+            CooldownCoroutine = null;
         }
     }
 }

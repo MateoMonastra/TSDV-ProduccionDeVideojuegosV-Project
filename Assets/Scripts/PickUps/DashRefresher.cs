@@ -16,19 +16,6 @@ namespace PickUps
         [SerializeField] private ParticleSystem pickUpParticles;
         [SerializeField] private AudioSource sfx;
 
-        private Collider _col;
-        private Rigidbody _rb;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _col = GetComponent<Collider>();
-            _rb  = GetComponent<Rigidbody>();
-            _col.isTrigger = true;
-            _rb.isKinematic = true;
-            _rb.useGravity  = false;
-        }
-
         private void OnTriggerEnter(Collider other)
         {
             var agent = other.GetComponentInParent<PlayerAgent>();
