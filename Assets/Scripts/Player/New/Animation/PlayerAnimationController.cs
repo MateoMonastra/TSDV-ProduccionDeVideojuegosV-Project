@@ -30,6 +30,7 @@ namespace Player.New
         static readonly int tKnockdown = Animator.StringToHash("Knockdown");
         static readonly int tGetUp = Animator.StringToHash("GetUp");
         static readonly int IsDie = Animator.StringToHash("Die");
+        static readonly int IsHit = Animator.StringToHash("Hit");
 
 
         [SerializeField] private bool _debugAnimEvents = false;
@@ -129,6 +130,7 @@ namespace Player.New
         }
 
         public void TriggerDeath() => _anim?.SetTrigger(IsDie);
+        public void TriggerHit() => _anim?.SetTrigger(IsHit);
 
 
         // ------- Layer helpers -------
