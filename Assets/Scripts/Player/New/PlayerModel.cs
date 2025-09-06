@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Health;
+using UnityEngine;
 
 namespace Player.New
 {
@@ -285,6 +286,27 @@ namespace Player.New
 
         #endregion
 
+        // ───────────────────────────────────────────────────────────────────────
+
+        #region Daño recibido (hit)
+        [Header("Hit (daño recibido)")]
+        [SerializeField, Tooltip("Tiempo de stun al ser golpeado (s)")]
+        private float hitStunTime = 0.35f;
+
+        [SerializeField, Tooltip("Impulso horizontal aplicado al ser golpeado (m/s)")]
+        private float hitKnockbackHorizontal = 7.5f;
+
+        [SerializeField, Tooltip("Impulso vertical aplicado al ser golpeado (m/s)")]
+        private float hitKnockbackUp = 2.0f;
+
+        public float HitStunTime => hitStunTime;
+        public float HitKnockbackHorizontal => hitKnockbackHorizontal;
+        public float HitKnockbackUp => hitKnockbackUp;
+
+        /// <summary>Último daño recibido (lo escribe PlayerAgent al llegar OnTakeDamage).</summary>
+        public DamageInfo? LastDamage { get; set; }
+        #endregion
+        
         // ───────────────────────────────────────────────────────────────────────
 
         #region Combat Targeting
