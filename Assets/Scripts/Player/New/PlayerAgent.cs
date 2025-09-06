@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.UI;
 using UnityEngine;
 
 namespace Player.New
@@ -23,7 +24,7 @@ namespace Player.New
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
         [SerializeField] private PlayerAnimationController anim;
-        [SerializeField] private UI.CombatUIController combatUI;
+        [SerializeField] private HUDManager hud;
         [SerializeField] private Health.HealthController health;
 
         #endregion
@@ -68,7 +69,6 @@ namespace Player.New
             InitRefs();
             BuildLocomotionFsm();
             BuildActionFsm();
-            WireCombatUI();
         }
 
         private void OnEnable()
@@ -197,7 +197,6 @@ namespace Player.New
             {
                 model.SpinCooldownLeft = Mathf.Max(0f, model.SpinCooldownLeft - dt);
                 if (model.SpinCooldownLeft <= 0f) model.SpinOnCooldown = false;
-                _aSpinRelease?.OnSpinCooldownUI?.Invoke(model.SpinCooldownLeft);
             }
 
             // Vertical attack
@@ -303,8 +302,8 @@ namespace Player.New
             _a2 = new Attack2(motor, model, RequestActionTransition, anim);
             _a3 = new Attack3(motor, model, RequestActionTransition, anim);
             _aVertical = new AttackVertical(motor, model, RequestActionTransition, anim);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, motor, anim);
-            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, anim);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, anim);
+            _aSpinRelease = new SpinRelease(motor, model, hud, RequestActionTransition, anim);
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, anim);
 
             // Transiciones de acciones
@@ -325,23 +324,6 @@ namespace Player.New
             _aSelfStun.AddTransition(new Transition { From = _aSelfStun, To = _aIdle, ID = SelfStun.ToIdle });
 
             _actionFsm = new Fsm(_aIdle);
-        }
-
-        /// <summary>Conecta eventos de estados a la UI de combate (carga, cooldowns).</summary>
-        private void WireCombatUI()
-        {
-            if (!combatUI) return;
-
-            if (_aSpinCharge != null)
-            {
-                _aSpinCharge.OnSpinChargeProgress += combatUI.OnSpinChargeProgress;
-                _aSpinCharge.OnSpinChargeEnd += combatUI.OnSpinChargeEnd;
-            }
-
-            if (_aSpinRelease != null)
-            {
-                _aSpinRelease.OnSpinCooldownUI += combatUI.OnSpinCooldown;
-            }
         }
 
         /// <summary>Suscribe o desuscribe callbacks del <see cref="InputReader"/>.</summary>
@@ -400,7 +382,6 @@ namespace Player.New
             if (resetHealth && health != null)
                 health.ResetHealth();
         }
-
 
         #endregion
     }

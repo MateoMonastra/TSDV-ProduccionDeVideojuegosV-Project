@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.UI;
 using UnityEngine;
 
 namespace Player.New
@@ -19,6 +20,7 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
+        private readonly HUDManager _hud;
 
         private float _t;
         private bool  _damageTicked;
@@ -28,15 +30,15 @@ namespace Player.New
         private float _postStun;
         private float _damageMoment;
 
-        public System.Action<float> OnSpinCooldownUI;
-
         public SpinRelease(MyKinematicMotor motor,
                            PlayerModel model,
+                           HUDManager hud,
                            System.Action<string> requestTransition,
                            PlayerAnimationController anim = null)
         {
             _motor = motor;
             _model = model;
+            _hud = hud;
             _requestTransition = requestTransition;
             _anim = anim;
         }
@@ -61,7 +63,7 @@ namespace Player.New
             // Cooldown del spin
             _model.SpinOnCooldown   = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
-            OnSpinCooldownUI?.Invoke(_model.SpinCooldownLeft);
+            _hud.OnSpinCooldown(_model.SpinCooldownLeft);
 
             // Duraciones en función de la carga
             float r = Mathf.Clamp01(_model.SpinChargeRatio);

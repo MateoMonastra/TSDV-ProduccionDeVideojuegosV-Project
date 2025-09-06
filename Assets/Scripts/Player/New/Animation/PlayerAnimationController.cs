@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Player.New
 {
-    [RequireComponent(typeof(Animator))]
     public class PlayerAnimationController : MonoBehaviour
     {
         [Header("Refs")] [SerializeField] private Animator _anim;
@@ -34,11 +33,6 @@ namespace Player.New
 
 
         [SerializeField] private bool _debugAnimEvents = false;
-
-        void Reset()
-        {
-            _anim = GetComponent<Animator>();
-        }
 
         void Awake()
         {
