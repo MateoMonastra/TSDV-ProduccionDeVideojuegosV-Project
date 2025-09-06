@@ -1,4 +1,6 @@
 ﻿using FSM;
+using Health;
+using Player.New.States;
 using Player.New.UI;
 using UnityEngine;
 
@@ -44,6 +46,7 @@ namespace Player.New
         private Dash _sDash;
         private Sprint _sSprint;
         private Death _sDeath;
+        private PlayerHit _sHit;
 
         // Acciones
         private Fsm _actionFsm;
@@ -75,12 +78,16 @@ namespace Player.New
         {
             SubscribeInputs(true);
             if (health != null) health.OnDeath += OnPlayerDeath;
+            if (health)
+                health.OnTakeDamage += OnPlayerDamaged;
         }
 
         private void OnDisable()
         {
             SubscribeInputs(false);
             if (health != null) health.OnDeath -= OnPlayerDeath;
+            if (health)
+                health.OnTakeDamage -= OnPlayerDamaged;
         }
 
         private void Start()
@@ -172,6 +179,13 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm.ForceTransition(_sDeath);
         }
+        
+        private void OnPlayerDamaged(DamageInfo info)
+        {
+            model.LastDamage = info;
+            
+            _locomotionFsm.ForceTransition(_sHit);
+        }
 
         #endregion
 
@@ -252,17 +266,19 @@ namespace Player.New
             _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
-            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim);
+            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
             _sDeath = new Death(
                 motor,
                 model,
                 deadCameraRef,
                 cameraRef,
-                id => _locomotionFsm.TryTransitionTo(id),
+                RequestLocomotionTransition,
                 anim,
-                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true) // ← callback
+                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true)
             );
+
+            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: anim);
 
             // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
@@ -285,6 +301,8 @@ namespace Player.New
             _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
 
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
+            
+            _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
 
             _locomotionFsm = new Fsm(_sIdle);
         }
