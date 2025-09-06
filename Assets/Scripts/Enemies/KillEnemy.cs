@@ -49,6 +49,10 @@ public class KillEnemy : MonoBehaviour
                     breakable.Break();
                 }
             }
+            else if (other.gameObject.TryGetComponent(out IInteractable interactable))
+            {
+                interactable.Interact(true);
+            }
         }
     }
 
