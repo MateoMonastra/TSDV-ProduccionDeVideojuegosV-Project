@@ -1,57 +1,93 @@
-using System;
 using System.Collections.Generic;
-using KinematicCharacterController;
-using KinematicCharacterController.Examples;
+using Player.New;
 using UnityEngine;
-using KinematicCharacterMotor = Player.Old;
 
 namespace Platforms
 {
+    /// <summary>
+    /// Plataforma propulsora para el nuevo Kinematic Controller.
+    /// Al entrar el Player, aplica un impulso en la 'up' de la plataforma.
+    /// Se ejecuta una sola vez por "stay" y se vuelve a habilitar al salir.
+    /// </summary>
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class PropulsorPlatform : MonoBehaviour
     {
-        public float jumpForce;
-        private Dictionary<Collider, bool> collisions = new Dictionary<Collider, bool>();
+        [Header("Impulse")]
+        [SerializeField, Tooltip("Velocidad de salida que se aplica en la dirección UP de la plataforma (m/s)")]
+        private float launchSpeed = 12f;
+
+        [SerializeField, Tooltip("Sólo impulsa si el player está grounded (recomendado).")]
+        private bool onlyWhenGrounded = true;
+
+        [Header("Debug / Safety")]
+        [SerializeField, Tooltip("Loguear activaciones en consola")]
+        private bool logs;
+
+        private readonly Dictionary<Collider, bool> _consumed = new();
+
+        private Collider _col;
+        private Rigidbody _rb;
+
+        private void Awake()
+        {
+            _col = GetComponent<Collider>();
+            _rb  = GetComponent<Rigidbody>();
+            
+            _col.isTrigger      = true;
+            _rb.isKinematic     = true;
+            _rb.useGravity      = false;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!collisions.ContainsKey(other))
-                collisions.Add(other, false);
+            if (!_consumed.ContainsKey(other))
+                _consumed.Add(other, false);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (collisions[other])
+            if (!_consumed.ContainsKey(other))
+                _consumed.Add(other, false);
+            
+            if (_consumed[other]) return;
+            
+            var agent = other.GetComponentInParent<PlayerAgent>();
+            if (agent == null) return;
+
+            var motor = agent.GetComponent<MyKinematicMotor>();
+            if (motor == null) return;
+            
+            if (onlyWhenGrounded && !motor.IsGrounded)
                 return;
 
+           
+            Vector3 dir = transform.up.normalized;
+            Vector3 v   = motor.Velocity;
+            
+            v = Vector3.ProjectOnPlane(v, dir) + (dir * Mathf.Max(0f, launchSpeed));
+            motor.SetVelocity(v);
+            motor.ForceUnground(0.1f);
+            
+            _consumed[other] = true;
 
-            if (other.gameObject.CompareTag("Player"))
-            {
-                var kinematicCharacterMotor = other.gameObject.GetComponent<KinematicCharacterController.KinematicCharacterMotor>();
-                var characterController = other.gameObject.GetComponent<ExampleCharacterController>();
-
-                var hammerController = other.gameObject.GetComponentInChildren<HammerController>();
-
-                if (kinematicCharacterMotor != null && characterController != null)
-                {
-                    if (characterController.CurrentCharacterState == CharacterState.Default)
-                    {
-                        collisions[other] = true;
-                        kinematicCharacterMotor.ForceUnground();
-                        kinematicCharacterMotor.BaseVelocity = transform.up * jumpForce;
-                    }
-                }
-
-                if (hammerController != null)
-                {
-                    hammerController.InterruptGroundSlam();
-                }
-            }
+            if (logs) Debug.Log($"PropulsorPlatform: impulso aplicado a {agent.name} → {v}", this);
+            
+            agent.GetPlayerModel().ClearActionLocks();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (collisions.ContainsKey(other))
-                collisions.Remove(other);
+            if (_consumed.ContainsKey(other))
+                _consumed.Remove(other);
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(transform.position, transform.up * 1.0f);
+        }
+#endif
     }
 }
