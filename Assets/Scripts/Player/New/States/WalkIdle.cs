@@ -30,8 +30,7 @@ namespace Player.New
             base.Enter();
             _timeSinceUngrounded = 0f;
             _ungroundedFrames = 0;
-
-            // aseguramos stock de saltos al tocar suelo
+            
             Model.ResetJumps();
 
             _anim?.SetGrounded(true);
@@ -42,16 +41,13 @@ namespace Player.New
         public override void Tick(float dt)
         {
             base.Tick(dt);
-
-            // actualizar input mundo (lo usan Dash/Sprint)
+            
             UpdateMoveInputWorld();
-
-            // aplicar locomoción en suelo
+            
             ApplyLocomotion(dt, inAir: false);
 
             _anim?.SetWalking(Model.RawMoveInput.sqrMagnitude > 1e-5f);
-
-            // manejo de coyote → Fall
+            
             if (!Motor.IsGrounded)
             {
                 _timeSinceUngrounded += dt;
@@ -79,7 +75,6 @@ namespace Player.New
         /// </summary>
         private void HandleSprintWindow(float dt)
         {
-            // cancelar si no estamos en suelo
             if (!Motor.IsGrounded)
             {
                 Model.SprintArmed = false;
@@ -88,9 +83,8 @@ namespace Player.New
             }
 
             if (!Model.SprintArmed)
-                return; // no hay ventana activa (la arma Dash al terminar)
-
-            // consumir ventana
+                return;
+            
             Model.SprintArmTimeLeft -= dt;
             if (Model.SprintArmTimeLeft <= 0f)
             {
@@ -98,20 +92,16 @@ namespace Player.New
                 Model.SprintHoldCounter = 0f;
                 return;
             }
-
-            // acumular hold solo mientras se mantiene el botón de dash
+            
             if (Model.DashHeld) Model.SprintHoldCounter += dt;
             else Model.SprintHoldCounter = 0f;
-
-            // requerir intención de movimiento (input) para iniciar sprint
+            
             bool hasMoveInput = Model.RawMoveInput.sqrMagnitude > 1e-5f;
 
             if (Model.SprintHoldCounter >= Model.SprintHoldTime && hasMoveInput)
             {
-                // ¡A correr!
                 RequestTransition?.Invoke(ToSprint);
-
-                // limpiar el contador; el "armed" se limpia en Sprint.Exit()
+                
                 Model.SprintHoldCounter = 0f;
             }
         }
@@ -119,35 +109,25 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            // Salto
             if (values is { Length: >= 2 } &&
                 values[0] is string cmd &&
                 cmd == CommandKeys.Jump &&
                 values[1] is bool pressed && pressed)
             {
-                // permitir si está en suelo o dentro del coyote
+                
                 bool canJumpFromCoyote = _timeSinceUngrounded <= Model.CoyoteTime;
+                
                 if (Motor.IsGrounded || canJumpFromCoyote)
                 {
                     if (Model.JumpsLeft > 0)
                     {
-                        Debug.Log("[WalkIdle] Jump request -> JumpGround");
                         RequestTransition?.Invoke(ToJump);
                     }
-                    else
-                    {
-                        Debug.Log("[WalkIdle] Jump ignored (JumpsLeft == 0)");
-                    }
-                }
-                else
-                {
-                    Debug.Log("[WalkIdle] Jump ignored (no grounded & out of coyote)");
                 }
             }
         }
-
-        // ──────────────────────────────────────────────────────────────────
-        // Helpers
+        
+        
         private void UpdateMoveInputWorld()
         {
             Vector3 up = Motor.CharacterUp;
