@@ -127,7 +127,9 @@ namespace Player.New
         [SerializeField, Range(1f, 30f), Tooltip("Qué tan rápido interpola la rotación hacia el objetivo.")]
         private float orientationSharpness = 12f;
 
-        [SerializeField, Tooltip("Si es true, el personaje orienta con la cámara cuando está quieto. Si es false, en idle NO gira al mover la cámara.")]
+        [SerializeField,
+         Tooltip(
+             "Si es true, el personaje orienta con la cámara cuando está quieto. Si es false, en idle NO gira al mover la cámara.")]
         private bool orientWithCameraWhileIdle = false;
 
         public bool OrientWithCameraWhileIdle
@@ -515,7 +517,7 @@ namespace Player.New
         [SerializeField, Tooltip("Mult. de salto mientras dura el SpinRelease.")]
         private float spinJumpSpeedMultiplier = 1.15f;
 
-        [Header("Spin: duraciones escalables")] [SerializeField, Tooltip("Duración mínima del giro (s).")]
+        [Header("Spin: duraciones")] [SerializeField, Tooltip("Duración mínima del giro (s).")]
         private float spinMinDuration = 0.55f;
 
         [SerializeField, Tooltip("Duración máxima del giro (s).")]
@@ -545,8 +547,7 @@ namespace Player.New
         [SerializeField, Tooltip("Multiplicador de movimiento mientras se carga.")]
         private float spinMoveSpeedMultiplierWhileCharging = 0.6f;
 
-        [Header("Self Stun por Spin (escalable)")]
-        [SerializeField, Tooltip("Luego del spin, el jugador queda knockdown.")]
+        [Header("Self Stun por Spin")] [SerializeField, Tooltip("Luego del spin, el jugador queda knockdown.")]
         private bool spinCausesSelfStun = true;
 
         [SerializeField, Tooltip("Derribo mínimo (s).")]
@@ -810,6 +811,18 @@ namespace Player.New
         [System.NonSerialized] private bool _dashHeld;
         [System.NonSerialized] private float _sprintArmTimeLeft;
         [System.NonSerialized] private float _sprintHoldCounter;
+        
+        [System.NonSerialized] public Vector3 RespawnPosition;
+        [System.NonSerialized] public Quaternion RespawnRotation;
+
+        [System.NonSerialized] private bool _isDead;
+
+        public bool IsDead
+        {
+            get => _isDead;
+            set => _isDead = value;
+        }
+
 
         /// <summary>Input crudo de movimiento (Vector2).</summary>
         public Vector2 RawMoveInput

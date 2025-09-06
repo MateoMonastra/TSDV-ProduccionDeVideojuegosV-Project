@@ -17,13 +17,14 @@ namespace Player.New
 
         // ───────────────────────────────────────────────────────────────────────
 
-        [Header("Refs")] 
-        [SerializeField] private InputReader input;
+        [Header("Refs")] [SerializeField] private InputReader input;
         [SerializeField] private Camera cameraRef;
+        [SerializeField] private Camera deadCameraRef;
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
         [SerializeField] private PlayerAnimationController anim;
         [SerializeField] private UI.CombatUIController combatUI;
+        [SerializeField] private Health.HealthController health;
 
         #endregion
 
@@ -41,6 +42,7 @@ namespace Player.New
         private Fall _sFall;
         private Dash _sDash;
         private Sprint _sSprint;
+        private Death _sDeath;
 
         // Acciones
         private Fsm _actionFsm;
@@ -69,8 +71,23 @@ namespace Player.New
             WireCombatUI();
         }
 
-        private void OnEnable() => SubscribeInputs(true);
-        private void OnDisable() => SubscribeInputs(false);
+        private void OnEnable()
+        {
+            SubscribeInputs(true);
+            if (health != null) health.OnDeath += OnPlayerDeath;
+        }
+
+        private void OnDisable()
+        {
+            SubscribeInputs(false);
+            if (health != null) health.OnDeath -= OnPlayerDeath;
+        }
+
+        private void Start()
+        {
+            model.RespawnPosition = transform.position;
+            model.RespawnRotation = transform.rotation;
+        }
 
         private void Update()
         {
@@ -108,13 +125,8 @@ namespace Player.New
 
         private void OnJump()
         {
-            if (IsActionBlocked())
-            {
-                Debug.Log("[Agent] Jump ignored (LocomotionBlocked)");
-                return;
-            }
+            if (IsActionBlocked()) return;
 
-            Debug.Log("[Agent] Jump pressed -> forwarding to locomotion FSM");
             _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
         }
 
@@ -122,7 +134,6 @@ namespace Player.New
         {
             if (IsActionBlocked())
             {
-                Debug.Log("[Agent] Attack ignored (LocomotionBlocked)");
                 return;
             }
 
@@ -130,20 +141,15 @@ namespace Player.New
             {
                 if (AttackVertical.CanUse(motor, model))
                 {
-                    Debug.Log("[Agent] Air attack -> AttackVertical");
                     _actionFsm.ForceTransition(_aVertical);
                 }
-                else
-                {
-                    Debug.Log("[Agent] Air attack ignored (not pure vertical or on cooldown)");
-                }
+
                 return;
             }
-            
-            Debug.Log("[Agent] Ground attack -> forwarding AttackPressed to action FSM");
+
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
         }
-        
+
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
         private void OnAttackHeavyPressed()
         {
@@ -159,6 +165,13 @@ namespace Player.New
 
         /// <summary>Estado de “dash mantenido” para la mecánica de sprint.</summary>
         private void OnDashHeldChanged(bool held) => model.DashHeld = held;
+
+        private void OnPlayerDeath()
+        {
+            anim?.SetCombatActive(false);
+            _actionFsm?.ForceTransition(_aIdle);
+            _locomotionFsm.ForceTransition(_sDeath);
+        }
 
         #endregion
 
@@ -242,6 +255,16 @@ namespace Player.New
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
             _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim);
 
+            _sDeath = new Death(
+                motor,
+                model,
+                deadCameraRef,
+                cameraRef,
+                id => _locomotionFsm.TryTransitionTo(id),
+                anim,
+                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true) // ← callback
+            );
+
             // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sJumpGround, ID = Sprint.ToJump });
@@ -255,10 +278,14 @@ namespace Player.New
             _sJumpGround.AddTransition(
                 new Transition { From = _sJumpGround, To = _sJumpAir, ID = JumpGround.ToJumpAir });
             _sJumpAir.AddTransition(new Transition { From = _sJumpAir, To = _sFall, ID = JumpAir.ToFall });
+
             _sFall.AddTransition(new Transition { From = _sFall, To = _sIdle, ID = Fall.ToWalkIdle });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sJumpAir, ID = Fall.ToJumpAir });
+
             _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });
             _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
+
+            _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
 
             _locomotionFsm = new Fsm(_sIdle);
         }
@@ -346,7 +373,34 @@ namespace Player.New
 
         /// <summary>Verdadero cuando una acción bloquea la locomoción (vertical, knockdown, etc.).</summary>
         private bool IsActionBlocked() => model != null && model.LocomotionBlocked;
+
+        #endregion
+
+        // ───────────────────────────────────────────────────────────────────────
+
+        #region Utilities
+
         public PlayerModel GetPlayerModel() => model;
+
+        public void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
+        {
+            anim?.SetCombatActive(false);
+
+            _actionFsm?.ForceTransition(_aIdle);
+            _locomotionFsm?.ForceTransition(_sIdle);
+
+            model.ClearActionLocks();
+            model.ResetJumps();
+            model.LocomotionBlocked = false;
+            model.IsDead = false;
+
+            motor.WarpTo(pos, rot);
+            motor.SetVelocity(Vector3.zero);
+
+            if (resetHealth && health != null)
+                health.ResetHealth();
+        }
+
 
         #endregion
     }

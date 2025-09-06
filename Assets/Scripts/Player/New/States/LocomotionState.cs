@@ -66,7 +66,7 @@ namespace Player.New
             else
             {
                 if (desiredDir.sqrMagnitude <= 1e-5f)
-                    horiz = Vector3.zero; // frena en seco
+                    horiz = Vector3.zero;
                 else
                     horiz = Vector3.MoveTowards(horiz, desiredVel, Model.MoveAcceleration * dt);
             }
@@ -74,38 +74,31 @@ namespace Player.New
             v.x = horiz.x;
             v.z = horiz.z;
             Motor.SetVelocity(v);
-
-            // Rotación (aim-lock tiene prioridad; si no hay input, NO seguimos la cámara)
+         
             Vector3 lookDir = Vector3.zero;
-
-            // 1) Aim-Lock manda
+            
             if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > 1e-6f)
             {
                 lookDir = Model.AimLockDirection.normalized;
             }
             else
             {
-                // 2) Si hay intención de movimiento, rotar hacia el desplazamiento deseado
+            
                 if (desiredDir.sqrMagnitude > 1e-5f)
                 {
-                    lookDir = desiredDir; // hacia la dirección de movimiento (relativa a cámara)
+                    lookDir = desiredDir; 
                 }
                 else
                 {
-                    // 3) En idle: NO seguir cámara, salvo que se habilite explícitamente el toggle
+                    
                     if (Model.Orientation == PlayerModel.OrientationMethod.TowardsCamera &&
                         Model.OrientWithCameraWhileIdle)
                     {
-                        lookDir = camPlanarForward; // comportamiento legacy opcional
-                    }
-                    else
-                    {
-                        // lookDir queda en cero: no rotamos este frame
+                        lookDir = camPlanarForward; 
                     }
                 }
             }
-
-            // Aplicar rotación solo si hay una dirección válida
+            
             if (lookDir.sqrMagnitude > 1e-6f)
             {
                 Motor.SmoothRotation(lookDir, Model.OrientationSharpness, dt);
