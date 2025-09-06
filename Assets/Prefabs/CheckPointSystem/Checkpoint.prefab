@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5847597576241928283}
   - component: {fileID: 3842845392316313921}
   - component: {fileID: 4664573034244565817}
+  - component: {fileID: 2047787588419892113}
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Untagged
@@ -121,7 +122,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfe558f0b3d2fc4f9fba1d4b9467bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointManagerRef: {fileID: 11400000, guid: 7adeac47ce2d37c4e80247a7c07c6561, type: 2}
+  oneShot: 0
+  useSafeHeightOnCollision: 1
   onActivate:
     m_PersistentCalls:
-      m_Calls: []
-  checkpointManagerRef: {fileID: 11400000, guid: 7adeac47ce2d37c4e80247a7c07c6561, type: 2}
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CheckPoint.CheckPointSignalAnimationController,
+          Assembly-CSharp
+        m_MethodName: SetActivateAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  visuals: {fileID: 0}
+--- !u!54 &2047787588419892113
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832848426932485107}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
