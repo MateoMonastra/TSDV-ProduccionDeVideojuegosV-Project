@@ -124,7 +124,7 @@ namespace Enemies.BaseEnemy
             _fsm.TryTransitionTo(ToImpulseID);
         }
 
-        private void TransitionToDeath(DamageInfo damageOrigin)
+        private void TransitionToDeath()
         {
             onDeath?.Invoke();
             State death = new Death(this.gameObject, model);
