@@ -159,7 +159,7 @@ namespace KinematicCharacterController.Examples
         private void Start()
         {
             healthController.OnTakeDamage += DamageSequence;
-            healthController.OnDeath += DeathSequence;
+            // healthController.OnDeath += DeathSequence;
         }
 
         /// <summary>
