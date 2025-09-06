@@ -6,35 +6,39 @@ namespace Player.New
     [RequireComponent(typeof(Animator))]
     public class PlayerAnimationController : MonoBehaviour
     {
-        [Header("Refs")]
-        [SerializeField] private Animator _anim;
+        [Header("Refs")] [SerializeField] private Animator _anim;
 
-        [Header("Animator Layers")]
-        [SerializeField] private string _combatLayerName = "Combat";
+        [Header("Animator Layers")] [SerializeField]
+        private string _combatLayerName = "Combat";
+
         private int _combatLayer = -1;
 
         // Params
-        static readonly int pIsWalking   = Animator.StringToHash("IsWalking");
-        static readonly int pIsGrounded  = Animator.StringToHash("IsGrounded");
-        static readonly int pIsFalling   = Animator.StringToHash("IsFalling");
-        static readonly int tJump        = Animator.StringToHash("Jump");
-        static readonly int tDoubleJump  = Animator.StringToHash("DoubleJump");
-        static readonly int tLand        = Animator.StringToHash("Land");
-        static readonly int tDash        = Animator.StringToHash("Dash");
-        static readonly int tAttack1     = Animator.StringToHash("Attack1");
-        static readonly int tAttack2     = Animator.StringToHash("Attack2");
-        static readonly int tAttack3     = Animator.StringToHash("Attack3");
-        static readonly int tVerticalStart  = Animator.StringToHash("VerticalStart");
+        static readonly int pIsWalking = Animator.StringToHash("IsWalking");
+        static readonly int pIsGrounded = Animator.StringToHash("IsGrounded");
+        static readonly int pIsFalling = Animator.StringToHash("IsFalling");
+        static readonly int tJump = Animator.StringToHash("Jump");
+        static readonly int tDoubleJump = Animator.StringToHash("DoubleJump");
+        static readonly int tLand = Animator.StringToHash("Land");
+        static readonly int tDash = Animator.StringToHash("Dash");
+        static readonly int tAttack1 = Animator.StringToHash("Attack1");
+        static readonly int tAttack2 = Animator.StringToHash("Attack2");
+        static readonly int tAttack3 = Animator.StringToHash("Attack3");
+        static readonly int tVerticalStart = Animator.StringToHash("VerticalStart");
         static readonly int tVerticalImpact = Animator.StringToHash("VerticalImpact");
-        static readonly int bSpinCharging   = Animator.StringToHash("SpinCharging");
-        static readonly int tSpinRelease    = Animator.StringToHash("SpinRelease");
+        static readonly int bSpinCharging = Animator.StringToHash("SpinCharging");
+        static readonly int tSpinRelease = Animator.StringToHash("SpinRelease");
         static readonly int tKnockdown = Animator.StringToHash("Knockdown");
-        static readonly int tGetUp     = Animator.StringToHash("GetUp");
+        static readonly int tGetUp = Animator.StringToHash("GetUp");
+        static readonly int IsDie = Animator.StringToHash("Die");
 
 
         [SerializeField] private bool _debugAnimEvents = false;
 
-        void Reset() { _anim = GetComponent<Animator>(); }
+        void Reset()
+        {
+            _anim = GetComponent<Animator>();
+        }
 
         void Awake()
         {
@@ -50,27 +54,87 @@ namespace Player.New
         }
 
         // ------- API Animator -------
-        public void SetWalking(bool v)   { if (_anim) _anim.SetBool(pIsWalking, v); }
-        public void SetGrounded(bool v)  { if (_anim) _anim.SetBool(pIsGrounded, v); }
-        public void SetFalling(bool v)   { if (_anim) _anim.SetBool(pIsFalling, v); }
+        public void SetWalking(bool v)
+        {
+            if (_anim) _anim.SetBool(pIsWalking, v);
+        }
 
-        public void TriggerJump()        { if (_anim) _anim.SetTrigger(tJump); }
-        public void TriggerDoubleJump()  { if (_anim) _anim.SetTrigger(tDoubleJump); }
-        public void TriggerLand()        { if (_anim) _anim.SetTrigger(tLand); }
-        public void TriggerDash()        { if (_anim) _anim.SetTrigger(tDash); }
+        public void SetGrounded(bool v)
+        {
+            if (_anim) _anim.SetBool(pIsGrounded, v);
+        }
 
-        public void TriggerAttack1()     { if (_anim) _anim.SetTrigger(tAttack1); }
-        public void TriggerAttack2()     { if (_anim) _anim.SetTrigger(tAttack2); }
-        public void TriggerAttack3()     { if (_anim) _anim.SetTrigger(tAttack3); }
+        public void SetFalling(bool v)
+        {
+            if (_anim) _anim.SetBool(pIsFalling, v);
+        }
 
-        public void TriggerVerticalStart(){ if (_anim) _anim.SetTrigger(tVerticalStart); }
-        public void TriggerVerticalImpact(){ if (_anim) _anim.SetTrigger(tVerticalImpact); }
+        public void TriggerJump()
+        {
+            if (_anim) _anim.SetTrigger(tJump);
+        }
 
-        public void SetSpinCharging(bool v) { if (_anim) _anim.SetBool(bSpinCharging, v); }
-        public void TriggerSpinRelease()    { if (_anim) _anim.SetTrigger(tSpinRelease); }
-        
-        public void TriggerKnockdown() { if (_anim) _anim.SetTrigger(tKnockdown); }
-        public void TriggerGetUp()     { if (_anim) _anim.SetTrigger(tGetUp); }
+        public void TriggerDoubleJump()
+        {
+            if (_anim) _anim.SetTrigger(tDoubleJump);
+        }
+
+        public void TriggerLand()
+        {
+            if (_anim) _anim.SetTrigger(tLand);
+        }
+
+        public void TriggerDash()
+        {
+            if (_anim) _anim.SetTrigger(tDash);
+        }
+
+        public void TriggerAttack1()
+        {
+            if (_anim) _anim.SetTrigger(tAttack1);
+        }
+
+        public void TriggerAttack2()
+        {
+            if (_anim) _anim.SetTrigger(tAttack2);
+        }
+
+        public void TriggerAttack3()
+        {
+            if (_anim) _anim.SetTrigger(tAttack3);
+        }
+
+        public void TriggerVerticalStart()
+        {
+            if (_anim) _anim.SetTrigger(tVerticalStart);
+        }
+
+        public void TriggerVerticalImpact()
+        {
+            if (_anim) _anim.SetTrigger(tVerticalImpact);
+        }
+
+        public void SetSpinCharging(bool v)
+        {
+            if (_anim) _anim.SetBool(bSpinCharging, v);
+        }
+
+        public void TriggerSpinRelease()
+        {
+            if (_anim) _anim.SetTrigger(tSpinRelease);
+        }
+
+        public void TriggerKnockdown()
+        {
+            if (_anim) _anim.SetTrigger(tKnockdown);
+        }
+
+        public void TriggerGetUp()
+        {
+            if (_anim) _anim.SetTrigger(tGetUp);
+        }
+
+        public void TriggerDeath() => _anim?.SetTrigger(IsDie);
 
 
         // ------- Layer helpers -------
@@ -93,10 +157,35 @@ namespace Player.New
         public Action OnAnim_VerticalImpact;
         public Action OnAnim_SpinDamage;
         public Action OnAnim_Footstep;
+        public Action OnAnim_DeathFinished;
 
-        public void AnimEvent_AttackHit()      { if (_debugAnimEvents) Debug.Log("[AnimEvent] AttackHit"); OnAnim_AttackHit?.Invoke(); }
-        public void AnimEvent_VerticalImpact() { if (_debugAnimEvents) Debug.Log("[AnimEvent] VerticalImpact"); OnAnim_VerticalImpact?.Invoke(); }
-        public void AnimEvent_SpinDamage()     { if (_debugAnimEvents) Debug.Log("[AnimEvent] SpinDamage"); OnAnim_SpinDamage?.Invoke(); }
-        public void AnimEvent_Footstep()       { if (_debugAnimEvents) Debug.Log("[AnimEvent] Footstep"); OnAnim_Footstep?.Invoke(); }
+        public void AnimEvent_AttackHit()
+        {
+            if (_debugAnimEvents) Debug.Log("[AnimEvent] AttackHit");
+            OnAnim_AttackHit?.Invoke();
+        }
+
+        public void AnimEvent_VerticalImpact()
+        {
+            if (_debugAnimEvents) Debug.Log("[AnimEvent] VerticalImpact");
+            OnAnim_VerticalImpact?.Invoke();
+        }
+
+        public void AnimEvent_SpinDamage()
+        {
+            if (_debugAnimEvents) Debug.Log("[AnimEvent] SpinDamage");
+            OnAnim_SpinDamage?.Invoke();
+        }
+
+        public void AnimEvent_Footstep()
+        {
+            if (_debugAnimEvents) Debug.Log("[AnimEvent] Footstep");
+            OnAnim_Footstep?.Invoke();
+        }
+
+        public void OnAnimEvent_DeathFinished()
+        {
+            OnAnim_DeathFinished?.Invoke();
+        }
     }
 }
