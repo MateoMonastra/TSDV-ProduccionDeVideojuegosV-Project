@@ -18,7 +18,7 @@ namespace KinematicCharacterController.Examples
         {
             if (interactionTarget != null)
             {
-                InteractData data = interactionTarget.Interact();
+                InteractData data = interactionTarget.Interact(false);
 
                 if (data.successInteraction)
                 {

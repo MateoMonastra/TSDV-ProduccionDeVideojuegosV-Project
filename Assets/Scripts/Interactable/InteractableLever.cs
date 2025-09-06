@@ -1,14 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
 namespace Interactable
 {
     public class InteractableLever : MonoBehaviour, IInteractable
     {
-        [Header("Settings")] [SerializeField] private InteractData interactData;
+        [Header("Settings")] 
+        [SerializeField] private InteractData interactData;
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
 
@@ -46,9 +44,14 @@ namespace Interactable
             }
         }
 
-        public InteractData Interact()
+        public InteractData Interact(bool hammer)
         {
+
             interactData.successInteraction = false;
+            
+            if (hammer)
+                return interactData;
+            
 
             if (interacting)
                 return interactData;

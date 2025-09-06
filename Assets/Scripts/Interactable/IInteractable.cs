@@ -4,7 +4,7 @@ using UnityEngine;
 public interface IInteractable
 {
     public bool IsBeingInteracted();
-    public InteractData Interact();
+    public InteractData Interact(bool hammer);
     public void FinishInteraction();
     public void InterruptInteraction();
     public bool TryInteractionRange(Vector3 interactor);
