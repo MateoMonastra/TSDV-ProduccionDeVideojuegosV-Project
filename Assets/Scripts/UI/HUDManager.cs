@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Health;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ namespace Player.New.UI
     /// </summary>
     public class HUDManager : MonoBehaviour
     {
+        private static readonly int IsPlayerHealth = Animator.StringToHash("PlayerHealth");
+
         [Header("Modelo (para polling)")]
         [SerializeField] private Player.New.PlayerModel model;
 
@@ -52,8 +55,7 @@ namespace Player.New.UI
         [SerializeField, Tooltip("Overlay/GO para 'ceguera' temporal")]
         private GameObject blindnessEffect;
         [SerializeField] private float blindnessDuration = 2f;
-
-        private int _playerHealthHash;
+        
         private Coroutine _blindnessCo;
         private Coroutine _damagedCo;
         private float _pulseT;
@@ -61,8 +63,6 @@ namespace Player.New.UI
 
         private void Awake()
         {
-            _playerHealthHash = Animator.StringToHash(string.IsNullOrEmpty(playerHealthParam) ? "PlayerHealth" : playerHealthParam);
-
             // Asegurar configuración correcta de imágenes filled para el spin
             EnsureFilledSetup(spinChargeFill);
             EnsureFilledSetup(spinChargeMinMark);
@@ -162,7 +162,7 @@ namespace Player.New.UI
         public void SetHealth(int current)
         {
             if (playerHealthAnimator)
-                playerHealthAnimator.SetInteger(_playerHealthHash, current);
+                playerHealthAnimator.SetInteger(IsPlayerHealth,current);
         }
 
         public void OnDamaged()
