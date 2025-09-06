@@ -1,11 +1,14 @@
 ﻿using FSM;
 using UnityEngine;
+using Platforms; // IBreakable
+using Player;    // IDamageable
 
 namespace Player.New
 {
     /// <summary>
-    /// Ataque vertical aéreo (slam). Solo si el salto fue “puro vertical”.
-    /// Acelera hacia el piso y al impactar hace daño en área, knockback y stagger.
+    /// Ataque vertical aéreo (slam). Acelera hacia el piso y, al impactar,
+    /// aplica daño/knockback/stagger a enemigos, rompe IBreakable y empuja rigidbodies.
+    /// El impacto se sincroniza por Animation Event si existe; si no, hay fallbacks.
     /// </summary>
     public class AttackVertical : FinishableState
     {
@@ -18,24 +21,27 @@ namespace Player.New
 
         private float _t;
         private bool  _impactDone;
+        private float _postTimer;
 
-        // Fallback de impacto por proximidad al suelo
+        // Fallbacks
         private const float ImpactProximity = 0.20f; 
         private const float MaxAirTime      = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
         { _m = m; _model = mdl; _req = req; _anim = anim; }
 
-        /// <summary>Puede usarse si está en aire, no hay cooldown y el salto fue vertical.</summary>
+        /// <summary>Puede usarse si está en aire, no hay cooldown.</summary>
         public static bool CanUse(MyKinematicMotor m, PlayerModel model)
             => !m.IsGrounded && !model.VerticalOnCooldown;
 
         public override void Enter()
         {
             base.Enter();
-            _t = 0f; _impactDone = false;
+            _t = 0f; 
+            _impactDone = false;
+            _postTimer = -1f;
 
-            // Bloquea locomoción durante el slam
+            // Bloquear locomoción durante la bajada
             _model.LocomotionBlocked = true;
             _model.AimLockActive = false;
 
@@ -44,13 +50,17 @@ namespace Player.New
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
 
+            // Anim y evento
             _anim?.SetCombatActive(true);
             _anim?.TriggerVerticalStart();
+            if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
         }
 
         public override void Exit()
         {
             base.Exit();
+            if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
+
             _model.ClearActionLocks();
             _anim?.SetCombatActive(false);
         }
@@ -60,17 +70,33 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
+            // Si ya impactó, solo contar "post-stun" y salir
+            if (_impactDone)
+            {
+                if (_postTimer > 0f)
+                {
+                    _postTimer -= dt;
+                    if (_postTimer <= 0f)
+                    {
+                        _model.LocomotionBlocked = false;
+                        _req?.Invoke(ToIdle);
+                        Finish();
+                    }
+                }
+                return;
+            }
+
             // Acelerar hacia abajo con límite de velocidad
             var v = _m.Velocity;
             v.y = Mathf.Max(v.y - _model.VerticalSlamExtraAccel * dt, -_model.VerticalSlamMaxDownSpeed);
             _m.SetVelocity(v);
 
-            // Impacto por proximidad a suelo (fallback si no hay evento de anim)
-            if (!_impactDone && _m.IsGrounded && _t > 0.05f)
+            // Impacto por proximidad a suelo si no hay evento
+            if (_m.IsGrounded && _t > 0.05f)
             {
                 DoImpact();
             }
-            else if (!_impactDone)
+            else
             {
                 // raycast corto hacia abajo para anticipar
                 if (Physics.Raycast(_m.transform.position, Vector3.down, out var hit, ImpactProximity, ~0, QueryTriggerInteraction.Ignore))
@@ -82,37 +108,76 @@ namespace Player.New
                 DoImpact();
         }
 
+        private void OnAnimVerticalImpact() => DoImpact();
+
         private void DoImpact()
         {
+            if (_impactDone) return;
             _impactDone = true;
 
-            // Daño radial
-            Collider[] hits = Physics.OverlapSphere(_m.transform.position, _model.VerticalAttackRadius, _model.EnemyMask, QueryTriggerInteraction.Ignore);
+            Vector3 center = _m.transform.position;
+
+            // Objeto(s) a afectar: usamos máscara dedicada de vertical
+            // Permitimos triggers (Interactuables) y colliders normales.
+            Collider[] hits = Physics.OverlapSphere(
+                center, 
+                _model.VerticalAttackRadius, 
+                _model.VerticalHitMask, 
+                QueryTriggerInteraction.Collide
+            );
+
+            // Procesar cada hit: Enemigos (IDamageable) > Rompibles (IBreakable) > Rigidbodies
             foreach (var c in hits)
             {
-                var dmg = c.GetComponentInParent<Player.IDamageable>();
-                if (dmg == null) continue;
+                // 1) Enemigos / dummies que implementan IDamageable
+                var dmg = c.GetComponentInParent<IDamageable>();
+                if (dmg != null)
+                {
+                    Vector3 dir = (c.bounds.center - center);
+                    dir.y = 0f;
+                    if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
 
-                Vector3 dir = (c.bounds.center - _m.transform.position); dir.y = 0f;
-                if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
+                    dmg.TakeDamage(_model.VerticalDamage);
+                    dmg.ApplyKnockback(dir, _model.VerticalKnockbackDistance);
+                    dmg.ApplyStagger(_model.VerticalStaggerTime);
+                    continue;
+                }
 
-                dmg.TakeDamage(_model.VerticalDamage);
-                dmg.ApplyKnockback(dir, _model.VerticalKnockbackDistance);
-                dmg.ApplyStagger(_model.VerticalStaggerTime);
+                // 2) Rompibles
+                var br = c.GetComponentInParent<IBreakable>();
+                if (br != null)
+                {
+                    br.Break();
+                    continue;
+                }
+
+                // 3) Rigidbody(s) sueltos
+                if (_model.VerticalAffectsRigidbodies)
+                {
+                    var rb = c.attachedRigidbody ?? c.GetComponentInParent<Rigidbody>();
+                    if (rb != null && !rb.isKinematic)
+                    {
+                        Vector3 to = (c.bounds.center - center);
+                        if (to.sqrMagnitude < 1e-6f) to = Vector3.up;
+
+                        Vector3 horiz = to; horiz.y = 0f;
+                        if (horiz.sqrMagnitude > 1e-6f) horiz.Normalize();
+
+                        Vector3 pushDir = (horiz + Vector3.up * _model.VerticalRigidbodyUpFactor).normalized;
+                        rb.AddForce(pushDir * _model.VerticalRigidbodyImpulse, ForceMode.VelocityChange);
+                    }
+                }
             }
 
-            // Cooldown + post-stun breve
-            _model.VerticalOnCooldown = true;
+            // Cooldown + anim de impacto
+            _model.VerticalOnCooldown   = true;
             _model.VerticalCooldownLeft = _model.VerticalAttackCooldown;
 
             _anim?.TriggerVerticalImpact();
 
-            // Quitar bloqueo de locomoción tras el “post-stun” del vertical
-            // (si querés inmovilizar: usar una bandera/tiempo adicional)
-            _model.LocomotionBlocked = false;
-
-            _req?.Invoke(ToIdle);
-            Finish();
+            // Mantener inmóvil durante el post-stun configurado
+            _model.LocomotionBlocked = true;
+            _postTimer = Mathf.Max(0f, _model.VerticalAttackPostStun);
         }
     }
 }

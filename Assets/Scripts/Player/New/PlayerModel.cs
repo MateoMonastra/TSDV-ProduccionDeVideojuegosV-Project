@@ -442,7 +442,46 @@ namespace Player.New
 
         [SerializeField, Tooltip("Impulso vertical inicial negativo (m/s), 0 = sin impulso.")]
         private float verticalSlamStartDownSpeed = 0f;
+        
+        [Header("Attack Vertical - Targeting/Physics Extra")]
+        [SerializeField, Tooltip("Máscara de capas que recibe el impacto del vertical (enemigos, rompibles, props…).")]
+        private LayerMask verticalHitMask = ~0;
 
+        [SerializeField, Tooltip("¿Aplicar impulso a rigidbodies al impactar?")]
+        private bool verticalAffectsRigidbodies = true;
+
+        [SerializeField, Tooltip("Impulso aplicado a rigidbodies (m/s) en el impacto.")]
+        private float verticalRigidbodyImpulse = 6f;
+
+        [SerializeField, Tooltip("Componente vertical añadida al impulso de rigidbodies (0..1).")]
+        private float verticalRigidbodyUpFactor = 0.35f;
+        
+        
+        public LayerMask VerticalHitMask
+        {
+            get => verticalHitMask;
+            set => verticalHitMask = value;
+        }
+
+        public bool VerticalAffectsRigidbodies
+        {
+            get => verticalAffectsRigidbodies;
+            set => verticalAffectsRigidbodies = value;
+        }
+
+        public float VerticalRigidbodyImpulse
+        {
+            get => verticalRigidbodyImpulse;
+            set => verticalRigidbodyImpulse = value;
+        }
+
+        public float VerticalRigidbodyUpFactor
+        {
+            get => verticalRigidbodyUpFactor;
+            set => verticalRigidbodyUpFactor = value;
+        }
+
+        
         public float VerticalAttackRadius
         {
             get => verticalAttackRadius;

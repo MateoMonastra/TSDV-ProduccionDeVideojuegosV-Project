@@ -11,5 +11,10 @@ namespace Player.New.Animation
             anim.OnAnimEvent_DeathFinished();
             anim.TriggerLand();
         }
+
+        public void OnVerticalImpact()
+        {
+            anim.AnimEvent_VerticalImpact();
+        }
     }
 }
