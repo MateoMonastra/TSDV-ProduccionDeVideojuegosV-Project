@@ -41,7 +41,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Publicar pose con RB kinemático para que Unity dispare OnTrigger/OnCollision")]
         private bool useRigidbodyForPose = true;
-        
+
         [Header("Runtime Locks")]
         [SerializeField, Tooltip("Si está activo, el motor NO integra ni mueve al personaje.")]
         private bool frozen = false;
@@ -62,10 +62,10 @@ namespace Player.New
                 }
             }
         }
-        
+
         private Rigidbody _rb;
         private readonly Collider[] _pickupHits = new Collider[16];
-        
+
         private MovementSolver _movementSolver;
         private GroundingSolver _groundingSolver;
         private RigidbodyInteractionHandler _rigidbodyHandler;
@@ -131,7 +131,7 @@ namespace Player.New
         private void FixedUpdate()
         {
             float deltaTime = Time.fixedDeltaTime;
-            
+
             if (frozen)
             {
                 _velocity = Vector3.zero;
@@ -140,7 +140,7 @@ namespace Player.New
             }
 
             _ungroundTimer = Mathf.Max(0f, _ungroundTimer - deltaTime);
-            
+
             ApplyGravity(gravity, deltaTime);
 
             if (_ungroundTimer <= 0f)
@@ -249,7 +249,24 @@ namespace Player.New
             _position = position;
             _rotation = rotation;
             _velocity = Vector3.zero;
-            
+
+            transform.SetPositionAndRotation(_position, _rotation);
+            Physics.SyncTransforms();
+        }
+
+        // Aplica el movimiento de una plataforma sin resetear la velocidad del jugador.
+        // - deltaPosition / deltaRotation: delta de la plataforma en este FixedUpdate
+        // - rotateVelocity: si true, también rota la velocidad del jugador con la plataforma
+        public void ApplyPlatformMotion(Vector3 deltaPosition, Quaternion deltaRotation, bool rotateVelocity = true)
+        {
+            _position += deltaPosition;
+            _rotation = deltaRotation * _rotation;
+
+
+            if (rotateVelocity)
+                _velocity = deltaRotation * _velocity;
+
+
             transform.SetPositionAndRotation(_position, _rotation);
             Physics.SyncTransforms();
         }
