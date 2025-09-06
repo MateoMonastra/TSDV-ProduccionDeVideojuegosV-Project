@@ -78,16 +78,14 @@ namespace Player.New
         {
             SubscribeInputs(true);
             if (health != null) health.OnDeath += OnPlayerDeath;
-            if (health)
-                health.OnTakeDamage += OnPlayerDamaged;
+            if (health) health.OnTakeDamage += OnPlayerDamaged;
         }
 
         private void OnDisable()
         {
             SubscribeInputs(false);
             if (health != null) health.OnDeath -= OnPlayerDeath;
-            if (health)
-                health.OnTakeDamage -= OnPlayerDamaged;
+            if (health) health.OnTakeDamage -= OnPlayerDamaged;
         }
 
         private void Start()
@@ -179,11 +177,12 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm.ForceTransition(_sDeath);
         }
-        
+
         private void OnPlayerDamaged(DamageInfo info)
         {
             model.LastDamage = info;
-            
+            hud.OnDamaged();
+            hud.SetHealth(health.GetCurrentHealth());
             _locomotionFsm.ForceTransition(_sHit);
         }
 
@@ -301,7 +300,7 @@ namespace Player.New
             _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
 
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
-            
+
             _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
 
             _locomotionFsm = new Fsm(_sIdle);
@@ -397,8 +396,9 @@ namespace Player.New
             motor.WarpTo(pos, rot);
             motor.SetVelocity(Vector3.zero);
 
-            if (resetHealth && health != null)
-                health.ResetHealth();
+            if (!resetHealth || health == null) return;
+            health.ResetHealth();
+            hud.SetHealth(health.GetCurrentHealth());
         }
 
         #endregion
