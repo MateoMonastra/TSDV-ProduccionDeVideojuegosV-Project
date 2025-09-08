@@ -481,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 5741897180516688974, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: interactController
       value: 
-      objectReference: {fileID: 4622758255455927346}
+      objectReference: {fileID: 1779794645179956811}
     - target: {fileID: 7994499213137889670, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -543,6 +543,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4622758255455927346}
+    - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1779794645179956811}
   m_SourcePrefab: {fileID: 100100000, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
 --- !u!136 &2676297067240815744 stripped
 CapsuleCollider:
@@ -622,6 +625,18 @@ MonoBehaviour:
     m_Bits: 64
   coneSegments: 24
 --- !u!114 &4622758255455927346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047515412822201820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7372edbc884243bcb0574a615dfdd895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1779794645179956811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
