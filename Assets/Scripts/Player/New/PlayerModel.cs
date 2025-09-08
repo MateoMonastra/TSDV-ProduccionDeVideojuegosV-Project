@@ -332,7 +332,7 @@ namespace Player.New
         // ───────────────────────────────────────────────────────────────────────
 
         [Header("Attack (Combo Básico)")] [SerializeField, Tooltip("Daño base por golpe.")]
-        private float attackDamage = 10f;
+        private int attackDamage = 10;
 
         [SerializeField, Tooltip("Duración del ataque 1 (s).")]
         private float attack1Duration = 0.25f;
@@ -355,16 +355,16 @@ namespace Player.New
         [SerializeField, Tooltip("Tolerancia posterior al fin del ataque para aceptar el chain (s).")]
         private float attackLateChainGrace = 0.08f;
 
-        [SerializeField, Tooltip("Empuje al enemigo impactado (m).")]
-        private float attackKnockbackDistance = 2.5f;
-
-        [SerializeField, Tooltip("Tiempo de stagger al enemigo (s).")]
-        private float attackStaggerTime = 0.35f;
+        // [SerializeField, Tooltip("Empuje al enemigo impactado (m).")]
+        // private float attackKnockbackDistance = 2.5f;
+        //
+        // [SerializeField, Tooltip("Tiempo de stagger al enemigo (s).")]
+        // private float attackStaggerTime = 0.35f;
 
         [SerializeField, Tooltip("Cooldown al terminar el 3er golpe (s).")]
         private float attackComboCooldown = 0.4f;
 
-        public float AttackDamage
+        public int AttackDamage
         {
             get => attackDamage;
             set => attackDamage = value;
@@ -412,17 +412,17 @@ namespace Player.New
             set => attackLateChainGrace = value;
         }
 
-        public float AttackKnockbackDistance
-        {
-            get => attackKnockbackDistance;
-            set => attackKnockbackDistance = value;
-        }
+        // public float AttackKnockbackDistance
+        // {
+        //     get => attackKnockbackDistance;
+        //     set => attackKnockbackDistance = value;
+        // }
 
-        public float AttackStaggerTime
-        {
-            get => attackStaggerTime;
-            set => attackStaggerTime = value;
-        }
+        // public float AttackStaggerTime
+        // {
+        //     get => attackStaggerTime;
+        //     set => attackStaggerTime = value;
+        // }
 
         public float AttackComboCooldown
         {
@@ -442,7 +442,7 @@ namespace Player.New
         private float verticalAttackRadius = 2.8f;
 
         [SerializeField, Tooltip("Daño del ataque vertical.")]
-        private float verticalDamage = 12f;
+        private int verticalDamage = 12;
 
         [SerializeField, Tooltip("Empuje radial (m).")]
         private float verticalKnockbackDistance = 2.5f;
@@ -510,7 +510,7 @@ namespace Player.New
             set => verticalAttackRadius = value;
         }
 
-        public float VerticalDamage
+        public int VerticalDamage
         {
             get => verticalDamage;
             set => verticalDamage = value;
@@ -594,7 +594,7 @@ namespace Player.New
         private float spinRadius = 2.8f;
 
         [SerializeField, Tooltip("Daño del 360°.")]
-        private float spinDamage = 10f;
+        private int spinDamage = 10;
 
         [SerializeField, Tooltip("Empuje radial (m).")]
         private float spinPushDistance = 2.0f;
@@ -674,7 +674,7 @@ namespace Player.New
             set => spinRadius = value;
         }
 
-        public float SpinDamage
+        public int SpinDamage
         {
             get => spinDamage;
             set => spinDamage = value;
@@ -810,6 +810,9 @@ namespace Player.New
 
         [SerializeField, Tooltip("Tiempo de asentamiento al caer antes de marcar grounded (s).")]
         private float fallSettleTime = 0.04f;
+        
+        [SerializeField, Tooltip("Layer del Player")]
+        private LayerMask playerLayer;
 
         /// <summary>Coyote time al dejar el suelo (s).</summary>
         public float CoyoteTime
@@ -837,6 +840,11 @@ namespace Player.New
         {
             get => fallSettleTime;
             set => fallSettleTime = value;
+        }
+        public LayerMask PlayerLayer
+        {
+            get => playerLayer;
+            set => playerLayer = value;
         }
 
         #endregion
