@@ -10,10 +10,8 @@ namespace Player.New
     /// </summary>
     public class SelfStun : FinishableState
     {
-        // ──────────────────────────────────────────────────────────────────────
-        // Transition IDs (limpias)
+
         public const string ToIdle = "ToIdle";
-        // ──────────────────────────────────────────────────────────────────────
 
         private readonly MyKinematicMotor _motor;
         private readonly PlayerModel _model;
@@ -48,20 +46,16 @@ namespace Player.New
             _t = 0f;
             _playedGetUp = false;
 
-            // Bloqueos y multiplicadores
             _model.LocomotionBlocked         = true;
             _model.ActionMoveSpeedMultiplier = 0f;
             _model.InvulnerableToEnemies     = false;
             _model.AimLockActive             = false;
-
-            // Flag + temporizador de stun
+            
             _model.IsSelfStunned   = true;
             _model.SelfStunTimeLeft = _model.SelfStunDuration;
-
-            // Detener desplazamiento horizontal
+            
             ZeroHorizontalVelocity();
-
-            // Animación
+            
             _anim?.SetCombatActive(true);
             _anim?.TriggerKnockdown();
         }
@@ -84,32 +78,24 @@ namespace Player.New
             base.Tick(dt);
 
             _t += dt;
-
-            // Forzar inmovilidad horizontal
+            
             ZeroHorizontalVelocity();
-
-            // Actualizar contador visible/restante
+            
             _model.SelfStunTimeLeft = Mathf.Max(0f, _model.SelfStunDuration - _t);
-
-            // Disparar pre-anim de “levantarse” con antelación configurable
+            
             if (!_playedGetUp && _model.SelfStunDuration - _t <= _model.SelfStunGetUpLeadTime)
             {
                 _playedGetUp = true;
                 _anim?.TriggerGetUp();
             }
-
-            // Fin del stun → volver a Idle
+            
             if (_t >= _model.SelfStunDuration)
             {
                 _requestTransition?.Invoke(ToIdle);
                 Finish();
             }
         }
-
-        // ──────────────────────────────────────────────────────────────────────
-        #region Helpers
-        // ──────────────────────────────────────────────────────────────────────
-
+        
         /// <summary>Anula la velocidad horizontal conservando la componente vertical.</summary>
         private void ZeroHorizontalVelocity()
         {
@@ -117,7 +103,6 @@ namespace Player.New
             v.x = 0f; v.z = 0f;
             _motor.SetVelocity(v);
         }
-
-        #endregion
+        
     }
 }
