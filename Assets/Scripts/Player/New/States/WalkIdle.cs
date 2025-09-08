@@ -53,7 +53,7 @@ namespace Player.New
                 _timeSinceUngrounded += dt;
                 _ungroundedFrames++;
 
-                if (_timeSinceUngrounded > Model.CoyoteTime && _ungroundedFrames >= 2) // filtro de flicker
+                if (_timeSinceUngrounded > Model.CoyoteTime && _ungroundedFrames >= 2)
                 {
                     RequestTransition?.Invoke(ToFall);
                     return;

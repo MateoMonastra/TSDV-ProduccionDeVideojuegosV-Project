@@ -21,8 +21,7 @@ namespace Player.New
         private Vector3 _dir;
         private float   _duration;
         private float   _t;
-
-        // Recuperación (ease-out)
+        
         private bool  _recovering;
         private float _recoverT;
 
@@ -37,42 +36,34 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-
-            // Dirección: input mundo si hay, sino forward del carácter
+            
             Vector3 up = _m.CharacterUp;
             Vector3 charFwd = Vector3.ProjectOnPlane(_m.transform.forward, up);
             _dir = charFwd.sqrMagnitude > 1e-6f ? charFwd.normalized : _m.transform.forward;
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
-
-            // ===== Valores efectivos =====
+            
             float effectiveDistance = Mathf.Max(0.01f, _model.DashDistance);
             float effectiveSpeed    = Mathf.Max(0.01f, _model.DashSpeed);
 
             if (_model.DashBuffPending)
             {
-                // usar los valores ABSOLUTOS del buff
                 effectiveDistance = Mathf.Max(0.01f, _model.DashBuffDistance);
                 effectiveSpeed    = Mathf.Max(0.01f, _model.DashBuffSpeed);
 
-                // consumir el buff (aplica sólo al PRÓXIMO dash)
                 _model.DashBuffPending = false;
             }
-
-            // Duración = distancia / velocidad
+            
             _duration = effectiveDistance / effectiveSpeed;
             _t = 0f;
-
-            // Anim y flags
+            
             _anim?.TriggerDash();
             _model.InvulnerableToEnemies = true;
-
-            // Cooldown
+            
             _model.DashOnCooldown   = true;
             _model.DashCooldownLeft = _model.DashCooldown;
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
-
-            // Velocidad instantánea (sólo horizontal)
+            
             var v = _m.Velocity;
             v.x = _dir.x * effectiveSpeed;
             v.z = _dir.z * effectiveSpeed;
@@ -94,8 +85,7 @@ namespace Player.New
             if (!_recovering)
             {
                 _t += dt;
-
-                // mantener dirección constante durante el dash
+                
                 var v = _m.Velocity;
                 v.x = _dir.x * _model.DashSpeed;
                 v.z = _dir.z * _model.DashSpeed;
@@ -103,21 +93,17 @@ namespace Player.New
 
                 if (_t >= _duration)
                 {
-                    // Inicia fase de ease-out
                     _recovering = true;
                     _recoverT = 0f;
-
-                    // Abrir ventana de Sprint
+                    
                     _model.BeginSprintWindow();
                 }
             }
             else
             {
-                // Ease-out: mezcla exponencial hacia la velocidad objetivo del movimiento normal
                 _recoverT += dt;
                 float k = Mathf.Clamp01(_recoverT / Mathf.Max(0.01f, _model.DashExitBlendTime));
-
-                // velocidad objetivo actual según input
+                
                 Vector3 desired = _model.MoveInputWorld * _model.MoveSpeed;
                 Vector3 v = _m.Velocity;
                 Vector3 h = new Vector3(v.x, 0f, v.z);
@@ -127,7 +113,6 @@ namespace Player.New
 
                 if (_recoverT >= _model.DashExitBlendTime)
                 {
-                    // terminar
                     _recovering = false;
                     _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
                     Finish();

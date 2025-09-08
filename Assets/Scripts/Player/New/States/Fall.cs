@@ -9,7 +9,6 @@ namespace Player.New
     /// </summary>
     public class Fall : LocomotionState
     {
-        // IDs de transición limpias
         public const string ToWalkIdle = "ToWalkIdle";
         public const string ToJumpAir  = "ToJumpAir";
         
@@ -40,21 +39,17 @@ namespace Player.New
         public override void Tick(float dt)
         {
             base.Tick(dt);
-
-            // Mantener MoveInputWorld actualizado (usado por Dash u otros)
+            
             UpdateMoveInputWorld();
-
-            // Movimiento aéreo con límite horizontal
+            
             ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
-
-            // Settle: requerir varios frames grounded seguidos
+            
             if (Motor.IsGrounded)
             {
                 _groundedFrames++;
 
                 if (_groundedFrames * dt >= Model.FallSettleTime)
                 {
-                    // Aterrizaje
                     _anim?.TriggerLand();
                     _anim?.SetGrounded(true);
                     _anim?.SetWalking(false);
@@ -89,10 +84,6 @@ namespace Player.New
 
             }
         }
-
-        // ──────────────────────────────────────────────────────────────────────
-        // Helpers
-        // ──────────────────────────────────────────────────────────────────────
 
         /// <summary>Actualiza MoveInputWorld a partir de RawMoveInput y la cámara.</summary>
         private void UpdateMoveInputWorld()

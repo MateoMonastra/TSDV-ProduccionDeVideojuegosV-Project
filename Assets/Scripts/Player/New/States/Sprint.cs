@@ -30,24 +30,24 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            // multiplicador de acción para reutilizar ApplyLocomotion sin tocarla
+            
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
-            _anim?.SetWalking(true); // usa el bool de caminar/correr que ya tengas
+            
+            _anim?.SetWalking(true);
         }
 
         public override void Exit()
         {
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
-            Model.SprintArmed = false;      // se necesita un nuevo dash para rearmar
+            Model.SprintArmed = false;
             _anim?.SetWalking(false);
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
-
-            // si otra mecánica bloquea locomoción (vertical/slam/spin), cortar
+            
             if (Model.LocomotionBlocked)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
@@ -55,9 +55,8 @@ namespace Player.New
             }
 
             UpdateMoveInputWorld();
-            ApplyLocomotion(dt, inAir: false); // suelo
-
-            // cortar si ya no nos movemos lo suficiente
+            ApplyLocomotion(dt, inAir: false);
+            
             var hv = Motor.Velocity; hv.y = 0f;
             bool moving = hv.sqrMagnitude > Model.SprintMinSpeedToKeep * Model.SprintMinSpeedToKeep;
             if (!moving)
@@ -65,8 +64,7 @@ namespace Player.New
                 RequestTransition?.Invoke(ToWalkIdle);
                 return;
             }
-
-            // caer si perdimos el suelo
+            
             if (!Motor.IsGrounded)
             {
                 RequestTransition?.Invoke(ToFall);
@@ -76,7 +74,6 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            // permite saltar desde sprint (lo interrumpe)
             if (values is { Length: >= 2 } &&
                 values[0] is string cmd &&
                 cmd == CommandKeys.Jump &&
@@ -88,8 +85,7 @@ namespace Player.New
                 RequestTransition?.Invoke(ToJump);
             }
         }
-
-        // ----------------- Helpers -----------------
+        
 
         private void UpdateMoveInputWorld()
         {

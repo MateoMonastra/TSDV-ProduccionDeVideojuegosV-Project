@@ -24,14 +24,12 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
-
-            // Consumir un salto y aplicar impulso vertical (con multiplicador de acción)
+            
             Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
             var v = Motor.Velocity;
             v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
-
-            // Marcar si fue puro vertical (para ataque vertical en aire)
+            
             Model.JumpWasPureVertical = Model.RawMoveInput.sqrMagnitude <= 1e-6f;
 
             _anim?.SetGrounded(false);
@@ -48,11 +46,9 @@ namespace Player.New
         {
             base.Tick(dt);
             _t += dt;
-
-            // Movimiento aéreo controlable
+            
             ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
-
-            // Pasar a caída cuando empieza a descender (tras el pequeño delay)
+            
             if (_t >= Model.JumpGroundAirDetectDelay && Motor.Velocity.y <= 0f)
             {
                 RequestTransition?.Invoke(ToFall);
