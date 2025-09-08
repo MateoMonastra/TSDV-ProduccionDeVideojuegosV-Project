@@ -135,7 +135,14 @@ namespace Player.New
             if (_anim) _anim.SetTrigger(tGetUp);
         }
 
-        public void TriggerDeath() => _anim?.SetTrigger(IsDie);
+        public void TriggerDeath()
+        {
+            SetFalling(false);
+            SetInteracting(false);
+            SetWalking(false);
+            _anim?.SetTrigger(IsDie);
+        }
+
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
 
 
