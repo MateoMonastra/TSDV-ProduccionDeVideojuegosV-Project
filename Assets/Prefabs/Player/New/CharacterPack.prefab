@@ -529,6 +529,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4733252420306157653}
+    - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3174153843182456256}
   m_SourcePrefab: {fileID: 100100000, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
 --- !u!136 &2676297067240815744 stripped
 CapsuleCollider:
@@ -544,6 +547,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc36c7643fc2e3548abfdb4b38e271f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2785973603497686730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+  m_PrefabInstance: {fileID: 6911582245982717741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047515412822201820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1118aa1c082644fb499c894ec25276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5047515412822201820 stripped
@@ -563,8 +577,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 2
   damageCooldown: 1
+--- !u!114 &3174153843182456256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047515412822201820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35d5a248e3049a791518f5529c6b194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 11400000, guid: b500ce0009cf57f4e8bfa79ec0eccd22, type: 2}
+  motor: {fileID: 2785973603497686730}
+  forwardRef: {fileID: 6038951754994347097}
+  showFrontalCombo: 0
+  showSpin: 1
+  showVertical: 0
+  onlyWhenSelected: 1
+  coneColor: {r: 1, g: 0.45, b: 0.1, a: 0.35}
+  coneEdgeColor: {r: 1, g: 0.6, b: 0.2, a: 0.9}
+  spinColor: {r: 0.1, g: 0.7, b: 1, a: 0.25}
+  spinEdgeColor: {r: 0.2, g: 0.9, b: 1, a: 0.9}
+  verticalColor: {r: 1, g: 0.2, b: 0.4, a: 0.25}
+  verticalEdgeColor: {r: 1, g: 0.3, b: 0.5, a: 0.9}
+  verticalProjectToGround: 1
+  groundProbeLength: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  coneSegments: 24
 --- !u!4 &6038951754994347097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 874953759058996084, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
