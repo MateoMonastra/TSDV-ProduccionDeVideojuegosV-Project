@@ -1,6 +1,7 @@
 using Health;
 using KinematicCharacterController.Examples;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies.RangeEnemy
 {
@@ -10,6 +11,7 @@ namespace Enemies.RangeEnemy
         [SerializeField] private int damage = 1;
         [SerializeField] private (int, int) knockback = (10,15);
         [SerializeField] private LayerMask environmentLayer;
+        [SerializeField] private LayerMask playerLayer;
         [SerializeField] private float lifeTime;
 
         [Header("Impact VFX")] [SerializeField]
@@ -26,24 +28,34 @@ namespace Enemies.RangeEnemy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            int otherLayer = other.gameObject.layer;
+            
+            if (IsInLayerMask(otherLayer, playerLayer))
             {
-                if (activateLogs)
-                    Debug.Log("Player hit");
+                if (activateLogs) Debug.Log("Player hit", this);
 
-                if (!other.TryGetComponent(out HealthController controller)) return;
-                controller.Damage(new DamageInfo(damage, -transform.position, knockback));
-                SpawnImpactParticles();
-                Destroy(gameObject);
-            }
-            else if (environmentLayer != 0)
-            {
-                if (activateLogs)
-                    Debug.Log("Environment hit");
+                var playerHealth = other.GetComponentInParent<HealthController>();
+                if (!playerHealth) return;
+
+                playerHealth.Damage(new DamageInfo(damage, transform.position, knockback));
 
                 SpawnImpactParticles();
                 Destroy(gameObject);
+                return;
             }
+            
+            if (IsInLayerMask(otherLayer, environmentLayer))
+            {
+                if (activateLogs) Debug.Log("Environment hit", this);
+                SpawnImpactParticles();
+                Destroy(gameObject);
+                return;
+            }
+        }
+        
+        private static bool IsInLayerMask(int layer, LayerMask mask)
+        {
+            return (mask.value & (1 << layer)) != 0;
         }
 
         private void SpawnImpactParticles()
