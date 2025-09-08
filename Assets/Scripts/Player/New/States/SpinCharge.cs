@@ -15,11 +15,8 @@ namespace Player.New
     /// </summary>
     public class SpinCharge : FinishableState
     {
-        // ──────────────────────────────────────────────────────────────────────
-        // Transition IDs (limpias)
         public const string ToRelease = "ToRelease";
         public const string ToIdle    = "ToIdle";
-        // ──────────────────────────────────────────────────────────────────────
 
         private readonly PlayerModel _model;
         private readonly System.Action<string> _requestTransition;

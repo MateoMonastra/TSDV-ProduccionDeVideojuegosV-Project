@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Health;
 using Player.New.UI;
 using UnityEngine;
 
@@ -11,10 +12,8 @@ namespace Player.New
     /// </summary>
     public class SpinRelease : FinishableState
     {
-        // ──────────────────────────────────────────────────────────────────────
         public const string ToIdle     = "ToIdle";
         public const string ToSelfStun = "ToSelfStun";
-        // ──────────────────────────────────────────────────────────────────────
 
         private readonly MyKinematicMotor _motor;
         private readonly PlayerModel _model;
@@ -28,7 +27,6 @@ namespace Player.New
 
         private float _execDuration;
         private float _postStun;
-        private float _damageMoment;
 
         public SpinRelease(MyKinematicMotor motor,
                            PlayerModel model,
@@ -55,8 +53,7 @@ namespace Player.New
             _model.LocomotionBlocked        = false;
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
-
-            // Flags de acción
+            
             _model.InvulnerableToEnemies = false;
             _model.AimLockActive = false;
 
@@ -70,8 +67,7 @@ namespace Player.New
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
             _postStun     = _model.SpinPostStun;
             _model.SelfStunDuration = Mathf.Lerp(_model.SelfStunMinDuration, _model.SelfStunMaxDuration, r);
-
-            // Animación
+            
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
@@ -96,14 +92,8 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            // Fallback de daño si no llegó evento de anim
-            if (!_damageTicked && _t >= _damageMoment)
-            {
-                DoSpinDamage();
-                _damageTicked = true;
-            }
-
-            // Fin del giro + post-stun → decidir destino
+            DoSpinDamage();
+            
             if (_t >= _execDuration + _postStun)
             {
                 if (_model.SpinCausesSelfStun)
@@ -133,28 +123,21 @@ namespace Player.New
         /// <summary>Aplica daño/knockback/stagger en un radio alrededor del jugador.</summary>
         private void DoSpinDamage()
         {
+            
             Vector3 center = _motor.transform.position;
-            Collider[] hits = Physics.OverlapSphere(
-                center,
-                _model.SpinRadius,
-                _model.EnemyMask,
-                QueryTriggerInteraction.Ignore
-            );
+            float radius   = _model.SpinRadius;
+            int   mask     = _model.EnemyMask.value;
 
-            foreach (var c in hits)
+            var hits = Physics.OverlapSphere(center, radius, mask, QueryTriggerInteraction.Collide);
+            for (int i = 0; i < hits.Length; i++)
             {
-                var dmg = c.GetComponentInParent<IDamageable>();
-                if (dmg == null) continue;
+                var objectiveHealth = hits[i].GetComponentInParent<HealthController>();
+                if (objectiveHealth == null) continue;
 
-                // Dirección horizontal desde el centro del jugador hacia el objetivo
-                Vector3 dir = (c.bounds.center - center);
-                dir.y = 0f;
-                if (dir.sqrMagnitude > 1e-6f) dir.Normalize();
-
-                dmg.TakeDamage(_model.SpinDamage);
-                dmg.ApplyKnockback(dir, _model.SpinPushDistance);
-                dmg.ApplyStagger(_model.SpinStaggerTime);
+                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, (0,0)));
             }
+
+
         }
 
         #endregion
