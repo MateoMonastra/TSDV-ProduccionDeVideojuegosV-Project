@@ -454,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5741897180516688974, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: anim
       value: 
@@ -488,7 +492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: groundMask.m_Bits
-      value: 2112
+      value: 3136
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: _pickupMask.m_Bits
@@ -496,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: triggersMask.m_Bits
-      value: 8193
+      value: 24705
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: collisionMask.m_Bits
@@ -577,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb86064622db4a4b880c0ee372c2ea14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 20
   damageCooldown: 1
 --- !u!114 &3174153843182456256
 MonoBehaviour:

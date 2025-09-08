@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 7714436184729803937}
   - component: {fileID: 1678103472865866118}
   - component: {fileID: 2805461497097787510}
-  m_Layer: 10
+  - component: {fileID: 8133901858569711489}
+  m_Layer: 14
   m_Name: ConfettiMinePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7.3094587, y: 7.3094587, z: 7.3094587}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5440359756248743409}
@@ -123,14 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a39b651651b7d249ad89c26f8c2dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mineRadius: 5
-  knockbackForce: 20
   activationDelay: 2
-  explosionEffects:
-  - {fileID: 8695169440083132567}
-  - {fileID: 5281073511110675694}
-  - {fileID: 2855849358954487933}
-  mineRenderer: {fileID: 2667670760249323485}
   baseMaterial: {fileID: 2100000, guid: 769e3092feba1bf47a7607599821f7f1, type: 2}
   warningMaterial: {fileID: 2100000, guid: 252a43664d46eef4b9eaefc2cc748868, type: 2}
   blinkCurve:
@@ -157,7 +151,58 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  collider: {fileID: 7244453900348121905}
+  minBlinkInterval: 0.03
+  mineRadius: 5
+  knockback:
+    horizontal: 60
+    vertical: 30
+  affectedMask:
+    serializedVersion: 2
+    m_Bits: 256
+  pushRigidbodies: 1
+  rigidbodyImpulse: 12
+  rigidbodyUpFactor: 0.5
+  armingMask:
+    serializedVersion: 2
+    m_Bits: 256
+  allowPlayerTagFallback: 1
+  mineRenderer: {fileID: 2667670760249323485}
+  triggerCol: {fileID: 1678103472865866118}
+  explosionEffects:
+  - {fileID: 8695169440083132567}
+  - {fileID: 5281073511110675694}
+  - {fileID: 2855849358954487933}
+  activateLogs: 1
+  drawGizmos: 1
+  gizmoArmed: {r: 1, g: 0.2, b: 0.2, a: 0.6}
+  gizmoIdle: {r: 1, g: 1, b: 1, a: 0.25}
+--- !u!54 &8133901858569711489
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854744173280586233}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5363534357388917858
 GameObject:
   m_ObjectHideFlags: 0

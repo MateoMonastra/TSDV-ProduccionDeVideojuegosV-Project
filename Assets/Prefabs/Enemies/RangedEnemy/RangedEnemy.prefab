@@ -321,7 +321,6 @@ MonoBehaviour:
   shootPoint: {fileID: 306028874904714175}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 4b220d659abec1845b1a9cde8eac6ecd, type: 2}
-  healthController: {fileID: 0}
 --- !u!114 &6132509427390379825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,6 +640,14 @@ PrefabInstance:
     - target: {fileID: 2543777561349354384, guid: fa4cd9175af84e54e9830cd24595915a, type: 3}
       propertyPath: m_Name
       value: VFX_Disparo_Torreta
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543777561349354384, guid: fa4cd9175af84e54e9830cd24595915a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955233672456261983, guid: fa4cd9175af84e54e9830cd24595915a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

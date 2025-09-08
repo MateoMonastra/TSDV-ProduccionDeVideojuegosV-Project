@@ -152,15 +152,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a09478c174bc44986a2032cbd15f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  environmentLayer:
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  environmentMask:
     serializedVersion: 2
     m_Bits: 65
   environmentHit: {fileID: 5947287992066288642}
-  OnHit:
-  - {fileID: 1317637500138843262}
-  - {fileID: 6459559790374626153}
-  - {fileID: 3600855112368707869}
+  onHit: []
   model: {fileID: 3419063305483485363}
+  lifeTime: 15
+  destroyOffset: 3
+  activateLogs: 1
 --- !u!1001 &766536997537538387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -304,29 +307,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
---- !u!198 &1317637500138843262 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1829080996613576164, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
-  m_PrefabInstance: {fileID: 804740441601980826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2061422570149128794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1707048758348714944, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
   m_PrefabInstance: {fileID: 804740441601980826}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &3600855112368707869 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4238957690404036743, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
-  m_PrefabInstance: {fileID: 804740441601980826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5947287992066288642 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6458726747501041048, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
-  m_PrefabInstance: {fileID: 804740441601980826}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6459559790374626153 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5949242245549824755, guid: 55aee4a88fb19824a98d28b4f7e86e58, type: 3}
   m_PrefabInstance: {fileID: 804740441601980826}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2572569308746464738
