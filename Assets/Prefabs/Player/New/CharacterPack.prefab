@@ -478,6 +478,10 @@ PrefabInstance:
       propertyPath: deadCameraRef
       value: 
       objectReference: {fileID: 4052885768922482616}
+    - target: {fileID: 5741897180516688974, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: interactController
+      value: 
+      objectReference: {fileID: 4622758255455927346}
     - target: {fileID: 7994499213137889670, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -492,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: groundMask.m_Bits
-      value: 3136
+      value: 3137
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: _pickupMask.m_Bits
@@ -500,11 +504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: triggersMask.m_Bits
-      value: 24705
+      value: 25216
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: collisionMask.m_Bits
-      value: 3264
+      value: 3265
       objectReference: {fileID: 0}
     - target: {fileID: 8737857756895801831, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: _collisionMask.m_Bits
@@ -536,6 +540,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3174153843182456256}
+    - targetCorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4622758255455927346}
   m_SourcePrefab: {fileID: 100100000, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
 --- !u!136 &2676297067240815744 stripped
 CapsuleCollider:
@@ -614,6 +621,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   coneSegments: 24
+--- !u!114 &4622758255455927346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047515412822201820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7372edbc884243bcb0574a615dfdd895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6038951754994347097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 874953759058996084, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
