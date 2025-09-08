@@ -21,55 +21,59 @@ namespace Player.New
         private Vector3 _dir;
         private float   _duration;
         private float   _t;
-        
+
         private bool  _recovering;
         private float _recoverT;
+        
+        private float _dashSpeedSel;
+        private float _dashDistSel;
 
         public System.Action<float> OnDashCooldownUI;
 
         public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null)
         { _m = m; _model = model; _req = req; _anim = anim; }
 
-        /// <summary>Usable cuando no está en cooldown.</summary>
         public static bool CanUse(PlayerModel mdl) => !mdl.DashOnCooldown;
 
         public override void Enter()
         {
             base.Enter();
-            
+
             Vector3 up = _m.CharacterUp;
-            Vector3 charFwd = Vector3.ProjectOnPlane(_m.transform.forward, up);
-            _dir = charFwd.sqrMagnitude > 1e-6f ? charFwd.normalized : _m.transform.forward;
+            Vector3 charFwdPlanar = Vector3.ProjectOnPlane(_m.transform.forward, up);
+            _dir = charFwdPlanar.sqrMagnitude > 1e-6f ? charFwdPlanar.normalized : _m.transform.forward;
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
             
-            float effectiveDistance = Mathf.Max(0.01f, _model.DashDistance);
-            float effectiveSpeed    = Mathf.Max(0.01f, _model.DashSpeed);
-
+            _dashDistSel  = Mathf.Max(0.01f, _model.DashDistance);
+            _dashSpeedSel = Mathf.Max(0.01f, _model.DashSpeed);
             if (_model.DashBuffPending)
             {
-                effectiveDistance = Mathf.Max(0.01f, _model.DashBuffDistance);
-                effectiveSpeed    = Mathf.Max(0.01f, _model.DashBuffSpeed);
-
+                _dashDistSel  = Mathf.Max(0.01f, _model.DashBuffDistance);
+                _dashSpeedSel = Mathf.Max(0.01f, _model.DashBuffSpeed);
                 _model.DashBuffPending = false;
             }
-            
-            _duration = effectiveDistance / effectiveSpeed;
+
+            _duration = _dashDistSel / _dashSpeedSel;
             _t = 0f;
             
             _anim?.TriggerDash();
             _model.InvulnerableToEnemies = true;
-            
             _model.DashOnCooldown   = true;
             _model.DashCooldownLeft = _model.DashCooldown;
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
             
-            var v = _m.Velocity;
-            v.x = _dir.x * effectiveSpeed;
-            v.z = _dir.z * effectiveSpeed;
+            _m.ForceUnground(0.05f);
+
+            Vector3 v = _m.Velocity;
+            Vector3 h = Vector3.ProjectOnPlane(v, up);            
+            float along = Vector3.Dot(h, _dir);                       
+            float targetAlong = Mathf.Max(along, _dashSpeedSel);      
+            Vector3 newH = _dir * targetAlong;                        
+
+            v.x = newH.x; v.z = newH.z;                               
             _m.SetVelocity(v);
         }
-
 
         public override void Exit()
         {
@@ -85,10 +89,13 @@ namespace Player.New
             if (!_recovering)
             {
                 _t += dt;
-                
+
+               
                 var v = _m.Velocity;
-                v.x = _dir.x * _model.DashSpeed;
-                v.z = _dir.z * _model.DashSpeed;
+                Vector3 up = _m.CharacterUp;
+                float y = v.y;
+                Vector3 h = _dir * _dashSpeedSel;
+                v.x = h.x; v.z = h.z; v.y = y;
                 _m.SetVelocity(v);
 
                 if (_t >= _duration)
@@ -103,11 +110,13 @@ namespace Player.New
             {
                 _recoverT += dt;
                 float k = Mathf.Clamp01(_recoverT / Mathf.Max(0.01f, _model.DashExitBlendTime));
-                
+              
                 Vector3 desired = _model.MoveInputWorld * _model.MoveSpeed;
                 Vector3 v = _m.Velocity;
                 Vector3 h = new Vector3(v.x, 0f, v.z);
+                
                 h = Vector3.Lerp(h, desired, 1f - Mathf.Exp(-_model.DashExitSharpness * k * dt));
+
                 v.x = h.x; v.z = h.z;
                 _m.SetVelocity(v);
 
