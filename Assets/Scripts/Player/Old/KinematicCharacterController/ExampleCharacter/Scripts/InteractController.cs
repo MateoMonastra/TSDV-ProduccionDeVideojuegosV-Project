@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
+using Player.New;
 using UnityEngine;
 
 namespace KinematicCharacterController.Examples

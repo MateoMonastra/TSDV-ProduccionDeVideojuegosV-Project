@@ -110,10 +110,6 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            foreach (var VARIABLE in values)
-            {
-                Debug.Log((VARIABLE as string));
-            }
             if (values is { Length: >= 2 } &&
                 values[0] is string cmd)
             {
@@ -131,7 +127,6 @@ namespace Player.New
                 else if (cmd == CommandKeys.Interact &&
                          values[1] is bool interacted && interacted)
                 {
-                    Debug.Log("Es historico");
                     RequestTransition?.Invoke(ToInteract);
                 }
             }

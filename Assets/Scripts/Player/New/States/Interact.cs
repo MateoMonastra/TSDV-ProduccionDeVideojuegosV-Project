@@ -12,6 +12,7 @@ namespace Player.New.States
         private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
 
+        private InteractData _interactData;
         private float _t;                 
         private bool  _playedGetUp;      
 
@@ -41,11 +42,11 @@ namespace Player.New.States
             _model.IsSelfStunned   = true;
             _model.SelfStunTimeLeft = _model.SelfStunDuration;
             
+            
             ZeroHorizontalVelocity();
             
-            //_anim?.SetCombatActive(true);
-            //_anim?.TriggerKnockdown();
-            _anim.SetInteracting(true);
+            _anim?.SetInteracting(true);
+            _motor.WarpTo(_interactData.interactPos, _interactData.interactRot);
         }
 
         /// <summary>Salir: limpia flag y locks (vía <see cref="PlayerModel.ClearActionLocks"/>).</summary>
@@ -65,23 +66,7 @@ namespace Player.New.States
         {
             base.Tick(dt);
 
-            _t += dt;
-            
             ZeroHorizontalVelocity();
-            
-            _model.SelfStunTimeLeft = Mathf.Max(0f, _model.SelfStunDuration - _t);
-            
-            if (!_playedGetUp && _model.SelfStunDuration - _t <= _model.SelfStunGetUpLeadTime)
-            {
-                _playedGetUp = true;
-                _anim?.TriggerGetUp();
-            }
-            
-            if (_t >= _model.SelfStunDuration)
-            {
-                _requestTransition?.Invoke(ToIdle);
-                Finish();
-            }
         }
         
         /// <summary>Anula la velocidad horizontal conservando la componente vertical.</summary>
@@ -90,6 +75,11 @@ namespace Player.New.States
             Vector3 v = _motor.Velocity;
             v.x = 0f; v.z = 0f;
             _motor.SetVelocity(v);
+        }
+
+        public void SetData(InteractData data)
+        {
+            _interactData = data;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace Player.New
         private WalkIdle _sIdle;
         private JumpGround _sJumpGround;
         private JumpAir _sJumpAir;
+        private Interact _sInteract;
         private Fall _sFall;
         private Dash _sDash;
         private Sprint _sSprint;
@@ -81,6 +82,9 @@ namespace Player.New
             SubscribeInputs(true);
             if (health != null) health.OnDeath += OnPlayerDeath;
             if (health) health.OnTakeDamage += OnPlayerDamaged;
+
+            if (interactController) interactController.OnStartInteractAction += OnInteractStarted;
+            if (interactController) interactController.OnEndInteractAction += OnInteractEnded;
         }
 
         private void OnDisable()
@@ -88,6 +92,9 @@ namespace Player.New
             SubscribeInputs(false);
             if (health != null) health.OnDeath -= OnPlayerDeath;
             if (health) health.OnTakeDamage -= OnPlayerDamaged;
+            
+            if (interactController) interactController.OnStartInteractAction -= OnInteractStarted;
+            if (interactController) interactController.OnEndInteractAction -= OnInteractEnded;
         }
 
         private void Start()
@@ -142,7 +149,7 @@ namespace Player.New
         {
             if (IsActionBlocked()) return;
             
-            _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Interact, true);
+            interactController.Interact();
         }
 
         private void OnAttackBasic()
@@ -197,6 +204,17 @@ namespace Player.New
             _locomotionFsm.ForceTransition(_sHit);
         }
 
+        private void OnInteractStarted(InteractData data)
+        {
+            _sInteract.SetData(data);
+            _locomotionFsm.ForceTransition(_sInteract);
+        }
+
+        private void OnInteractEnded(InteractData data)
+        {
+            _locomotionFsm.ForceTransition(_sIdle);
+        }
+        
         #endregion
 
         // ───────────────────────────────────────────────────────────────────────
@@ -273,6 +291,8 @@ namespace Player.New
 
             _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
+            _sInteract = new Interact(motor, model, RequestLocomotionTransition, anim: anim);
+            
             _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
@@ -298,7 +318,7 @@ namespace Player.New
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sSprint, ID = WalkIdle.ToSprint });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sJumpGround, ID = WalkIdle.ToJump });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sFall, ID = WalkIdle.ToFall });
-            _sIdle.AddTransition(new Transition{From = _sIdle, To = _sSprint, ID = WalkIdle.ToInteract});
+            _sIdle.AddTransition(new Transition{From = _sIdle, To = _sInteract, ID = WalkIdle.ToInteract});
 
             _sJumpGround.AddTransition(new Transition { From = _sJumpGround, To = _sFall, ID = JumpGround.ToFall });
             _sJumpGround.AddTransition(
