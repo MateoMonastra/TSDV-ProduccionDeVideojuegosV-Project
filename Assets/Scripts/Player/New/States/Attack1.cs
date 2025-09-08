@@ -20,7 +20,7 @@ namespace Player.New
 
             if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
 
-            Duration = Model.Attack1Duration;   // ← usa la duración específica
+            Duration = Model.Attack1Duration;
             _windowOpen = false;
 
             _anim?.SetCombatActive(true);
@@ -32,26 +32,22 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
-            // CombatActive lo apagamos al volver a Idle para evitar flicker entre golpes
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
             t += dt;
-
-            // Hit a mitad del clip (o por evento de anim)
+            
             TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
             float chainWindow = Model.AttackChainWindow;
             float lateGrace   = Model.AttackLateChainGrace;
-
-            // Abrir ventana ANTES de terminar el clip
+            
             if (!_windowOpen && t >= Duration - chainWindow)
             {
                 _windowOpen = true;
-
-                // Si ya había buffer, encadenar de inmediato
+                
                 if (ChainBuffered)
                 {
                     Req?.Invoke(ToAttack2);
@@ -59,8 +55,7 @@ namespace Player.New
                     return;
                 }
             }
-
-            // Fin del clip → aceptar late-grace si hubo buffer
+            
             if (t >= Duration)
             {
                 if (ChainBuffered && (t - Duration) <= lateGrace)
@@ -83,8 +78,7 @@ namespace Player.New
                 cmd == CommandKeys.AttackPressed)
             {
                 BufferChain();
-
-                // Si la ventana ya está abierta o estamos dentro del late-grace, encadenar ahora
+                
                 if (_windowOpen || (t >= Duration && (t - Duration) <= Model.AttackLateChainGrace))
                 {
                     Req?.Invoke(ToAttack2);

@@ -13,7 +13,7 @@
         public override void Enter()
         {
             base.Enter();
-            Duration = Model.Attack3Duration;  // ← duración específica
+            Duration = Model.Attack3Duration;
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();

@@ -20,7 +20,7 @@ namespace Player.New
 
             if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
 
-            Duration = Model.Attack2Duration;  // ← duración específica
+            Duration = Model.Attack2Duration;
             _windowOpen = false;
 
             _anim?.SetCombatActive(true);
