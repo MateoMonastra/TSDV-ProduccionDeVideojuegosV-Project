@@ -3174,7 +3174,7 @@ PrefabInstance:
       objectReference: {fileID: 1038924937}
     - target: {fileID: 6096114325307598351, guid: e94a76000b3d535449371dc544e429f9, type: 3}
       propertyPath: damageCooldown
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8136693203401698564, guid: e94a76000b3d535449371dc544e429f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5392,14 +5392,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 612217893}
     m_Modifications:
-    - target: {fileID: 4072009756583620281, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
-      propertyPath: activateLogs
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4072009756583620281, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
-      propertyPath: cooldownTime
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6459559073165211677, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -141.7208
@@ -5443,10 +5435,6 @@ PrefabInstance:
     - target: {fileID: 9180654399281724026, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
       propertyPath: m_Name
       value: BreakablePlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 9180654399281724026, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
