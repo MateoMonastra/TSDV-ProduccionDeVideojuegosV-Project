@@ -176,6 +176,7 @@ namespace Player.New
             anim?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm.ForceTransition(_sDeath);
+            GameEvents.GameEvents.PlayerDied(gameObject);
         }
 
         private void OnPlayerDamaged(DamageInfo info)

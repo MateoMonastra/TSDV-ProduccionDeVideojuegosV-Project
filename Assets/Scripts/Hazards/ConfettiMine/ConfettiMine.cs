@@ -89,33 +89,28 @@ namespace Hazards.ConfettiMine
         private static bool InMask(int layer, LayerMask mask) => (mask.value & (1 << layer)) != 0;
 
         private void OnTriggerEnter(Collider other) => TryArm(other, "Enter");
-        private void OnTriggerStay(Collider other)  => TryArm(other, "Stay"); // por si ya estaba adentro al habilitar
+        private void OnTriggerStay(Collider other)  => TryArm(other, "Stay");
 
         private void TryArm(Collider other, string phase)
         {
             if (_isTriggered) return;
+            
+            bool layerOk = InMask(other.gameObject.layer, armingMask);
+            
+            bool tagOk = allowPlayerTagFallback 
+                         && other.CompareTag("Player") 
+                         && other.GetComponentInParent<HealthController>();
 
-            int otherLayer = other.gameObject.layer;
-            bool maskOk = InMask(otherLayer, armingMask);
-            bool tagOk  = allowPlayerTagFallback && other.GetComponentInParent<HealthController>() && other.CompareTag("Player");
-
-            if (!maskOk && !tagOk)
+            if (!layerOk && !tagOk)
             {
                 if (activateLogs)
                 {
                     Debug.Log(
-                        $"[ConfettiMine] Not armed on {phase}: layer '{LayerMask.LayerToName(otherLayer)}' NOT in armingMask " +
-                        $"{(allowPlayerTagFallback ? $"and tag '{other.tag}' != 'Player'" : "(tag fallback disabled)")}",
-                        this);
+                        $"[ConfettiMine] NO ARMADA ({phase}) por {other.name} | " +
+                        $"layer={LayerMask.LayerToName(other.gameObject.layer)} fuera de armingMask " +
+                        $"{(allowPlayerTagFallback ? "y tag!=Player/HealthController ausente" : "(sin fallback por tag)")}", this);
                 }
                 return;
-            }
-            
-            int mineLayer = gameObject.layer;
-            if (Physics.GetIgnoreLayerCollision(mineLayer, otherLayer))
-            {
-                if (activateLogs)
-                    Debug.LogWarning($"[ConfettiMine] Layers '{LayerMask.LayerToName(mineLayer)}' x '{LayerMask.LayerToName(otherLayer)}' ignoran colisión en matrix.", this);
             }
 
             _isTriggered = true;
@@ -124,6 +119,8 @@ namespace Hazards.ConfettiMine
             if (_warningCoroutine != null) StopCoroutine(_warningCoroutine);
             _warningCoroutine = StartCoroutine(ActivateMine());
         }
+
+
 
         private IEnumerator ActivateMine()
         {
