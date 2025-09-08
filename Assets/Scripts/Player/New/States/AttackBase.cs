@@ -1,4 +1,6 @@
-﻿using FSM;
+﻿using System;
+using FSM;
+using Health;
 using UnityEngine;
 
 namespace Player.New
@@ -11,7 +13,7 @@ namespace Player.New
     {
         protected readonly MyKinematicMotor M;
         protected readonly PlayerModel Model;
-        protected readonly System.Action<string> Req;
+        protected readonly Action<string> Req;
 
         /// <summary>Duración total del ataque actual.</summary>
         protected float Duration;
@@ -25,7 +27,7 @@ namespace Player.New
         /// <summary>Si el jugador pidió encadenar (presionó Attack) en cualquier momento.</summary>
         protected bool ChainBuffered;
 
-        protected AttackBase(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req)
+        protected AttackBase(MyKinematicMotor m, PlayerModel mdl, Action<string> req)
         { M = m; Model = mdl; Req = req; }
 
         public override void Enter()
@@ -46,26 +48,47 @@ namespace Player.New
         /// <summary>Marca que el jugador pidió encadenar el siguiente golpe.</summary>
         protected void BufferChain() => ChainBuffered = true;
 
-        /// <summary> Ejecuta el golpe frontal (único objetivo) una sola vez por estado. </summary>
-        protected void TryDoHitFrontal(float hitTimeNormalized = 0.5f, float halfAngleDeg = 55f)
+        protected void TryDoHitFrontal(float normalizedTime)
         {
-            if (_didHit) return;
-            if (t < Duration * hitTimeNormalized) return;
-            _didHit = true;
-
-            Vector3 origin = M.transform.position;
-            Vector3 forward = M.transform.forward;
-
-            if (HitboxUtils.TryGetClosestInFront(origin, forward, Model.AttackRange, halfAngleDeg,
-                    Model.EnemyMask, out var target, out var targetTf))
-            {
-                Vector3 dir = (targetTf.position - origin); dir.y = 0f;
-                dir = dir.sqrMagnitude > 1e-6f ? dir.normalized : forward;
-
-                target.TakeDamage(Model.AttackDamage);
-                target.ApplyKnockback(dir, Model.AttackKnockbackDistance);
-                target.ApplyStagger(Model.AttackStaggerTime);
-            }
+            float halfAngle = (Model != null) ? Model.AttackHalfAngleDegrees : 45f;
+            TryDoHitFrontal(normalizedTime, halfAngle);
         }
+        protected void TryDoHitFrontal(float normalizedTime, float halfAngleDeg)
+        {
+            Vector3 origin  = M.transform.position;
+            Vector3 up      = M.CharacterUp;
+            Vector3 forward = Vector3.ProjectOnPlane(M.transform.forward, up).normalized;
+            float   range   = Model.AttackRange;
+            int     mask    = Model.EnemyMask.value;
+
+            var cols = Physics.OverlapSphere(origin, range, mask, QueryTriggerInteraction.Collide);
+
+            float bestDot = -1f;
+            Transform bestTf = null;
+
+            for (int i = 0; i < cols.Length; i++)
+            {
+                var t = cols[i].transform;
+                Vector3 to = Vector3.ProjectOnPlane(t.position - origin, up);
+                if (to.sqrMagnitude <= 1e-6f) continue;
+
+                float dist = to.magnitude;
+                if (dist > range + 0.001f) continue;
+
+                to /= dist;
+                float ang = Vector3.Angle(forward, to);
+                if (ang > halfAngleDeg) continue;
+
+                float d = Vector3.Dot(forward, to);
+                if (d > bestDot) { bestDot = d; bestTf = t; }
+            }
+
+            if (!bestTf) return;
+
+            var enemyHealth = bestTf.GetComponentInParent<HealthController>();
+            if (enemyHealth != null)
+                enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin,(0,0)));
+        }
+
     }
 }

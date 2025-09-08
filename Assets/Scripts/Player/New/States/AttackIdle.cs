@@ -1,5 +1,5 @@
-﻿using FSM;
-using UnityEngine;
+﻿using System;
+using FSM;
 
 namespace Player.New
 {
@@ -10,12 +10,12 @@ namespace Player.New
     {
         public const string ToAttack1 = "ToAttack1";
 
-        private readonly System.Action<string> _req;
+        private readonly Action<string> _req;
         private readonly PlayerModel _model;
         private readonly PlayerAnimationController _anim;
         private readonly MyKinematicMotor _motor;
 
-        public AttackIdle(PlayerModel model, System.Action<string> request, PlayerAnimationController anim = null, MyKinematicMotor motor = null)
+        public AttackIdle(PlayerModel model, Action<string> request, PlayerAnimationController anim = null, MyKinematicMotor motor = null)
         { _model = model; _req = request; _anim = anim; _motor = motor; }
 
         public override void Enter()
