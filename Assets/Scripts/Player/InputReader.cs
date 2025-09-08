@@ -11,6 +11,7 @@ namespace Player
         public Action OnClick;
         public Action OnPause;
         public Action OnJump;
+        public Action OnInteract;
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
         public Action<Vector2,InputDevice> OnLook;
@@ -53,6 +54,14 @@ namespace Player
             if (context.started)
             {
                 OnJump?.Invoke();
+            }
+        }
+
+        public void HandleInteractInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnInteract?.Invoke();
             }
         }
         

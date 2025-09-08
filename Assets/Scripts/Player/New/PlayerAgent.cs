@@ -1,5 +1,6 @@
 ﻿using FSM;
 using Health;
+using KinematicCharacterController.Examples;
 using Player.New.States;
 using Player.New.UI;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace Player.New
         [SerializeField] private PlayerAnimationController anim;
         [SerializeField] private HUDManager hud;
         [SerializeField] private Health.HealthController health;
+        [SerializeField] private InteractController interactController;
 
         #endregion
 
@@ -98,7 +100,8 @@ namespace Player.New
         {
             float dt = Time.deltaTime;
             UpdateCooldowns(dt);
-
+            interactController.DetectInteractions();
+            
             _locomotionFsm.Update();
             _actionFsm.Update();
         }
@@ -133,6 +136,13 @@ namespace Player.New
             if (IsActionBlocked()) return;
 
             _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
+        }
+
+        private void OnInteract()
+        {
+            if (IsActionBlocked()) return;
+            
+            _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Interact, true);
         }
 
         private void OnAttackBasic()
@@ -288,6 +298,7 @@ namespace Player.New
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sSprint, ID = WalkIdle.ToSprint });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sJumpGround, ID = WalkIdle.ToJump });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sFall, ID = WalkIdle.ToFall });
+            _sIdle.AddTransition(new Transition{From = _sIdle, To = _sSprint, ID = WalkIdle.ToInteract});
 
             _sJumpGround.AddTransition(new Transition { From = _sJumpGround, To = _sFall, ID = JumpGround.ToFall });
             _sJumpGround.AddTransition(
@@ -353,6 +364,7 @@ namespace Player.New
             {
                 input.OnMove += OnMove;
                 input.OnJump += OnJump;
+                input.OnInteract += OnInteract;
                 input.OnClick += OnAttackBasic;
                 input.OnDash += OnDash;
                 input.OnAttackHeavyPressed += OnAttackHeavyPressed;
@@ -363,6 +375,7 @@ namespace Player.New
             {
                 input.OnMove -= OnMove;
                 input.OnJump -= OnJump;
+                input.OnInteract -= OnInteract;
                 input.OnClick -= OnAttackBasic;
                 input.OnDash -= OnDash;
                 input.OnAttackHeavyPressed -= OnAttackHeavyPressed;

@@ -996,7 +996,7 @@ namespace Player.New
             get => _selfStunDuration;
             set => _selfStunDuration = value;
         }
-
+        
         /// <summary>Ventana post-dash armada para iniciar sprint.</summary>
         public bool SprintArmed
         {

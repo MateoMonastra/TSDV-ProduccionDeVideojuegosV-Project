@@ -7,6 +7,7 @@
     public static class CommandKeys
     {
         public const string Jump = "Jump";
+        public const string Interact = "Interact";
         public const string AttackPressed = "AttackPressed";
         public const string AttackHeavyReleased = "AttackHeavyReleased";
     }

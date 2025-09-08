@@ -10,6 +10,7 @@ namespace Player.New
     public class WalkIdle : LocomotionState
     {
         public const string ToJump = "ToJump";
+        public const string ToInteract = "ToInteract";
         public const string ToFall = "ToFall";
         public const string ToSprint = "ToSprint";
 
@@ -30,7 +31,7 @@ namespace Player.New
             base.Enter();
             _timeSinceUngrounded = 0f;
             _ungroundedFrames = 0;
-            
+
             Model.ResetJumps();
 
             _anim?.SetGrounded(true);
@@ -41,13 +42,13 @@ namespace Player.New
         public override void Tick(float dt)
         {
             base.Tick(dt);
-            
+
             UpdateMoveInputWorld();
-            
+
             ApplyLocomotion(dt, inAir: false);
 
             _anim?.SetWalking(Model.RawMoveInput.sqrMagnitude > 1e-5f);
-            
+
             if (!Motor.IsGrounded)
             {
                 _timeSinceUngrounded += dt;
@@ -64,7 +65,7 @@ namespace Player.New
                 _timeSinceUngrounded = 0f;
                 _ungroundedFrames = 0;
             }
-            
+
             HandleSprintWindow(dt);
         }
 
@@ -84,7 +85,7 @@ namespace Player.New
 
             if (!Model.SprintArmed)
                 return;
-            
+
             Model.SprintArmTimeLeft -= dt;
             if (Model.SprintArmTimeLeft <= 0f)
             {
@@ -92,16 +93,16 @@ namespace Player.New
                 Model.SprintHoldCounter = 0f;
                 return;
             }
-            
+
             if (Model.DashHeld) Model.SprintHoldCounter += dt;
             else Model.SprintHoldCounter = 0f;
-            
+
             bool hasMoveInput = Model.RawMoveInput.sqrMagnitude > 1e-5f;
 
             if (Model.SprintHoldCounter >= Model.SprintHoldTime && hasMoveInput)
             {
                 RequestTransition?.Invoke(ToSprint);
-                
+
                 Model.SprintHoldCounter = 0f;
             }
         }
@@ -109,25 +110,34 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            if (values is { Length: >= 2 } &&
-                values[0] is string cmd &&
-                cmd == CommandKeys.Jump &&
-                values[1] is bool pressed && pressed)
+            foreach (var VARIABLE in values)
             {
-                
-                bool canJumpFromCoyote = _timeSinceUngrounded <= Model.CoyoteTime;
-                
-                if (Motor.IsGrounded || canJumpFromCoyote)
+                Debug.Log((VARIABLE as string));
+            }
+            if (values is { Length: >= 2 } &&
+                values[0] is string cmd)
+            {
+                if (cmd == CommandKeys.Jump &&
+                    values[1] is bool pressed && pressed)
                 {
-                    if (Model.JumpsLeft > 0)
-                    {
-                        RequestTransition?.Invoke(ToJump);
-                    }
+                    bool canJumpFromCoyote = _timeSinceUngrounded <= Model.CoyoteTime;
+
+                    if (Motor.IsGrounded || canJumpFromCoyote)
+                        if (Model.JumpsLeft > 0)
+                        {
+                            RequestTransition?.Invoke(ToJump);
+                        }
+                }
+                else if (cmd == CommandKeys.Interact &&
+                         values[1] is bool interacted && interacted)
+                {
+                    Debug.Log("Es historico");
+                    RequestTransition?.Invoke(ToInteract);
                 }
             }
         }
-        
-        
+
+
         private void UpdateMoveInputWorld()
         {
             Vector3 up = Motor.CharacterUp;
