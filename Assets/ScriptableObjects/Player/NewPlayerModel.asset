@@ -15,12 +15,14 @@ MonoBehaviour:
   moveSpeed: 11
   moveAcceleration: 30
   airHorizontalSpeed: 15
+  landStopsHorizontal: 0
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
   sprintArmWindow: 0.8
   sprintHoldTime: 0.3
   orientationMethod: 0
   orientationSharpness: 12
+  orientWithCameraWhileIdle: 0
   jumpSpeed: 18
   maxJumps: 2
   dashDistance: 1.8
@@ -30,23 +32,25 @@ MonoBehaviour:
   dashExitSharpness: 10
   hasExtraJump: 0
   dashBuffPending: 0
-  dashBuffDistanceMultiplier: 8
+  dashBuffDistance: 3
+  dashBuffSpeed: 24
+  hitStunTime: 0.35
+  hitKnockbackHorizontal: 7.5
+  hitKnockbackUp: 2
   enemyMask:
     serializedVersion: 2
     m_Bits: 128
-  attackDamage: 10
+  attackDamage: 1
   attack1Duration: 0.7
   attack2Duration: 0.7
   attack3Duration: 0.7
-  attackRange: 2
-  attackHalfAngleDegrees: 55
+  attackRange: 3.5
+  attackHalfAngleDegrees: 70
   attackChainWindow: 0.3
   attackLateChainGrace: 0.08
-  attackKnockbackDistance: 2.5
-  attackStaggerTime: 0.35
   attackComboCooldown: 0.4
   verticalAttackRadius: 2.8
-  verticalDamage: 12
+  verticalDamage: 1
   verticalKnockbackDistance: 2.5
   verticalStaggerTime: 0.35
   verticalAttackCooldown: 1
@@ -54,6 +58,12 @@ MonoBehaviour:
   verticalSlamExtraAccel: 40
   verticalSlamMaxDownSpeed: 40
   verticalSlamStartDownSpeed: 50
+  verticalHitMask:
+    serializedVersion: 2
+    m_Bits: 640
+  verticalAffectsRigidbodies: 1
+  verticalRigidbodyImpulse: 6
+  verticalRigidbodyUpFactor: 0.35
   spinChargeMinTime: 0.6
   spinChargeMaxTime: 1.6
   spinMoveSpeedMultiplierWhileExecuting: 0.6
@@ -63,7 +73,7 @@ MonoBehaviour:
   spinDuration: 0.7
   spinPostStun: 0.35
   spinRadius: 2.8
-  spinDamage: 10
+  spinDamage: 1
   spinPushDistance: 2
   spinStaggerTime: 0.3
   spinCooldown: 6
@@ -82,3 +92,6 @@ MonoBehaviour:
   jumpGroundAirDetectDelay: 0.04
   jumpAirAirDetectDelay: 0.04
   fallSettleTime: 0.04
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
