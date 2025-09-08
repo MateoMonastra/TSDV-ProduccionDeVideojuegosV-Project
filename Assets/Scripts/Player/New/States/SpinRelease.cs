@@ -60,7 +60,6 @@ namespace Player.New
             // Cooldown del spin
             _model.SpinOnCooldown   = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
-            _hud.OnSpinCooldown(_model.SpinCooldownLeft);
 
             // Duraciones en función de la carga
             float r = Mathf.Clamp01(_model.SpinChargeRatio);

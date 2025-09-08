@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Health;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +18,11 @@ namespace Player.New.UI
         private static readonly int IsPlayerHealth = Animator.StringToHash("PlayerHealth");
 
         [Header("Modelo (para polling)")]
-        [SerializeField] private Player.New.PlayerModel model;
+        [SerializeField] private PlayerModel model;
 
         [Header("Spin - Carga")]
-        [SerializeField] private Image spinChargeFill;    // Filled Radial360
-        [SerializeField] private Image spinChargeMinMark; // Filled Radial360 (marca en % del mínimo)
+        [SerializeField] private Image spinChargeFill;
+        [SerializeField] private Image spinChargeMinMark;
         [SerializeField] private Color spinBelowMin = new Color(1f, 0.6f, 0.2f, 1f);
         [SerializeField] private Color spinAboveMin = new Color(0.2f, 1f, 0.4f, 1f);
 
@@ -63,24 +64,31 @@ namespace Player.New.UI
 
         private void Awake()
         {
-            // Asegurar configuración correcta de imágenes filled para el spin
             EnsureFilledSetup(spinChargeFill);
             EnsureFilledSetup(spinChargeMinMark);
 
             HideSpinChargeUI();
-
-            // Inicializar iconos de pickups
+            
             SetGraphicEnabled(extraJumpIcon, false);
             SetGraphicEnabled(dashBuffIcon, false);
             ResetScale(extraJumpIcon);
             ResetScale(dashBuffIcon);
         }
 
+        private void OnEnable()
+        {
+            GameEvents.GameEvents.OnPlayerBlinded += OnBlind;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.GameEvents.OnPlayerBlinded -= OnBlind;
+        }
+
         private void Update()
         {
             if (!model) return;
-
-            // ===== Cooldowns por polling =====
+            
             UpdateCooldown(spinCdFill, spinCdText,
                 model.SpinOnCooldown ? model.SpinCooldownLeft : 0f, model.SpinCooldown);
 
@@ -89,12 +97,9 @@ namespace Player.New.UI
 
             UpdateCooldown(vertCdFill, vertCdText,
                 model.VerticalOnCooldown ? model.VerticalCooldownLeft : 0f, model.VerticalAttackCooldown);
-
-            // ===== Pickups por polling =====
+            
             UpdatePickupIcons(Time.deltaTime, model.HasExtraJump, model.DashBuffPending);
         }
-
-        // =============== API pública existente ===============
 
         /// <summary>
         /// Progreso de carga del spin (llamado mientras se mantiene el input).
@@ -105,8 +110,7 @@ namespace Player.New.UI
 
             _spinChargeVisible = true;
             spinChargeFill.enabled = true;
-
-            // Asegurar tipo filled/radial
+            
             EnsureFilledSetup(spinChargeFill);
             EnsureFilledSetup(spinChargeMinMark);
 
@@ -132,17 +136,6 @@ namespace Player.New.UI
             HideSpinChargeUI();
         }
 
-        /// <summary>
-        /// Llamada por tu lógica actual (ej. SpinRelease -> OnSpinCooldownUI) con tiempo restante.
-        /// </summary>
-        public void OnSpinCooldown(float cdLeft)
-        {
-            // No forzamos nada acá; el Update ya pinta desde el modelo.
-            // Si quisieras un flash al quedar listo, podrías añadirlo aquí.
-        }
-
-        // =============== Pickups (métodos opcionales directos) ===============
-
         /// <summary>Marcar explícitamente el icono de extra jump activo/inactivo (si preferís no depender de polling).</summary>
         public void SetPickupExtraJumpActive(bool active)
         {
@@ -156,9 +149,7 @@ namespace Player.New.UI
             SetGraphicEnabled(dashBuffIcon, active);
             if (!active) ResetScale(dashBuffIcon);
         }
-
-        // =============== Vida / Daño / Ceguera ===============
-
+        
         public void SetHealth(int current)
         {
             if (playerHealthAnimator)
@@ -176,8 +167,6 @@ namespace Player.New.UI
             if (_blindnessCo != null) StopCoroutine(_blindnessCo);
             _blindnessCo = StartCoroutine(BlindCo());
         }
-
-        // =============== Render helpers ===============
 
         private void UpdateCooldown(Image fill, Text txt, float left, float total)
         {
@@ -228,7 +217,7 @@ namespace Player.New.UI
         {
             if (!img) return;
             if (img.type != Image.Type.Filled) img.type = Image.Type.Filled;
-            // Forzamos radial 360 para evitar que en el prefab quede mal configurado
+            
             if (img.fillMethod != Image.FillMethod.Radial360) img.fillMethod = Image.FillMethod.Radial360;
             if (img.fillOrigin != (int)Image.Origin360.Top) img.fillOrigin = (int)Image.Origin360.Top;
             img.fillClockwise = true;
@@ -262,8 +251,7 @@ namespace Player.New.UI
             var color = damagedImage.color;
 
             float half = Mathf.Max(0.01f, damagedDuration * 0.5f);
-
-            // Fade-in
+            
             float t = 0f;
             while (t < half)
             {
@@ -272,8 +260,7 @@ namespace Player.New.UI
                 damagedImage.color = color;
                 yield return null;
             }
-
-            // Fade-out
+            
             t = 0f;
             while (t < half)
             {
