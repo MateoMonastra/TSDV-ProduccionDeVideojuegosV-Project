@@ -100,6 +100,10 @@ MonoBehaviour:
   _fallDetectionMultiplier: 2
   _minGroundDotForSnap: 0.85
   _ungroundTimeAfterJump: 0.1
+  _pickupMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _maxPickupsPerFrame: 8
 --- !u!136 &8849222996993031085
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -368,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
-    - {fileID: 8717590983609226268, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
+    - {fileID: 0}
     - {fileID: 4918293079226080794, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
     - {fileID: 5952934300567670599, guid: 4543b5b2af673fb4ca1517d21fab05b4, type: 3}
     m_RemovedGameObjects:
