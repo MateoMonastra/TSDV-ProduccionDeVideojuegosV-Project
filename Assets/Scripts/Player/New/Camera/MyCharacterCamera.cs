@@ -73,8 +73,9 @@ namespace Player.New
             if (inputReader != null)
             {
                 inputReader.OnLook += OnLook;
-                // Si tu InputReader expone un evento de zoom, podés suscribirlo aquí.
             }
+
+            GameEvents.GameEvents.OnGamePaused += PauseTheCamera;
         }
 
         private void OnDisable()
@@ -83,16 +84,27 @@ namespace Player.New
             {
                 inputReader.OnLook -= OnLook;
             }
+            GameEvents.GameEvents.OnGamePaused -= PauseTheCamera;
         }
-
-        // recolecta input si no hay InputReader (fallback a scroll del mouse)
+        
         private void CollectFallbackInput()
         {
-            // Zoom por scroll (Input System)
             if (Mouse.current != null)
             {
-                float scrollY = Mouse.current.scroll.ReadValue().y; // típico ±120
-                _zoom += scrollY * 0.01f; // escala razonable
+                float scrollY = Mouse.current.scroll.ReadValue().y;
+                _zoom += scrollY * 0.01f;
+            }
+        }
+
+        public void PauseTheCamera(bool isGamePaused)
+        {
+            if (isGamePaused)
+            {
+                inputReader.OnLook -= OnLook;
+            }
+            else
+            {
+                inputReader.OnLook += OnLook;
             }
         }
 
@@ -106,14 +118,11 @@ namespace Player.New
         {
             if (followTransform == null)
                 return;
-
-            // fallback de zoom si no hay evento dedicado
+            
             if (inputReader == null) CollectFallbackInput();
-
-            // llamar al motor de cámara cada frame
+            
             UpdateCamera(Time.deltaTime, _zoom, new Vector3(_look.x, _look.y, 0f), _lastDevice ?? Mouse.current);
-
-            // limpiar buffers que son "por frame"
+            
             _zoom = 0f;
         }
 
