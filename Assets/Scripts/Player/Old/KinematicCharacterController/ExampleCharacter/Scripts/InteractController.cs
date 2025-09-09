@@ -66,13 +66,15 @@ namespace KinematicCharacterController.Examples
             OnStartInteractAction?.Invoke(data);
             yield return new WaitForSeconds(data.interactionTime);
             OnEndInteractAction?.Invoke(data);
-            interactionTarget.FinishInteraction();
+            interactionTarget?.FinishInteraction();
         }
 
         public void InterruptInteraction()
         {
-            StopCoroutine(_interactionCoroutine);
-            interactionTarget.InterruptInteraction();
+            if (_interactionCoroutine != null)
+                StopCoroutine(_interactionCoroutine);
+            
+            interactionTarget?.InterruptInteraction();
         }
     }
 }
