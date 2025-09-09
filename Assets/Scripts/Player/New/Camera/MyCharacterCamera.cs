@@ -100,6 +100,7 @@ namespace Player.New
         {
             if (isGamePaused)
             {
+                _look = Vector2.zero;
                 inputReader.OnLook -= OnLook;
             }
             else
