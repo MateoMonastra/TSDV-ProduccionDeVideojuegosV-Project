@@ -54,7 +54,6 @@ namespace Hazards.Cannon.States
             }
 
             _onEnterAttackRange?.Invoke();
-            Debug.Log("Shoted");
             _isInCooldown = true;
             _cooldownTimer = 0f;
         }

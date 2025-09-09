@@ -12,6 +12,7 @@ namespace Hazards.BlowerBridge
         private static readonly int IdleTrigger = Animator.StringToHash("Idle");
         private static readonly int PressTrigger = Animator.StringToHash("Pressed");
 
+        [SerializeField] private bool resetable = true;
         [SerializeField] private float cooldown = 2f;
         [SerializeField] private Animator animator;
 
@@ -28,7 +29,9 @@ namespace Hazards.BlowerBridge
             }
 
             onActivate?.Invoke();
-            Invoke(nameof(ResetButton), cooldown);
+
+            if (resetable)
+                Invoke(nameof(ResetButton), cooldown);
         }
 
         private void ResetButton()
@@ -38,7 +41,7 @@ namespace Hazards.BlowerBridge
             if (!animator) return;
             animator.ResetTrigger(PressTrigger);
             animator.SetTrigger(IdleTrigger);
-            
+
             onDeactivate?.Invoke();
         }
 

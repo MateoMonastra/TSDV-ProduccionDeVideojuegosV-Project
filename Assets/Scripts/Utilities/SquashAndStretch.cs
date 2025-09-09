@@ -58,29 +58,17 @@ namespace Utilities
         {
             _globalSquashAndStretch?.Invoke();
         }
-        private void OnEnable()
-        {
-            _globalSquashAndStretch += PlayGlobalSquashAndStretch;
-        }
         private void OnDisable()
         {
             if (_squashAndStretchCoroutine != null)
                 StopCoroutine(_squashAndStretchCoroutine);
-
-            _globalSquashAndStretch -= PlayGlobalSquashAndStretch;
         }
         private void Start()
         {
             if (playOnStart)
                 CheckForAndStartCoroutine();
         }
-        private void PlayGlobalSquashAndStretch()
-        {
-            if (looping && !canBeOverwritten) 
-                return;
-
-            CheckForAndStartCoroutine();
-        }
+        
         private void CheckForAndStartCoroutine()
         {
             if (axisToAffect == SquashStretchAxis.None)
@@ -156,6 +144,12 @@ namespace Utilities
                 }
             } while (looping);
         }
+
+        public void Play()
+        {
+            CheckForAndStartCoroutine();
+        }
+        
         public void SetLooping(bool shouldLoop)
         {
             looping = shouldLoop;
