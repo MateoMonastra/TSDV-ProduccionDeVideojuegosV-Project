@@ -192,6 +192,7 @@ namespace Player.New
         {
             anim?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
+            interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sDeath);
             GameEvents.GameEvents.PlayerDied(gameObject);
         }
@@ -201,6 +202,7 @@ namespace Player.New
             model.LastDamage = info;
             hud.OnDamaged();
             hud.SetHealth(health.GetCurrentHealth());
+            interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sHit);
         }
 
