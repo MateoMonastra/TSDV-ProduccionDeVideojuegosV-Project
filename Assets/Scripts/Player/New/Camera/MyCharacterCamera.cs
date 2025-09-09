@@ -62,6 +62,8 @@ namespace Player.New
             _framingHandler = new CameraFramingHandler(this);
             _obstructionHandler = new CameraObstructionHandler(this, _distanceHandler);
 
+            Cursor.lockState = CursorLockMode.Locked;
+            
             if (followTransform != null)
                 _currentFollowPosition = followTransform.position;
         }
