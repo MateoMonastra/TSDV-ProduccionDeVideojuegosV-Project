@@ -29,7 +29,7 @@ namespace CheckPoint
                 return;
             }
 
-            health.InstaKill(); // Esto debe disparar OnDeath en HealthController
+            health.InstaKill();
         }
     }
 }
