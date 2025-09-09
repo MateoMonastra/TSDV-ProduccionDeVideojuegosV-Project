@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using Health;
 using Player.Old.PlayerPrototype;
 using UnityEngine.Serialization;
 
@@ -13,6 +14,8 @@ namespace KinematicCharacterController.Examples
         Default,
         Dashing,
         Stunned,
+        Interacting,
+        Death,
     }
 
     public enum OrientationMethod
@@ -26,6 +29,8 @@ namespace KinematicCharacterController.Examples
         public float MoveAxisForward;
         public float MoveAxisRight;
         public Quaternion CameraRotation;
+        public bool InteractDown;
+        public bool InteractUp;
         public bool JumpDown;
         public bool CrouchDown;
         public bool CrouchUp;
@@ -49,20 +54,29 @@ namespace KinematicCharacterController.Examples
     {
         public PlayerModel Model;
         public KinematicCharacterMotor Motor;
+        public HealthController healthController;
         public ParticleSystem lastJumpParticles;
         public ParticleSystem dashParticles;
         private HammerController hammerController; // Reference to hammer controller
+        private InteractController _interactController;
 
-        [Header("Skill Unlocks")] [SerializeField]
+        [Header("Skill Unlocks")]
+        [SerializeField]
         private bool isDashUnlocked;
 
-        [Header("Animation")] [SerializeField] private Animator animator;
+        [FormerlySerializedAs("deathHitParticles")]
+        [SerializeField]
+        private ParticleSystem[] hitParticles;
+
+        [Header("Animation")][SerializeField] private Animator animator;
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
         private static readonly int IsDashing = Animator.StringToHash("IsDashing");
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
         private static readonly int IsIdle = Animator.StringToHash("IsIdle");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private static readonly string DeathAnimationName = "IsDead";
+        private static readonly int IsDamaged = Animator.StringToHash("IsDamaged");
 
 
         [Header("Misc")] public List<Collider> IgnoredColliders = new List<Collider>();
@@ -72,6 +86,12 @@ namespace KinematicCharacterController.Examples
         public Transform CameraFollowPoint;
         public float CrouchedCapsuleHeight = 1f;
 
+
+        [Header("Cameras References")]
+        [SerializeField]
+        private GameObject worldCamera;
+
+        [SerializeField] private GameObject deathCamera;
 
         private int _extraDashCharges = 0;
 
@@ -95,6 +115,7 @@ namespace KinematicCharacterController.Examples
 
         private bool _isDashing = false;
         private bool _isDead = false;
+        private bool _isDamaged = false;
         private float _dashTimeRemaining = 0f;
         private float _dashCooldownRemaining = 0f;
         private Vector3 _dashDirection;
@@ -104,6 +125,11 @@ namespace KinematicCharacterController.Examples
 
         private int _jumpsRemaining; // Track remaining jumps
         private int _extraJumpsRemaining = 0; // Track extra jumps from pickups
+
+        private IInteractable targettedInteractable;
+
+        private Coroutine _damageCoroutine;
+        private Coroutine _deathCoroutine;
 
         private void Awake()
         {
@@ -122,8 +148,18 @@ namespace KinematicCharacterController.Examples
             // Get hammer controller reference
             hammerController = GetComponentInChildren<HammerController>();
 
+            _interactController = GetComponent<InteractController>();
+            _interactController.OnStartInteractAction += InteractSequence;
+            _interactController.OnEndInteractAction += EndInteractSequence;
+
             // Initialize jumps
             _jumpsRemaining = Model.MaxJumps;
+        }
+
+        private void Start()
+        {
+            healthController.OnTakeDamage += DamageSequence;
+            // healthController.OnDeath += DeathSequence;
         }
 
         /// <summary>
@@ -145,15 +181,15 @@ namespace KinematicCharacterController.Examples
             switch (state)
             {
                 case CharacterState.Default:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case CharacterState.Dashing:
-                {
-                    // Update animation immediately when entering dash state
-                    UpdateAnimationParameters();
-                    break;
-                }
+                    {
+                        // Update animation immediately when entering dash state
+                        UpdateAnimationParameters();
+                        break;
+                    }
             }
         }
 
@@ -165,15 +201,15 @@ namespace KinematicCharacterController.Examples
             switch (state)
             {
                 case CharacterState.Default:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case CharacterState.Dashing:
-                {
-                    // Update animation immediately when exiting dash state
-                    UpdateAnimationParameters();
-                    break;
-                }
+                    {
+                        // Update animation immediately when exiting dash state
+                        UpdateAnimationParameters();
+                        break;
+                    }
             }
         }
 
@@ -188,6 +224,11 @@ namespace KinematicCharacterController.Examples
             {
                 _moveInputVector = Vector3.zero;
                 return;
+            }
+
+            if (CurrentCharacterState == CharacterState.Death)
+            {
+                Motor.BaseVelocity = Vector3.zero;
             }
 
             // Clamp input
@@ -205,117 +246,124 @@ namespace KinematicCharacterController.Examples
 
             Quaternion cameraPlanarRotation = Quaternion.LookRotation(cameraPlanarDirection, Motor.CharacterUp);
 
+            _interactController.DetectInteractions();
+
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
-                {
-                    // Move and look inputs
-                    _moveInputVector = cameraPlanarRotation * moveInputVector;
-
-                    switch (Model.OrientationMethod)
                     {
-                        case OrientationMethod.TowardsCamera:
-                            _lookInputVector = cameraPlanarDirection;
-                            break;
-                        case OrientationMethod.TowardsMovement:
-                            _lookInputVector = _moveInputVector.normalized;
-                            break;
-                    }
+                        // Move and look inputs
+                        _moveInputVector = cameraPlanarRotation * moveInputVector;
 
-                    // Dash input
-                    if (inputs.DashDown && CanDash())
-                    {
-                        _isDashing = true;
-                        _dashTimeRemaining = Model.DashDuration;
-                        UseDash();
-
-                        // Calculate dash direction based on input or camera
-                        Vector3 inputDirection = Vector3.zero;
-                        if (moveInputVector.sqrMagnitude > 0.01f)
+                        switch (Model.OrientationMethod)
                         {
-                            // Use input direction if there is input
-                            inputDirection = cameraPlanarRotation * moveInputVector;
-                        }
-                        else
-                        {
-                            // Fall back to camera direction if no input
-                            inputDirection = cameraPlanarDirection;
+                            case OrientationMethod.TowardsCamera:
+                                _lookInputVector = cameraPlanarDirection;
+                                break;
+                            case OrientationMethod.TowardsMovement:
+                                _lookInputVector = _moveInputVector.normalized;
+                                break;
                         }
 
-                        _dashDirection = inputDirection.normalized;
-                        TransitionToState(CharacterState.Dashing);
-
-                        // Force unground if we're on the ground to ensure proper ground state tracking
-                        if (Motor.GroundingStatus.IsStableOnGround)
+                        // Dash input
+                        if (inputs.DashDown && CanDash())
                         {
-                            Motor.ForceUnground();
+                            _isDashing = true;
+                            _dashTimeRemaining = Model.DashDuration;
+                            UseDash();
+
+                            // Calculate dash direction based on input or camera
+                            Vector3 inputDirection = Vector3.zero;
+                            if (moveInputVector.sqrMagnitude > 0.01f)
+                            {
+                                // Use input direction if there is input
+                                inputDirection = cameraPlanarRotation * moveInputVector;
+                            }
+                            else
+                            {
+                                // Fall back to camera direction if no input
+                                inputDirection = cameraPlanarDirection;
+                            }
+
+                            _dashDirection = inputDirection.normalized;
+                            TransitionToState(CharacterState.Dashing);
+
+                            // Force unground if we're on the ground to ensure proper ground state tracking
+                            if (Motor.GroundingStatus.IsStableOnGround)
+                            {
+                                Motor.ForceUnground();
+                            }
                         }
-                    }
 
-                    // Jumping input
-                    if (inputs.JumpDown)
-                    {
-                        _timeSinceJumpRequested = 0f;
-                        _jumpRequested = true;
-                    }
-
-                    // Crouching input
-                    if (inputs.CrouchDown)
-                    {
-                        _shouldBeCrouching = true;
-
-                        if (!_isCrouching)
+                        // Jumping input
+                        if (inputs.JumpDown)
                         {
-                            _isCrouching = true;
-                            Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
-                            MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
+                            _timeSinceJumpRequested = 0f;
+                            _jumpRequested = true;
                         }
-                    }
-                    else if (inputs.CrouchUp)
-                    {
-                        _shouldBeCrouching = false;
-                    }
 
-                    break;
-                }
+                        // Crouching input
+                        if (inputs.CrouchDown)
+                        {
+                            _shouldBeCrouching = true;
+
+                            if (!_isCrouching)
+                            {
+                                _isCrouching = true;
+                                Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                                MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
+                            }
+                        }
+                        else if (inputs.CrouchUp)
+                        {
+                            _shouldBeCrouching = false;
+                        }
+
+                        if (inputs.InteractDown)
+                        {
+                            _interactController.Interact();
+                        }
+
+                        break;
+                    }
                 case CharacterState.Dashing:
-                {
-                    // Dash input
-                    if (inputs.DashDown && CanDash())
                     {
-                        _isDashing = true;
-                        _dashTimeRemaining = Model.DashDuration;
-                        UseDash();
-
-                        // Calculate dash direction based on input or camera
-                        Vector3 inputDirection = Vector3.zero;
-                        if (moveInputVector.sqrMagnitude > 0.01f)
+                        // Dash input
+                        if (inputs.DashDown && CanDash())
                         {
-                            // Use input direction if there is input
-                            inputDirection = cameraPlanarRotation * moveInputVector;
+                            _isDashing = true;
+                            _dashTimeRemaining = Model.DashDuration;
+                            UseDash();
+
+                            // Calculate dash direction based on input or camera
+                            Vector3 inputDirection = Vector3.zero;
+                            if (moveInputVector.sqrMagnitude > 0.01f)
+                            {
+                                // Use input direction if there is input
+                                inputDirection = cameraPlanarRotation * moveInputVector;
+                            }
+                            else
+                            {
+                                // Fall back to camera direction if no input
+                                inputDirection = cameraPlanarDirection;
+                            }
+
+                            _dashDirection = inputDirection.normalized;
+                            TransitionToState(CharacterState.Dashing);
+
+                            // Force unground if we're on the ground to ensure proper ground state tracking
+                            if (Motor.GroundingStatus.IsStableOnGround)
+                            {
+                                Motor.ForceUnground();
+                            }
                         }
                         else
                         {
-                            // Fall back to camera direction if no input
-                            inputDirection = cameraPlanarDirection;
-                        }
-
-                        _dashDirection = inputDirection.normalized;
-                        TransitionToState(CharacterState.Dashing);
-
-                        // Force unground if we're on the ground to ensure proper ground state tracking
-                        if (Motor.GroundingStatus.IsStableOnGround)
-                        {
-                            Motor.ForceUnground();
+                            // While dashing, we don't process other inputs
+                            _moveInputVector = Vector3.zero;
+                            _lookInputVector = _dashDirection;
                         }
                     }
-                    else
-                    {
-                        // While dashing, we don't process other inputs
-                        _moveInputVector = Vector3.zero;
-                        _lookInputVector = _dashDirection;
-                    }
-                }
                     break;
             }
         }
@@ -375,59 +423,59 @@ namespace KinematicCharacterController.Examples
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
-                {
-                    if (_lookInputVector.sqrMagnitude > 0f && Model.OrientationSharpness > 0f)
                     {
-                        // Smoothly interpolate from current to target look direction
-                        Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _lookInputVector,
-                            1 - Mathf.Exp(-Model.OrientationSharpness * deltaTime)).normalized;
-
-                        // Set the current rotation (which will be used by the KinematicCharacterMotor)
-                        currentRotation = Quaternion.LookRotation(smoothedLookInputDirection, Motor.CharacterUp);
-                    }
-
-                    Vector3 currentUp = (currentRotation * Vector3.up);
-                    if (BonusOrientationMethod == BonusOrientationMethod.TowardsGravity)
-                    {
-                        // Rotate from current up to invert gravity
-                        Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized,
-                            1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
-                        currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
-                    }
-                    else if (BonusOrientationMethod == BonusOrientationMethod.TowardsGroundSlopeAndGravity)
-                    {
-                        if (Motor.GroundingStatus.IsStableOnGround)
+                        if (_lookInputVector.sqrMagnitude > 0f && Model.OrientationSharpness > 0f)
                         {
-                            Vector3 initialCharacterBottomHemiCenter =
-                                Motor.TransientPosition + (currentUp * Motor.Capsule.radius);
+                            // Smoothly interpolate from current to target look direction
+                            Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _lookInputVector,
+                                1 - Mathf.Exp(-Model.OrientationSharpness * deltaTime)).normalized;
 
-                            Vector3 smoothedGroundNormal = Vector3.Slerp(Motor.CharacterUp,
-                                Motor.GroundingStatus.GroundNormal,
+                            // Set the current rotation (which will be used by the KinematicCharacterMotor)
+                            currentRotation = Quaternion.LookRotation(smoothedLookInputDirection, Motor.CharacterUp);
+                        }
+
+                        Vector3 currentUp = (currentRotation * Vector3.up);
+                        if (BonusOrientationMethod == BonusOrientationMethod.TowardsGravity)
+                        {
+                            // Rotate from current up to invert gravity
+                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized,
                                 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
-                            currentRotation = Quaternion.FromToRotation(currentUp, smoothedGroundNormal) *
-                                              currentRotation;
+                            currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
+                        }
+                        else if (BonusOrientationMethod == BonusOrientationMethod.TowardsGroundSlopeAndGravity)
+                        {
+                            if (Motor.GroundingStatus.IsStableOnGround)
+                            {
+                                Vector3 initialCharacterBottomHemiCenter =
+                                    Motor.TransientPosition + (currentUp * Motor.Capsule.radius);
 
-                            // Move the position to create a rotation around the bottom hemi center instead of around the pivot
-                            Motor.SetTransientPosition(initialCharacterBottomHemiCenter +
-                                                       (currentRotation * Vector3.down * Motor.Capsule.radius));
+                                Vector3 smoothedGroundNormal = Vector3.Slerp(Motor.CharacterUp,
+                                    Motor.GroundingStatus.GroundNormal,
+                                    1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGroundNormal) *
+                                                  currentRotation;
+
+                                // Move the position to create a rotation around the bottom hemi center instead of around the pivot
+                                Motor.SetTransientPosition(initialCharacterBottomHemiCenter +
+                                                           (currentRotation * Vector3.down * Motor.Capsule.radius));
+                            }
+                            else
+                            {
+                                Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized,
+                                    1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
+                                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) *
+                                                  currentRotation;
+                            }
                         }
                         else
                         {
-                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, -Model.Gravity.normalized,
+                            Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, Vector3.up,
                                 1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
-                            currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) *
-                                              currentRotation;
+                            currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
                         }
-                    }
-                    else
-                    {
-                        Vector3 smoothedGravityDir = Vector3.Slerp(currentUp, Vector3.up,
-                            1 - Mathf.Exp(-BonusOrientationSharpness * deltaTime));
-                        currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
-                    }
 
-                    break;
-                }
+                        break;
+                    }
             }
         }
 
@@ -441,115 +489,115 @@ namespace KinematicCharacterController.Examples
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
-                {
-                    // Ground movement
-                    if (Motor.GroundingStatus.IsStableOnGround)
                     {
-                        float currentVelocityMagnitude = currentVelocity.magnitude;
-
-                        Vector3 effectiveGroundNormal = Motor.GroundingStatus.GroundNormal;
-
-                        // Reorient velocity on slope
-                        currentVelocity = Motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) *
-                                          currentVelocityMagnitude;
-
-                        // Calculate target velocity
-                        Vector3 inputRight = Vector3.Cross(_moveInputVector, Motor.CharacterUp);
-                        Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized *
-                                                  _moveInputVector.magnitude;
-                        Vector3 targetMovementVelocity = reorientedInput * Model.MaxStableMoveSpeed;
-
-                        // Smooth movement Velocity
-                        currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity,
-                            1f - Mathf.Exp(-Model.StableMovementSharpness * deltaTime));
-                    }
-                    // Air movement
-                    else
-                    {
-                        // Add move input
-                        if (_moveInputVector.sqrMagnitude > 0f)
+                        // Ground movement
+                        if (Motor.GroundingStatus.IsStableOnGround)
                         {
-                            Vector3 addedVelocity = _moveInputVector * (Model.AirAccelerationSpeed * deltaTime);
+                            float currentVelocityMagnitude = currentVelocity.magnitude;
 
-                            Vector3 currentVelocityOnInputsPlane =
-                                Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
+                            Vector3 effectiveGroundNormal = Motor.GroundingStatus.GroundNormal;
 
-                            // Limit air velocity from inputs
-                            if (currentVelocityOnInputsPlane.magnitude < Model.MaxAirMoveSpeed)
+                            // Reorient velocity on slope
+                            currentVelocity = Motor.GetDirectionTangentToSurface(currentVelocity, effectiveGroundNormal) *
+                                              currentVelocityMagnitude;
+
+                            // Calculate target velocity
+                            Vector3 inputRight = Vector3.Cross(_moveInputVector, Motor.CharacterUp);
+                            Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized *
+                                                      _moveInputVector.magnitude;
+                            Vector3 targetMovementVelocity = reorientedInput * Model.MaxStableMoveSpeed;
+
+                            // Smooth movement Velocity
+                            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity,
+                                1f - Mathf.Exp(-Model.StableMovementSharpness * deltaTime));
+                        }
+                        // Air movement
+                        else
+                        {
+                            // Add move input
+                            if (_moveInputVector.sqrMagnitude > 0f)
                             {
-                                // clamp addedVel to make total vel not exceed max vel on inputs plane
-                                Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity,
-                                    Model.MaxAirMoveSpeed);
-                                addedVelocity = newTotal - currentVelocityOnInputsPlane;
-                            }
-                            else
-                            {
-                                // Make sure added vel doesn't go in the direction of the already-exceeding velocity
-                                if (Vector3.Dot(currentVelocityOnInputsPlane, addedVelocity) > 0f)
+                                Vector3 addedVelocity = _moveInputVector * (Model.AirAccelerationSpeed * deltaTime);
+
+                                Vector3 currentVelocityOnInputsPlane =
+                                    Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
+
+                                // Limit air velocity from inputs
+                                if (currentVelocityOnInputsPlane.magnitude < Model.MaxAirMoveSpeed)
                                 {
-                                    addedVelocity = Vector3.ProjectOnPlane(addedVelocity,
-                                        currentVelocityOnInputsPlane.normalized);
+                                    // clamp addedVel to make total vel not exceed max vel on inputs plane
+                                    Vector3 newTotal = Vector3.ClampMagnitude(currentVelocityOnInputsPlane + addedVelocity,
+                                        Model.MaxAirMoveSpeed);
+                                    addedVelocity = newTotal - currentVelocityOnInputsPlane;
                                 }
-                            }
-
-                            // Prevent air-climbing sloped walls
-                            if (Motor.GroundingStatus.FoundAnyGround)
-                            {
-                                if (Vector3.Dot(currentVelocity + addedVelocity, addedVelocity) > 0f)
+                                else
                                 {
-                                    Vector3 perpenticularObstructionNormal = Vector3
-                                        .Cross(Vector3.Cross(Motor.CharacterUp, Motor.GroundingStatus.GroundNormal),
-                                            Motor.CharacterUp).normalized;
-                                    addedVelocity =
-                                        Vector3.ProjectOnPlane(addedVelocity, perpenticularObstructionNormal);
+                                    // Make sure added vel doesn't go in the direction of the already-exceeding velocity
+                                    if (Vector3.Dot(currentVelocityOnInputsPlane, addedVelocity) > 0f)
+                                    {
+                                        addedVelocity = Vector3.ProjectOnPlane(addedVelocity,
+                                            currentVelocityOnInputsPlane.normalized);
+                                    }
                                 }
+
+                                // Prevent air-climbing sloped walls
+                                if (Motor.GroundingStatus.FoundAnyGround)
+                                {
+                                    if (Vector3.Dot(currentVelocity + addedVelocity, addedVelocity) > 0f)
+                                    {
+                                        Vector3 perpenticularObstructionNormal = Vector3
+                                            .Cross(Vector3.Cross(Motor.CharacterUp, Motor.GroundingStatus.GroundNormal),
+                                                Motor.CharacterUp).normalized;
+                                        addedVelocity =
+                                            Vector3.ProjectOnPlane(addedVelocity, perpenticularObstructionNormal);
+                                    }
+                                }
+
+                                // Apply added velocity
+                                currentVelocity += addedVelocity;
                             }
 
-                            // Apply added velocity
-                            currentVelocity += addedVelocity;
+                            // Gravity
+                            currentVelocity += Model.Gravity * deltaTime;
+
+                            // Drag
+                            currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
                         }
 
-                        // Gravity
-                        currentVelocity += Model.Gravity * deltaTime;
+                        // Handle jumping
+                        _jumpedThisFrame = false;
+                        _timeSinceJumpRequested += deltaTime;
 
-                        // Drag
-                        currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
-                    }
-
-                    // Handle jumping
-                    _jumpedThisFrame = false;
-                    _timeSinceJumpRequested += deltaTime;
-
-                    if (_jumpRequested)
-                    {
-                        if (CanJump())
+                        if (_jumpRequested)
                         {
-                            Jump(ref currentVelocity);
+                            if (CanJump())
+                            {
+                                Jump(ref currentVelocity);
+                            }
                         }
-                    }
 
-                    // Take into account additive velocity
-                    if (_internalVelocityAdd.sqrMagnitude > 0f)
-                    {
-                        currentVelocity += _internalVelocityAdd;
-                        _internalVelocityAdd = Vector3.zero;
-                    }
+                        // Take into account additive velocity
+                        if (_internalVelocityAdd.sqrMagnitude > 0f)
+                        {
+                            currentVelocity += _internalVelocityAdd;
+                            _internalVelocityAdd = Vector3.zero;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 case CharacterState.Dashing:
-                {
-                    // During dash, we set the velocity directly without any interpolation
-                    currentVelocity = _dashDirection * Model.DashSpeed;
-                    break;
-                }
+                    {
+                        // During dash, we set the velocity directly without any interpolation
+                        currentVelocity = _dashDirection * Model.DashSpeed;
+                        break;
+                    }
                 case CharacterState.Stunned:
-                {
-                    // In stunned state, only apply gravity and drag
-                    currentVelocity += Model.Gravity * deltaTime;
-                    currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
-                    break;
-                }
+                    {
+                        // In stunned state, only apply gravity and drag
+                        currentVelocity += Model.Gravity * deltaTime;
+                        currentVelocity *= (1f / (1f + (Model.Drag * deltaTime)));
+                        break;
+                    }
             }
         }
 
@@ -568,6 +616,9 @@ namespace KinematicCharacterController.Examples
 
             // Makes the character skip ground probing/snapping on its next update
             Motor.ForceUnground();
+
+            //Audio
+            //AkSoundEngine.PostEvent("play_player_jump", gameObject);
 
             // Add to the return velocity and reset jump state
             currentVelocity += (jumpDirection * Model.JumpUpSpeed) -
@@ -608,7 +659,7 @@ namespace KinematicCharacterController.Examples
             {
                 animator.SetTrigger("Jump");
             }
-            
+
             _jumpRequested = false; // Reset jump request after executing
         }
 
@@ -621,59 +672,59 @@ namespace KinematicCharacterController.Examples
             switch (CurrentCharacterState)
             {
                 case CharacterState.Default:
-                {
-                    // Handle jump-related values
                     {
-                        // Handle jumping pre-ground grace period
-                        if (_jumpRequested && _timeSinceJumpRequested > Model.JumpPreGroundingGraceTime)
+                        // Handle jump-related values
                         {
-                            _jumpRequested = false;
-                        }
-
-                        if (Model.AllowJumpingWhenSliding
-                                ? Motor.GroundingStatus.FoundAnyGround
-                                : Motor.GroundingStatus.IsStableOnGround)
-                        {
-                            // If we're on a ground surface, reset jumping values
-                            if (!_jumpedThisFrame)
+                            // Handle jumping pre-ground grace period
+                            if (_jumpRequested && _timeSinceJumpRequested > Model.JumpPreGroundingGraceTime)
                             {
-                                _jumpConsumed = false;
+                                _jumpRequested = false;
                             }
 
-                            _timeSinceLastAbleToJump = 0f;
-                        }
-                        else
-                        {
-                            // Keep track of time since we were last able to jump (for grace period)
-                            _timeSinceLastAbleToJump += deltaTime;
-                        }
-                    }
+                            if (Model.AllowJumpingWhenSliding
+                                    ? Motor.GroundingStatus.FoundAnyGround
+                                    : Motor.GroundingStatus.IsStableOnGround)
+                            {
+                                // If we're on a ground surface, reset jumping values
+                                if (!_jumpedThisFrame)
+                                {
+                                    _jumpConsumed = false;
+                                }
 
-                    // Handle uncrouching
-                    if (_isCrouching && !_shouldBeCrouching)
-                    {
-                        // Do an overlap test with the character's standing height to see if there are any obstructions
-                        Motor.SetCapsuleDimensions(0.5f, 2f, 1f);
-                        if (Motor.CharacterOverlap(
-                                Motor.TransientPosition,
-                                Motor.TransientRotation,
-                                _probedColliders,
-                                Motor.CollidableLayers,
-                                QueryTriggerInteraction.Ignore) > 0)
-                        {
-                            // If obstructions, just stick to crouching dimensions
-                            Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                                _timeSinceLastAbleToJump = 0f;
+                            }
+                            else
+                            {
+                                // Keep track of time since we were last able to jump (for grace period)
+                                _timeSinceLastAbleToJump += deltaTime;
+                            }
                         }
-                        else
-                        {
-                            // If no obstructions, uncrouch
-                            MeshRoot.localScale = new Vector3(1f, 1f, 1f);
-                            _isCrouching = false;
-                        }
-                    }
 
-                    break;
-                }
+                        // Handle uncrouching
+                        if (_isCrouching && !_shouldBeCrouching)
+                        {
+                            // Do an overlap test with the character's standing height to see if there are any obstructions
+                            Motor.SetCapsuleDimensions(0.5f, 2f, 1f);
+                            if (Motor.CharacterOverlap(
+                                    Motor.TransientPosition,
+                                    Motor.TransientRotation,
+                                    _probedColliders,
+                                    Motor.CollidableLayers,
+                                    QueryTriggerInteraction.Ignore) > 0)
+                            {
+                                // If obstructions, just stick to crouching dimensions
+                                Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                            }
+                            else
+                            {
+                                // If no obstructions, uncrouch
+                                MeshRoot.localScale = new Vector3(1f, 1f, 1f);
+                                _isCrouching = false;
+                            }
+                        }
+
+                        break;
+                    }
             }
         }
 
@@ -723,10 +774,10 @@ namespace KinematicCharacterController.Examples
             {
                 case CharacterState.Default:
                 case CharacterState.Stunned: // Allow velocity additions in stunned state
-                {
-                    _internalVelocityAdd += velocity;
-                    break;
-                }
+                    {
+                        _internalVelocityAdd += velocity;
+                        break;
+                    }
             }
         }
 
@@ -843,27 +894,86 @@ namespace KinematicCharacterController.Examples
             _extraJumpsRemaining = Math.Clamp(_extraJumpsRemaining + amount, 0, Model.MaxJumps);
         }
 
-        public void DeathSequence(Vector3 damageOrigin)
+        private void DeathSequence(DamageInfo damageInfo)
         {
             if (_isDead)
                 return;
 
             hammerController.InterruptGroundSlam();
+            _interactController.InterruptInteraction();
+
             TransitionToState(CharacterState.Stunned);
 
-            StartCoroutine(DeathCoroutine(damageOrigin));
+            _deathCoroutine = StartCoroutine(DeathCoroutine(damageInfo));
         }
 
-        private IEnumerator DeathCoroutine(Vector3 damageOrigin)
+        private IEnumerator DeathCoroutine(DamageInfo damageInfo)
         {
-            animator.SetBool(IsDead, true);
-            Motor.ForceUnground();
-            Motor.BaseVelocity = (((damageOrigin - transform.position).normalized * 10.0f) + Vector3.up * 8.0f);
+            animator.SetTrigger(IsDead);
             _isDead = true;
-            yield return new WaitForSeconds(0.7f);
+            SetDeathCamera();
+
+            yield return null;
+
+            yield return new WaitUntil(() => IsCurrentAnimation(DeathAnimationName));
+
+            yield return new WaitUntil(HasCurrentAnimationFinished);
+
             _isDead = false;
-            animator.SetBool(IsDead, false);
             GameEvents.GameEvents.PlayerDied(gameObject);
+        }
+
+
+        private void DamageSequence(DamageInfo damageInfo)
+        {
+            if (_isDamaged)
+                return;
+            
+            hammerController.InterruptGroundSlam();
+            _interactController.InterruptInteraction();
+            
+            for (int i = 0; i < hitParticles.Length; i++)
+            {
+                hitParticles[i].Play();
+            }
+
+            TransitionToState(CharacterState.Stunned);
+
+            _damageCoroutine = StartCoroutine(DamagedCoroutine(damageInfo));
+        }
+
+        private IEnumerator DamagedCoroutine(DamageInfo damageInfo)
+        {
+            animator.SetBool(IsDamaged, true);
+            _isDamaged = true;
+            GameEvents.GameEvents.PlayerDamaged();
+            Motor.ForceUnground(0.2f);
+            Motor.BaseVelocity =
+                (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) +
+                 Vector3.up * damageInfo.Knockback.Item2);
+            yield return new WaitForSeconds(0.5f);
+            animator.SetBool(IsDamaged, false);
+            TransitionToState(CharacterState.Default);
+            _isDamaged = false;
+        }
+
+        private void InteractSequence(InteractData interactData)
+        {
+            TransitionToState(CharacterState.Interacting);
+
+            Motor.BaseVelocity = Vector3.zero;
+            Motor.RotateCharacter(interactData.interactRot);
+            animator.SetTrigger(interactData.animTrigger);
+            Motor.SetPosition(interactData.interactPos);
+            
+            animator.SetBool("IsInteracting", true);
+        }
+
+        private void EndInteractSequence(InteractData interactData)
+        {
+            animator.SetBool("IsInteracting", false);
+
+            TransitionToState(CharacterState.Default);
         }
 
         private bool CanJump()
@@ -875,6 +985,32 @@ namespace KinematicCharacterController.Examples
 
             return _jumpsRemaining > 0 || _extraJumpsRemaining > 0;
         }
+
+        public void SetDeathCamera()
+        {
+            deathCamera.SetActive(true);
+            worldCamera.SetActive(false);
+        }
+
+        public void SetGameplayCamera()
+        {
+            worldCamera.SetActive(true);
+            deathCamera.SetActive(false);
+        }
+
+        private bool IsCurrentAnimation(string stateName)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            return stateInfo.IsName(stateName);
+        }
+
+        private bool HasCurrentAnimationFinished()
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            bool finished = stateInfo.normalizedTime >= 1f && !animator.IsInTransition(0);
+            return finished;
+        }
+
 
         public bool HasExtraJumps() => _extraJumpsRemaining > 0;
     }

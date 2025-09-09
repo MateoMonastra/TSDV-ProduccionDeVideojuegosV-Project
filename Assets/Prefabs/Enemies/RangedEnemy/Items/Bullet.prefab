@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7494209053501840371}
   - component: {fileID: 2309248101215648695}
   - component: {fileID: 3226467635361462977}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,10 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ee1fa2aceebf74c88062ff69bdf62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  environmentLayer:
+  damage: 1
+  knockback:
+    horizontal: 30
+    vertical: 15
+  environmentMask:
     serializedVersion: 2
     m_Bits: 64
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
   lifeTime: 5
   impactParticlesPrefab: {fileID: 0}
   particlesLifeTime: 0

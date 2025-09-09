@@ -1,60 +1,105 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
+using Player.New;
 
 namespace CheckPoint
 {
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Checkpoint : MonoBehaviour
     {
-       public UnityEvent onActivate;
-        
-        private bool _isActivated = false;
+        [Header("Refs")]
         [SerializeField] private CheckPointManagerRef checkpointManagerRef;
 
-        private void ActivateCheckpoint(Transform player, bool isCollider)
+        [Header("Opciones")]
+        [Tooltip("Si está activo, el checkpoint se consume y no vuelve a activarse.")]
+        [SerializeField] private bool oneShot = false;
+
+        [Tooltip("Al usar colisión, coloca el respawn sobre el top del collider del checkpoint.")]
+        [SerializeField] private bool useSafeHeightOnCollision = true;
+
+        [Header("Feedback")]
+        public UnityEvent onActivate;
+        [SerializeField] private GameObject visuals;
+
+        private Collider _col;
+        private Rigidbody _rb;
+        private bool _used;
+
+        private void Awake()
         {
-            if (_isActivated) return;
-            _isActivated = true;
-            Vector3 safePosition;
+            _col = GetComponent<Collider>();
+            _rb  = GetComponent<Rigidbody>();
             
-            safePosition = isCollider ? CalculateSafeRespawnPosition(player) : transform.position;
-            
-            if (!checkpointManagerRef.manager.IsLastCheckpoint(safePosition))
-            {
-                checkpointManagerRef.manager.SetCheckpoint(safePosition);
-                
-                onActivate?.Invoke();
-            }
+            _rb.isKinematic = true;
+            _rb.useGravity  = false;
+
+            if (!visuals) visuals = gameObject;
         }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
-            ActivateCheckpoint(other.transform, false);
+            var agent = other.GetComponentInParent<PlayerAgent>();
+            if (agent == null) return;
+            ActivateCheckpoint(agent, fromCollision:false);
         }
 
         private void OnCollisionEnter(Collision other)
         {
-            if (!other.gameObject.CompareTag("Player")) return;
-            ActivateCheckpoint(other.transform, true);
+            var agent = other.gameObject.GetComponentInParent<PlayerAgent>();
+            if (agent == null) return;
+            ActivateCheckpoint(agent, fromCollision:true);
         }
 
-        private Vector3 CalculateSafeRespawnPosition(Transform player)
+        private void ActivateCheckpoint(PlayerAgent agent, bool fromCollision)
         {
-            Collider checkpointCol = GetComponent<Collider>();
-            Collider playerCol = player.GetComponent<Collider>();
+            if (_used && oneShot) return;
 
-            Vector3 checkpointCenter = checkpointCol.bounds.center;
-            float checkpointTop = checkpointCol.bounds.max.y;
+            var mgr = checkpointManagerRef ? checkpointManagerRef.manager : null;
+            if (mgr == null) return;
 
-            float playerHeight = playerCol.bounds.size.y;
-            Vector3 finalPosition = new Vector3(
-                checkpointCenter.x,
-                checkpointTop + (playerHeight / 2f),
-                checkpointCenter.z
+     
+            Vector3 pos;
+            Quaternion rot = transform.rotation;
+
+            if (fromCollision && useSafeHeightOnCollision)
+                pos = CalculateSafeRespawnPosition(agent);
+            else
+                pos = transform.position;
+            
+            
+            if (!mgr.IsLastCheckpoint(pos))
+            {
+                mgr.SetCheckpoint(pos, rot);
+                onActivate?.Invoke();
+
+                if (oneShot)
+                {
+                    _used = true;
+                    if (visuals) visuals.SetActive(false);
+                    _col.enabled = false;
+                }
+            }
+        }
+
+        private Vector3 CalculateSafeRespawnPosition(PlayerAgent agent)
+        {
+            var cpCol = _col;                           
+            var pCol  = agent.GetComponentInChildren<Collider>();
+
+            // Fallbacks seguros
+            if (!cpCol) return transform.position;
+            if (!pCol)  return cpCol.bounds.center;
+
+            Vector3 cpCenter = cpCol.bounds.center;
+            float cpTop = cpCol.bounds.max.y;
+            float playerHeight = pCol.bounds.size.y;
+
+            return new Vector3(
+                cpCenter.x,
+                cpTop + (playerHeight * 0.5f),
+                cpCenter.z
             );
-
-            return finalPosition;
         }
     }
 }

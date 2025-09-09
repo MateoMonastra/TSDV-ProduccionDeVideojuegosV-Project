@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6830034826065623458}
   - component: {fileID: 1102583762732665696}
   - component: {fileID: 4563849347087851436}
-  - component: {fileID: 4231155229412569432}
-  m_Layer: 0
+  - component: {fileID: 989744376079656582}
+  m_Layer: 6
   m_Name: Mesh_RegaloAbierto_v001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 8ef4fb988db06394fa461c8a50f67163, type: 2}
-  - {fileID: 2100000, guid: d0894499bb8866948b653c7275cff078, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4231155229412569432
-BoxCollider:
+--- !u!64 &989744376079656582
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,6 +105,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 254.423, y: 140.36021, z: 142.60927}
-  m_Center: {x: 4.93176, y: 50.038933, z: -9.3628645}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8695991209973260557, guid: 56ec45dfb69482147bf239b630952546, type: 3}

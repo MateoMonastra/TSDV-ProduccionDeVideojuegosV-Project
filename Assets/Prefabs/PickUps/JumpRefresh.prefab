@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 185274608143008792}
   - component: {fileID: 5749692230551727327}
   - component: {fileID: 7351202435689632035}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: JumpRefresh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,11 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6753bb0c5ff84f718534cdcfc7c0a592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCooldown:
+    m_PersistentCalls:
+      m_Calls: []
   cooldownTime: 5
   visuals: {fileID: 2888790914215198297}
   activateLogs: 0
   pickUpParticles: {fileID: 3116021373471432688}
-  extraJumpsToGive: 1
+  sfx: {fileID: 0}
 --- !u!54 &7351202435689632035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,6 +152,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1192651557995427107, guid: 61011d738d5e02a42b9f42d40c1e6803, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3675320691650784476, guid: 61011d738d5e02a42b9f42d40c1e6803, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -156,6 +163,14 @@ PrefabInstance:
     - target: {fileID: 8394872253796216777, guid: 61011d738d5e02a42b9f42d40c1e6803, type: 3}
       propertyPath: m_Name
       value: JumpRefresherParticula
+      objectReference: {fileID: 0}
+    - target: {fileID: 8394872253796216777, guid: 61011d738d5e02a42b9f42d40c1e6803, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066447575639357020, guid: 61011d738d5e02a42b9f42d40c1e6803, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -224,8 +239,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: 3929974116131298287, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318928804834619922, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5967372727675065287, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b0481b6ddd4abc84a8e341a12634dddd, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4241446145630919175, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}

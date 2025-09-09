@@ -1,20 +1,79 @@
 ﻿using System;
 using System.Collections;
-using KinematicCharacterController.Examples;
+using Health;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Player.New.UI
 {
+    /// <summary>
+    /// HUD unificado (sin agregar GameEvents nuevos).
+    /// - Spin: carga (fill + marca mínimo) y cooldown (polling del PlayerModel).
+    /// - Pickups: extra jump / dash buff (polling del PlayerModel + métodos públicos opcionales).
+    /// - Cooldowns: Spin / Dash / Vertical (polling del PlayerModel).
+    /// - Vida, daño y ceguera (métodos públicos).
+    /// </summary>
     public class HUDManager : MonoBehaviour
     {
-        [SerializeField] private ExampleCharacterController characterController;
-        [SerializeField] private Image dashImage;
-        [SerializeField] private Image jumpImage;
-        [SerializeField] private GameObject blindnessEffect;
-        [SerializeField] private float blindnessDuration = 2f;
+        private static readonly int IsPlayerHealth = Animator.StringToHash("PlayerHealth");
 
-        private Coroutine _blindnessCoroutine;
+        [Header("Modelo (para polling)")]
+        [SerializeField] private PlayerModel model;
+
+        [Header("Spin - Carga")]
+        [SerializeField] private Image spinChargeFill;
+        [SerializeField] private Image spinChargeMinMark;
+        [SerializeField] private Color spinBelowMin = new Color(1f, 0.6f, 0.2f, 1f);
+        [SerializeField] private Color spinAboveMin = new Color(0.2f, 1f, 0.4f, 1f);
+
+        [Header("Cooldowns")]
+        [SerializeField] private Image spinCdFill;
+        [SerializeField] private Text  spinCdText;
+        [SerializeField] private Image dashCdFill;
+        [SerializeField] private Text  dashCdText;
+        [SerializeField] private Image vertCdFill;
+        [SerializeField] private Text  vertCdText;
+        [SerializeField, Tooltip("Cuando queda menos de esto (s), el fill se presenta 'listo'.")]
+        private float readyBlinkThreshold = 0.15f;
+
+        [Header("Pickups (iconos)")]
+        [SerializeField, Tooltip("Ícono: hay salto extra disponible (pickup activo o flag del model).")]
+        private Image extraJumpIcon;
+        [SerializeField, Tooltip("Ícono: el próximo dash está buffeado (pickup activo o flag del model).")]
+        private Image dashBuffIcon;
+        [SerializeField, Tooltip("Pulso suave mientras un pickup está activo.")]
+        private bool pulseActivePickups = true;
+        [SerializeField] private float pickupPulseSpeed = 4.5f;
+        [SerializeField, Range(0.6f, 1f)] private float pickupPulseMinScale = 0.9f;
+
+        [Header("Vida / Daño / Ceguera")]
+        [SerializeField] private Animator playerHealthAnimator;
+        [SerializeField, Tooltip("Nombre del parámetro entero del Animator para vida actual")]
+        private string playerHealthParam = "PlayerHealth";
+        [SerializeField, Tooltip("Overlay de daño (Image con alpha)")]
+        private Image damagedImage;
+        [SerializeField] private float damagedDuration = 0.3f;
+        [SerializeField, Tooltip("Overlay/GO para 'ceguera' temporal")]
+        private GameObject blindnessEffect;
+        [SerializeField] private float blindnessDuration = 2f;
+        
+        private Coroutine _blindnessCo;
+        private Coroutine _damagedCo;
+        private float _pulseT;
+        private bool _spinChargeVisible;
+
+        private void Awake()
+        {
+            EnsureFilledSetup(spinChargeFill);
+            EnsureFilledSetup(spinChargeMinMark);
+
+            HideSpinChargeUI();
+            
+            SetGraphicEnabled(extraJumpIcon, false);
+            SetGraphicEnabled(dashBuffIcon, false);
+            ResetScale(extraJumpIcon);
+            ResetScale(dashBuffIcon);
+        }
 
         private void OnEnable()
         {
@@ -28,34 +87,199 @@ namespace UI
 
         private void Update()
         {
-            if (characterController.CanDash())
-                dashImage.enabled = true;
-            else
-                dashImage.enabled = false;
+            if (!model) return;
+            
+            UpdateCooldown(spinCdFill, spinCdText,
+                model.SpinOnCooldown ? model.SpinCooldownLeft : 0f, model.SpinCooldown);
 
-            if (characterController.HasExtraJumps())
-                jumpImage.enabled = true;
-            else
-                jumpImage.enabled = false;
+            UpdateCooldown(dashCdFill, dashCdText,
+                model.DashOnCooldown ? model.DashCooldownLeft : 0f, model.DashCooldown);
+
+            UpdateCooldown(vertCdFill, vertCdText,
+                model.VerticalOnCooldown ? model.VerticalCooldownLeft : 0f, model.VerticalAttackCooldown);
+            
+            UpdatePickupIcons(Time.deltaTime, model.HasExtraJump, model.DashBuffPending);
         }
 
-        private void OnBlind()
+        /// <summary>
+        /// Progreso de carga del spin (llamado mientras se mantiene el input).
+        /// </summary>
+        public void OnSpinChargeProgress(float current, float min, float max)
         {
-            _blindnessCoroutine = StartCoroutine(BlindPlayer());
+            if (!spinChargeFill) return;
+
+            _spinChargeVisible = true;
+            spinChargeFill.enabled = true;
+            
+            EnsureFilledSetup(spinChargeFill);
+            EnsureFilledSetup(spinChargeMinMark);
+
+            float visual = Mathf.InverseLerp(0f, Mathf.Max(0.0001f, max), current);
+            spinChargeFill.fillAmount = visual;
+
+            bool aboveMin = current >= min;
+            spinChargeFill.color = aboveMin ? spinAboveMin : spinBelowMin;
+
+            if (spinChargeMinMark)
+            {
+                spinChargeMinMark.enabled = true;
+                spinChargeMinMark.fillAmount = Mathf.Clamp01(min / Mathf.Max(0.0001f, max));
+            }
         }
 
-        private IEnumerator BlindPlayer()
+        /// <summary>
+        /// Fin de la carga (al soltar o cancelar).
+        /// </summary>
+        public void OnSpinChargeEnd()
         {
-            if (blindnessEffect != null)
+            _spinChargeVisible = false;
+            HideSpinChargeUI();
+        }
+
+        /// <summary>Marcar explícitamente el icono de extra jump activo/inactivo (si preferís no depender de polling).</summary>
+        public void SetPickupExtraJumpActive(bool active)
+        {
+            SetGraphicEnabled(extraJumpIcon, active);
+            if (!active) ResetScale(extraJumpIcon);
+        }
+
+        /// <summary>Marcar explícitamente el icono de dash buff activo/inactivo (si preferís no depender de polling).</summary>
+        public void SetPickupDashBuffActive(bool active)
+        {
+            SetGraphicEnabled(dashBuffIcon, active);
+            if (!active) ResetScale(dashBuffIcon);
+        }
+        
+        public void SetHealth(int current)
+        {
+            if (playerHealthAnimator)
+                playerHealthAnimator.SetInteger(IsPlayerHealth,current);
+        }
+
+        public void OnDamaged()
+        {
+            if (_damagedCo != null) StopCoroutine(_damagedCo);
+            _damagedCo = StartCoroutine(DamagedCo());
+        }
+
+        public void OnBlind()
+        {
+            if (_blindnessCo != null) StopCoroutine(_blindnessCo);
+            _blindnessCo = StartCoroutine(BlindCo());
+        }
+
+        private void UpdateCooldown(Image fill, Text txt, float left, float total)
+        {
+            if (!fill && !txt) return;
+
+            bool onCd = left > 0.0001f && total > 0.0001f;
+            float ratio = onCd ? Mathf.Clamp01(1f - (left / total)) : 1f;
+
+            if (fill)
             {
-                blindnessEffect.SetActive(true);
-                yield return new WaitForSeconds(blindnessDuration);
-                blindnessEffect.SetActive(false);
+                fill.enabled = true;
+                fill.fillAmount = ratio;
+                if (!onCd || left <= readyBlinkThreshold)
+                    fill.color = Color.white;
             }
-            else
+
+            if (txt)
+                txt.text = onCd ? left.ToString("0.0") : "";
+        }
+
+        /// <summary>Polling + pulso para los iconos de pickups.</summary>
+        private void UpdatePickupIcons(float dt, bool hasExtraJump, bool dashBuffPending)
+        {
+            SetGraphicEnabled(extraJumpIcon, hasExtraJump);
+            SetGraphicEnabled(dashBuffIcon, dashBuffPending);
+
+            if (!pulseActivePickups)
             {
-                Debug.LogWarning("BlindnessEffect no asignado");
+                ResetScale(extraJumpIcon);
+                ResetScale(dashBuffIcon);
+                return;
             }
+
+            _pulseT += dt * pickupPulseSpeed;
+            float s = Mathf.Lerp(pickupPulseMinScale, 1f, 0.5f * (1f + Mathf.Sin(_pulseT)));
+
+            if (hasExtraJump) SetScale(extraJumpIcon, s); else ResetScale(extraJumpIcon);
+            if (dashBuffPending) SetScale(dashBuffIcon, s); else ResetScale(dashBuffIcon);
+        }
+
+        private void HideSpinChargeUI()
+        {
+            if (spinChargeFill) { spinChargeFill.enabled = false; spinChargeFill.fillAmount = 0f; }
+            if (spinChargeMinMark) spinChargeMinMark.enabled = false;
+        }
+
+        private static void EnsureFilledSetup(Image img)
+        {
+            if (!img) return;
+            if (img.type != Image.Type.Filled) img.type = Image.Type.Filled;
+            
+            if (img.fillMethod != Image.FillMethod.Radial360) img.fillMethod = Image.FillMethod.Radial360;
+            if (img.fillOrigin != (int)Image.Origin360.Top) img.fillOrigin = (int)Image.Origin360.Top;
+            img.fillClockwise = true;
+        }
+
+        private static void SetGraphicEnabled(Graphic g, bool enabled)
+        {
+            if (!g) return;
+            g.enabled = enabled;
+            var cr = g.canvasRenderer;
+            if (cr != null) cr.SetAlpha(enabled ? 1f : 0f);
+        }
+
+        private static void SetScale(Graphic g, float s)
+        {
+            if (!g) return;
+            if (g.transform is RectTransform rt) rt.localScale = new Vector3(s, s, 1f);
+        }
+
+        private static void ResetScale(Graphic g)
+        {
+            if (!g) return;
+            if (g.transform is RectTransform rt) rt.localScale = Vector3.one;
+        }
+
+        private IEnumerator DamagedCo()
+        {
+            if (!damagedImage) yield break;
+
+            damagedImage.gameObject.SetActive(true);
+            var color = damagedImage.color;
+
+            float half = Mathf.Max(0.01f, damagedDuration * 0.5f);
+            
+            float t = 0f;
+            while (t < half)
+            {
+                t += Time.deltaTime;
+                color.a = Mathf.Lerp(0f, 1f, t / half);
+                damagedImage.color = color;
+                yield return null;
+            }
+            
+            t = 0f;
+            while (t < half)
+            {
+                t += Time.deltaTime;
+                color.a = Mathf.Lerp(1f, 0f, t / half);
+                damagedImage.color = color;
+                yield return null;
+            }
+
+            damagedImage.gameObject.SetActive(false);
+        }
+
+        private IEnumerator BlindCo()
+        {
+            if (!blindnessEffect) yield break;
+
+            blindnessEffect.SetActive(true);
+            yield return new WaitForSeconds(Mathf.Max(0f, blindnessDuration));
+            blindnessEffect.SetActive(false);
         }
     }
 }

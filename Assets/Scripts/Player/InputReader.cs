@@ -8,9 +8,13 @@ namespace Player
     public class InputReader : MonoBehaviour
     {
         public Action OnNavigate;
+        public Action OnClick;
         public Action OnPause;
+        public Action OnJump;
+        public Action OnInteract;
         public Action<Vector2> OnMove;
         public Action<Vector2> OnFlyMove;
+        public Action<Vector2,InputDevice> OnLook;
         public Action OnFlyUp;
         public Action OnFlyUpCanceled;
         public Action OnFlyDown;
@@ -18,13 +22,24 @@ namespace Player
         public Action OnGodModeCheat;
         public Action OnJumpPickUpCheat;
         public Action OnDashPickUpCheat;
+        public Action OnDash;
+        public Action OnAttackHeavyPressed;
+        public Action OnAttackHeavyReleased;
+        public Action<bool> OnDashHeldChanged;
 
+        
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
 
         public void HandleNavigate(InputAction.CallbackContext context)
         {
             OnNavigate?.Invoke();
+        }
+        
+        public void HandleClick(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                OnClick?.Invoke();
         }
 
         public void HandlePauseInput(InputAction.CallbackContext context)
@@ -34,6 +49,27 @@ namespace Player
                 OnPause?.Invoke();
             }
         }
+        public void HandleJumpInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnJump?.Invoke();
+            }
+        }
+
+        public void HandleInteractInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                OnInteract?.Invoke();
+            }
+        }
+        
+        public void HandleLookInput(InputAction.CallbackContext context)
+        {
+            OnLook?.Invoke(context.ReadValue<Vector2>(), context.control.device);
+        }
+
 
         public void HandleMoveInput(InputAction.CallbackContext context)
         {
@@ -99,6 +135,18 @@ namespace Player
             {
                 OnJumpPickUpCheat?.Invoke();
             }
+        }
+        public void HandleDashInput(InputAction.CallbackContext context)
+        {
+            if (context.started)   OnDash?.Invoke();   
+            if (context.performed) OnDashHeldChanged?.Invoke(true);
+            if (context.canceled)  OnDashHeldChanged?.Invoke(false);
+        }
+
+        public void HandleAttackHeavyInput(InputAction.CallbackContext context)
+        {
+            if (context.started) OnAttackHeavyPressed?.Invoke();
+            if (context.canceled) OnAttackHeavyReleased?.Invoke();
         }
     }
 }

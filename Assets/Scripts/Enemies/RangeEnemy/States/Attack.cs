@@ -4,6 +4,7 @@ namespace Enemies.RangeEnemy.States
 {
     public class Attack : RangedEnemyState
     {
+        private ParticleSystem _shootParticle;
         private GameObject _projectilePrefab;
         private Transform _shootPoint;
         private System.Action _onFinishAttack;
@@ -14,10 +15,12 @@ namespace Enemies.RangeEnemy.States
         private int _shotSeries;
 
         public Attack(Transform enemy, Transform player, RangedEnemyModel model, GameObject projectilePrefab,
-            Transform shootPoint,System.Action onFinishAttack) : base(enemy, player, model )
+            ParticleSystem shootParticle, Transform shootPoint,System.Action onFinishAttack) : base(enemy, player, model )
         {
             this._projectilePrefab = projectilePrefab;
             this._shootPoint = shootPoint;
+            _shootParticle = shootParticle;
+            
             _onFinishAttack = onFinishAttack;
         }
 
@@ -104,6 +107,8 @@ namespace Enemies.RangeEnemy.States
             {
                 rb.linearVelocity = direction * model.ShotSpeed;
             }
+            
+            _shootParticle?.Play();
         }
         
         private void ResetStartValues()

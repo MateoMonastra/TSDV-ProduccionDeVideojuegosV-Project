@@ -8,13 +8,19 @@ namespace UI
         [SerializeField] private InputReader inputReader;
         [SerializeField] private SlidesManager slidesManager;
         [SerializeField] private GameObject playerStats;
-        private void Start()
+        private void OnEnable()
         {
             inputReader.OnPause += InitPauseMenu;
+        }
+
+        private void OnDisable()
+        {
+            inputReader.OnPause -= InitPauseMenu;
         }
     
         private void InitPauseMenu()
         {
+            GameEvents.GameEvents.GamePaused(true);
             slidesManager.gameObject.SetActive(true);
             playerStats.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
@@ -24,6 +30,7 @@ namespace UI
     
         public void Return()
         {
+            GameEvents.GameEvents.GamePaused(false);
             playerStats.SetActive(true);
             slidesManager.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;

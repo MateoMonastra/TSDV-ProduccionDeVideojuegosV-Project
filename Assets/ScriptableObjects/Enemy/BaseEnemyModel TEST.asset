@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerRadius: 15
   outerRadius: 15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   attackRange: 3
   attackDuration: 0.4
   attackDelay: 0.2
+  horizontalImpulseForce: 0
+  verticalImpulseForce: 0
+  lowJumpMultiplier: 0
+  fallMultiplier: 0
+  damagedStunTime: 0
   deathTime: 3.5

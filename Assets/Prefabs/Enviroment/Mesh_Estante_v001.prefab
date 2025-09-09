@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1613403767333538244}
   - component: {fileID: 1723370818028767255}
   - component: {fileID: 6429555565819614002}
-  - component: {fileID: 4948910406832557932}
-  m_Layer: 0
+  - component: {fileID: 1270329905477018309}
+  m_Layer: 6
   m_Name: Mesh_Estante_v001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1078400f4a0f909459262e8f54e8c26c, type: 2}
-  - {fileID: 2100000, guid: d0894499bb8866948b653c7275cff078, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4948910406832557932
-BoxCollider:
+--- !u!64 &1270329905477018309
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,6 +105,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 451.21515, y: 769.44495, z: 143.41893}
-  m_Center: {x: 1.5042427, y: 384.72287, z: -15.222921}
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7829774816534005709, guid: 151062bf484a43f40bb76b5a6020d4c8, type: 3}

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1071930260844966076}
   - component: {fileID: 3532204580964649541}
   - component: {fileID: 1629278937606810864}
-  - component: {fileID: 5581890573422202871}
-  m_Layer: 0
+  - component: {fileID: 6442845360593812178}
+  - component: {fileID: 4438002808113564292}
+  m_Layer: 6
   m_Name: Mesh_Mazo_v001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +67,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c824af917072f9b4eb1500c0cc03073e, type: 2}
-  - {fileID: 2100000, guid: d0894499bb8866948b653c7275cff078, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,7 +88,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5581890573422202871
+--- !u!136 &6442845360593812178
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857368785758387538}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 152.39844
+  m_Height: 304.79688
+  m_Direction: 1
+  m_Center: {x: 0, y: 213.24171, z: 0}
+--- !u!65 &4438002808113564292
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,5 +130,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 44.387737, y: 731.2804, z: 41.056675}
-  m_Center: {x: -5.3758063, y: 0.00047683716, z: 2.2593381}
+  m_Size: {x: 69.50357, y: 499.43637, z: 68.58559}
+  m_Center: {x: -0.77313185, y: -115.921875, z: 1.5996933}

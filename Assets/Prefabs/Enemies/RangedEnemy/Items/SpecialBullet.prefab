@@ -103,7 +103,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -150,10 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ee1fa2aceebf74c88062ff69bdf62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  environmentLayer:
+  damage: 1
+  knockback:
+    horizontal: 10
+    vertical: 15
+  environmentMask:
     serializedVersion: 2
     m_Bits: 64
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
   lifeTime: 10
   impactParticlesPrefab: {fileID: 0}
   particlesLifeTime: 0

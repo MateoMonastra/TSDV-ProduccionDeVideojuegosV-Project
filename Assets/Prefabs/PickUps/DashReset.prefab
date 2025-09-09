@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5357033364334981510}
   - component: {fileID: 7093713302697413115}
   - component: {fileID: 4624116049412133414}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DashReset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,10 +69,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2935eb25c9714e7385dabc70cb21eee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCooldown:
+    m_PersistentCalls:
+      m_Calls: []
   cooldownTime: 5
   visuals: {fileID: 8110186462267643301}
   activateLogs: 0
+  buffDistance: 3
+  buffSpeed: 24
   pickUpParticles: {fileID: 4429940492864081049}
+  sfx: {fileID: 0}
 --- !u!54 &4624116049412133414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -108,13 +114,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2996901965981544304}
     m_Modifications:
+    - target: {fileID: 1398015081584551945, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3283322083427120551, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
       propertyPath: m_Name
       value: DashRefresherParticula
       objectReference: {fileID: 0}
+    - target: {fileID: 3283322083427120551, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5665092262750152351, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325848181246687828, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8603662704870393155, guid: dd5dae25a15604e4499debf3e880fef1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -223,8 +241,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model
       objectReference: {fileID: 0}
+    - target: {fileID: 7667860634909727854, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7877899809448893367, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c1f56da43fb68824a80a2d977b14bb62, type: 2}
+    - target: {fileID: 8526176470106520162, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7466827340759793408, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}

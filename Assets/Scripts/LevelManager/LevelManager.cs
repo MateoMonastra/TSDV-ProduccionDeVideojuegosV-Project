@@ -8,15 +8,6 @@ namespace LevelManager
     {
         [SerializeField] private CheckPointManager checkPointManager;
         
-        private void OnEnable()
-        {
-            GameEvents.GameEvents.OnPlayerDied += checkPointManager.Respawn;
-        }
-
-        private void OnDisable()
-        {
-            GameEvents.GameEvents.OnPlayerDied -= checkPointManager.Respawn;
-        }
         
     }
 }
