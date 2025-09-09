@@ -1,54 +1,43 @@
-using System;
-using KinematicCharacterController.Examples;
+using Player.New;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CheckPoint
 {
     public class CheckPointManager : MonoBehaviour
     {
-        private Vector3 _lastCheckpointPosition;
-
         [SerializeField] private CheckPointManagerRef checkpointManagerRef;
+        [SerializeField] protected PlayerModel playerModel;
+        
+        private bool _hasCheckpoint = false;
 
         private void OnEnable()
         {
-            checkpointManagerRef.manager = this;
+            if (checkpointManagerRef) checkpointManagerRef.manager = this;
         }
 
         private void OnDisable()
         {
-            checkpointManagerRef.manager = null;
+            if (checkpointManagerRef) checkpointManagerRef.manager = null;
         }
 
-        public void SetCheckpoint(Vector3 position)
+        // Set por posición/rotación
+        public void SetCheckpoint(Vector3 position, Quaternion rotation)
         {
-            _lastCheckpointPosition = position;
+            playerModel.RespawnPosition = position;
+            playerModel.RespawnRotation = rotation;
+            _hasCheckpoint = true;
         }
-
-        public void Respawn(GameObject player)
+        
+        public void SetCheckpoint(Transform t)
         {
-            if (_lastCheckpointPosition != Vector3.zero)
-            {
-                ExampleCharacterController characterController = player.GetComponent<ExampleCharacterController>();
-
-                if (characterController)
-                {
-                    characterController.SetGameplayCamera();
-                    characterController.TransitionToState(CharacterState.Default);
-                    characterController.Motor.SetPositionAndRotation(_lastCheckpointPosition, Quaternion.identity);
-                    characterController.Motor.BaseVelocity = Vector3.zero;
-                    characterController.healthController.ResetHealth();
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No se ha establecido ningún checkpoint aún.");
-            }
+            if (!t) return;
+            SetCheckpoint(t.position, t.rotation);
         }
 
         public bool IsLastCheckpoint(Vector3 position)
         {
-            return _lastCheckpointPosition == position;
+            return _hasCheckpoint && playerModel.RespawnPosition == position;
         }
     }
 }

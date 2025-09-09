@@ -30,6 +30,7 @@ namespace Platforms
         {
             RefreshCooldown();
             OnBreak?.Invoke();
+            if (CooldownCoroutine != null ) return;
             ExplodeFragments();
         }
 

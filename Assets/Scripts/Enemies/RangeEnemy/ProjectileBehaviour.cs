@@ -1,56 +1,83 @@
 using Health;
-using KinematicCharacterController.Examples;
 using UnityEngine;
 
 namespace Enemies.RangeEnemy
 {
     public class ProjectileBehaviour : MonoBehaviour
     {
-        [Header("Stats")] 
+        [System.Serializable]
+        public struct Knockback
+        {
+            public int horizontal; // componente horizontal del empuje (m/s aprox)
+            public int vertical;   // componente vertical del empuje (m/s aprox)
+        }
+
+        [Header("Stats")]
         [SerializeField] private int damage = 1;
-        [SerializeField] private (int, int) knockback = (10,15);
-        [SerializeField] private LayerMask environmentLayer;
-        [SerializeField] private float lifeTime;
+        [SerializeField] private Knockback knockback = new Knockback { horizontal = 10, vertical = 15 };
+        [SerializeField] private LayerMask environmentMask;
+        [SerializeField] private LayerMask playerMask;
+        [SerializeField] private float lifeTime = 6f;
 
-        [Header("Impact VFX")] [SerializeField]
-        private GameObject impactParticlesPrefab;
+        [Header("Impact VFX")]
+        [SerializeField] private GameObject impactParticlesPrefab;
+        [SerializeField] private float particlesLifeTime = 1.5f;
 
-        [SerializeField] private float particlesLifeTime;
-
-        [Header("Debug")] [SerializeField] private bool activateLogs;
+        [Header("Debug")]
+        [SerializeField] private bool activateLogs = false;
 
         private void Start()
         {
-            Destroy(gameObject, lifeTime);
+            if (lifeTime > 0f) Destroy(gameObject, lifeTime);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                if (activateLogs)
-                    Debug.Log("Player hit");
+            int otherLayer = other.gameObject.layer;
 
-                if (!other.TryGetComponent(out HealthController controller)) return;
-                controller.Damage(new DamageInfo(damage, -transform.position, knockback));
+            // 1) ¿Golpeó al Player?
+            if (IsInLayerMask(otherLayer, playerMask))
+            {
+                if (activateLogs) Debug.Log("[Projectile] Player hit", this);
+
+                var playerHealth = other.GetComponentInParent<HealthController>();
+                if (!playerHealth) return;
+                
+                Vector3 impactPoint = other.ClosestPoint(transform.position);
+                
+                Vector3 toPlayer = (other.transform.position - impactPoint);
+                Vector3 fakeOrigin = other.transform.position + toPlayer;
+
+                playerHealth.Damage(new DamageInfo(
+                    damage,
+                    fakeOrigin,
+                    (knockback.horizontal, knockback.vertical)
+                ));
+
+
                 SpawnImpactParticles();
                 Destroy(gameObject);
+                return;
             }
-            else if (environmentLayer != 0)
-            {
-                if (activateLogs)
-                    Debug.Log("Environment hit");
 
+            // 2) ¿Golpeó entorno?
+            if (IsInLayerMask(otherLayer, environmentMask))
+            {
+                if (activateLogs) Debug.Log("[Projectile] Environment hit", this);
                 SpawnImpactParticles();
                 Destroy(gameObject);
+                return;
             }
         }
 
+        private static bool IsInLayerMask(int layer, LayerMask mask)
+            => (mask.value & (1 << layer)) != 0;
+
         private void SpawnImpactParticles()
         {
-            if (impactParticlesPrefab == null) return;
-            GameObject particles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
-            Destroy(particles, particlesLifeTime);
+            if (!impactParticlesPrefab) return;
+            var particles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
+            if (particlesLifeTime > 0f) Destroy(particles, particlesLifeTime);
         }
     }
 }

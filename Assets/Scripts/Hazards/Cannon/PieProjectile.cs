@@ -22,8 +22,6 @@ namespace Hazards.Cannon
 
             if (other.CompareTag("Player"))
             {
-                if (!other.GetComponent(typeof(ExampleCharacterController))) return;
-
                 GameEvents.GameEvents.PlayerBlinded();
                 PlayOnHit();
             }

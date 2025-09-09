@@ -42,9 +42,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1684819971574583022}
   - component: {fileID: 4259896105775566595}
-  - component: {fileID: 2259549831804366681}
   - component: {fileID: 7841860658000185873}
-  m_Layer: 10
+  - component: {fileID: 6818207080674727186}
+  m_Layer: 14
   m_Name: PendulumPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.4054, y: 2.4054, z: 2.4054}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4718986886377602237}
@@ -81,29 +81,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAngle: 45
   swingSpeed: 0.3
-  knockbackForce: 20
---- !u!64 &2259549831804366681
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3209229737816184020}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  localSwingAxis: {x: 0, y: 0, z: 1}
+  damage: 1
+  knockback:
+    horizontal: 20
+    vertical: 35
+  playerMask:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1432636318165806532, guid: e575dac4de9c872419efdb21599195e5, type: 3}
+    m_Bits: 256
+  rehitCooldown: 0.25
 --- !u!65 &7841860658000185873
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125,6 +111,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.42, y: 1.4, z: 0.49}
   m_Center: {x: 0, y: -3.9, z: 0}
+--- !u!54 &6818207080674727186
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209229737816184020}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1625607168738174657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -364,10 +377,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e575dac4de9c872419efdb21599195e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6403639462318432508}
   m_SourcePrefab: {fileID: 100100000, guid: e575dac4de9c872419efdb21599195e5, type: 3}
 --- !u!4 &1226641998619525418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e575dac4de9c872419efdb21599195e5, type: 3}
   m_PrefabInstance: {fileID: 1625607168738174657}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1895514935702231952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e575dac4de9c872419efdb21599195e5, type: 3}
+  m_PrefabInstance: {fileID: 1625607168738174657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &6403639462318432508
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895514935702231952}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1432636318165806532, guid: e575dac4de9c872419efdb21599195e5, type: 3}

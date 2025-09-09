@@ -97,7 +97,7 @@ namespace Enemies.RangeEnemy
         {
             onDeath.Invoke();
             State death = new Death(this.gameObject);
-            _fsm.ForceSetCurrentState(death);
+            _fsm.ForceTransition(death);
         }
 
         private void SetGodModeValue(bool value)

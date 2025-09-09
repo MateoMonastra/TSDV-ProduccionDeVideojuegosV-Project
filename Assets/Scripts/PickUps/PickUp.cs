@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 namespace PickUps
 {
-    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Pickup : MonoBehaviour
     {
         [SerializeField] protected UnityEvent OnCooldown;
@@ -12,40 +13,40 @@ namespace PickUps
         [SerializeField] private GameObject visuals;
         [SerializeField] bool activateLogs;
 
-        private Coroutine _cooldownCoroutine;
-        private Collider _collider;
+        protected Coroutine CooldownCoroutine;
+        protected Collider Collider;
+        protected Rigidbody Rb;
 
         protected virtual void Awake()
         {
-            _collider = GetComponent<Collider>();
+            Collider = GetComponent<Collider>();
+            Collider.isTrigger = true;
+
+            Rb = GetComponent<Rigidbody>();
+            Rb.isKinematic = true;
+            Rb.useGravity  = false;
         }
 
         protected void RefreshCooldown()
         {
-            _cooldownCoroutine ??= StartCoroutine(CooldownRoutine());
+            CooldownCoroutine ??= StartCoroutine(CooldownRoutine());
         }
 
         private IEnumerator CooldownRoutine()
         {
-            _collider.enabled = false;
-
-            if (visuals)
-                visuals.SetActive(false);
-            if (activateLogs)
-                Debug.Log("Pickup Off");
+            Collider.enabled = false;
+            if (visuals) visuals.SetActive(false);
+            if (activateLogs) Debug.Log("Pickup Off");
 
             yield return new WaitForSeconds(cooldownTime);
 
             OnCooldown?.Invoke();
-            
-            _collider.enabled = true;
-            
-            if (visuals)
-                visuals.SetActive(true);
-            if (activateLogs)
-                Debug.Log("Pickup On");
 
-            _cooldownCoroutine = null;
+            Collider.enabled = true;
+            if (visuals) visuals.SetActive(true);
+            if (activateLogs) Debug.Log("Pickup On");
+
+            CooldownCoroutine = null;
         }
     }
 }

@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551bb5f85ff448b4990bf09cf79c635d, type: 3}
+  m_Name: NewPlayerModel
+  m_EditorClassIdentifier: 
+  moveSpeed: 11
+  moveAcceleration: 30
+  airHorizontalSpeed: 15
+  landStopsHorizontal: 0
+  sprintSpeedMultiplier: 2
+  sprintMinSpeedToKeep: 0.1
+  sprintArmWindow: 0.8
+  sprintHoldTime: 0.3
+  orientationMethod: 0
+  orientationSharpness: 12
+  orientWithCameraWhileIdle: 0
+  jumpSpeed: 18
+  maxJumps: 2
+  dashDistance: 1.8
+  dashSpeed: 30
+  dashCooldown: 1.8
+  dashExitBlendTime: 0.12
+  dashExitSharpness: 10
+  hasExtraJump: 0
+  dashBuffPending: 0
+  dashBuffDistance: 25
+  dashBuffSpeed: 48
+  hitStunTime: 0.35
+  hitKnockbackHorizontal: 7.5
+  hitKnockbackUp: 2
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  attackDamage: 1
+  attack1Duration: 0.7
+  attack2Duration: 0.7
+  attack3Duration: 0.7
+  attackRange: 3.5
+  attackHalfAngleDegrees: 70
+  attackChainWindow: 0.3
+  attackLateChainGrace: 0.08
+  attackComboCooldown: 0.4
+  verticalAttackRadius: 2.8
+  verticalDamage: 1
+  verticalKnockbackDistance: 2.5
+  verticalStaggerTime: 0.35
+  verticalAttackCooldown: 1
+  verticalAttackPostStun: 0.25
+  verticalSlamExtraAccel: 40
+  verticalSlamMaxDownSpeed: 40
+  verticalSlamStartDownSpeed: 50
+  verticalHitMask:
+    serializedVersion: 2
+    m_Bits: 26240
+  verticalAffectsRigidbodies: 1
+  verticalRigidbodyImpulse: 6
+  verticalRigidbodyUpFactor: 0.35
+  minimalGroundDistance: 4
+  spinChargeMinTime: 0.6
+  spinChargeMaxTime: 1.6
+  spinMoveSpeedMultiplierWhileExecuting: 0.6
+  spinJumpSpeedMultiplier: 0.5
+  spinMinDuration: 0.55
+  spinMaxDuration: 3
+  spinDuration: 0.7
+  spinPostStun: 0.35
+  spinRadius: 2.8
+  spinDamage: 1
+  spinPushDistance: 2
+  spinStaggerTime: 0.3
+  spinCooldown: 6
+  spinMoveSpeedMultiplierWhileCharging: 0.6
+  spinCausesSelfStun: 1
+  selfStunMinDuration: 0.6
+  selfStunMaxDuration: 1
+  selfStunGetUpLeadTime: 0.25
+  actionMoveSpeedMultiplier: 1
+  actionJumpSpeedMultiplier: 1
+  locomotionBlocked: 0
+  invulnerableToEnemies: 1
+  aimLockActive: 0
+  aimLockDirection: {x: 0, y: 0, z: 0}
+  coyoteTime: 0.12
+  jumpGroundAirDetectDelay: 0.04
+  jumpAirAirDetectDelay: 0.04
+  fallSettleTime: 0.04
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256

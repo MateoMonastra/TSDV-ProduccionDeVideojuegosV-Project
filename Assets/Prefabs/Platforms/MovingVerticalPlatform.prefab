@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 7384788203247985394}
   - component: {fileID: 1500952918699058794}
   - component: {fileID: 2383366110301162747}
-  - component: {fileID: 3562990672894443153}
   - component: {fileID: 691530788837644554}
-  - component: {fileID: 644478762136113724}
+  - component: {fileID: 1508073008835994104}
   m_Layer: 11
   m_Name: MovingVerticalPlatform
   m_TagString: Untagged
@@ -112,27 +111,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 0.6, z: 3}
   m_Center: {x: 0, y: 2.9799619, z: 0}
---- !u!114 &3562990672894443153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621629515696594549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7edc6957dab9ac4797c1c0912ce3839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mover: {fileID: 644478762136113724}
-  translationAxis: {x: 0, y: 1, z: 0}
-  translationDistance: 30
-  translationSpeed: 10
-  rotationAxis: {x: 0, y: 0, z: 0}
-  rotSpeed: 10
-  oscillationAxis: {x: 0, y: 0, z: 0}
-  oscillationAmplitude: 10
-  oscillationSpeed: 10
 --- !u!54 &691530788837644554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -160,7 +138,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &644478762136113724
+--- !u!114 &1508073008835994104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,11 +147,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1621629515696594549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075ccbe9837b0744985e09ba3f015b9b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9369362c4687a748ae2f6e83a6afa85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 691530788837644554}
-  MoveWithPhysics: 1
+  translationAxis: {x: 0, y: 1, z: 0}
+  translationDistance: 10
+  translationSpeed: 1
+  rotationAxis: {x: 0, y: 0, z: 0}
+  rotationSpeed: 10
+  oscillationAxis: {x: 0, y: 0, z: 0}
+  oscillationAmplitude: 0
+  oscillationSpeed: 0
+  groundedCheckDistance: 0.25
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  riderProbeHeight: 0.25
+  carryRotation: 1
+  logs: 0
 --- !u!1 &6377979575450964697
 GameObject:
   m_ObjectHideFlags: 0

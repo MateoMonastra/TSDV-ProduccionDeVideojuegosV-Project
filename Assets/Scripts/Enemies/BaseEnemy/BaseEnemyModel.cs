@@ -9,6 +9,7 @@ namespace Enemies.BaseEnemy
         [Header("Detection Settings")]
         [SerializeField] private float innerRadius;
         [SerializeField] private float outerRadius;
+        [SerializeField] private LayerMask groundLayer;
         
         [Header("Attack Settings")]
         [SerializeField] private float attackRange;
@@ -33,6 +34,11 @@ namespace Enemies.BaseEnemy
         {
             get => outerRadius;
             set => outerRadius = value;
+        }
+        public LayerMask GroundLayer
+        {
+            get => groundLayer;
+            set => groundLayer = value;
         }
 
         public float AttackRange

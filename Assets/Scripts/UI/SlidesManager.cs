@@ -1,5 +1,6 @@
 using System;
 using KinematicCharacterController.Examples;
+using Player.New;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,20 +9,20 @@ public class SlidesManager : MonoBehaviour
     [SerializeField] private Slider mouseSens;
     [SerializeField] private Slider joystickSens;
 
-    [SerializeField] private ExampleCharacterCamera camera; 
+    [SerializeField] private MyCharacterCamera camera; 
     private void Start()
     {
-        mouseSens.value = camera.MouseRotationSpeed;
-        joystickSens.value = camera.JoystickRotationSpeed;
+        mouseSens.value = camera.mouseRotationSpeed;
+        joystickSens.value = camera.joystickRotationSpeed;
     }
     
     public void ChangeMouseSensibility()
     {
-        camera.MouseRotationSpeed = mouseSens.value;
+        camera.mouseRotationSpeed = mouseSens.value;
     }
 
     public void ChangeJoystickSensibility()
     {
-        camera.JoystickRotationSpeed = joystickSens.value;
+        camera.joystickRotationSpeed = joystickSens.value;
     }
 }

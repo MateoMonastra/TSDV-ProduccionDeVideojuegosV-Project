@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 804587238733971847}
-  m_Layer: 11
+  m_Layer: 14
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 8243606460362752802}
   - component: {fileID: 3349396087122016913}
   - component: {fileID: 1959832147671660579}
-  m_Layer: 11
+  - component: {fileID: 7620829380802649819}
+  m_Layer: 14
   m_Name: PropulsorPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +155,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c0db63602606f4cbb5a75f06fbf913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 40
+  launchSpeed: 40
+  onlyWhenGrounded: 0
+  logs: 0
+--- !u!54 &7620829380802649819
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055794802660927590}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &6914536620859166835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 03ac9dae19a993a48a1d528afc5abb78, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
