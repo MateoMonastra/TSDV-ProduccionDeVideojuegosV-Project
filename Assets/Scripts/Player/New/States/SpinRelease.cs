@@ -91,7 +91,8 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
 
-            DoSpinDamage();
+            if (_damageTicked) DoSpinDamage();
+            
             
             if (_t >= _execDuration + _postStun)
             {
@@ -115,7 +116,6 @@ namespace Player.New
         /// <summary>Llamado por Animation Event para sincronizar el impacto exacto.</summary>
         private void OnSpinDamageEvent()
         {
-            DoSpinDamage();
             _damageTicked = true;
         }
 
