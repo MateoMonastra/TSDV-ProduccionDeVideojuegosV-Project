@@ -37,7 +37,17 @@ namespace Player.New
 
         /// <summary>Puede usarse si está en aire, no hay cooldown.</summary>
         public static bool CanUse(MyKinematicMotor m, PlayerModel model)
-            => !m.IsGrounded && !model.VerticalOnCooldown;
+        {
+            if (m.IsGrounded || model.VerticalOnCooldown)
+                return false;
+            
+            Vector3 up = m.CharacterUp;
+            Vector3 down = -up;
+            
+            return !Physics.Raycast(m.transform.position, down, out var hit,
+                model.MinimalGroundDistance, ~0, QueryTriggerInteraction.Ignore);
+        }
+
 
         public override void Enter()
         {
