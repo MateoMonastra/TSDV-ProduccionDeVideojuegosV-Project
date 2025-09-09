@@ -478,6 +478,10 @@ namespace Player.New
         [SerializeField, Tooltip("Componente vertical añadida al impulso de rigidbodies (0..1).")]
         private float verticalRigidbodyUpFactor = 0.35f;
         
+        [SerializeField, Tooltip("Minima distancia que tiene que estar del suelo para utilizarlo")]
+        private float minimalGroundDistance = 5f;
+        
+        public float MinimalGroundDistance => minimalGroundDistance;
         
         public LayerMask VerticalHitMask
         {

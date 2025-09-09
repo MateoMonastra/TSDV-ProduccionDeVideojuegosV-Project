@@ -16,5 +16,10 @@ namespace Player.New.Animation
         {
             anim.AnimEvent_VerticalImpact();
         }
+
+        public void OnSpinDamage()
+        {
+            anim.AnimEvent_SpinDamage();
+        }
     }
 }

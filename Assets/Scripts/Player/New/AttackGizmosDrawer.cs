@@ -21,6 +21,7 @@ namespace Player.New
         [Header("Enable / Disable")] public bool showFrontalCombo = true;
         public bool showSpin = true;
         public bool showVertical = true;
+        public bool showVerticalMinHeight = true;
 
         [Tooltip("Si está activo, solo dibuja cuando el objeto está seleccionado.")]
         public bool onlyWhenSelected = true;
@@ -31,6 +32,8 @@ namespace Player.New
         public Color spinEdgeColor = new Color(0.2f, 0.9f, 1f, 0.9f);
         public Color verticalColor = new Color(1f, 0.2f, 0.4f, 0.25f);
         public Color verticalEdgeColor = new Color(1f, 0.3f, 0.5f, 0.9f);
+        public Color verticalMinOkColor = new Color(0.2f, 1f, 0.2f, 0.9f);
+        public Color verticalMinFailColor = new Color(1f, 0.2f, 0.2f, 0.9f);
 
         [Header("Vertical options")] [Tooltip("Proyecta el centro de la esfera vertical al piso (raycast hacia -up).")]
         public bool verticalProjectToGround = true;
@@ -91,6 +94,9 @@ namespace Player.New
                 }
 
                 DrawSphere(center, model.VerticalAttackRadius, verticalColor, verticalEdgeColor);
+                
+                if (showVerticalMinHeight)
+                    DrawVerticalMinHeight(pos, up);
             }
         }
 
@@ -160,6 +166,38 @@ namespace Player.New
                 Vector3 p = center + (axisA * Mathf.Cos(ang) + axisB * Mathf.Sin(ang)) * radius;
                 Gizmos.DrawLine(prev, p);
                 prev = p;
+            }
+        }
+        
+        /// <summary>
+        /// Dibuja la línea de altura mínima para habilitar el ataque vertical y marca
+        /// con color si el suelo está más cerca que el umbral (FAIL) o no (OK).
+        /// </summary>
+        private void DrawVerticalMinHeight(Vector3 origin, Vector3 up)
+        {
+            if (!model) return;
+
+            float minDist = model.MinimalGroundDistance;
+            if (minDist <= 0f) return;
+
+            Vector3 down = -up;
+            float probeLen = Mathf.Max(groundProbeLength, minDist);
+            
+            bool hitGround = Physics.Raycast(origin, down, out var hit, probeLen, groundMask, QueryTriggerInteraction.Ignore);
+            float distToGround = hitGround ? hit.distance : Mathf.Infinity;
+            
+            Vector3 thresholdPoint = origin + down * minDist;
+            Gizmos.color = (distToGround < minDist) ? verticalMinFailColor : verticalMinOkColor;
+            Gizmos.DrawLine(origin, thresholdPoint);
+            
+            float r = 0.15f;
+            DrawWireCircle(thresholdPoint, up, r);
+
+            if (hitGround && distToGround > minDist)
+            {
+                Gizmos.color = new Color(Gizmos.color.r, Gizmos.color.g, Gizmos.color.b, 0.4f);
+                Gizmos.DrawLine(thresholdPoint, hit.point);
+                DrawWireCircle(hit.point, up, r * 0.8f);
             }
         }
     }
