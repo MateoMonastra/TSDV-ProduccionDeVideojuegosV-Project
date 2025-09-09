@@ -199,11 +199,13 @@ namespace Player.New
 
         private void OnPlayerDamaged(DamageInfo info)
         {
+            
             model.LastDamage = info;
             hud.OnDamaged();
             hud.SetHealth(health.GetCurrentHealth());
             interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sHit);
+            _actionFsm.ForceTransition(_aIdle);
         }
 
         private void OnInteractStarted(InteractData data)
