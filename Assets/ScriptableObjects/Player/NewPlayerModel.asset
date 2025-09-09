@@ -32,8 +32,8 @@ MonoBehaviour:
   dashExitSharpness: 10
   hasExtraJump: 0
   dashBuffPending: 0
-  dashBuffDistance: 3
-  dashBuffSpeed: 24
+  dashBuffDistance: 25
+  dashBuffSpeed: 48
   hitStunTime: 0.35
   hitKnockbackHorizontal: 7.5
   hitKnockbackUp: 2
@@ -64,6 +64,7 @@ MonoBehaviour:
   verticalAffectsRigidbodies: 1
   verticalRigidbodyImpulse: 6
   verticalRigidbodyUpFactor: 0.35
+  minimalGroundDistance: 5
   spinChargeMinTime: 0.6
   spinChargeMaxTime: 1.6
   spinMoveSpeedMultiplierWhileExecuting: 0.6
@@ -85,7 +86,7 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  invulnerableToEnemies: 0
+  invulnerableToEnemies: 1
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
   coyoteTime: 0.12

@@ -5,12 +5,12 @@ namespace PickUps
 {
     public class DashRefresher : Pickup
     {
-        [Header("Buff (valores absolutos)")]
-        [SerializeField, Tooltip("Distancia del PRÓXIMO dash (m).")]
-        private float buffDistance = 3.0f;
-
-        [SerializeField, Tooltip("Velocidad del PRÓXIMO dash (m/s).")]
-        private float buffSpeed = 24f;
+        // [Header("Buff (valores absolutos)")]
+        // [SerializeField, Tooltip("Distancia del PRÓXIMO dash (m).")]
+        // private float buffDistance = 3.0f;
+        //
+        // [SerializeField, Tooltip("Velocidad del PRÓXIMO dash (m/s).")]
+        // private float buffSpeed = 24f;
 
         [Header("FX / UI (opcionales)")]
         [SerializeField] private ParticleSystem pickUpParticles;
@@ -33,8 +33,8 @@ namespace PickUps
 
             // Setear valores absolutos para el PRÓXIMO dash
             model.DashBuffPending  = true;
-            model.DashBuffDistance = buffDistance;
-            model.DashBuffSpeed    = buffSpeed;
+            //model.DashBuffDistance = buffDistance;
+            //model.DashBuffSpeed    = buffSpeed;
 
             // Resetear cooldown: usable YA
             model.DashCooldownLeft = 0f;
