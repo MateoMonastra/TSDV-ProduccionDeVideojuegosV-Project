@@ -13,7 +13,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2024 Audiokinetic Inc.
+Copyright (c) 2025 Audiokinetic Inc.
 *******************************************************************************/
 
 public class AkWwisePicker : UnityEditor.EditorWindow
@@ -146,13 +146,18 @@ public class AkWwisePicker : UnityEditor.EditorWindow
 
 			if (UnityEngine.GUILayout.Button("Generate SoundBanks", UnityEngine.GUILayout.Width(buttonWidth)))
 			{
-				if (AkUtilities.IsSoundbankGenerationAvailable())
+#if UNITY_EDITOR_WIN
+				string wwiseInstallationPath = AkWwiseEditorSettings.Instance.WwiseInstallationPathWindows;
+#elif UNITY_EDITOR_OSX
+				string wwiseInstallationPath = AkWwiseEditorSettings.Instance.WwiseInstallationPathMac;
+#endif
+				if (AkUtilities.IsSoundbankGenerationAvailable(wwiseInstallationPath))
 				{
-					AkUtilities.GenerateSoundbanks();
+					AkUtilities.GenerateSoundbanks(wwiseInstallationPath, AkWwiseEditorSettings.WwiseProjectAbsolutePath);
 				}
-				else
+				else if(!AkUtilities.GeneratingSoundBanks)
 				{
-					UnityEngine.Debug.LogError("Access to Wwise is required to generate the SoundBanks. Please go to Edit > Project Settings... and set the Wwise Application Path found in the Wwise Editor view.");
+					UnityEngine.Debug.LogError("Access to Wwise is required to generate the SoundBanks. Please go to Edit > Project Settings... and set the Wwise Application Path found in the Wwise Integration view.");
 				}
 			}
 
@@ -212,6 +217,7 @@ public class AkWwisePicker : UnityEditor.EditorWindow
 	[UnityEditor.MenuItem("CONTEXT/AkEvent/Select in Wwise Picker")]
 	[UnityEditor.MenuItem("CONTEXT/AkState/Select in Wwise Picker")]
 	[UnityEditor.MenuItem("CONTEXT/AkSwitch/Select in Wwise Picker")]
+	[UnityEditor.MenuItem("CONTEXT/AkWwiseTrigger/Select in Wwise Picker")]
 	static void SelectItemInWwisePicker(UnityEditor.MenuCommand command)
 	{
 		AkTriggerHandler component = (AkTriggerHandler)command.context;

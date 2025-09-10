@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="154">
 	<RootPaths>
 		<ProjectRoot>../..</ProjectRoot>
-		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SourceFilesRoot>../../.cache</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B6CBD692-12EC-CDBA-0932-48F63C40C91F}">
+		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{E8C73C05-9AC5-A17E-EA11-491BBCB2A45E}">
+			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
 				<AudioDevices>
-					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
-					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+					<Plugin Id="2317455096" Name="No_Output" ObjectPath="\Audio Devices\Default Work Unit\No_Output" GUID="{13663FD5-53CA-46E1-916D-83B242B94A51}" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" ObjectPath="\Audio Devices\Default Work Unit\System" GUID="{F8F3700D-ABDF-4590-90A2-8194BBB352C4}" LibName="System" LibId="11403271"/>
 				</AudioDevices>
 			</Plugins>
 			<Busses>
-				<Bus Id="3803692087" Name="Master Audio Bus"/>
+				<Bus Id="3803692087" Name="Master Audio Bus" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus" GUID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="1661994096" Type="User" Language="SFX" Hash="{A3428206-6BA9-A385-DFC9-A19F6612092B}">
+		<SoundBank Id="1661994096" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{1ECDE07A-9888-9395-F877-165EB6902E48}">
+			<ObjectPath>\SoundBanks\Default Work Unit\SoundBank</ObjectPath>
 			<ShortName>SoundBank</ShortName>
 			<Path>SoundBank.bnk</Path>
 			<Media>
 				<File Id="272313163" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>JDSherbert - Ultimate UI SFX Pack - Cancel - 1.wav</ShortName>
-					<CachePath>SFX/JDSherbert - Ultimate UI SFX Pack - Cancel - 1_818F3B66.wem</CachePath>
+					<CachePath>2F/{2F37FED7-FCB2-A61C-CBBD-7F2AE77721C2}.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="562256996" Name="play_player_jump" DurationType="OneShot" DurationMin="2.0052154" DurationMax="2.0052154">
+				<Event Id="562256996" Name="play_player_jump" ObjectPath="\Events\Default Work Unit\play_player_jump" GUID="{C80AA749-F88A-41CE-8C5B-63E044F5CFCE}" DurationType="OneShot" DurationMin="2.0052154" DurationMax="2.0052154">
 					<MediaRefs>
 						<MediaRef Id="272313163"/>
 					</MediaRefs>
@@ -40,5 +42,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{922B40B7-300E-8429-64B5-65934BBE2928}</FileHash>
+	<FileHash>{723DC9DF-FB9B-949E-87E3-51F9ED8E2C03}</FileHash>
 </SoundBanksInfo>
