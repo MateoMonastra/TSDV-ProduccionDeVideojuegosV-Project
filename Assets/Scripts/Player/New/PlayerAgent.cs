@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Health;
 using KinematicCharacterController.Examples;
+using Player.New.Audio;
 using Player.New.States;
 using Player.New.UI;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace Player.New
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
         [SerializeField] private PlayerAnimationController anim;
+        [SerializeField] private PlayerAudioController audioController;
         [SerializeField] private HUDManager hud;
         [SerializeField] private Health.HealthController health;
         [SerializeField] private InteractController interactController;
@@ -291,7 +293,7 @@ namespace Player.New
 
             _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 
-            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
+            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim, audioController);
 
             _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
 

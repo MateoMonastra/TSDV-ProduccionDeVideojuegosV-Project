@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using UnityEngine;
 
 namespace Player.New
@@ -15,10 +16,15 @@ namespace Player.New
         
         private float _t;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerAudioController _audioController;
 
-        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, PlayerAnimationController anim = null)
+        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerAudioController audioController = null)
             : base(m, mdl, cam, req)
-        {_anim = anim; }
+        {
+            _anim = anim; 
+            _audioController = audioController;
+        }
 
         public override void Enter()
         {
@@ -34,6 +40,8 @@ namespace Player.New
 
             _anim?.SetGrounded(false);
             _anim?.TriggerJump();
+            
+            _audioController?.PlayJumpAudio();
         }
 
         public override void Exit()
