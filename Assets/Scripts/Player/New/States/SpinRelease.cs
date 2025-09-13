@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Health;
 using Player.New.UI;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -19,7 +20,7 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
-        private readonly HUDManager _hud;
+        private readonly PlayerVfxController _vfxController;
 
         private float _t;
         private bool  _damageTicked;
@@ -30,13 +31,12 @@ namespace Player.New
 
         public SpinRelease(MyKinematicMotor motor,
                            PlayerModel model,
-                           HUDManager hud,
                            System.Action<string> requestTransition,
-                           PlayerAnimationController anim = null)
+                           PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
         {
+            _vfxController = vfxController;
             _motor = motor;
             _model = model;
-            _hud = hud;
             _requestTransition = requestTransition;
             _anim = anim;
         }
@@ -70,6 +70,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
+            _vfxController?.OnSpinAttack();
         }
 
         /// <summary>Salir del release: desuscribe evento y limpia locks si corresponde.</summary>
