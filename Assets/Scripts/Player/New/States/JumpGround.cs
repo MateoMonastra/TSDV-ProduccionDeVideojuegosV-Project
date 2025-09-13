@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -15,10 +16,15 @@ namespace Player.New
         
         private float _t;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
-        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, PlayerAnimationController anim = null)
+        public JumpGround(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
             : base(m, mdl, cam, req)
-        {_anim = anim; }
+        {
+            _vfxController = vfxController;
+            _anim = anim;
+        }
 
         public override void Enter()
         {
@@ -34,6 +40,7 @@ namespace Player.New
 
             _anim?.SetGrounded(false);
             _anim?.TriggerJump();
+            _vfxController?.OnJump();
         }
 
         public override void Exit()
