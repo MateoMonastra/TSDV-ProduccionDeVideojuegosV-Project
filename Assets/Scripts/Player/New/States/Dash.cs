@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -17,6 +18,7 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
         private Vector3 _dir;
         private float   _duration;
@@ -30,8 +32,12 @@ namespace Player.New
 
         public System.Action<float> OnDashCooldownUI;
 
-        public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null)
-        { _m = m; _model = model; _req = req; _anim = anim; }
+        public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+        {
+            _vfxController = vfxController;
+            _m = m; _model = model; _req = req; _anim = anim;
+        }
 
         public static bool CanUse(PlayerModel mdl) => !mdl.DashOnCooldown;
 
@@ -73,6 +79,8 @@ namespace Player.New
 
             v.x = newH.x; v.z = newH.z;                               
             _m.SetVelocity(v);
+            
+            _vfxController?.OnDash();
         }
 
         public override void Exit()
