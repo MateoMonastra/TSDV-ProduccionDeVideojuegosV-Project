@@ -13,12 +13,16 @@ namespace Platforms
     [RequireComponent(typeof(Rigidbody))]
     public class PropulsorPlatform : MonoBehaviour
     {
+        private static readonly int IsImpulse = Animator.StringToHash("Impulse");
+
         [Header("Impulse")]
         [SerializeField, Tooltip("Velocidad de salida que se aplica en la dirección UP de la plataforma (m/s)")]
         private float launchSpeed = 12f;
 
         [SerializeField, Tooltip("Sólo impulsa si el player está grounded (recomendado).")]
         private bool onlyWhenGrounded = true;
+        
+        [SerializeField] private Animator animator;
 
         [Header("Debug / Safety")]
         [SerializeField, Tooltip("Loguear activaciones en consola")]
@@ -72,6 +76,8 @@ namespace Platforms
             _consumed[other] = true;
 
             if (logs) Debug.Log($"PropulsorPlatform: impulso aplicado a {agent.name} → {v}", this);
+            
+            animator.SetTrigger(IsImpulse);
             
             agent.GetPlayerModel().ClearActionLocks();
         }
