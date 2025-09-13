@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New.States
@@ -15,12 +16,14 @@ namespace Player.New.States
         private readonly PlayerModel _model;
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
         private float _t;
         private bool _impulseApplied;
 
-        public PlayerHit(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null)
+        public PlayerHit(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
         {
+            _vfxController = vfxController;
             _m = m; _model = model; _req = req; _anim = anim;
         }
 
@@ -32,6 +35,7 @@ namespace Player.New.States
 
             _model.LocomotionBlocked = true;
             _anim.TriggerHit();
+            _vfxController?.OnHit();
         }
 
         public override void Exit()
