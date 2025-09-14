@@ -23,11 +23,7 @@ namespace CheckPoint
         private void OnTriggerEnter(Collider other)
         {
             var health = other.GetComponentInParent<HealthController>();
-            if (health == null)
-            {
-                Debug.LogWarning($"KillBound: no se encontró HealthController en la jerarquía de {other.name}", other);
-                return;
-            }
+            if (!health) return;
 
             health.InstaKill();
         }
