@@ -31,7 +31,7 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
-            
+
             if (Model.JumpsLeft > 0)
             {
                 Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
@@ -52,6 +52,7 @@ namespace Player.New
 
             _anim?.TriggerDoubleJump();
             _vfxController?.Play(VfxEvent.Jump);
+            _audioController?.PlayJump2Audio();
         }
 
 

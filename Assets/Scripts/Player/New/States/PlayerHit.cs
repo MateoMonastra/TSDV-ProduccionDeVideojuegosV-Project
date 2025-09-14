@@ -40,6 +40,7 @@ namespace Player.New.States
             _model.LocomotionBlocked = true;
             _anim.TriggerHit();
             _vfxController?.Play(VfxEvent.Hit);
+            _audioController?.PlayPlayerGetsHitAudio();
         }
 
         public override void Exit()
