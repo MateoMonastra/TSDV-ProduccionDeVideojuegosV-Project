@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Health;
 using KinematicCharacterController.Examples;
+using Player.New.Audio;
 using Player.New.States;
 using Player.New.UI;
 using Player.New.VFX;
@@ -30,6 +31,7 @@ namespace Player.New
         [SerializeField] private PlayerModel model;
         [SerializeField] private PlayerAnimationController animController;
         [SerializeField] private PlayerVfxController vfxController;
+        [SerializeField] private PlayerAudioController audioController;
         [SerializeField] private HUDManager hud;
         [SerializeField] private HealthController health;
         [SerializeField] private InteractController interactController;
@@ -294,7 +296,7 @@ namespace Player.New
 
             _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
-            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
+            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
 
             _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
 
