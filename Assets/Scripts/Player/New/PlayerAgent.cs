@@ -1,10 +1,11 @@
 ﻿using FSM;
 using Health;
 using KinematicCharacterController.Examples;
-using Player.New.Audio;
 using Player.New.States;
 using Player.New.UI;
+using Player.New.VFX;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.New
 {
@@ -27,10 +28,10 @@ namespace Player.New
         [SerializeField] private Camera deadCameraRef;
         [SerializeField] private MyKinematicMotor motor;
         [SerializeField] private PlayerModel model;
-        [SerializeField] private PlayerAnimationController anim;
-        [SerializeField] private PlayerAudioController audioController;
+        [SerializeField] private PlayerAnimationController animController;
+        [SerializeField] private PlayerVfxController vfxController;
         [SerializeField] private HUDManager hud;
-        [SerializeField] private Health.HealthController health;
+        [SerializeField] private HealthController health;
         [SerializeField] private InteractController interactController;
 
         #endregion
@@ -192,7 +193,7 @@ namespace Player.New
 
         private void OnPlayerDeath()
         {
-            anim?.SetCombatActive(false);
+            animController?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sDeath);
@@ -291,18 +292,18 @@ namespace Player.New
             // Función local descriptiva para solicitar transiciones de locomoción
             void RequestLocomotionTransition(string transitionId) => _locomotionFsm.TryTransitionTo(transitionId);
 
-            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
+            _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
-            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim, audioController);
+            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
 
-            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
+            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
 
-            _sInteract = new Interact(motor, model, RequestLocomotionTransition, anim: anim);
+            _sInteract = new Interact(motor, model, RequestLocomotionTransition, anim: animController);
             
-            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
+            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
-            _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: anim);
-            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: anim);
+            _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: animController, vfxController);
+            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
             _sDeath = new Death(
                 motor,
@@ -310,11 +311,11 @@ namespace Player.New
                 deadCameraRef,
                 cameraRef,
                 RequestLocomotionTransition,
-                anim,
+                animController,
                 () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true)
             );
 
-            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: anim);
+            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController);
 
             // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
@@ -352,14 +353,14 @@ namespace Player.New
             // Función local descriptiva para solicitar transiciones de acciones
             void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
 
-            _aIdle = new AttackIdle(model, RequestActionTransition, anim, motor);
-            _a1 = new Attack1(motor, model, RequestActionTransition, anim);
-            _a2 = new Attack2(motor, model, RequestActionTransition, anim);
-            _a3 = new Attack3(motor, model, RequestActionTransition, anim);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, anim);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, anim);
-            _aSpinRelease = new SpinRelease(motor, model, hud, RequestActionTransition, anim);
-            _aSelfStun = new SelfStun(motor, model, RequestActionTransition, anim);
+            _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor);
+            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController);
+            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController);
+            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, animController);
+            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController);
+            _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController);
 
             // Transiciones de acciones
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
@@ -423,7 +424,7 @@ namespace Player.New
 
         public void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
         {
-            anim?.SetCombatActive(false);
+            animController?.SetCombatActive(false);
 
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm?.ForceTransition(_sIdle);

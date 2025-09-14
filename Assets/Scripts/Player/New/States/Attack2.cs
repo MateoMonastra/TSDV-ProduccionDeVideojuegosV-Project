@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 
 namespace Player.New
 {
@@ -10,9 +11,15 @@ namespace Player.New
 
         private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
-        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req, PlayerAnimationController anim = null)
-            : base(m, mdl, req) { _anim = anim; }
+        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            : base(m, mdl, req)
+        {
+            _vfxController = vfxController;
+            _anim = anim;
+        }
 
         public override void Enter()
         {
@@ -26,6 +33,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
+            _vfxController?.Play(VfxEvent.BaseAttack);
         }
 
         public override void Exit()

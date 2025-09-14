@@ -2,6 +2,7 @@
 using Health;
 using UnityEngine;
 using Platforms;
+using Player.New.VFX;
 
 namespace Player.New
 {
@@ -18,6 +19,7 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
         private float _t;
         private bool _impactDone;
@@ -27,12 +29,13 @@ namespace Player.New
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
         {
             _m = m;
             _model = mdl;
             _req = req;
             _anim = anim;
+            _vfxController =  vfxController;
         }
 
         /// <summary>Puede usarse si está en aire, no hay cooldown.</summary>
@@ -124,6 +127,8 @@ namespace Player.New
             if (_impactDone) return;
             _impactDone = true;
 
+            _vfxController?.Play(VfxEvent.VerticalAttackLand);
+            
             Vector3 center = _m.transform.position;
             
             Collider[] hits = Physics.OverlapSphere(
