@@ -6,18 +6,22 @@ namespace Hazards.Cannon.States
     public class Idle : State
     {
         private System.Action _onEnterAttackRange;
+        private System.Action _onRotate;
+        private System.Action _onStopRotate;
         private Transform _target;
         private Transform _enemy;
         private CannonModel _model;
         private float _cooldownTimer = 0f;
         private bool _isInCooldown = false;
         private bool _needsUpdate;
-        public Idle(Transform enemy, Transform target, CannonModel model, System.Action onEnterAttackRange)
+        public Idle(Transform enemy, Transform target, CannonModel model, System.Action onEnterAttackRange, System.Action onRotate, System.Action onStopRotate)
         {
             _onEnterAttackRange = onEnterAttackRange;
             _enemy = enemy;
             _target = target;
             _model = model;
+            _onRotate = onRotate;
+            _onStopRotate = onStopRotate;
         }
 
         public override void Enter()
@@ -49,6 +53,7 @@ namespace Hazards.Cannon.States
             if (!IsFacingTarget())
             {
                 Debug.Log(_enemy.gameObject.name + " is facing not target");
+                _onRotate?.Invoke();
                 _needsUpdate = true;
                 return;
             }
@@ -74,13 +79,16 @@ namespace Hazards.Cannon.States
 
             if (directionToPlayer == Vector3.zero) return;
             
+            
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             _enemy.rotation = Quaternion.RotateTowards(
                 _enemy.rotation,
                 targetRotation,
                 _model.RotateVelocity * delta
             );
+            
 
+            _onStopRotate?.Invoke();
             _needsUpdate = false;
         }
 

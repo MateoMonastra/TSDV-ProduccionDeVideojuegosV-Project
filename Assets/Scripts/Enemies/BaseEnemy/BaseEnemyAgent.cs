@@ -22,7 +22,7 @@ namespace Enemies.BaseEnemy
         //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private HealthController healthController;
         [SerializeField] private Transform player;
-        [SerializeField] private BaseEnemyModel model;
+        [SerializeField] private BaseEnemyModel model;  
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;

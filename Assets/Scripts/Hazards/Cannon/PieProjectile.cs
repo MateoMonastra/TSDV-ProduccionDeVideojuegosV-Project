@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using KinematicCharacterController.Examples;
@@ -15,6 +16,10 @@ namespace Hazards.Cannon
         private bool _hasCollided = false;
         private float destroyOffset = 3.0f;
 
+
+        public Action onSurfaceHit;
+        public Action onPlayerHit;
+        
         private void OnTriggerEnter(Collider other)
         {
             if (_hasCollided) return;
@@ -24,11 +29,13 @@ namespace Hazards.Cannon
             {
                 GameEvents.GameEvents.PlayerBlinded();
                 PlayOnHit();
+                onPlayerHit?.Invoke();
             }
             else if (other.gameObject.layer == environmentLayer)
             {
                 environmentHit.Play();
                 PlayOnHit();
+                onSurfaceHit?.Invoke();
             }
 
             model.SetActive(false);

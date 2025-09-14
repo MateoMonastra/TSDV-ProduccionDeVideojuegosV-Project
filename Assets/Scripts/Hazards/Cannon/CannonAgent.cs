@@ -11,7 +11,9 @@ namespace Hazards.Cannon
         public UnityEvent onAttack;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
-
+        public UnityEvent onRotate;
+        public UnityEvent onStopRotate;
+        
         [SerializeField] private CannonModel model;
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private GameObject groundMarkPrefab;
@@ -28,7 +30,7 @@ namespace Hazards.Cannon
         
         private void Start()
         {
-            State idle = new Idle(transform, target, model, TransitionToAttack);
+            State idle = new Idle(transform, target, model, TransitionToAttack, OnRotate, OnStopRotate);
 
             State attack = new Attack(shootPoint, bulletPrefab, groundMarkPrefab, target, model, TransitionToIdle);
 
@@ -51,6 +53,16 @@ namespace Hazards.Cannon
             _fsm = new Fsm(idle);
         }
 
+        private void OnRotate()
+        {
+            onRotate?.Invoke();
+        }
+
+        private void OnStopRotate()
+        {
+            onStopRotate?.Invoke();
+        }
+        
         private void TransitionToAttack()
         {
             onAttack.Invoke();
