@@ -8,9 +8,14 @@ namespace Player.New.Audio
         
         public void PlayJumpAudio()
         {
-            Debug.Log("PlayJumpAudio");
+            //Debug.Log("PlayJumpAudio");
             //Wwise event implementation
         }
         
+        public void PlayJump2Audio()
+        {
+            Debug.Log("PlayJump2Audio");
+            //Wwise event implementation
+        }
     }
 }

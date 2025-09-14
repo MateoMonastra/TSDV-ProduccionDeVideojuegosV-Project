@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
 using UnityEngine;
 
@@ -17,12 +18,15 @@ namespace Player.New.States
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         private float _t;
         private bool _impulseApplied;
 
-        public PlayerHit(MyKinematicMotor m, PlayerModel model, System.Action<string> req, PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+        public PlayerHit(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
         {
+            _audioController = audioController;
             _vfxController = vfxController;
             _m = m; _model = model; _req = req; _anim = anim;
         }

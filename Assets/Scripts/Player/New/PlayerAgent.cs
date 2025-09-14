@@ -298,13 +298,13 @@ namespace Player.New
 
             _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
 
-            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
+            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
 
             _sInteract = new Interact(motor, model, RequestLocomotionTransition, anim: animController);
             
-            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
+            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, audioController);
 
-            _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: animController, vfxController);
+            _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: animController, vfxController, audioController);
             _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
             _sDeath = new Death(
@@ -317,7 +317,7 @@ namespace Player.New
                 () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true)
             );
 
-            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController);
+            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController, audioController);
 
             // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });

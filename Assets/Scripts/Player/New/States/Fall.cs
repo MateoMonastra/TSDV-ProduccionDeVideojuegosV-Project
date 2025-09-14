@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using UnityEngine;
 
 namespace Player.New
@@ -11,14 +12,17 @@ namespace Player.New
     {
         public const string ToWalkIdle = "ToWalkIdle";
         public const string ToJumpAir  = "ToJumpAir";
-        
+                
         private int _groundedFrames;
 
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerAudioController _audioController;
 
-        public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req, PlayerAnimationController anim = null)
+        public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
+            PlayerAnimationController anim = null, PlayerAudioController audioController = null)
             : base(m, mdl, cam, req)
         {
+            _audioController = audioController;
             _anim = anim;
         }
 

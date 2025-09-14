@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace Player.New
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         private Vector3 _dir;
         private float   _duration;
@@ -33,8 +35,9 @@ namespace Player.New
         public System.Action<float> OnDashCooldownUI;
 
         public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
         {
+            _audioController = audioController;
             _vfxController = vfxController;
             _m = m; _model = model; _req = req; _anim = anim;
         }
