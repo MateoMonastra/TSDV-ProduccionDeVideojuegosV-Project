@@ -52,7 +52,6 @@ namespace Player.New
                 {
                     _anim?.TriggerLand();
                     _anim?.SetGrounded(true);
-                    _anim?.SetWalking(false);
 
                     if (Model.LandStopsHorizontal)
                     {
