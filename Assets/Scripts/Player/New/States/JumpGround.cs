@@ -40,7 +40,7 @@ namespace Player.New
 
             _anim?.SetGrounded(false);
             _anim?.TriggerJump();
-            _vfxController?.OnJump();
+            _vfxController?.Play(VfxEvent.Jump);
         }
 
         public override void Exit()

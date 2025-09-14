@@ -127,7 +127,7 @@ namespace Player.New
             if (_impactDone) return;
             _impactDone = true;
 
-            _vfxController?.OnVerticalAttackLand();
+            _vfxController?.Play(VfxEvent.VerticalAttackLand);
             
             Vector3 center = _m.transform.position;
             

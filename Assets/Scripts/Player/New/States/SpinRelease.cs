@@ -70,7 +70,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
-            _vfxController?.OnSpinAttack();
+            _vfxController?.Play(VfxEvent.SpinAttack);
         }
 
         /// <summary>Salir del release: desuscribe evento y limpia locks si corresponde.</summary>

@@ -48,7 +48,7 @@ namespace Player.New
             Motor.SetVelocity(v);
 
             _anim?.TriggerDoubleJump();
-            _vfxController?.OnJump();
+            _vfxController?.Play(VfxEvent.Jump);
         }
 
 

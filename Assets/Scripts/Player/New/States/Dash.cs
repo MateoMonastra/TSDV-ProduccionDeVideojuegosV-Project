@@ -80,7 +80,7 @@ namespace Player.New
             v.x = newH.x; v.z = newH.z;                               
             _m.SetVelocity(v);
             
-            _vfxController?.OnDash();
+            _vfxController?.Play(VfxEvent.Dash);
         }
 
         public override void Exit()

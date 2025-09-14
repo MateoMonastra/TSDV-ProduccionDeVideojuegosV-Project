@@ -1,91 +1,199 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.New.VFX
 {
+    public enum VfxEvent
+    {
+        BaseAttack,
+        Hit,
+        Jump,
+        Dash,
+        SpinAttack,
+        VerticalAttackLand
+    }
+
+    [Serializable]
+    public class VfxGroup
+    {
+        [SerializeField] internal VfxEvent eventKey;
+        [SerializeField] internal GameObject root;
+
+        internal ParticleSystem[] CachedSystems;
+    }
+
     public class PlayerVfxController : MonoBehaviour
     {
-        [SerializeField] private GameObject onBaseAttackParticles;
-        [SerializeField] private GameObject onHitParticles;
-        [SerializeField] private GameObject onJumpParticles;
-        [SerializeField] private GameObject onDashParticles;
-        [SerializeField] private GameObject onSpinAttackParticles;
-        [SerializeField] private GameObject onVerticalAttackLandParticles;
-
-        private ParticleSystem[] _onBaseAttackParticlesArray;
-        private ParticleSystem[] _onHitParticlesArray;
-        private ParticleSystem[] _onJumpParticlesArray;
-        private ParticleSystem[] _onDashParticlesArray;
-        private ParticleSystem[] _onSpinAttackParticlesArray;
-        private ParticleSystem[] _onVerticalAttackLandParticlesArray;
+        [SerializeField] private List<VfxGroup> groups = new();
+        
+        private readonly Dictionary<VfxEvent, List<ParticleSystem[]>> _map = new();
 
         private void OnEnable()
         {
-            // if (onBaseAttackParticles)
-            //     _onBaseAttackParticlesArray = onBaseAttackParticles?.GetComponentsInChildren<ParticleSystem>();
-            _onHitParticlesArray = onHitParticles?.GetComponentsInChildren<ParticleSystem>();
-            _onJumpParticlesArray = onJumpParticles?.GetComponentsInChildren<ParticleSystem>();
-            _onDashParticlesArray = onDashParticles?.GetComponentsInChildren<ParticleSystem>();
-            _onSpinAttackParticlesArray = onSpinAttackParticles?.GetComponentsInChildren<ParticleSystem>();
-            _onVerticalAttackLandParticlesArray =
-                onVerticalAttackLandParticles?.GetComponentsInChildren<ParticleSystem>();
+            BuildMap();
         }
 
         private void OnDisable()
         {
-            _onBaseAttackParticlesArray =  null;
-            _onHitParticlesArray =  null;
-            _onJumpParticlesArray =  null;
-            _onDashParticlesArray =  null;
-            _onSpinAttackParticlesArray  =  null;
-            _onVerticalAttackLandParticlesArray = null;
+            _map.Clear();
         }
 
-        // public void OnBaseAttack()
-        // {
-        //     foreach (var particle in _onBaseAttackParticlesArray)
-        //     {
-        //         particle?.Play();
-        //     }
-        // }
-
-        public void OnHit()
+        private void BuildMap()
         {
-            foreach (var particle in _onHitParticlesArray)
+            _map.Clear();
+
+            foreach (var vfxGroup in groups)
             {
-                particle?.Play();
+                if (vfxGroup == null || vfxGroup.root == null) continue;
+
+                vfxGroup.CachedSystems = vfxGroup.root.GetComponentsInChildren<ParticleSystem>(true);
+
+                if (!_map.TryGetValue(vfxGroup.eventKey, out var list))
+                {
+                    list = new List<ParticleSystem[]>();
+                    _map[vfxGroup.eventKey] = list;
+                }
+
+                list.Add(vfxGroup.CachedSystems ?? Array.Empty<ParticleSystem>());
+            }
+        }
+        
+        public void Play(VfxEvent key)
+        {
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+
+            foreach (var systems in variants)
+            {
+                if (systems == null) continue;
+                
+                var any = systems.Length > 0 ? systems[0] : null;
+                if (any && !any.gameObject.scene.IsValid()) continue;
+
+                foreach (var system in systems)
+                {
+                    if (!system) continue;
+
+                    if (!system.gameObject.activeInHierarchy)
+                        system.gameObject.SetActive(true);
+
+                    system.Clear(true);
+                    system.Play(true);
+                }
             }
         }
 
-        public void OnJump()
+        /// <summary>Reproduce solo una variante por índice.</summary>
+        public void Play(VfxEvent key, int variantIndex)
         {
-            foreach (var particle in _onJumpParticlesArray)
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+            if (variantIndex < 0 || variantIndex >= variants.Count) return;
+
+            var systems = variants[variantIndex];
+            if (systems == null) return;
+
+            var any = systems.Length > 0 ? systems[0] : null;
+            if (any != null && !any.gameObject.scene.IsValid()) return;
+
+            foreach (var system in systems)
             {
-                particle?.Play();
+                if (system == null) continue;
+
+                if (!system.gameObject.activeInHierarchy)
+                    system.gameObject.SetActive(true);
+
+                system.Clear(true);
+                system.Play(true);
             }
         }
 
-        public void OnDash()
+        /// <summary>
+        /// Reproduce TODOS los grupos del evento en una posición/rotación dadas.
+        /// Si los PS están en Simulation Space = World, la traslación funciona perfecto.
+        /// </summary>
+        public void PlayAt(VfxEvent key, Vector3 position, Quaternion rotation)
         {
-            foreach (var particle in _onDashParticlesArray)
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+
+            foreach (var systems in variants)
             {
-                particle?.Play();
+                if (systems == null) continue;
+
+                foreach (var system in systems)
+                {
+                    if (system == null) continue;
+
+                    var auxTransform = system.transform;
+                    auxTransform.SetPositionAndRotation(position, rotation);
+
+                    if (!system.gameObject.activeInHierarchy)
+                        system.gameObject.SetActive(true);
+
+                    system.Clear(true);
+                    system.Play(true);
+                }
             }
         }
 
-        public void OnSpinAttack()
+        /// <summary>Reproduce SOLO una variante en una posición/rotación dadas.</summary>
+        public void PlayAt(VfxEvent key, int variantIndex, Vector3 position, Quaternion rotation)
         {
-            foreach (var particle in _onSpinAttackParticlesArray)
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+            if (variantIndex < 0 || variantIndex >= variants.Count) return;
+
+            var systems = variants[variantIndex];
+            if (systems == null) return;
+
+            foreach (var system in systems)
             {
-                particle?.Play();
+                if (system == null) continue;
+
+                var t = system.transform;
+                t.SetPositionAndRotation(position, rotation);
+
+                if (!system.gameObject.activeInHierarchy)
+                    system.gameObject.SetActive(true);
+
+                system.Clear(true);
+                system.Play(true);
             }
         }
 
-        public void OnVerticalAttackLand()
+        /// <summary>Detiene todos los PS de TODOS los grupos de un evento.</summary>
+        public void Stop(VfxEvent key, bool clear = false)
         {
-            foreach (var particle in _onVerticalAttackLandParticlesArray)
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+
+            foreach (var systems in variants)
             {
-                particle?.Play();
+                if (systems == null) continue;
+
+                foreach (var system in systems)
+                {
+                    if (system == null) continue;
+
+                    system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    if (clear) system.Clear(true);
+                }
+            }
+        }
+
+        /// <summary>Detiene solo una variante por índice.</summary>
+        public void Stop(VfxEvent key, int variantIndex, bool clear = false)
+        {
+            if (!_map.TryGetValue(key, out var variants) || variants == null) return;
+            if (variantIndex < 0 || variantIndex >= variants.Count) return;
+
+            var systems = variants[variantIndex];
+            if (systems == null) return;
+
+            foreach (var system in systems)
+            {
+                if (system == null) continue;
+
+                system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                if (clear) system.Clear(true);
             }
         }
     }
