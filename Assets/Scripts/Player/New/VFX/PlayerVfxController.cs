@@ -108,11 +108,8 @@ namespace Player.New.VFX
             }
         }
 
-        /// <summary>
-        /// Reproduce TODOS los grupos del evento en una posición/rotación dadas.
-        /// Si los PS están en Simulation Space = World, la traslación funciona perfecto.
-        /// </summary>
-        public void PlayAt(VfxEvent key, Vector3 position, Quaternion rotation)
+        // Reproduce los grupos del evento en una posición/rotación opcionales.
+        public void PlayAt(VfxEvent key, Vector3? position = null, Quaternion? rotation = null)
         {
             if (!_map.TryGetValue(key, out var variants) || variants == null) return;
 
@@ -122,10 +119,12 @@ namespace Player.New.VFX
 
                 foreach (var system in systems)
                 {
-                    if (system == null) continue;
+                    if (!system) continue;
 
-                    var auxTransform = system.transform;
-                    auxTransform.SetPositionAndRotation(position, rotation);
+                    var t = system.transform;
+                    var targetPos = position ?? t.position;
+                    var targetRot = rotation ?? t.rotation;
+                    t.SetPositionAndRotation(targetPos, targetRot);
 
                     if (!system.gameObject.activeInHierarchy)
                         system.gameObject.SetActive(true);
@@ -136,8 +135,8 @@ namespace Player.New.VFX
             }
         }
 
-        /// <summary>Reproduce SOLO una variante en una posición/rotación dadas.</summary>
-        public void PlayAt(VfxEvent key, int variantIndex, Vector3 position, Quaternion rotation)
+        // Reproduce una variante con posición/rotación opcionales.
+        public void PlayAt(VfxEvent key, int variantIndex, Vector3? position = null, Quaternion? rotation = null)
         {
             if (!_map.TryGetValue(key, out var variants) || variants == null) return;
             if (variantIndex < 0 || variantIndex >= variants.Count) return;
@@ -147,10 +146,12 @@ namespace Player.New.VFX
 
             foreach (var system in systems)
             {
-                if (system == null) continue;
+                if (!system) continue;
 
                 var t = system.transform;
-                t.SetPositionAndRotation(position, rotation);
+                var targetPos = position ?? t.position;
+                var targetRot = rotation ?? t.rotation;
+                t.SetPositionAndRotation(targetPos, targetRot);
 
                 if (!system.gameObject.activeInHierarchy)
                     system.gameObject.SetActive(true);
@@ -159,6 +160,7 @@ namespace Player.New.VFX
                 system.Play(true);
             }
         }
+
 
         /// <summary>Detiene todos los PS de TODOS los grupos de un evento.</summary>
         public void Stop(VfxEvent key, bool clear = false)
