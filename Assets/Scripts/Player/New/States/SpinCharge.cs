@@ -62,6 +62,7 @@ namespace Player.New
             {
                 _requestTransition?.Invoke(ToIdle);
                 Finish();
+                _anim?.TriggerSpinRelease();
                 return;
             }
 
