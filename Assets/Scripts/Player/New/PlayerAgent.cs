@@ -424,6 +424,12 @@ namespace Player.New
 
         public PlayerModel GetPlayerModel() => model;
 
+        public void SetPlayerIdleState()
+        {
+            _locomotionFsm?.ForceTransition(_sIdle);
+            _actionFsm?.ForceTransition(_aIdle);
+        }
+        
         public void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
         {
             animController?.SetCombatActive(false);
