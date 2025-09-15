@@ -1,5 +1,6 @@
 ﻿using FSM;
 using Player.New.UI;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -23,6 +24,7 @@ namespace Player.New
         private readonly MyKinematicMotor _motor;
         private readonly PlayerAnimationController _anim;
         private readonly HUDManager _hud;
+        private readonly PlayerVfxController _vfxController;
         
         private float _t;           
         private bool  _released;    
@@ -33,12 +35,15 @@ namespace Player.New
                           Transform cam,
                           HUDManager hud,
                           MyKinematicMotor motor,
-                          PlayerAnimationController anim = null)
+                          PlayerVfxController vfxController,
+                          PlayerAnimationController anim = null
+                          )
         {
             _model = model;
             _requestTransition = requestTransition;
             _hud = hud;
             _motor = motor;
+            _vfxController = vfxController;
             _anim = anim;
         }
 
@@ -68,6 +73,7 @@ namespace Player.New
             _model.AimLockActive = false;
             _model.JumpBlocked = true;
 
+            _vfxController.Stop(VfxEvent.BaseAttack);
       
             _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
