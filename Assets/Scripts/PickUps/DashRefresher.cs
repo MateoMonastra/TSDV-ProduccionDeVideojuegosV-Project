@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Player.New;
 
 namespace PickUps
@@ -14,8 +15,8 @@ namespace PickUps
 
         [Header("FX / UI (opcionales)")]
         [SerializeField] private ParticleSystem pickUpParticles;
-        [SerializeField] private AudioSource sfx;
 
+        public Action onPickup;
         private void OnTriggerEnter(Collider other)
         {
             var agent = other.GetComponentInParent<PlayerAgent>();
@@ -46,7 +47,8 @@ namespace PickUps
                 if (pickUpParticles.isPlaying) pickUpParticles.Stop();
                 pickUpParticles.Play();
             }
-            if (sfx) sfx.Play();
+            
+            onPickup?.Invoke();
             
              RefreshCooldown();
         }

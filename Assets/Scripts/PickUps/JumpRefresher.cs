@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Player.New;
 
 namespace PickUps
@@ -11,8 +12,9 @@ namespace PickUps
     {
         [Header("FX / UI (opcionales)")]
         [SerializeField] private ParticleSystem pickUpParticles;
-        [SerializeField] private AudioSource sfx;
 
+        public Action onPickup;
+        
         /// <summary>
         /// Llamado por el motor kinemático mediante SendMessage cuando
         /// el capsule del jugador solapa este pickup.
@@ -31,7 +33,8 @@ namespace PickUps
                 if (pickUpParticles.isPlaying) pickUpParticles.Stop();
                 pickUpParticles.Play();
             }
-            if (sfx) sfx.Play();
+           
+            onPickup?.Invoke();
 
             RefreshCooldown();
         }
