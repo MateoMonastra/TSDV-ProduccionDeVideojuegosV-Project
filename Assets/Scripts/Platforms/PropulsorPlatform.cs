@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Player.New;
 using UnityEngine;
@@ -32,6 +33,8 @@ namespace Platforms
 
         private Collider _col;
         private Rigidbody _rb;
+
+        public Action onBounce;
 
         private void Awake()
         {
@@ -72,6 +75,8 @@ namespace Platforms
             v = Vector3.ProjectOnPlane(v, dir) + (dir * Mathf.Max(0f, launchSpeed));
             motor.SetVelocity(v);
             motor.ForceUnground(0.1f);
+            
+            onBounce?.Invoke();
             
             _consumed[other] = true;
 
