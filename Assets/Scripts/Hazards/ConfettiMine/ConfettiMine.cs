@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Health;
 using Player.New;
@@ -48,6 +49,9 @@ namespace Hazards.ConfettiMine
         private Coroutine _warningCoroutine;
         private Coroutine _explodeCoroutine;
         private Rigidbody _rb;
+
+        public Action onStartTicking;
+        public Action onExplode;
 
         private void OnValidate()
         {
@@ -127,6 +131,8 @@ namespace Hazards.ConfettiMine
             float elapsed = 0f;
             bool toggle = false;
 
+            onStartTicking?.Invoke();
+                
             while (elapsed < activationDelay)
             {
                 if (mineRenderer)
@@ -138,6 +144,8 @@ namespace Hazards.ConfettiMine
                 yield return new WaitForSeconds(wait);
                 elapsed += wait;
             }
+            
+            onExplode?.Invoke();
 
             _explodeCoroutine = StartCoroutine(Explode());
         }
