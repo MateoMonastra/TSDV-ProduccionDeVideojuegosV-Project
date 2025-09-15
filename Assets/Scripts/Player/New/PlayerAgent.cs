@@ -283,6 +283,7 @@ namespace Player.New
             if (!model) return;
             model.HasExtraJump = false;
             model.DashBuffPending = false;
+            model.JumpBlocked = false;
         }
 
         /// <summary>

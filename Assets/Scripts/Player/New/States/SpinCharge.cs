@@ -104,6 +104,7 @@ namespace Player.New
             {
                 if (_t < _model.SpinChargeMinTime)
                 {
+                    _model.JumpBlocked = false;
                     _requestTransition?.Invoke(ToIdle);
                     Finish();
                     return;
