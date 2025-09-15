@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
 using UnityEngine;
 
@@ -15,11 +16,13 @@ namespace Player.New
         private float _t;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         public JumpAir(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
             : base(m, mdl, cam, req)
         {
+            _audioController = audioController;
             _vfxController = vfxController;
             _anim = anim;
         }
@@ -28,7 +31,7 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
-            
+
             if (Model.JumpsLeft > 0)
             {
                 Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
@@ -49,6 +52,7 @@ namespace Player.New
 
             _anim?.TriggerDoubleJump();
             _vfxController?.Play(VfxEvent.Jump);
+            _audioController?.PlayJump2Audio();
         }
 
 

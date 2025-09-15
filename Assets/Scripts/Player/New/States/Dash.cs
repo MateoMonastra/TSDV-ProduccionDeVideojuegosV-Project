@@ -1,4 +1,5 @@
-﻿using FSM;
+using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace Player.New
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         private Vector3 _dir;
         private float   _duration;
@@ -33,8 +35,9 @@ namespace Player.New
         public System.Action<float> OnDashCooldownUI;
 
         public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
         {
+            _audioController = audioController;
             _vfxController = vfxController;
             _m = m; _model = model; _req = req; _anim = anim;
         }
@@ -50,37 +53,38 @@ namespace Player.New
             _dir = charFwdPlanar.sqrMagnitude > 1e-6f ? charFwdPlanar.normalized : _m.transform.forward;
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
-            
-            _dashDistSel  = Mathf.Max(0.01f, _model.DashDistance);
+
+            _dashDistSel = Mathf.Max(0.01f, _model.DashDistance);
             _dashSpeedSel = Mathf.Max(0.01f, _model.DashSpeed);
             if (_model.DashBuffPending)
             {
-                _dashDistSel  = Mathf.Max(0.01f, _model.DashBuffDistance);
+                _dashDistSel = Mathf.Max(0.01f, _model.DashBuffDistance);
                 _dashSpeedSel = Mathf.Max(0.01f, _model.DashBuffSpeed);
                 _model.DashBuffPending = false;
             }
 
             _duration = _dashDistSel / _dashSpeedSel;
             _t = 0f;
-            
+
             _anim?.TriggerDash();
             _model.InvulnerableToEnemies = true;
-            _model.DashOnCooldown   = true;
+            _model.DashOnCooldown = true;
             _model.DashCooldownLeft = _model.DashCooldown;
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
-            
+
             _m.ForceUnground(0.05f);
 
             Vector3 v = _m.Velocity;
-            Vector3 h = Vector3.ProjectOnPlane(v, up);            
-            float along = Vector3.Dot(h, _dir);                       
-            float targetAlong = Mathf.Max(along, _dashSpeedSel);      
-            Vector3 newH = _dir * targetAlong;                        
+            Vector3 h = Vector3.ProjectOnPlane(v, up);
+            float along = Vector3.Dot(h, _dir);
+            float targetAlong = Mathf.Max(along, _dashSpeedSel);
+            Vector3 newH = _dir * targetAlong;
 
-            v.x = newH.x; v.z = newH.z;                               
+            v.x = newH.x; v.z = newH.z;
             _m.SetVelocity(v);
-            
+
             _vfxController?.Play(VfxEvent.Dash);
+            _audioController?.PlayDashAudio();
         }
 
         public override void Exit()
