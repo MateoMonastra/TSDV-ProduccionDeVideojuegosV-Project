@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using PickUps;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Platforms
@@ -9,7 +10,7 @@ namespace Platforms
     public class BreakablePlatform : Pickup, IBreakable
     {
         [SerializeField] private Rigidbody[] rbFragments;
-        [SerializeField] private UnityEvent OnBreak;
+        [SerializeField] private UnityEvent onBreak;
         [SerializeField] private float explosionMinForce;
         [SerializeField] private float explosionMaxForce;
         [SerializeField] private float explosionForceRadius;
@@ -29,7 +30,7 @@ namespace Platforms
         public void Break()
         {
             RefreshCooldown();
-            OnBreak?.Invoke();
+            onBreak?.Invoke();
             if (CooldownCoroutine != null ) return;
             ExplodeFragments();
         }
