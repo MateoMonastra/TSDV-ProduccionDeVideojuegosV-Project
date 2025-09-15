@@ -80,7 +80,7 @@ namespace Player.New
                 cmd == CommandKeys.Jump &&
                 values[1] is bool pressed && pressed)
             {
-                if (Model.JumpsLeft > 0 || Model.HasExtraJump)
+                if ((Model.JumpsLeft > 0 || Model.HasExtraJump) && !Model.JumpBlocked)
                 {
                     RequestTransition?.Invoke(ToJumpAir);
                 }

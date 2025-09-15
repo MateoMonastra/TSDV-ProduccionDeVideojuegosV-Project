@@ -75,14 +75,19 @@ namespace Player.New
         public override void HandleInput(params object[] values)
         {
             if (values is { Length: >= 2 } &&
-                values[0] is string cmd &&
-                cmd == CommandKeys.Jump &&
-                values[1] is bool pressed &&
-                pressed &&
-                Motor.IsGrounded &&
-                Model.JumpsLeft > 0)
+                values[0] is string cmd)
             {
-                RequestTransition?.Invoke(ToJump);
+                if (cmd == CommandKeys.Jump &&
+                    values[1] is bool pressed && pressed)
+                {
+
+                    if (Motor.IsGrounded && !Model.JumpBlocked)
+                        
+                        if (Model.JumpsLeft > 0)
+                        {
+                            RequestTransition?.Invoke(ToJump);
+                        }
+                }
             }
         }
         

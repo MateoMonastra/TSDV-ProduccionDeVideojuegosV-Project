@@ -146,7 +146,7 @@ namespace Player.New
         private void OnJump()
         {
             if (IsActionBlocked()) return;
-
+            
             _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
         }
 

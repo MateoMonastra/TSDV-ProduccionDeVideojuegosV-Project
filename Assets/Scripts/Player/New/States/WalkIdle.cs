@@ -118,7 +118,7 @@ namespace Player.New
                 {
                     bool canJumpFromCoyote = _timeSinceUngrounded <= Model.CoyoteTime;
 
-                    if (Motor.IsGrounded || canJumpFromCoyote)
+                    if ((Motor.IsGrounded || canJumpFromCoyote) && !Model.JumpBlocked)
                         if (Model.JumpsLeft > 0)
                         {
                             RequestTransition?.Invoke(ToJump);

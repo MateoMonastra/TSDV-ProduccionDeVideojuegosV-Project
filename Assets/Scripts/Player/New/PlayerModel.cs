@@ -749,6 +749,9 @@ namespace Player.New
 
         [SerializeField, Tooltip("Bloquea la locomoción (vertical en ejecución, etc.).")]
         private bool locomotionBlocked = false;
+        
+        [SerializeField, Tooltip("Bloquea el salto.")]
+        private bool jumpBlocked = false;
 
         [SerializeField, Tooltip("Invulnerable a enemigos durante ciertas mecánicas.")]
         private bool invulnerableToEnemies = false;
@@ -776,6 +779,12 @@ namespace Player.New
             get => locomotionBlocked;
             set => locomotionBlocked = value;
         }
+        
+        public bool JumpBlocked
+        {
+            get => jumpBlocked;
+            set => jumpBlocked = value;
+        }
 
         public bool InvulnerableToEnemies
         {
@@ -799,7 +808,7 @@ namespace Player.New
 
         // ───────────────────────────────────────────────────────────────────────
 
-        #region State tuning (sacamos números mágicos del Agent)
+        #region State tuning
 
         // ───────────────────────────────────────────────────────────────────────
 

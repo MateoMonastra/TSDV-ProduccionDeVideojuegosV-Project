@@ -48,20 +48,17 @@ namespace Player.New
             _t = 0f;
             _damageTicked = false;
             _nextIsSelfStun = false;
-
-            // Permitir moverse/saltar durante el giro con multiplicadores configurables
-            _model.LocomotionBlocked        = false;
+            
+            _model.LocomotionBlocked = false;
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
             
             _model.InvulnerableToEnemies = false;
             _model.AimLockActive = false;
-
-            // Cooldown del spin
+            
             _model.SpinOnCooldown   = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
-
-            // Duraciones en función de la carga
+            
             float r = Mathf.Clamp01(_model.SpinChargeRatio);
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
             _postStun     = _model.SpinPostStun;
@@ -78,11 +75,11 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
-
-            // Si vamos a SelfStun, no limpiamos aquí.
+            
             if (!_nextIsSelfStun)
                 _model.ClearActionLocks();
 
+            _model.JumpBlocked = false;
             _anim?.SetCombatActive(false);
         }
 
@@ -136,7 +133,6 @@ namespace Player.New
 
                 objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, (0,0)));
             }
-
 
         }
 

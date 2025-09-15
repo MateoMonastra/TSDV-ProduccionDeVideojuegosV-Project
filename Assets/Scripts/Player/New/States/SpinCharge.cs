@@ -20,7 +20,6 @@ namespace Player.New
 
         private readonly PlayerModel _model;
         private readonly System.Action<string> _requestTransition;
-        private readonly Transform _cam;
         private readonly MyKinematicMotor _motor;
         private readonly PlayerAnimationController _anim;
         private readonly HUDManager _hud;
@@ -38,7 +37,6 @@ namespace Player.New
         {
             _model = model;
             _requestTransition = requestTransition;
-            _cam = cam;
             _hud = hud;
             _motor = motor;
             _anim = anim;
@@ -68,6 +66,7 @@ namespace Player.New
             
             _model.ActionMoveSpeedMultiplier = _model.SpinMoveSpeedMultiplierWhileCharging;
             _model.AimLockActive = false;
+            _model.JumpBlocked = true;
 
       
             _anim?.SetCombatActive(true);
@@ -111,7 +110,7 @@ namespace Player.New
                 }
                 
                 float minT = _model.SpinChargeMinTime;
-                float maxT = Mathf.Max(minT + 0.01f, _model.SpinChargeMaxTime);
+                float maxT = Mathf.Max(minT, _model.SpinChargeMaxTime);
                 float clamped = Mathf.Clamp(_t, minT, maxT);
                 _model.SpinChargeRatio = Mathf.InverseLerp(minT, maxT, clamped);
 
