@@ -283,6 +283,7 @@ namespace Player.New
             if (!model) return;
             model.HasExtraJump = false;
             model.DashBuffPending = false;
+            model.JumpBlocked = false;
         }
 
         /// <summary>
@@ -360,7 +361,7 @@ namespace Player.New
             _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController);
             _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController);
             _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, animController);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController,animController);
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController);
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController);
 

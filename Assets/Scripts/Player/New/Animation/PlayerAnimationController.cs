@@ -14,6 +14,7 @@ namespace Player.New
 
         // Params
         static readonly int pIsWalking = Animator.StringToHash("IsWalking");
+        static readonly int pIsSprinting = Animator.StringToHash("IsSprinting");
         static readonly int pIsGrounded = Animator.StringToHash("IsGrounded");
         static readonly int pIsFalling = Animator.StringToHash("IsFalling");
         static readonly int pIsInteracting = Animator.StringToHash("IsInteracting");
@@ -26,8 +27,10 @@ namespace Player.New
         static readonly int tAttack3 = Animator.StringToHash("Attack3");
         static readonly int tVerticalStart = Animator.StringToHash("VerticalStart");
         static readonly int tVerticalImpact = Animator.StringToHash("VerticalImpact");
+        static readonly int tSpinChargeStart = Animator.StringToHash("SpinChargeStart");
         static readonly int bSpinCharging = Animator.StringToHash("SpinCharging");
         static readonly int tSpinRelease = Animator.StringToHash("SpinRelease");
+        static readonly int tSpinInterruption = Animator.StringToHash("SpinInterruption");
         static readonly int tKnockdown = Animator.StringToHash("Knockdown");
         static readonly int tGetUp = Animator.StringToHash("GetUp");
         static readonly int IsDie = Animator.StringToHash("Die");
@@ -53,6 +56,11 @@ namespace Player.New
         public void SetWalking(bool v)
         {
             if (_anim) _anim.SetBool(pIsWalking, v);
+        }
+
+        public void SetSprinting(bool v)
+        {
+            if(_anim) _anim.SetBool(pIsSprinting, v);
         }
 
         public void SetInteracting(bool v)
@@ -120,11 +128,20 @@ namespace Player.New
             if (_anim) _anim.SetBool(bSpinCharging, v);
         }
 
+        public void TriggerSpinChargeStart()
+        {
+            if(_anim) _anim.SetTrigger(tSpinChargeStart);
+        }
         public void TriggerSpinRelease()
         {
             if (_anim) _anim.SetTrigger(tSpinRelease);
         }
 
+        public void TriggerSpinInterruption()
+        {
+            if (_anim) _anim.SetTrigger(tSpinInterruption);
+    }
+        
         public void TriggerKnockdown()
         {
             if (_anim) _anim.SetTrigger(tKnockdown);

@@ -67,6 +67,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
+            
             _vfxController?.Play(VfxEvent.SpinAttack);
         }
 
@@ -81,6 +82,8 @@ namespace Player.New
 
             _model.JumpBlocked = false;
             _anim?.SetCombatActive(false);
+
+            _vfxController?.Stop(VfxEvent.SpinAttack);
         }
 
         /// <summary>Avanza el tiempo, aplica daño si corresponde y resuelve transición final.</summary>
