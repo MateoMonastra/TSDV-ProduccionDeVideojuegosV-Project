@@ -32,8 +32,9 @@ namespace Player.New
             base.Enter();
             
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
-            
-            _anim?.SetWalking(true);
+
+            _anim?.SetWalking(false);
+            _anim?.SetSprinting(true);
         }
 
         public override void Exit()
