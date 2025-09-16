@@ -14,6 +14,7 @@ namespace Player.New
 
         // Params
         static readonly int pIsWalking = Animator.StringToHash("IsWalking");
+        static readonly int pIsSprinting = Animator.StringToHash("IsSprinting");
         static readonly int pIsGrounded = Animator.StringToHash("IsGrounded");
         static readonly int pIsFalling = Animator.StringToHash("IsFalling");
         static readonly int pIsInteracting = Animator.StringToHash("IsInteracting");
@@ -54,6 +55,11 @@ namespace Player.New
         public void SetWalking(bool v)
         {
             if (_anim) _anim.SetBool(pIsWalking, v);
+        }
+
+        public void SetSprinting(bool v)
+        {
+            if(_anim) _anim.SetBool(pIsSprinting, v);
         }
 
         public void SetInteracting(bool v)

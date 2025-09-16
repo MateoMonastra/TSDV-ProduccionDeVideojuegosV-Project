@@ -102,7 +102,8 @@ namespace Player.New
             if (Model.SprintHoldCounter >= Model.SprintHoldTime && hasMoveInput)
             {
                 RequestTransition?.Invoke(ToSprint);
-
+                _anim.SetWalking(false);
+                _anim.SetSprinting(true);
                 Model.SprintHoldCounter = 0f;
             }
         }
