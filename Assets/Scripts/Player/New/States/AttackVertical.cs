@@ -121,7 +121,8 @@ namespace Player.New
         }
 
         private void OnAnimVerticalImpact() => DoImpact();
-
+        
+        //Implement timer for this method to delay impact and wait for animation
         private void DoImpact()
         {
             if (_impactDone) return;
