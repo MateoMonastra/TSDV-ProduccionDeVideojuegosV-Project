@@ -27,6 +27,7 @@ namespace Player.New
         static readonly int tAttack3 = Animator.StringToHash("Attack3");
         static readonly int tVerticalStart = Animator.StringToHash("VerticalStart");
         static readonly int tVerticalImpact = Animator.StringToHash("VerticalImpact");
+        static readonly int tSpinChargeStart = Animator.StringToHash("SpinChargeStart");
         static readonly int bSpinCharging = Animator.StringToHash("SpinCharging");
         static readonly int tSpinRelease = Animator.StringToHash("SpinRelease");
         static readonly int tSpinInterruption = Animator.StringToHash("SpinInterruption");
@@ -127,6 +128,10 @@ namespace Player.New
             if (_anim) _anim.SetBool(bSpinCharging, v);
         }
 
+        public void TriggerSpinChargeStart()
+        {
+            if(_anim) _anim.SetTrigger(tSpinChargeStart);
+        }
         public void TriggerSpinRelease()
         {
             if (_anim) _anim.SetTrigger(tSpinRelease);

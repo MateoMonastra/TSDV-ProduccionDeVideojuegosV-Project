@@ -78,6 +78,7 @@ namespace Player.New
       
             _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
+            _anim?.TriggerSpinChargeStart();
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
         }
 
