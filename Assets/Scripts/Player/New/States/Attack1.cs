@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
 
 namespace Player.New
@@ -12,13 +13,15 @@ namespace Player.New
         private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         public Attack1(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
             : base(m, mdl, req)
         {
             _vfxController = vfxController;
             _anim = anim;
+            _audioController = audioController;
         }
 
         public override void Enter()
@@ -34,7 +37,8 @@ namespace Player.New
             _anim?.TriggerAttack1();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
             _vfxController?.Play(VfxEvent.BaseAttack);
-        }
+            _audioController.PlayPlayerAttack1();
+            }
 
         public override void Exit()
         {

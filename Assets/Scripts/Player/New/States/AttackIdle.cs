@@ -1,5 +1,6 @@
 ﻿using System;
 using FSM;
+using Player.New.Audio;
 
 namespace Player.New
 {
@@ -14,9 +15,11 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly PlayerAnimationController _anim;
         private readonly MyKinematicMotor _motor;
+        private readonly PlayerAudioController _audioController;
 
-        public AttackIdle(PlayerModel model, Action<string> request, PlayerAnimationController anim = null, MyKinematicMotor motor = null)
-        { _model = model; _req = request; _anim = anim; _motor = motor; }
+        public AttackIdle(PlayerModel model, Action<string> request, PlayerAnimationController anim = null,
+            MyKinematicMotor motor = null, PlayerAudioController audioController = null)
+        { _model = model; _req = request; _anim = anim; _motor = motor; _audioController = audioController; }
 
         public override void Enter()
         {

@@ -355,13 +355,13 @@ namespace Player.New
             // Función local descriptiva para solicitar transiciones de acciones
             void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
 
-            _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor);
-            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController);
-            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController);
-            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, animController);
-            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController);
+            _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor, audioController);
+            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, animController, audioController);
+            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController);
 
             // Transiciones de acciones

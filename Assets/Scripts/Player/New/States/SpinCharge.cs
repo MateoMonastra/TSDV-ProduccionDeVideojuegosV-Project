@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.Audio;
 using Player.New.UI;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ namespace Player.New
         private readonly MyKinematicMotor _motor;
         private readonly PlayerAnimationController _anim;
         private readonly HUDManager _hud;
+        private readonly PlayerAudioController _audioController;
         
         private float _t;           
         private bool  _released;    
@@ -33,13 +35,15 @@ namespace Player.New
                           Transform cam,
                           HUDManager hud,
                           MyKinematicMotor motor,
-                          PlayerAnimationController anim = null)
+                          PlayerAnimationController anim = null,
+                          PlayerAudioController audioController = null)
         {
             _model = model;
             _requestTransition = requestTransition;
             _hud = hud;
             _motor = motor;
             _anim = anim;
+            _audioController = audioController;
         }
 
         /// <summary>
@@ -63,15 +67,17 @@ namespace Player.New
             _t = 0f;
             _released = false;
 
-            
+
             _model.ActionMoveSpeedMultiplier = _model.SpinMoveSpeedMultiplierWhileCharging;
             _model.AimLockActive = false;
             _model.JumpBlocked = true;
 
-      
+
             _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
+
+            _audioController.PlayPlayPlayerChargeStart();
         }
 
         /// <summary>Limpia multiplicadores/flags y cierra la UI de carga.</summary>
@@ -105,6 +111,7 @@ namespace Player.New
                 if (_t < _model.SpinChargeMinTime)
                 {
                     _requestTransition?.Invoke(ToIdle);
+                    _audioController.PlayPlayerChargeStopFail();
                     Finish();
                     return;
                 }

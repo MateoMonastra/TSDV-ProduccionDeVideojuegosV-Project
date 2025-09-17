@@ -3,6 +3,7 @@ using Health;
 using UnityEngine;
 using Platforms;
 using Player.New.VFX;
+using Player.New.Audio;
 
 namespace Player.New
 {
@@ -20,6 +21,7 @@ namespace Player.New
         private readonly System.Action<string> _req;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         private float _t;
         private bool _impactDone;
@@ -29,13 +31,14 @@ namespace Player.New
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
         {
             _m = m;
             _model = mdl;
             _req = req;
             _anim = anim;
-            _vfxController =  vfxController;
+            _vfxController = vfxController;
+            _audioController = audioController;
         }
 
         /// <summary>Puede usarse si está en aire, no hay cooldown.</summary>
@@ -58,17 +61,19 @@ namespace Player.New
             _t = 0f;
             _impactDone = false;
             _postTimer = -1f;
-            
+
             _model.LocomotionBlocked = true;
             _model.AimLockActive = false;
-            
+
             var v = _m.Velocity;
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
-            
+
             _anim?.SetCombatActive(true);
             _anim?.TriggerVerticalStart();
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
+
+            _audioController.PlayPlayPlayerAttackSmash();
         }
 
         public override void Exit()
@@ -128,6 +133,8 @@ namespace Player.New
             _impactDone = true;
 
             _vfxController?.Play(VfxEvent.VerticalAttackLand);
+
+            _audioController.PlayPlayerAttackSmashHitFloor();
             
             Vector3 center = _m.transform.position;
             

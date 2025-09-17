@@ -1,5 +1,6 @@
 ﻿using FSM;
 using Health;
+using Player.New.Audio;
 using Player.New.UI;
 using Player.New.VFX;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Player.New
         private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
+        private readonly PlayerAudioController _audioController;
 
         private float _t;
         private bool  _damageTicked;
@@ -32,13 +34,15 @@ namespace Player.New
         public SpinRelease(MyKinematicMotor motor,
                            PlayerModel model,
                            System.Action<string> requestTransition,
-                           PlayerAnimationController anim = null, PlayerVfxController vfxController = null)
+                           PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+                           PlayerAudioController audioController = null)
         {
             _vfxController = vfxController;
             _motor = motor;
             _model = model;
             _requestTransition = requestTransition;
             _anim = anim;
+            _audioController = audioController;
         }
 
         /// <summary>Entrar al release: setea multiplicadores, cooldown y calcula duraciones.</summary>
@@ -48,26 +52,28 @@ namespace Player.New
             _t = 0f;
             _damageTicked = false;
             _nextIsSelfStun = false;
-            
+
             _model.LocomotionBlocked = false;
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
-            
+
             _model.InvulnerableToEnemies = false;
             _model.AimLockActive = false;
-            
-            _model.SpinOnCooldown   = true;
+
+            _model.SpinOnCooldown = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
-            
+
             float r = Mathf.Clamp01(_model.SpinChargeRatio);
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
-            _postStun     = _model.SpinPostStun;
+            _postStun = _model.SpinPostStun;
             _model.SelfStunDuration = Mathf.Lerp(_model.SelfStunMinDuration, _model.SelfStunMaxDuration, r);
-            
+
             _anim?.SetCombatActive(true);
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
             _vfxController?.Play(VfxEvent.SpinAttack);
+
+            _audioController.PlayPlayerChargeAttackStart();
         }
 
         /// <summary>Salir del release: desuscribe evento y limpia locks si corresponde.</summary>
@@ -98,11 +104,15 @@ namespace Player.New
                 {
                     _nextIsSelfStun = true;
                     _requestTransition?.Invoke(ToSelfStun);
+                    _audioController.PlayPlayerChargeAttackStop();
+
                 }
                 else
                 {
                     _requestTransition?.Invoke(ToIdle);
+                    _audioController.PlayPlayerChargeAttackStop();
                 }
+
                 Finish();
             }
         }
