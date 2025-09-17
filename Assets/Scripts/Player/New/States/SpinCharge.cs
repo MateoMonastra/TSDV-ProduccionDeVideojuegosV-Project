@@ -112,6 +112,7 @@ namespace Player.New
                 {
                     _requestTransition?.Invoke(ToIdle);
                     _audioController.PlayPlayerChargeStopFail();
+                    _model.JumpBlocked = false;
                     Finish();
                     return;
                 }
