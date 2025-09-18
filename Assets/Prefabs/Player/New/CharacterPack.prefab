@@ -314,6 +314,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2410854633578054885}
     m_Modifications:
+    - target: {fileID: 344602487335747361, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: groups.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 344602487335747361, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: groups.Array.data[7].root
+      value: 
+      objectReference: {fileID: 3470493365706531601}
+    - target: {fileID: 344602487335747361, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: groups.Array.data[7].eventKey
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 874953759058996084, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -358,6 +370,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4789588780882038986, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: lengthInSec
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789588780882038986, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789588780882038986, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: RotationModule.y.maxCurve.m_Curve.Array.data[1].time
+      value: 0.4026125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789588780882038986, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+      propertyPath: RotationModule.y.maxCurve.m_Curve.Array.data[1].value
+      value: 0.07028325
+      objectReference: {fileID: 0}
     - target: {fileID: 5741897180516688974, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
       propertyPath: cameraRef
       value: 
@@ -379,6 +407,11 @@ CapsuleCollider:
 --- !u!4 &2743252631990637210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789657387331442103, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+  m_PrefabInstance: {fileID: 6911582245982717741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3470493365706531601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8053408354849776700, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
   m_PrefabInstance: {fileID: 6911582245982717741}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6038951754994347097 stripped
