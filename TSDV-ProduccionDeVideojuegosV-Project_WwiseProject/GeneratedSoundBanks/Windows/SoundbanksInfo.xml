@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{E8C73C05-9AC5-A17E-EA11-491BBCB2A45E}">
+		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{E1501B7E-8331-6343-2B27-1D13370E59D6}">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -20,27 +20,103 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
+				<Bus Id="393239870" Name="SFX" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX" GUID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
+				<Bus Id="1069431850" Name="Player" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Player" GUID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}"/>
+				<Bus Id="3537656742" Name="Ambs" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Ambs" GUID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}"/>
 				<Bus Id="3803692087" Name="Master Audio Bus" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus" GUID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
+				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="1661994096" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{1ECDE07A-9888-9395-F877-165EB6902E48}">
-			<ObjectPath>\SoundBanks\Default Work Unit\SoundBank</ObjectPath>
-			<ShortName>SoundBank</ShortName>
-			<Path>SoundBank.bnk</Path>
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{EF0EA62A-025B-BB7A-E247-F7CC1717B091}">
+			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
+			<ShortName>Lvl_1</ShortName>
+			<Path>Lvl_1.bnk</Path>
 			<Media>
-				<File Id="272313163" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>JDSherbert - Ultimate UI SFX Pack - Cancel - 1.wav</ShortName>
-					<CachePath>2F/{2F37FED7-FCB2-A61C-CBBD-7F2AE77721C2}.wem</CachePath>
+				<File Id="319135143" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>TrashVacuumed-004.wav</ShortName>
+					<CachePath>AF/{AF66EA86-0BF7-E52F-9F61-E8B8F3DACFB7}.wem</CachePath>
+				</File>
+				<File Id="330614090" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>TrashVacuumed-003.wav</ShortName>
+					<CachePath>C7/{C765F427-1395-15A2-DABB-4C6CE2C0842D}.wem</CachePath>
+				</File>
+				<File Id="604996596" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerMovementJump-003.wav</ShortName>
+					<CachePath>FE/{FEB39C77-D4C7-66A9-B5CB-A5CF9EC6BE92}.wem</CachePath>
+				</File>
+				<File Id="842619675" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>TrashVacuumed-001.wav</ShortName>
+					<CachePath>5F/{5F898048-D7A2-C0FA-D539-BA9C07EEBDF9}.wem</CachePath>
+				</File>
+				<File Id="1006501114" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerMovementJump-001.wav</ShortName>
+					<CachePath>50/{5007E98C-4596-70E2-C7FC-F6FA4C1DFDB8}.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="562256996" Name="play_player_jump" ObjectPath="\Events\Default Work Unit\play_player_jump" GUID="{C80AA749-F88A-41CE-8C5B-63E044F5CFCE}" DurationType="OneShot" DurationMin="2.0052154" DurationMax="2.0052154">
+				<Event Id="3417696939" Name="PlayerAttack1" ObjectPath="\Events\Default Work Unit\Player\PlayerAttack1" GUID="{BE099AE6-BA0D-46D8-BB76-B23E524C3386}" DurationType="OneShot" DurationMin="0.32912812" DurationMax="0.32912812">
 					<MediaRefs>
-						<MediaRef Id="272313163"/>
+						<MediaRef Id="842619675"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3417696936" Name="PlayerAttack2" ObjectPath="\Events\Default Work Unit\Player\PlayerAttack2" GUID="{E501AFBD-4C4A-413B-AE03-4AE9D75B1717}" DurationType="OneShot" DurationMin="0.44701278" DurationMax="0.44701278">
+					<MediaRefs>
+						<MediaRef Id="330614090"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3417696937" Name="PlayerAttack3" ObjectPath="\Events\Default Work Unit\Player\PlayerAttack3" GUID="{F81B369D-4271-424B-BA15-2753E68E22B8}" DurationType="OneShot" DurationMin="0.4601112" DurationMax="0.4601112">
+					<MediaRefs>
+						<MediaRef Id="319135143"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3142261798" Name="PlayerAttackSmash" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmash" GUID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}" DurationType="OneShot" DurationMin="0.16173694" DurationMax="0.16173694">
+					<MediaRefs>
+						<MediaRef Id="319135143"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="4071124885" Name="PlayerAttackSmashHitFloor" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmashHitFloor" GUID="{963549E2-EDEE-4C73-AD09-98CF47D31C47}" DurationType="OneShot" DurationMin="0.3891472" DurationMax="0.3891472">
+					<MediaRefs>
+						<MediaRef Id="319135143"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="71173430" Name="PlayerChargeAttackStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeAttackStart" GUID="{9C602CC5-E2E8-4444-B679-C725853F4488}" DurationType="OneShot" DurationMin="1.2072471" DurationMax="1.2072471">
+					<MediaRefs>
+						<MediaRef Id="319135143"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3744114358" Name="PlayerChargeAttackStop" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeAttackStop" GUID="{D71A7997-9415-434C-B021-7DF429EBBD42}" DurationType="OneShot" DurationMin="0.8416096" DurationMax="0.8416096">
+					<MediaRefs>
+						<MediaRef Id="1006501114"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="297139706" Name="PlayerChargeStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStart" GUID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}" DurationType="OneShot" DurationMin="1.0603616" DurationMax="1.0603616">
+					<MediaRefs>
+						<MediaRef Id="1006501114"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="185233618" Name="PlayerChargeStopFail" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStopFail" GUID="{CA1461DD-6251-4A54-BBB5-8C5960391289}" DurationType="OneShot" DurationMin="0.53634125" DurationMax="0.53634125">
+					<MediaRefs>
+						<MediaRef Id="1006501114"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2525052962" Name="PlayerDash" ObjectPath="\Events\Default Work Unit\Player\PlayerDash" GUID="{767A710A-D4B6-4AB6-94D4-06417B1DAE2D}" DurationType="OneShot" DurationMin="1.3095208" DurationMax="1.3095208">
+					<MediaRefs>
+						<MediaRef Id="604996596"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="608095284" Name="PlayerGetsHit" ObjectPath="\Events\Default Work Unit\Player\PlayerGetsHit" GUID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="4008126242" Name="PlayerJump" ObjectPath="\Events\Default Work Unit\Player\PlayerJump" GUID="{96AE7904-2812-4EB8-842E-AA63D546BCA7}" DurationType="OneShot" DurationMin="1.3054583" DurationMax="1.3054583">
+					<MediaRefs>
+						<MediaRef Id="1006501114"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="937597620" Name="PlayerJump2" ObjectPath="\Events\Default Work Unit\Player\PlayerJump2" GUID="{BCCACE2A-579B-4F28-AA94-FA8AAE5A9B52}" DurationType="OneShot" DurationMin="1.3095208" DurationMax="1.3095208">
+					<MediaRefs>
+						<MediaRef Id="604996596"/>
 					</MediaRefs>
 				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{723DC9DF-FB9B-949E-87E3-51F9ED8E2C03}</FileHash>
+	<FileHash>{551AE4FD-31E8-0F30-4D70-2FDB595C446E}</FileHash>
 </SoundBanksInfo>

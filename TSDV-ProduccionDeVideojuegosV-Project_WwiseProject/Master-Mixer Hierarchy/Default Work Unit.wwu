@@ -9,6 +9,24 @@
 							<ObjectRef Name="System" ID="{F8F3700D-ABDF-4590-90A2-8194BBB352C4}" WorkUnitID="{13609612-0772-4AB0-8693-6D1BB010D089}"/>
 						</Reference>
 					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="Player" ID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}"/>
+						<Bus Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
+						<Bus Name="Ambs" ID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}">
+							<ObjectLists>
+								<ObjectList Name="Effects">
+									<Reference>
+										<Local>
+											<EffectSlot Name="" ID="{7F92B218-E016-45C5-BD5E-C3C218A31EB2}" ShortID="457349877">
+												<ReferenceList/>
+											</EffectSlot>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+						</Bus>
+						<Bus Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
+					</ChildrenList>
 				</Bus>
 			</ChildrenList>
 		</WorkUnit>

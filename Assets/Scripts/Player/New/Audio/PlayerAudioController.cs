@@ -81,7 +81,7 @@ namespace Player.New.Audio
             _akPlayPlayerAttackSmash.Post(this.gameObject);
         }
 
-        public void PlayPlayPlayerChargeStart()
+        public void PlayPlayerChargeStart()
         {
             Debug.Log("PlayerChargeStart");
             _akPlayerChargeStart.Post(this.gameObject);
@@ -90,17 +90,17 @@ namespace Player.New.Audio
         public void PlayPlayerChargeStopFail()
         {
             Debug.Log("PlayerChargeStopFail");
-            _akPlayerChargeStart.Post(this.gameObject);
+            _akPlayerChargeStopFail.Post(this.gameObject);
         }
         public void PlayPlayerChargeAttackStart()
         {
             Debug.Log("PlayerChargeAttackStart");
-            _akPlayerChargeStart.Post(this.gameObject);
+            _akPlayerChargeAttackStart.Post(this.gameObject);
         }
         public void PlayPlayerChargeAttackStop()
         {
             Debug.Log("PlayerChargeAttackStop");
-            _akPlayerChargeStart.Post(this.gameObject);
+            _akPlayerChargeAttackStop.Post(this.gameObject);
         }
 
         public void PlayPlayerAttackSmashHitFloor()

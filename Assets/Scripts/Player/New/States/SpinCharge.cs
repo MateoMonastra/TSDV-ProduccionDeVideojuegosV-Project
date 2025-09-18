@@ -77,7 +77,7 @@ namespace Player.New
             _anim?.SetSpinCharging(true);
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
 
-            _audioController.PlayPlayPlayerChargeStart();
+            _audioController.PlayPlayerChargeStart();
         }
 
         /// <summary>Limpia multiplicadores/flags y cierra la UI de carga.</summary>

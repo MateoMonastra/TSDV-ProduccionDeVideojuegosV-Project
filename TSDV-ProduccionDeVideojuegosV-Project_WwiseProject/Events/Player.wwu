@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{7B7B5D13-FFAB-49C1-874D-26DB6806DF7D}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
+	<Events>
+		<WorkUnit Name="Player" ID="{7B7B5D13-FFAB-49C1-874D-26DB6806DF7D}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="PlayerJump" ID="{96AE7904-2812-4EB8-842E-AA63D546BCA7}">
+					<ChildrenList>
+						<Action Name="" ID="{88F6047E-C292-4827-8C2C-4C502E9631C4}" ShortID="123713699">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerJump" ID="{EBB654EB-8573-4D88-BDC5-C1F7276E43A3}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerJump2" ID="{BCCACE2A-579B-4F28-AA94-FA8AAE5A9B52}">
+					<ChildrenList>
+						<Action Name="" ID="{06A80667-3A76-4EB1-8787-97B8FAFA2F67}" ShortID="162903133">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerJump2" ID="{9BFFCD90-2D3E-4FA3-8909-E9E91F14116A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerAttack1" ID="{BE099AE6-BA0D-46D8-BB76-B23E524C3386}">
+					<ChildrenList>
+						<Action Name="" ID="{19013772-973A-4990-A97E-6DD934C34D41}" ShortID="41193273">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerAttack_01" ID="{A6E1BDA1-50BC-4560-82E3-47A140F981E0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerAttack2" ID="{E501AFBD-4C4A-413B-AE03-4AE9D75B1717}">
+					<ChildrenList>
+						<Action Name="" ID="{745ABF0B-46B3-4F06-82F0-17E9C0CBF4C9}" ShortID="782249982">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerAttack_02" ID="{E4AB46AE-FB1A-4763-A355-5A4A4E8F8272}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerAttack3" ID="{F81B369D-4271-424B-BA15-2753E68E22B8}">
+					<ChildrenList>
+						<Action Name="" ID="{0FEEB19D-8AAB-42D6-9FE3-C264AF019254}" ShortID="520265574">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerAttack_03" ID="{376EA044-8D55-4492-BA69-7F515E0A81F0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerChargeAttackStart" ID="{9C602CC5-E2E8-4444-B679-C725853F4488}">
+					<ChildrenList>
+						<Action Name="" ID="{3DD087AB-B87A-4168-A764-9DCBB7D41C1D}" ShortID="209042007">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ChargeAttackStart" ID="{337ED9CE-9A4C-452C-AAAE-2881615A5E10}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerChargeAttackStop" ID="{D71A7997-9415-434C-B021-7DF429EBBD42}">
+					<ChildrenList>
+						<Action Name="" ID="{E9176ED6-EA8F-477B-A57B-E14C625C646F}" ShortID="899372809">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ChargeAttackStop" ID="{2819FC8F-7DA8-45A5-9DE5-345A120CD17A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerChargeStart" ID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}">
+					<ChildrenList>
+						<Action Name="" ID="{6A6982A2-B40C-4B1D-AFED-6A2532150B32}" ShortID="584873552">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ChargeStart" ID="{172DF3B1-7CDA-461E-A943-C141A68A9ADC}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerChargeStopFail" ID="{CA1461DD-6251-4A54-BBB5-8C5960391289}">
+					<ChildrenList>
+						<Action Name="" ID="{8AE374A4-2B89-4B87-843D-F56083192B33}" ShortID="558598435">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ChargeStopFail" ID="{4BA89CF2-EF0F-43BD-818B-E6A98375E5C6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerAttackSmash" ID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}">
+					<ChildrenList>
+						<Action Name="" ID="{747BF610-B5B7-4A13-A372-EEC1ECA389E9}" ShortID="2974872">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerSmash" ID="{480E9DBE-8987-481E-9700-DFF414D21C69}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerAttackSmashHitFloor" ID="{963549E2-EDEE-4C73-AD09-98CF47D31C47}">
+					<ChildrenList>
+						<Action Name="" ID="{F748EBBE-91A0-4E77-95F4-417959792D57}" ShortID="671671022">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerSmashHit" ID="{681AB08A-586D-4177-8534-07D6271E60EA}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayerGetsHit" ID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}"/>
+				<Event Name="PlayerDash" ID="{767A710A-D4B6-4AB6-94D4-06417B1DAE2D}">
+					<ChildrenList>
+						<Action Name="" ID="{512CE768-FA42-47AF-B4CC-5C1815FA8190}" ShortID="176761527">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerJump2" ID="{9BFFCD90-2D3E-4FA3-8909-E9E91F14116A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
