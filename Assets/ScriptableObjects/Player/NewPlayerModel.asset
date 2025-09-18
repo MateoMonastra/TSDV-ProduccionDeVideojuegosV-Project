@@ -53,8 +53,9 @@ MonoBehaviour:
   verticalDamage: 1
   verticalKnockbackDistance: 2.5
   verticalStaggerTime: 0.35
+  verticalAttackImpactDelay: 0.5
   verticalAttackCooldown: 0.75
-  verticalAttackPostStun: 1
+  verticalAttackPostStun: 0.6
   verticalSlamExtraAccel: 40
   verticalSlamMaxDownSpeed: 40
   verticalSlamStartDownSpeed: 50
@@ -85,7 +86,7 @@ MonoBehaviour:
   selfStunGetUpLeadTime: 0.25
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
-  locomotionBlocked: 1
+  locomotionBlocked: 0
   jumpBlocked: 0
   invulnerableToEnemies: 0
   aimLockActive: 0
