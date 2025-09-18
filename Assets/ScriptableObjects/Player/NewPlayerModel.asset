@@ -19,7 +19,7 @@ MonoBehaviour:
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
   sprintArmWindow: 0.8
-  sprintHoldTime: 0.3
+  sprintHoldTime: 0.1
   orientationMethod: 0
   orientationSharpness: 12
   orientWithCameraWhileIdle: 0
@@ -86,7 +86,8 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  invulnerableToEnemies: 1
+  jumpBlocked: 0
+  invulnerableToEnemies: 0
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
   coyoteTime: 0.12

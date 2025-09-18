@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Player.New.Audio;
 using Player.New.UI;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -25,6 +26,7 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
         private readonly HUDManager _hud;
         private readonly PlayerAudioController _audioController;
+        private readonly PlayerVfxController _vfxController;
         
         private float _t;           
         private bool  _released;    
@@ -35,13 +37,16 @@ namespace Player.New
                           Transform cam,
                           HUDManager hud,
                           MyKinematicMotor motor,
+                          PlayerVfxController vfxController,
                           PlayerAnimationController anim = null,
-                          PlayerAudioController audioController = null)
+                          PlayerAudioController audioController = null
+                          )
         {
             _model = model;
             _requestTransition = requestTransition;
             _hud = hud;
             _motor = motor;
+            _vfxController = vfxController;
             _anim = anim;
             _audioController = audioController;
         }
@@ -61,6 +66,7 @@ namespace Player.New
             {
                 _requestTransition?.Invoke(ToIdle);
                 Finish();
+                _anim?.TriggerSpinRelease();
                 return;
             }
 
@@ -72,9 +78,11 @@ namespace Player.New
             _model.AimLockActive = false;
             _model.JumpBlocked = true;
 
-
+            _vfxController.Stop(VfxEvent.BaseAttack);
+      
             _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
+            _anim?.TriggerSpinChargeStart();
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
 
             _audioController.PlayPlayerChargeStart();
@@ -110,6 +118,7 @@ namespace Player.New
             {
                 if (_t < _model.SpinChargeMinTime)
                 {
+                    _model.JumpBlocked = false;
                     _requestTransition?.Invoke(ToIdle);
                     _audioController.PlayPlayerChargeStopFail();
                     Finish();

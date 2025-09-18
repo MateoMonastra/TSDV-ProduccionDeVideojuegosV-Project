@@ -13,13 +13,13 @@ namespace Player.New.States
         private readonly PlayerAnimationController _anim;
 
         private InteractData _interactData;
-        private float _t;                 
-        private bool  _playedGetUp;      
+        private float _t;
+        private bool _playedGetUp;
 
         public Interact(MyKinematicMotor motor,
-                        PlayerModel model,
-                        System.Action<string> requestTransition,
-                        PlayerAnimationController anim = null)
+            PlayerModel model,
+            System.Action<string> requestTransition,
+            PlayerAnimationController anim = null)
         {
             _motor = motor;
             _model = model;
@@ -34,19 +34,23 @@ namespace Player.New.States
             _t = 0f;
             _playedGetUp = false;
 
-            _model.LocomotionBlocked         = true;
+            _model.LocomotionBlocked = true;
             _model.ActionMoveSpeedMultiplier = 0f;
-            _model.InvulnerableToEnemies     = false;
-            _model.AimLockActive             = false;
-            
-            _model.IsSelfStunned   = true;
+            _model.InvulnerableToEnemies = false;
+            _model.AimLockActive = false;
+
+            _model.IsSelfStunned = true;
             _model.SelfStunTimeLeft = _model.SelfStunDuration;
-            
-            
+
+
             ZeroHorizontalVelocity();
+
+            Vector3 interactDir = _interactData.interactPos - _motor.transform.position;
+            interactDir.y = 0;
+            Quaternion lookRot = Quaternion.LookRotation(interactDir, Vector3.up);
+            _motor.WarpTo(_motor.transform.position, lookRot);
             
             _anim?.SetInteracting(true);
-            _motor.WarpTo(_interactData.interactPos, _interactData.interactRot);
         }
 
         /// <summary>Salir: limpia flag y locks (vía <see cref="PlayerModel.ClearActionLocks"/>).</summary>
@@ -68,12 +72,13 @@ namespace Player.New.States
 
             ZeroHorizontalVelocity();
         }
-        
+
         /// <summary>Anula la velocidad horizontal conservando la componente vertical.</summary>
         private void ZeroHorizontalVelocity()
         {
             Vector3 v = _motor.Velocity;
-            v.x = 0f; v.z = 0f;
+            v.x = 0f;
+            v.z = 0f;
             _motor.SetVelocity(v);
         }
 

@@ -97,7 +97,7 @@ namespace Interactable
             return interactorTargetTransform.position;
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(interactorTargetTransform.position, interactionRange);

@@ -529,22 +529,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   indicator: {fileID: 5983901076327397987}
-  exitTimerEnabled: 0
+  exitTimerEnabled: 1
   onExitTimer:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: DoorUp
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   exitTime: 5
   interactorTargetTransform: {fileID: 4347708375064815427}
   interactionRange: 5
@@ -660,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4347708375064815427}
   m_Layer: 13
-  m_Name: GameObject
+  m_Name: InteractionLookAtTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 6400130215975233620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.9, z: -1.379}
+  m_LocalPosition: {x: 0, y: 0.32, z: -0.075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

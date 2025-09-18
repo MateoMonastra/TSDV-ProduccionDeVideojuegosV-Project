@@ -44,6 +44,7 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+            //_vfxController.Stop(VfxEvent.BaseAttack);
         }
 
         public override void Tick(float dt)

@@ -67,6 +67,8 @@ namespace Player.New
             _t = 0f;
 
             _anim?.TriggerDash();
+            _anim?.SetWalking(false);
+            
             _model.InvulnerableToEnemies = true;
             _model.DashOnCooldown = true;
             _model.DashCooldownLeft = _model.DashCooldown;
