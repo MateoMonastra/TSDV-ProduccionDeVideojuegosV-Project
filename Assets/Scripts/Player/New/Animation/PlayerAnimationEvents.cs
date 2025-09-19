@@ -9,7 +9,7 @@ namespace Player.New.Animation
         public void OnDeathFinished()
         {
             anim.OnAnimEvent_DeathFinished();
-            anim.TriggerLand();
+            anim.TriggerIdle();
         }
 
         public void OnVerticalImpact()
