@@ -58,7 +58,7 @@ namespace Player.New
             base.Tick(dt);
             _t += dt;
             
-            ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
+            ApplyLocomotion(dt, inAir: true, limitAirSpeed: false, maxAirSpeed: Model.AirHorizontalSpeed);
             
             if (_t >= Model.JumpGroundAirDetectDelay && Motor.Velocity.y <= 0f)
             {

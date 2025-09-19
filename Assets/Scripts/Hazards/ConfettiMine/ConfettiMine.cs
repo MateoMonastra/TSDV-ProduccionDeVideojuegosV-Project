@@ -156,7 +156,7 @@ namespace Hazards.ConfettiMine
                 foreach (var fx in explosionEffects) if (fx) fx.Play();
 
             if (triggerCol) triggerCol.enabled = false;
-            if (mineRenderer) mineRenderer.enabled = false;
+            if (mineRenderer) mineRenderer.gameObject.SetActive(false);
 
             Vector3 center = transform.position;
             var hits = Physics.OverlapSphere(center, mineRadius, affectedMask, QueryTriggerInteraction.Collide);
@@ -199,7 +199,7 @@ namespace Hazards.ConfettiMine
 
             if (mineRenderer)
             {
-                mineRenderer.enabled = true;
+                mineRenderer.gameObject.SetActive(true);
                 if (baseMaterial) mineRenderer.material = baseMaterial;
             }
             if (triggerCol) triggerCol.enabled = true;

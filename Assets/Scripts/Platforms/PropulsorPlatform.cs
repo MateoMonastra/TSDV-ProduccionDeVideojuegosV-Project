@@ -85,7 +85,7 @@ namespace Platforms
             animator.SetTrigger(IsImpulse);
             
             agent.GetPlayerModel().ClearActionLocks();
-            agent.SetPlayerIdleState();
+            agent.SetPlayerAttackIdleState();
         }
 
         private void OnTriggerExit(Collider other)
