@@ -26,6 +26,7 @@ namespace AK
         static const AkUniqueID PLAYERGETSHIT = 608095284U;
         static const AkUniqueID PLAYERJUMP = 4008126242U;
         static const AkUniqueID PLAYERJUMP2 = 937597620U;
+        static const AkUniqueID PLAYERSTEP = 412471812U;
     } // namespace EVENTS
 
     namespace BANKS

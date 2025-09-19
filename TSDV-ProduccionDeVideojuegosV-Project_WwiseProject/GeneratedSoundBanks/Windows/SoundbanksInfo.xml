@@ -27,7 +27,7 @@
 				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{EF0EA62A-025B-BB7A-E247-F7CC1717B091}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{E141444F-88D4-B0FD-8EE4-0546B2B43F3D}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -47,6 +47,10 @@
 				<File Id="842619675" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>TrashVacuumed-001.wav</ShortName>
 					<CachePath>5F/{5F898048-D7A2-C0FA-D539-BA9C07EEBDF9}.wem</CachePath>
+				</File>
+				<File Id="916099941" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PasosTile-004.wav</ShortName>
+					<CachePath>06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem</CachePath>
 				</File>
 				<File Id="1006501114" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerMovementJump-001.wav</ShortName>
@@ -115,8 +119,13 @@
 						<MediaRef Id="604996596"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="412471812" Name="PlayerStep" ObjectPath="\Events\Default Work Unit\Player\PlayerStep" GUID="{15573B1B-AD76-4A48-A3CF-50379F7131A7}" DurationType="OneShot" DurationMin="0.6002853" DurationMax="0.6359801">
+					<MediaRefs>
+						<MediaRef Id="916099941"/>
+					</MediaRefs>
+				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{551AE4FD-31E8-0F30-4D70-2FDB595C446E}</FileHash>
+	<FileHash>{2C1B13D5-0A60-07F3-0C4C-855C01598012}</FileHash>
 </SoundBanksInfo>

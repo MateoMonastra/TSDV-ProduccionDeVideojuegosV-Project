@@ -343,6 +343,48 @@
 								<ActiveSource Name="PlayerMovementJump-001" ID="{3945E26D-68EA-49D8-A22D-B8BDDE6D7E20}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="PlayerStep" ID="{97B29AD9-CF4A-4C05-BBD9-43EAC9F127F8}" ShortID="547500485">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{2FD1B7FE-B061-45A0-841B-66EAB85C180E}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="50"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="PasosTile-004" ID="{0C6ED22C-2837-4F55-9A00-5218959256C2}">
+									<Language>SFX</Language>
+									<AudioFile>PasosTile-004.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="916099941"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="PasosTile-004" ID="{0C6ED22C-2837-4F55-9A00-5218959256C2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 				<Folder Name="Lvl_1" ID="{5E95B9C6-FA4A-4898-A3A3-C9F8466A20C3}" ShortID="1037207084">

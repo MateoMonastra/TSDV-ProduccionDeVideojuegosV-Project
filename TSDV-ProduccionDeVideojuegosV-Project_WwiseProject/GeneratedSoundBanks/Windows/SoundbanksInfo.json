@@ -80,7 +80,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{EF0EA62A-025B-BB7A-E247-F7CC1717B091}",
+    "Hash": "{E141444F-88D4-B0FD-8EE4-0546B2B43F3D}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -116,6 +116,14 @@
       "Location": "Memory",
       "ShortName": "TrashVacuumed-001.wav",
       "CachePath": "5F/{5F898048-D7A2-C0FA-D539-BA9C07EEBDF9}.wem"
+     },
+     {
+      "Id": "916099941",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PasosTile-004.wav",
+      "CachePath": "06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem"
      },
      {
       "Id": "1006501114",
@@ -304,10 +312,24 @@
         "Id": "604996596"
        }
       ]
+     },
+     {
+      "Id": "412471812",
+      "Name": "PlayerStep",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerStep",
+      "GUID": "{15573B1B-AD76-4A48-A3CF-50379F7131A7}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.6002853",
+      "DurationMax": "0.6359801",
+      "MediaRefs": [
+       {
+        "Id": "916099941"
+       }
+      ]
      }
     ]
    }
   ],
-  "FileHash": "{4CF5055F-05D8-C6B9-C5E5-A7C62CDFFF2D}"
+  "FileHash": "{2C71662A-E999-7EE7-0978-E7952CF6B449}"
  }
 }
