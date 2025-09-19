@@ -27,9 +27,72 @@ namespace Player.New
         [SerializeField, Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         private float airHorizontalSpeed = 6f;
 
-        [SerializeField,
-         Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
+        [SerializeField, Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
         private bool landStopsHorizontal = false;
+        
+        [Header("Ground Tuning (Anti-Drift / Sprint Turning)")]
+        [SerializeField, Range(1f, 40f), Tooltip("Qué tan rápido gira la velocidad hacia el input en suelo.")]
+        private float groundReorientationSharpness = 10f;
+
+        [SerializeField, Range(1f, 60f), Tooltip("Sharpness extra de reorientación cuando hay sprint activo.")]
+        private float sprintReorientationSharpness = 16f;
+
+        [SerializeField, Range(0f, 40f), Tooltip("Fricción lateral (deriva transversal) en suelo.")]
+        private float groundLateralFriction = 10f;
+
+        [SerializeField, Range(0f, 60f), Tooltip("Fricción lateral al sprintar (reduce 'patín' al doblar fuerte).")]
+        private float sprintLateralFriction = 14f;
+
+        [SerializeField, Range(0f, 80f), Tooltip("Deceleración cuando soltás el input en suelo.")]
+        private float groundBrakingDecel = 26f;
+
+        [SerializeField, Range(0f, 100f), Tooltip("Deceleración al soltar input durante sprint.")]
+        private float sprintBrakingDecel = 32f;
+
+        /// <summary>Sharpness de reorientación en suelo.</summary>
+        public float GroundReorientationSharpness
+        {
+            get => groundReorientationSharpness;
+            set => groundReorientationSharpness = value;
+        }
+
+        /// <summary>Sharpness de reorientación durante sprint.</summary>
+        public float SprintReorientationSharpness
+        {
+            get => sprintReorientationSharpness;
+            set => sprintReorientationSharpness = value;
+        }
+
+        /// <summary>Fricción lateral en suelo (reduce deriva transversal).</summary>
+        public float GroundLateralFriction
+        {
+            get => groundLateralFriction;
+            set => groundLateralFriction = value;
+        }
+
+        /// <summary>Fricción lateral durante sprint.</summary>
+        public float SprintLateralFriction
+        {
+            get => sprintLateralFriction;
+            set => sprintLateralFriction = value;
+        }
+
+        /// <summary>Deceleración al soltar input en suelo.</summary>
+        public float GroundBrakingDecel
+        {
+            get => groundBrakingDecel;
+            set => groundBrakingDecel = value;
+        }
+
+        /// <summary>Deceleración al soltar input durante sprint.</summary>
+        public float SprintBrakingDecel
+        {
+            get => sprintBrakingDecel;
+            set => sprintBrakingDecel = value;
+        }
+
+        #endregion
+
 
         /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
         public bool LandStopsHorizontal
@@ -58,8 +121,6 @@ namespace Player.New
             get => airHorizontalSpeed;
             set => airHorizontalSpeed = value;
         }
-
-        #endregion
 
         // ───────────────────────────────────────────────────────────────────────
 
@@ -289,8 +350,8 @@ namespace Player.New
         // ───────────────────────────────────────────────────────────────────────
 
         #region Daño recibido (hit)
-        [Header("Hit (daño recibido)")]
-        [SerializeField, Tooltip("Tiempo de stun al ser golpeado (s)")]
+
+        [Header("Hit (daño recibido)")] [SerializeField, Tooltip("Tiempo de stun al ser golpeado (s)")]
         private float hitStunTime = 0.35f;
 
         [SerializeField, Tooltip("Impulso horizontal aplicado al ser golpeado (m/s)")]
@@ -305,8 +366,9 @@ namespace Player.New
 
         /// <summary>Último daño recibido (lo escribe PlayerAgent al llegar OnTakeDamage).</summary>
         public DamageInfo? LastDamage { get; set; }
+
         #endregion
-        
+
         // ───────────────────────────────────────────────────────────────────────
 
         #region Combat Targeting
@@ -464,7 +526,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Impulso vertical inicial negativo (m/s), 0 = sin impulso.")]
         private float verticalSlamStartDownSpeed = 0f;
-        
+
         [Header("Attack Vertical - Targeting/Physics Extra")]
         [SerializeField, Tooltip("Máscara de capas que recibe el impacto del vertical (enemigos, rompibles, props…).")]
         private LayerMask verticalHitMask = ~0;
@@ -477,12 +539,12 @@ namespace Player.New
 
         [SerializeField, Tooltip("Componente vertical añadida al impulso de rigidbodies (0..1).")]
         private float verticalRigidbodyUpFactor = 0.35f;
-        
+
         [SerializeField, Tooltip("Minima distancia que tiene que estar del suelo para utilizarlo")]
         private float minimalGroundDistance = 5f;
-        
+
         public float MinimalGroundDistance => minimalGroundDistance;
-        
+
         public LayerMask VerticalHitMask
         {
             get => verticalHitMask;
@@ -507,7 +569,7 @@ namespace Player.New
             set => verticalRigidbodyUpFactor = value;
         }
 
-        
+
         public float VerticalAttackRadius
         {
             get => verticalAttackRadius;
@@ -749,7 +811,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Bloquea la locomoción (vertical en ejecución, etc.).")]
         private bool locomotionBlocked = false;
-        
+
         [SerializeField, Tooltip("Bloquea el salto.")]
         private bool jumpBlocked = false;
 
@@ -779,7 +841,7 @@ namespace Player.New
             get => locomotionBlocked;
             set => locomotionBlocked = value;
         }
-        
+
         public bool JumpBlocked
         {
             get => jumpBlocked;
@@ -823,7 +885,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Tiempo de asentamiento al caer antes de marcar grounded (s).")]
         private float fallSettleTime = 0.04f;
-        
+
         [SerializeField, Tooltip("Layer del Player")]
         private LayerMask playerLayer;
 
@@ -854,6 +916,7 @@ namespace Player.New
             get => fallSettleTime;
             set => fallSettleTime = value;
         }
+
         public LayerMask PlayerLayer
         {
             get => playerLayer;
@@ -893,7 +956,7 @@ namespace Player.New
         [System.NonSerialized] private bool _dashHeld;
         [System.NonSerialized] private float _sprintArmTimeLeft;
         [System.NonSerialized] private float _sprintHoldCounter;
-        
+
         [System.NonSerialized] public Vector3 RespawnPosition;
         [System.NonSerialized] public Quaternion RespawnRotation;
 
