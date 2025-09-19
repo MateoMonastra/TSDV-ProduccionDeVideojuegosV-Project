@@ -59,9 +59,10 @@ namespace Player.New
 
             if (inAir)
             {
+                if (limitAirSpeed)
+                    desiredVel = Vector3.ClampMagnitude(desiredVel, maxAirSpeed);
+                
                 horiz = Vector3.MoveTowards(horiz, desiredVel, Model.MoveAcceleration * dt);
-                if (limitAirSpeed && horiz.magnitude > maxAirSpeed)
-                    horiz = horiz.normalized * maxAirSpeed;
             }
             else
             {

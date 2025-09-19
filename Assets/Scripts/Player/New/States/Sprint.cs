@@ -42,7 +42,6 @@ namespace Player.New
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
             Model.SprintArmed = false;
-            //_anim?.SetWalking(false);
             _anim.SetSprinting(false);
         }
 

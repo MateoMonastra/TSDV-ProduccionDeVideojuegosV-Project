@@ -425,9 +425,8 @@ namespace Player.New
 
         public PlayerModel GetPlayerModel() => model;
 
-        public void SetPlayerIdleState()
+        public void SetPlayerAttackIdleState()
         {
-            _locomotionFsm?.ForceTransition(_sIdle);
             _actionFsm?.ForceTransition(_aIdle);
         }
         
