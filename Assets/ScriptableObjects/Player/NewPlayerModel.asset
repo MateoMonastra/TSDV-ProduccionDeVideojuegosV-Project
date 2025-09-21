@@ -16,6 +16,12 @@ MonoBehaviour:
   moveAcceleration: 30
   airHorizontalSpeed: 15
   landStopsHorizontal: 0
+  groundReorientationSharpness: 24
+  sprintReorientationSharpness: 10
+  groundLateralFriction: 28
+  sprintLateralFriction: 14
+  groundBrakingDecel: 32
+  sprintBrakingDecel: 28
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
   sprintArmWindow: 0.8
@@ -23,7 +29,7 @@ MonoBehaviour:
   orientationMethod: 0
   orientationSharpness: 12
   orientWithCameraWhileIdle: 0
-  jumpSpeed: 18
+  jumpSpeed: 16
   maxJumps: 2
   dashDistance: 1.8
   dashSpeed: 30
@@ -65,19 +71,19 @@ MonoBehaviour:
   verticalRigidbodyImpulse: 6
   verticalRigidbodyUpFactor: 0.35
   minimalGroundDistance: 4
-  spinChargeMinTime: 0.6
-  spinChargeMaxTime: 1.6
+  spinChargeMinTime: 1
+  spinChargeMaxTime: 2
   spinMoveSpeedMultiplierWhileExecuting: 0.6
   spinJumpSpeedMultiplier: 0.5
-  spinMinDuration: 0.55
-  spinMaxDuration: 3
+  spinMinDuration: 0.3
+  spinMaxDuration: 0.6
   spinDuration: 0.7
   spinPostStun: 0.35
   spinRadius: 2.8
   spinDamage: 1
-  spinPushDistance: 2
+  spinPushDistance: 2.2
   spinStaggerTime: 0.3
-  spinCooldown: 6
+  spinCooldown: 0.6
   spinMoveSpeedMultiplierWhileCharging: 0.6
   spinCausesSelfStun: 1
   selfStunMinDuration: 0.6
