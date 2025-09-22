@@ -31,6 +31,7 @@ namespace Player.New
         private float _t;           
         private bool  _released;    
         private bool  _canStart;
+        private bool charge1, charge2, charge3;
 
         public SpinCharge(PlayerModel model,
                           System.Action<string> requestTransition,
@@ -86,6 +87,10 @@ namespace Player.New
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
 
             _audioController.PlayPlayerChargeStart();
+            
+            charge1 = false;
+            charge2 = false;
+            charge3 = false;
         }
 
         /// <summary>Limpia multiplicadores/flags y cierra la UI de carga.</summary>
@@ -98,6 +103,10 @@ namespace Player.New
 
             _model.ActionMoveSpeedMultiplier = 1f;
             _hud.OnSpinChargeEnd();
+            
+            _vfxController.Stop(VfxEvent.SpinCharge1);
+            _vfxController.Stop(VfxEvent.SpinCharge2);
+            _vfxController.Stop(VfxEvent.SpinCharge3);
         }
 
         /// <summary>
@@ -114,6 +123,27 @@ namespace Player.New
             
             _hud.OnSpinChargeProgress(_t, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
 
+            float aminT = _model.SpinChargeMinTime;
+            float amaxT = Mathf.Max(aminT, _model.SpinChargeMaxTime);
+            float aclamped = Mathf.Clamp(_t, aminT, amaxT);
+            float valor = Mathf.InverseLerp(aminT, amaxT, aclamped);
+
+            if (_t >= _model.SpinChargeMinTime && !charge1)
+            {
+                charge1 = true;
+                _vfxController.Play(VfxEvent.SpinCharge1);
+            }
+            else if (valor >0.6f && !charge2)
+            {
+                charge2 = true;
+                _vfxController.Play(VfxEvent.SpinCharge2);
+            }
+            else if (valor > 0.9f && !charge3)
+            {
+                charge3 = true;
+                _vfxController.Play(VfxEvent.SpinCharge3);
+            }
+            
             if (_released)
             {
                 if (_t < _model.SpinChargeMinTime)

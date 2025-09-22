@@ -13,7 +13,10 @@ namespace Player.New.VFX
         Dash,
         SpinAttack,
         VerticalAttackLand,
-        Run
+        Run,
+        SpinCharge1,
+        SpinCharge2,
+        SpinCharge3
     }
 
     [Serializable]
