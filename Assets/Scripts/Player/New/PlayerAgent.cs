@@ -365,7 +365,7 @@ namespace Player.New
             _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController, audioController);
             _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController);
+            _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController, vfxController);
 
             // Transiciones de acciones
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
