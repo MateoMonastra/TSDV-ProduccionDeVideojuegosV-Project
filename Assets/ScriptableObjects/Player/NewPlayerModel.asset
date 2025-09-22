@@ -16,12 +16,12 @@ MonoBehaviour:
   moveAcceleration: 30
   airHorizontalSpeed: 15
   landStopsHorizontal: 0
-  groundReorientationSharpness: 24.5
-  sprintReorientationSharpness: 21.4
-  groundLateralFriction: 9.2
-  sprintLateralFriction: 37.9
-  groundBrakingDecel: 26
-  sprintBrakingDecel: 32
+  groundReorientationSharpness: 24
+  sprintReorientationSharpness: 10
+  groundLateralFriction: 28
+  sprintLateralFriction: 14
+  groundBrakingDecel: 32
+  sprintBrakingDecel: 28
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
   sprintArmWindow: 0.8
@@ -29,7 +29,7 @@ MonoBehaviour:
   orientationMethod: 0
   orientationSharpness: 12
   orientWithCameraWhileIdle: 0
-  jumpSpeed: 18
+  jumpSpeed: 16
   maxJumps: 2
   dashDistance: 1.8
   dashSpeed: 30
@@ -47,21 +47,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
-  attack1Duration: 1.5
-  attack2Duration: 0.96
-  attack3Duration: 1.5
+  attack1Duration: 0.7
+  attack2Duration: 0.7
+  attack3Duration: 0.7
   attackRange: 3.5
   attackHalfAngleDegrees: 70
-  attackChainWindow: 0.5
+  attackChainWindow: 0.3
   attackLateChainGrace: 0.08
   attackComboCooldown: 0.4
   verticalAttackRadius: 2.8
   verticalDamage: 1
   verticalKnockbackDistance: 2.5
   verticalStaggerTime: 0.35
-  verticalAttackImpactDelay: 0.5
-  verticalAttackCooldown: 0.75
-  verticalAttackPostStun: 0.6
+  verticalAttackCooldown: 1
+  verticalAttackPostStun: 0.25
   verticalSlamExtraAccel: 40
   verticalSlamMaxDownSpeed: 40
   verticalSlamStartDownSpeed: 50
@@ -72,19 +71,19 @@ MonoBehaviour:
   verticalRigidbodyImpulse: 6
   verticalRigidbodyUpFactor: 0.35
   minimalGroundDistance: 4
-  spinChargeMinTime: 0.6
-  spinChargeMaxTime: 1.6
+  spinChargeMinTime: 1
+  spinChargeMaxTime: 2
   spinMoveSpeedMultiplierWhileExecuting: 0.6
   spinJumpSpeedMultiplier: 0.5
-  spinMinDuration: 0.55
-  spinMaxDuration: 3
+  spinMinDuration: 0.3
+  spinMaxDuration: 0.6
   spinDuration: 0.7
   spinPostStun: 0.35
   spinRadius: 2.8
   spinDamage: 1
-  spinPushDistance: 2
+  spinPushDistance: 2.2
   spinStaggerTime: 0.3
-  spinCooldown: 6
+  spinCooldown: 0.6
   spinMoveSpeedMultiplierWhileCharging: 0.6
   spinCausesSelfStun: 1
   selfStunMinDuration: 0.6
