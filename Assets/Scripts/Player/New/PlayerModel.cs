@@ -91,7 +91,6 @@ namespace Player.New
             set => sprintBrakingDecel = value;
         }
 
-        #endregion
 
 
         /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
@@ -122,6 +121,7 @@ namespace Player.New
             set => airHorizontalSpeed = value;
         }
 
+        #endregion
         // ───────────────────────────────────────────────────────────────────────
 
         #region Sprint (hold window + behavior)
@@ -1149,7 +1149,7 @@ namespace Player.New
             _sprintHoldCounter = 0f;
         }
 
-        /// <summary>Resetea todos los cooldowns (útil para debug/cheats).</summary>
+        /// <summary>Resetea todos los cooldowns.</summary>
         public void ResetAllCooldowns()
         {
             _dashOnCooldown = false;

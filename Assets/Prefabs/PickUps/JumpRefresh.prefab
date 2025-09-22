@@ -76,7 +76,6 @@ MonoBehaviour:
   visuals: {fileID: 2888790914215198297}
   activateLogs: 0
   pickUpParticles: {fileID: 3116021373471432688}
-  sfx: {fileID: 0}
 --- !u!54 &7351202435689632035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -247,6 +246,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5207391721676274708, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b0481b6ddd4abc84a8e341a12634dddd, type: 2}
     - target: {fileID: 5484083025253621082, guid: 8a2f75a1a205e3b4ea8c818a2e85ce14, type: 3}
       propertyPath: m_Layer
       value: 6
