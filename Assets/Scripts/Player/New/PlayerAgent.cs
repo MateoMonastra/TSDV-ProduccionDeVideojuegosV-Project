@@ -180,8 +180,10 @@ namespace Player.New
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
         private void OnAttackHeavyPressed()
         {
-            if (motor.IsGrounded && !model.SpinOnCooldown)
-                _actionFsm.ForceTransition(_aSpinCharge);
+            if (!motor.IsGrounded || model.SpinOnCooldown) return;
+            
+            _actionFsm.ForceTransition(_aSpinCharge);
+            _locomotionFsm.ForceTransition(_sIdle);
         }
 
         /// <summary>Heavy soltado: lo procesa el estado actual (p. ej. SpinCharge → Release).</summary>
