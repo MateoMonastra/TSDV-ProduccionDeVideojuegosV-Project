@@ -16,7 +16,8 @@ namespace Player.New.VFX
         Run,
         SpinCharge1,
         SpinCharge2,
-        SpinCharge3
+        SpinCharge3,
+        Stun
     }
 
     [Serializable]
