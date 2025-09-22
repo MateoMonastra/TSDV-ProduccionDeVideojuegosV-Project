@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -17,6 +18,7 @@ namespace Player.New
         private readonly PlayerModel _model;
         private readonly System.Action<string> _requestTransition;
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfxController;
 
         private float _t;                 
         private bool  _playedGetUp;      
@@ -24,12 +26,14 @@ namespace Player.New
         public SelfStun(MyKinematicMotor motor,
                         PlayerModel model,
                         System.Action<string> requestTransition,
-                        PlayerAnimationController anim = null)
+                        PlayerAnimationController anim = null,
+                        PlayerVfxController vfxController = null)
         {
             _motor = motor;
             _model = model;
             _requestTransition = requestTransition;
             _anim = anim;
+            _vfxController = vfxController;
         }
 
         /// <summary>
@@ -58,6 +62,8 @@ namespace Player.New
             
             _anim?.SetCombatActive(true);
             _anim?.TriggerKnockdown();
+            
+            _vfxController.Play(VfxEvent.Stun);
         }
 
         /// <summary>Salir: limpia flag y locks (vía <see cref="PlayerModel.ClearActionLocks"/>).</summary>
@@ -67,6 +73,8 @@ namespace Player.New
             _model.IsSelfStunned = false;
             _model.ClearActionLocks();
             _anim?.SetCombatActive(false);
+
+            _vfxController.Stop(VfxEvent.Stun);
         }
 
         /// <summary>
