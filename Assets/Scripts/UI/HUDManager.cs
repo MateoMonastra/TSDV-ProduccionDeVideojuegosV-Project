@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections;
-using Health;
+﻿using System.Collections;
+using Player.New;
 using TMPro;
-using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Player.New.UI
+namespace UI
 {
     /// <summary>
     /// - Spin: carga (fill + marca mínimo) y cooldown (polling del PlayerModel).
-    /// - Pickups: extra jump / dash buff (polling del PlayerModel + métodos públicos opcionales).
+    /// - Pickups: dispara animaciones Get/Use en widgets (polling del PlayerModel).
     /// - Cooldowns: Spin / Dash / Vertical (polling del PlayerModel).
     /// - Vida, daño y ceguera (métodos públicos) + delega opcional a HeartsUIManager.
     /// </summary>
@@ -28,27 +25,19 @@ namespace Player.New.UI
 
         [Header("Cooldowns")]
         [SerializeField] private Image spinCdFill;
-        [SerializeField] private TextMeshProUGUI spinCdText; // TMP
+        [SerializeField] private TextMeshProUGUI spinCdText;
         [SerializeField] private Image dashCdFill;
-        [SerializeField] private TextMeshProUGUI dashCdText; // TMP
+        [SerializeField] private TextMeshProUGUI dashCdText;
         [SerializeField] private Image vertCdFill;
-        [SerializeField] private TextMeshProUGUI vertCdText; // TMP
+        [SerializeField] private TextMeshProUGUI vertCdText;
         [SerializeField, Tooltip("Cuando queda menos de esto (s), se muestra listo (blink).")]
         private float readyBlinkThreshold = 0.15f;
 
-        [Header("Pickups (iconos)")]
-        [SerializeField, Tooltip("Ícono: hay salto extra disponible (pickup activo o flag del model).")]
-        private Image extraJumpIcon;
-        [SerializeField, Tooltip("Ícono: el próximo dash está buffeado (pickup activo o flag del model).")]
-        private Image dashBuffIcon;
-        [SerializeField, Tooltip("Pulso suave mientras un pickup está activo.")]
-        private bool pulseActivePickups = true;
-        [SerializeField] private float pickupPulseSpeed = 4.5f;
-        [SerializeField, Range(0.6f, 1f)] private float pickupPulseMinScale = 0.9f;
+        [Header("Pickups (widgets)")]
+        [SerializeField, Tooltip("Manager que dispara animaciones Get/Use en los widgets de pickup.")]
+        private PickupsUIManager pickups;
 
         [Header("Vida / Daño / Ceguera")]
-        [SerializeField, Tooltip("Nombre del parámetro entero del Animator para vida actual.")]
-        private string playerHealthParam = "PlayerHealth";
         [SerializeField, Tooltip("Overlay de daño (Image con alpha).")]
         private Image damagedImage;
         [SerializeField] private float damagedDuration = 0.3f;
@@ -56,35 +45,26 @@ namespace Player.New.UI
         private GameObject blindnessEffect;
         [SerializeField] private float blindnessDuration = 2f;
 
-        [FormerlySerializedAs("hearts")]
         [Header("Corazones")]
         [SerializeField, Tooltip("Si se asigna, también actualiza el UI de corazones.")]
         private HeartsUIManager heartsController;
-
-        // Caches / estado interno
+        
         private Coroutine _blindnessCo;
         private Coroutine _damagedCo;
-        private float _pulseT;
-        private bool _spinChargeVisible;
-        private int _playerHealthHash;
         private int _spinTenths, _dashTenths, _vertTenths;
+
+        private bool _prevExtraJump;
+        private bool _prevDashBuff;
 
         private void Awake()
         {
-            _playerHealthHash = Animator.StringToHash(
-                string.IsNullOrEmpty(playerHealthParam) ? "PlayerHealth" : playerHealthParam);
-
-            // Setup radial para spin
+            
             EnsureFilledSetup(spinChargeFill, Image.FillMethod.Radial360, (int)Image.Origin360.Top, true);
             EnsureFilledSetup(spinChargeMinMark, Image.FillMethod.Radial360, (int)Image.Origin360.Top, true);
-
             HideSpinChargeUI();
-
-            SetGraphicEnabled(extraJumpIcon, false);
-            SetGraphicEnabled(dashBuffIcon, false);
             
-            ResetScale(extraJumpIcon);
-            ResetScale(dashBuffIcon);
+            _prevExtraJump = model && model.HasExtraJump;
+            _prevDashBuff  = model && model.DashBuffPending;
         }
 
         private void OnEnable()
@@ -115,8 +95,8 @@ namespace Player.New.UI
 
             UpdateCooldown(vertCdFill, vertCdText,
                 model.VerticalOnCooldown ? model.VerticalCooldownLeft : 0f, model.VerticalAttackCooldown, ref _vertTenths);
-
-            UpdatePickupIcons(Time.deltaTime, model.HasExtraJump, model.DashBuffPending);
+            
+            UpdatePickupWidgets(model.HasExtraJump, model.DashBuffPending);
         }
 
         /// <summary>Progreso de carga del spin (llamado mientras se mantiene el input).</summary>
@@ -124,7 +104,6 @@ namespace Player.New.UI
         {
             if (!spinChargeFill) return;
 
-            _spinChargeVisible = true;
             spinChargeFill.enabled = true;
 
             float visual = Mathf.InverseLerp(0f, Mathf.Max(0.0001f, max), current);
@@ -143,25 +122,10 @@ namespace Player.New.UI
         /// <summary>Fin de la carga (al soltar o cancelar).</summary>
         public void OnSpinChargeEnd()
         {
-            _spinChargeVisible = false;
             HideSpinChargeUI();
         }
 
-        /// <summary>Marcar explícitamente el icono de extra jump activo/inactivo (si no querés depender de polling).</summary>
-        public void SetPickupExtraJumpActive(bool active)
-        {
-            SetGraphicEnabled(extraJumpIcon, active);
-            if (!active) ResetScale(extraJumpIcon);
-        }
-
-        /// <summary>Marcar explícitamente el icono de dash buff activo/inactivo (si no querés depender de polling).</summary>
-        public void SetPickupDashBuffActive(bool active)
-        {
-            SetGraphicEnabled(dashBuffIcon, active);
-            if (!active) ResetScale(dashBuffIcon);
-        }
-
-        /// <summary>Actualiza la vida en Animator; opcionalmente también corazones.</summary>
+        /// <summary>Actualiza la vida; delega a la UI de corazones si está asignada.</summary>
         public void SetHealth(int current)
         {
             if (heartsController)
@@ -223,24 +187,24 @@ namespace Player.New.UI
             }
         }
 
-        /// <summary>Polling + pulso para los iconos de pickups.</summary>
-        private void UpdatePickupIcons(float dt, bool hasExtraJump, bool dashBuffPending)
+        /// <summary>Dispara animaciones Get/Use en los widgets de pickups (por flancos).</summary>
+        private void UpdatePickupWidgets(bool hasExtraJump, bool dashBuffPending)
         {
-            SetGraphicEnabled(extraJumpIcon, hasExtraJump);
-            SetGraphicEnabled(dashBuffIcon, dashBuffPending);
+            if (!pickups) return;
 
-            if (!pulseActivePickups)
+            if (hasExtraJump != _prevExtraJump)
             {
-                ResetScale(extraJumpIcon);
-                ResetScale(dashBuffIcon);
-                return;
+                if (hasExtraJump) pickups.OnPickupGet(PickupId.ExtraJump);
+                else              pickups.OnPickupUse(PickupId.ExtraJump);
+                _prevExtraJump = hasExtraJump;
             }
 
-            _pulseT = (_pulseT + dt * pickupPulseSpeed) % (Mathf.PI * 2f);
-            float s = Mathf.Lerp(pickupPulseMinScale, 1f, 0.5f * (1f + Mathf.Sin(_pulseT)));
-
-            if (hasExtraJump) SetScale(extraJumpIcon, s); else ResetScale(extraJumpIcon);
-            if (dashBuffPending) SetScale(dashBuffIcon, s); else ResetScale(dashBuffIcon);
+            if (dashBuffPending != _prevDashBuff)
+            {
+                if (dashBuffPending) pickups.OnPickupGet(PickupId.DashBuff);
+                else                 pickups.OnPickupUse(PickupId.DashBuff);
+                _prevDashBuff = dashBuffPending;
+            }
         }
 
         private void HideSpinChargeUI()
@@ -259,28 +223,6 @@ namespace Player.New.UI
             if (img.fillMethod != method) img.fillMethod = method;
             if (img.fillOrigin != origin) img.fillOrigin = origin;
             img.fillClockwise = clockwise;
-        }
-
-        private static void SetGraphicEnabled(Graphic g, bool enabled)
-        {
-            if (!g) return;
-            if (g.enabled == enabled) return; 
-            
-            g.enabled = enabled;
-            var cr = g.canvasRenderer;
-            if (cr != null) cr.SetAlpha(enabled ? 1f : 0f);
-        }
-
-        private static void SetScale(Graphic g, float s)
-        {
-            if (!g) return;
-            if (g.transform is RectTransform rt) rt.localScale = new Vector3(s, s, 1f);
-        }
-
-        private static void ResetScale(Graphic g)
-        {
-            if (!g) return;
-            if (g.transform is RectTransform rt) rt.localScale = Vector3.one;
         }
 
         private IEnumerator DamagedCo()
@@ -321,5 +263,24 @@ namespace Player.New.UI
             yield return new WaitForSecondsRealtime(Mathf.Max(0f, blindnessDuration));
             blindnessEffect.SetActive(false);
         }
+        
+        public void TriggerPickupGet(PickupId id)
+        {
+            if (!pickups) return;
+            pickups.OnPickupGet(id);
+            
+            if (id == PickupId.ExtraJump) _prevExtraJump = true;
+            else if (id == PickupId.DashBuff) _prevDashBuff = true;
+        }
+
+        public void TriggerPickupUse(PickupId id)
+        {
+            if (!pickups) return;
+            pickups.OnPickupUse(id);
+
+            if (id == PickupId.ExtraJump) _prevExtraJump = false;
+            else if (id == PickupId.DashBuff) _prevDashBuff = false;
+        }
+
     }
 }

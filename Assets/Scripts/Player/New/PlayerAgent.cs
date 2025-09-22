@@ -3,8 +3,8 @@ using Health;
 using KinematicCharacterController.Examples;
 using Player.New.Audio;
 using Player.New.States;
-using Player.New.UI;
 using Player.New.VFX;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
