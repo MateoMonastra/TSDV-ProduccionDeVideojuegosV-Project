@@ -195,7 +195,7 @@ namespace Player.New
 
         private void OnPlayerDeath()
         {
-            hud.SetHealth(health.GetCurrentHealth());
+            hud.SetHealth(0);
             animController?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
