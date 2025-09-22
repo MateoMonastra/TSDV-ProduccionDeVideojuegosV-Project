@@ -3,8 +3,8 @@ using Health;
 using KinematicCharacterController.Examples;
 using Player.New.Audio;
 using Player.New.States;
-using Player.New.UI;
 using Player.New.VFX;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -195,6 +195,7 @@ namespace Player.New
 
         private void OnPlayerDeath()
         {
+            hud.SetHealth(health.GetCurrentHealth());
             animController?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
@@ -204,7 +205,6 @@ namespace Player.New
 
         private void OnPlayerDamaged(DamageInfo info)
         {
-            
             model.LastDamage = info;
             hud.OnDamaged();
             hud.SetHealth(health.GetCurrentHealth());
@@ -284,6 +284,10 @@ namespace Player.New
             model.HasExtraJump = false;
             model.DashBuffPending = false;
             model.JumpBlocked = false;
+
+            if (!hud) return;
+            hud.SetHealth(health.GetCurrentHealth());
+            
         }
 
         /// <summary>
@@ -292,7 +296,6 @@ namespace Player.New
         /// </summary>
         private void BuildLocomotionFsm()
         {
-            // Función local descriptiva para solicitar transiciones de locomoción
             void RequestLocomotionTransition(string transitionId) => _locomotionFsm.TryTransitionTo(transitionId);
 
             _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
@@ -353,7 +356,6 @@ namespace Player.New
         /// </summary>
         private void BuildActionFsm()
         {
-            // Función local descriptiva para solicitar transiciones de acciones
             void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
 
             _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor);
