@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System.Collections;
+using FSM;
 using Health;
 using UnityEngine;
 using Platforms;
@@ -25,8 +26,9 @@ namespace Player.New
 
         private float _t;
         private bool _impactDone;
+        private bool _impactStarted;
         private float _postTimer;
-        
+
         private const float ImpactProximity = 0.20f;
         private const float MaxAirTime = 3.0f;
 
@@ -46,10 +48,10 @@ namespace Player.New
         {
             if (m.IsGrounded || model.VerticalOnCooldown)
                 return false;
-            
+
             Vector3 up = m.CharacterUp;
             Vector3 down = -up;
-            
+
             return !Physics.Raycast(m.transform.position, down, out var hit,
                 model.MinimalGroundDistance, ~0, QueryTriggerInteraction.Ignore);
         }
@@ -60,6 +62,8 @@ namespace Player.New
             base.Enter();
             _t = 0f;
             _impactDone = false;
+            _impactStarted = false;
+
             _postTimer = -1f;
 
             _model.LocomotionBlocked = true;
@@ -89,7 +93,7 @@ namespace Player.New
         {
             base.Tick(dt);
             _t += dt;
-            
+
             if (_impactDone)
             {
                 if (_postTimer > 0f)
@@ -105,22 +109,31 @@ namespace Player.New
 
                 return;
             }
-            
+
             var v = _m.Velocity;
             v.y = Mathf.Max(v.y - _model.VerticalSlamExtraAccel * dt, -_model.VerticalSlamMaxDownSpeed);
             _m.SetVelocity(v);
-            
+
             if (_m.IsGrounded && _t > 0.05f)
             {
-                DoImpact();
+                if (!_impactStarted)
+                {
+                    _anim?.TriggerVerticalImpact();
+                    _impactStarted = true;
+                }
+
+                if (_t - 0.05f >= _model.VerticalAttackImpactDelay)
+                {
+                    DoImpact();
+                }
             }
             else
             {
-                if (Physics.Raycast(_m.transform.position, Vector3.down, out var hit, ImpactProximity, ~0,
-                        QueryTriggerInteraction.Ignore))
-                    DoImpact();
+                // if (Physics.Raycast(_m.transform.position, Vector3.down, out var hit, ImpactProximity, ~0,
+                //         QueryTriggerInteraction.Ignore))
+                //     DoImpact();
             }
-            
+
             if (_t >= MaxAirTime && !_impactDone)
                 DoImpact();
         }
@@ -131,28 +144,29 @@ namespace Player.New
         {
             if (_impactDone) return;
             _impactDone = true;
+            _impactStarted = true;
 
             _vfxController?.Play(VfxEvent.VerticalAttackLand);
 
             _audioController.PlayPlayerAttackSmashHitFloor();
             
             Vector3 center = _m.transform.position;
-            
+
             Collider[] hits = Physics.OverlapSphere(
                 center,
                 _model.VerticalAttackRadius,
                 _model.VerticalHitMask,
                 QueryTriggerInteraction.Collide
             );
-            
+
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();
 
             foreach (var c in hits)
             {
                 if (!c) continue;
-                if(c.gameObject.layer == _model.PlayerLayer) continue;
-                
+                if (c.gameObject.layer == _model.PlayerLayer) continue;
+
                 var enemyHealth = c.GetComponentInParent<HealthController>();
                 if (enemyHealth != null)
                 {
@@ -160,13 +174,13 @@ namespace Player.New
                     if (!processedEnemies.Contains(key))
                     {
                         processedEnemies.Add(key);
-                        
+
                         enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (0, 0)));
                     }
 
-                    continue; 
+                    continue;
                 }
-                
+
                 var br = c.GetComponentInParent<IBreakable>();
                 if (br != null)
                 {
@@ -181,11 +195,11 @@ namespace Player.New
                 }
 
                 if (!_model.VerticalAffectsRigidbodies) continue;
-                
+
                 var rb = c.attachedRigidbody ?? c.GetComponentInParent<Rigidbody>();
-               
+
                 if (rb == null || rb.isKinematic) continue;
-               
+
                 Vector3 to = (c.bounds.center - center);
                 if (to.sqrMagnitude < 1e-6f) to = Vector3.up;
 
@@ -196,12 +210,10 @@ namespace Player.New
                 Vector3 pushDir = (horiz + Vector3.up * _model.VerticalRigidbodyUpFactor).normalized;
                 rb.AddForce(pushDir * _model.VerticalRigidbodyImpulse, ForceMode.VelocityChange);
             }
-            
-            
+
+
             _model.VerticalOnCooldown = true;
             _model.VerticalCooldownLeft = _model.VerticalAttackCooldown;
-
-            _anim?.TriggerVerticalImpact();
 
             _model.LocomotionBlocked = true;
             _postTimer = Mathf.Max(0f, _model.VerticalAttackPostStun);

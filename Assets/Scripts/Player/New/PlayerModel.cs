@@ -511,6 +511,9 @@ namespace Player.New
 
         [SerializeField, Tooltip("Stagger en enemigos (s).")]
         private float verticalStaggerTime = 0.35f;
+        
+        [SerializeField, Tooltip("Tiempo para atrasar el impacto para que sincronice con la animación (s).")]
+        private float verticalAttackImpactDelay = 0.35f;
 
         [SerializeField, Tooltip("Cooldown del ataque vertical (s).")]
         private float verticalAttackCooldown = 1.0f;
@@ -594,6 +597,12 @@ namespace Player.New
             set => verticalStaggerTime = value;
         }
 
+        public float VerticalAttackImpactDelay
+        {
+            get => verticalAttackImpactDelay;
+            set => verticalAttackImpactDelay = value;
+        }
+        
         public float VerticalAttackCooldown
         {
             get => verticalAttackCooldown;
