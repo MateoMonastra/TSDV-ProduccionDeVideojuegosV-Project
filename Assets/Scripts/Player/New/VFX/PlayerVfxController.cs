@@ -12,7 +12,8 @@ namespace Player.New.VFX
         Jump,
         Dash,
         SpinAttack,
-        VerticalAttackLand
+        VerticalAttackLand,
+        Run
     }
 
     [Serializable]

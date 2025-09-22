@@ -309,7 +309,7 @@ namespace Player.New
             _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, audioController);
 
             _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: animController, vfxController, audioController);
-            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
+            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
 
             _sDeath = new Death(
                 motor,

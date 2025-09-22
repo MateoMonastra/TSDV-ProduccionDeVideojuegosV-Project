@@ -1,4 +1,5 @@
 ﻿using FSM;
+using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New
@@ -16,15 +17,18 @@ namespace Player.New
         public const string ToJump     = "Sprint->JumpGround";
 
         private readonly PlayerAnimationController _anim;
+        private readonly PlayerVfxController _vfx;
 
         public Sprint(MyKinematicMotor m,
                       PlayerModel mdl,
                       Transform cam,
                       System.Action<string> requestTransition,
-                      PlayerAnimationController anim = null)
+                      PlayerAnimationController anim = null,
+                      PlayerVfxController vfx = null)
             : base(m, mdl, cam, requestTransition)
         {
             _anim = anim;
+            _vfx = vfx;
         }
 
         public override void Enter()
@@ -35,6 +39,8 @@ namespace Player.New
 
             _anim?.SetWalking(false);
             _anim?.SetSprinting(true);
+            
+            _vfx.Play(VfxEvent.Run);
         }
 
         public override void Exit()
@@ -43,6 +49,8 @@ namespace Player.New
             Model.ActionMoveSpeedMultiplier = 1f;
             Model.SprintArmed = false;
             _anim.SetSprinting(false);
+            
+            _vfx.Stop(VfxEvent.Run);
         }
 
         public override void Tick(float dt)
