@@ -75,10 +75,7 @@ MonoBehaviour:
   cooldownTime: 5
   visuals: {fileID: 8110186462267643301}
   activateLogs: 0
-  buffDistance: 3
-  buffSpeed: 24
   pickUpParticles: {fileID: 4429940492864081049}
-  sfx: {fileID: 0}
 --- !u!54 &4624116049412133414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -237,6 +234,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5159606294904973071, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c1f56da43fb68824a80a2d977b14bb62, type: 2}
     - target: {fileID: 7667860634909727854, guid: c89ef7e09d2824b45a04df6fda3993cc, type: 3}
       propertyPath: m_Name
       value: Model
