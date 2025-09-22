@@ -1,7 +1,6 @@
 ﻿using FSM;
 using Health;
 using Player.New.Audio;
-using Player.New.UI;
 using Player.New.VFX;
 using UnityEngine;
 

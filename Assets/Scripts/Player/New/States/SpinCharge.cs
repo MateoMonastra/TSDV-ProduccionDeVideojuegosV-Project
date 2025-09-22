@@ -1,7 +1,7 @@
 ﻿using FSM;
 using Player.New.Audio;
-using Player.New.UI;
 using Player.New.VFX;
+using UI;
 using UnityEngine;
 
 namespace Player.New
