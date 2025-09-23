@@ -62,12 +62,13 @@ namespace Player.New
         {
             base.Enter();
 
+            
             _canStart = _motor.IsGrounded && !_model.SpinOnCooldown;
             if (!_canStart)
             {
                 _requestTransition?.Invoke(ToIdle);
                 Finish();
-                _anim?.TriggerSpinRelease();
+
                 return;
             }
 
@@ -81,6 +82,7 @@ namespace Player.New
 
             _vfxController.Stop(VfxEvent.BaseAttack);
       
+            _anim?.ResetSpinInterruption();
             _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
             _anim?.TriggerSpinChargeStart();
@@ -98,8 +100,7 @@ namespace Player.New
         {
             base.Exit();
 
-            _anim?.SetSpinCharging(false);
-            _anim?.SetCombatActive(false);
+            
 
             _model.ActionMoveSpeedMultiplier = 1f;
             _hud.OnSpinChargeEnd();
@@ -151,6 +152,11 @@ namespace Player.New
                     _model.JumpBlocked = false;
                     _requestTransition?.Invoke(ToIdle);
                     _audioController.PlayPlayerChargeStopFail();
+
+                    _anim?.TriggerSpinInterruption();
+                    _anim?.SetSpinCharging(false);
+                    _anim?.SetCombatActive(false);
+                    
                     Finish();
                     return;
                 }
@@ -160,6 +166,7 @@ namespace Player.New
                 float clamped = Mathf.Clamp(_t, minT, maxT);
                 _model.SpinChargeRatio = Mathf.InverseLerp(minT, maxT, clamped);
 
+                _anim?.SetSpinCharging(false);
                 _requestTransition?.Invoke(ToRelease);
                 Finish();
             }

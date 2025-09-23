@@ -138,6 +138,11 @@ namespace Player.New
             if (_anim) _anim.SetTrigger(tSpinRelease);
         }
 
+        public void ResetSpinInterruption()
+        {
+            if (_anim) _anim.ResetTrigger(tSpinInterruption);
+        }
+        
         public void TriggerSpinInterruption()
         {
             if (_anim) _anim.SetTrigger(tSpinInterruption);
