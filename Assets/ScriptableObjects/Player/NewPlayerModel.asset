@@ -37,7 +37,7 @@ MonoBehaviour:
   dashExitBlendTime: 0.12
   dashExitSharpness: 10
   hasExtraJump: 0
-  dashBuffPending: 0
+  dashBuffPending: 1
   dashBuffDistance: 25
   dashBuffSpeed: 48
   hitStunTime: 0.35
@@ -47,9 +47,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
-  attack1Duration: 1.5
-  attack2Duration: 0.7
-  attack3Duration: 1.5
+  attack1Duration: 1.25
+  attack2Duration: 0.5833333
+  attack3Duration: 1.25
   attackRange: 3.5
   attackHalfAngleDegrees: 70
   attackChainWindow: 0.3
@@ -61,7 +61,7 @@ MonoBehaviour:
   verticalStaggerTime: 0.35
   verticalAttackImpactDelay: 0.35
   verticalAttackCooldown: 1
-  verticalAttackPostStun: 0.25
+  verticalAttackPostStun: 0.3
   verticalSlamExtraAccel: 40
   verticalSlamMaxDownSpeed: 40
   verticalSlamStartDownSpeed: 50

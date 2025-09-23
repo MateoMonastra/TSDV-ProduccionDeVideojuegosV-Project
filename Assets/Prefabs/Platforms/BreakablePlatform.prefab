@@ -258,25 +258,13 @@ MonoBehaviour:
   - {fileID: 7364722486000297885}
   - {fileID: 3262401035363126001}
   - {fileID: 3124306204716717257}
-  OnBreak:
+  onBreak:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6354612062886450064}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2456220017060197620}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -372,11 +360,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69823d6e9e764ee498b3216220d2a209, type: 3}
---- !u!198 &2456220017060197620 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3896107733768891924, guid: 69823d6e9e764ee498b3216220d2a209, type: 3}
-  m_PrefabInstance: {fileID: 1443401760233347808}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4043352807320404471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3178171020209593111, guid: 69823d6e9e764ee498b3216220d2a209, type: 3}
