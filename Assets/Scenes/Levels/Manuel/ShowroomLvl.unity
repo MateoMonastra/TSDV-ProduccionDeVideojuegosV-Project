@@ -4824,6 +4824,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.9289442
       objectReference: {fileID: 0}
+    - target: {fileID: 5249185921912889210, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5526870334873693945, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.20954596
@@ -5326,6 +5330,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4072009756583620281, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
+      propertyPath: explosionMaxForce
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072009756583620281, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
+      propertyPath: explosionMinForce
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 4072009756583620281, guid: 6be2e5ebf7609da479c6fea5fe57eb40, type: 3}
       propertyPath: OnBreak.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 6
