@@ -9,9 +9,13 @@ namespace Player.New.Audio
         [SerializeField]
         private AK.Wwise.Event _akJumpAudio;
         [SerializeField]
+        private AK.Wwise.Event _akSuperJumpAudio;
+        [SerializeField]
         private AK.Wwise.Event _akJump2Audio;
         [SerializeField]
         private AK.Wwise.Event _akPlayerDash;
+        [SerializeField]
+        private AK.Wwise.Event _akPlayerSuperDash;
         [SerializeField]
         private AK.Wwise.Event _akPlayerGetsHit;
         [SerializeField]
@@ -38,6 +42,11 @@ namespace Player.New.Audio
             //Debug.Log("PlayJumpAudio");
             _akJumpAudio.Post(this.gameObject);
         }
+        public void PlaySuperJumpAudio()
+        {
+            //Debug.Log("PlaySuperJumpAudio");
+            _akSuperJumpAudio.Post(this.gameObject);
+        }
 
         public void PlayJump2Audio()
         {
@@ -49,6 +58,11 @@ namespace Player.New.Audio
         {
             //Debug.Log("PlayDashAudio");
             _akPlayerDash.Post(this.gameObject);
+        }
+        public void PlaySuperDashAudio()
+        {
+            //Debug.Log("PlaySuperDashAudio");
+            _akPlayerSuperDash.Post(this.gameObject);
         }
 
         public void PlayPlayerGetsHitAudio()

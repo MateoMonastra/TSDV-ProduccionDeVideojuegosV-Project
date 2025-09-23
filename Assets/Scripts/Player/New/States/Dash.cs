@@ -54,13 +54,19 @@ namespace Player.New
             if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
                 _dir = _model.MoveInputWorld.normalized;
 
-            _dashDistSel = Mathf.Max(0.01f, _model.DashDistance);
-            _dashSpeedSel = Mathf.Max(0.01f, _model.DashSpeed);
+            
             if (_model.DashBuffPending)
             {
                 _dashDistSel = Mathf.Max(0.01f, _model.DashBuffDistance);
                 _dashSpeedSel = Mathf.Max(0.01f, _model.DashBuffSpeed);
                 _model.DashBuffPending = false;
+                _audioController?.PlaySuperDashAudio();
+            }
+            else
+            {
+                _dashDistSel = Mathf.Max(0.01f, _model.DashDistance);
+                _dashSpeedSel = Mathf.Max(0.01f, _model.DashSpeed);
+                _audioController?.PlayDashAudio();
             }
 
             _duration = _dashDistSel / _dashSpeedSel;
@@ -86,7 +92,6 @@ namespace Player.New
             _m.SetVelocity(v);
 
             _vfxController?.Play(VfxEvent.Dash);
-            _audioController?.PlayDashAudio();
         }
 
         public override void Exit()
