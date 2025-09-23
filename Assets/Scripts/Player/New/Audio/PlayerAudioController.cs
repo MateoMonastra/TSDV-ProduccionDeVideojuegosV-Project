@@ -75,7 +75,7 @@ namespace Player.New.Audio
             _akPlayerAttack3.Post(this.gameObject);
         }
 
-        public void PlayPlayPlayerAttackSmash()
+        public void PlayPlayerAttackSmash()
         {
             Debug.Log("PlayPlayerAttackSmash");
             _akPlayPlayerAttackSmash.Post(this.gameObject);
