@@ -77,7 +77,7 @@ namespace Player.New
             _anim?.TriggerVerticalStart();
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
 
-            _audioController.PlayPlayPlayerAttackSmash();
+            _audioController.PlayPlayerAttackSmash();
         }
 
         public override void Exit()
