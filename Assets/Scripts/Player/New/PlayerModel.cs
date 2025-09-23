@@ -1135,6 +1135,8 @@ namespace Player.New
         {
             locomotionBlocked = false;
             aimLockActive = false;
+            jumpBlocked = false;
+            dashBlocked = false;
             actionMoveSpeedMultiplier = 1f;
             actionJumpSpeedMultiplier = 1f;
             invulnerableToEnemies = false;

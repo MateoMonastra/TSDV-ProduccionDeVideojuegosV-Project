@@ -36,6 +36,7 @@ namespace Player.New
             t = 0f;
             _didHit = false;
             ChainBuffered = false;
+            Model.DashBlocked = true;
         }
 
         public override void Exit()
@@ -43,6 +44,7 @@ namespace Player.New
             base.Exit();
             _didHit = false;
             ChainBuffered = false;
+            Model.DashBlocked = false;
         }
 
         /// <summary>Marca que el jugador pidió encadenar el siguiente golpe.</summary>

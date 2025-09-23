@@ -176,6 +176,8 @@ namespace Player.New
             }
 
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
+            _locomotionFsm.ForceTransition(_sIdle);
+            
         }
 
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
@@ -287,6 +289,7 @@ namespace Player.New
             model.HasExtraJump = false;
             model.DashBuffPending = false;
             model.JumpBlocked = false;
+            model.DashBlocked = false;
 
             if (!hud) return;
             hud.SetHealth(health.GetCurrentHealth());
