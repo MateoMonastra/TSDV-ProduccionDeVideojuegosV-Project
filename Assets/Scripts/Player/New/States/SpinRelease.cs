@@ -86,6 +86,7 @@ namespace Player.New
                 _model.ClearActionLocks();
 
             _model.JumpBlocked = false;
+            _model.DashBlocked = false;
             _anim?.SetCombatActive(false);
 
             _vfxController?.Stop(VfxEvent.SpinAttack);

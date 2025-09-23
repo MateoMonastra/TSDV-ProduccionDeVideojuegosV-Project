@@ -823,6 +823,9 @@ namespace Player.New
 
         [SerializeField, Tooltip("Bloquea el salto.")]
         private bool jumpBlocked = false;
+        
+        [SerializeField, Tooltip("Bloquea el dash.")]
+        private bool dashBlocked = false;
 
         [SerializeField, Tooltip("Invulnerable a enemigos durante ciertas mecánicas.")]
         private bool invulnerableToEnemies = false;
@@ -855,6 +858,11 @@ namespace Player.New
         {
             get => jumpBlocked;
             set => jumpBlocked = value;
+        }
+        public bool DashBlocked
+        {
+            get => dashBlocked;
+            set => dashBlocked = value;
         }
 
         public bool InvulnerableToEnemies

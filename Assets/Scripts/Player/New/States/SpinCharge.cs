@@ -79,6 +79,7 @@ namespace Player.New
             _model.ActionMoveSpeedMultiplier = _model.SpinMoveSpeedMultiplierWhileCharging;
             _model.AimLockActive = false;
             _model.JumpBlocked = true;
+            _model.DashBlocked = true;
 
             _vfxController.Stop(VfxEvent.BaseAttack);
       
@@ -99,9 +100,7 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-
             
-
             _model.ActionMoveSpeedMultiplier = 1f;
             _hud.OnSpinChargeEnd();
             
@@ -150,6 +149,7 @@ namespace Player.New
                 if (_t < _model.SpinChargeMinTime)
                 {
                     _model.JumpBlocked = false;
+                    _model.DashBlocked = false;
                     _requestTransition?.Invoke(ToIdle);
                     _audioController.PlayPlayerChargeStopFail();
 
