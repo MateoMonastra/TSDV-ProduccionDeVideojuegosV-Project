@@ -50,6 +50,7 @@ namespace Player.New
             v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
 
+            _anim?.SetFalling(false);
             _anim?.TriggerDoubleJump();
             _vfxController?.Play(VfxEvent.Jump);
             _audioController?.PlayJump2Audio();
