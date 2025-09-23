@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2601685793233430085}
   - component: {fileID: 480287791377033161}
   - component: {fileID: 7368161001052888103}
-  m_Layer: 0
+  - component: {fileID: 8304795602578748482}
+  m_Layer: 6
   m_Name: Mesh_CanoTile_v03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,3 +87,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8304795602578748482
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8445430346148624017}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1154.619, y: 471.44678, z: 941.57025}
+  m_Center: {x: -0.03320312, y: 0.0000076293945, z: -0.6646728}

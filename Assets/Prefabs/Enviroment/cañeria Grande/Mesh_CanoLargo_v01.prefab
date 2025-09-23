@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5638771105326282599}
   - component: {fileID: 9100540747498573146}
   - component: {fileID: 2239534215687962250}
-  m_Layer: 0
+  - component: {fileID: 898343206572938610}
+  m_Layer: 6
   m_Name: Mesh_CanoLargo_v01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,3 +87,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &898343206572938610
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729365857676821174}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3003082152226871124, guid: 88474aecf2a35cd4392b94f972660f63, type: 3}
