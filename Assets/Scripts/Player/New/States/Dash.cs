@@ -81,17 +81,20 @@ namespace Player.New
             OnDashCooldownUI?.Invoke(_model.DashCooldownLeft);
 
             _m.ForceUnground(0.05f);
-
+            
             Vector3 v = _m.Velocity;
-            Vector3 h = Vector3.ProjectOnPlane(v, up);
-            float along = Vector3.Dot(h, _dir);
-            float targetAlong = Mathf.Max(along, _dashSpeedSel);
-            Vector3 newH = _dir * targetAlong;
+            
+            float y = v.y < 0f ? 0f : v.y;
+            
+            Vector3 h = _dir * _dashSpeedSel;
+            v.x = h.x;
+            v.z = h.z;
+            v.y = y;
 
-            v.x = newH.x; v.z = newH.z;
             _m.SetVelocity(v);
 
             _vfxController?.Play(VfxEvent.Dash);
+
         }
 
         public override void Exit()
@@ -108,22 +111,24 @@ namespace Player.New
             if (!_recovering)
             {
                 _t += dt;
+                
+                Vector3 v = _m.Velocity;
+                float y = v.y < 0f ? 0f : v.y;
 
-               
-                var v = _m.Velocity;
-                Vector3 up = _m.CharacterUp;
-                float y = v.y;
                 Vector3 h = _dir * _dashSpeedSel;
-                v.x = h.x; v.z = h.z; v.y = y;
+                v.x = h.x;
+                v.z = h.z;
+                v.y = y;
+
                 _m.SetVelocity(v);
 
                 if (_t >= _duration)
                 {
                     _recovering = true;
                     _recoverT = 0f;
-                    
                     _model.BeginSprintWindow();
                 }
+
             }
             else
             {
