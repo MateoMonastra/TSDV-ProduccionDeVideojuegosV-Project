@@ -56,8 +56,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: mesh_hongo5_low_v001
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b3fbf7ba631d2f468a7ed5d6b73d044, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b3fbf7ba631d2f468a7ed5d6b73d044, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 564372138805133087}
   m_SourcePrefab: {fileID: 100100000, guid: 7b3fbf7ba631d2f468a7ed5d6b73d044, type: 3}
+--- !u!1 &8578685282374349564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7b3fbf7ba631d2f468a7ed5d6b73d044, type: 3}
+  m_PrefabInstance: {fileID: 8920774471577915309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &564372138805133087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578685282374349564}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.40829766, y: 0.55883855, z: 0.40369427}
+  m_Center: {x: 0.000000007450581, y: 0.27941927, z: 0}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5061969980811622944}
   - component: {fileID: 7042750006485827762}
   - component: {fileID: 2424222643024955656}
+  - component: {fileID: 922262501532092097}
   m_Layer: 6
   m_Name: SM_CostillaHumana
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &922262501532092097
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944283684366388071}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.41881686, y: 0.4308126, z: 0.3708622}
+  m_Center: {x: 0, y: 0.21540645, z: 0}
 --- !u!1 &5645754510664586553
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8507973141727354840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mesh_CostillaHumana_v01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

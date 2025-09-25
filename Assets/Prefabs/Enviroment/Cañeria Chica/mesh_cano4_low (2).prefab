@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1312123639782244058}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mesh_cano4_low (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2592363103169065118}
   - component: {fileID: 1043254856766905000}
   - component: {fileID: 2827058475637887629}
+  - component: {fileID: 1207673986101415189}
   m_Layer: 6
   m_Name: mesh_cano4_low (2)
   m_TagString: Untagged
@@ -120,6 +121,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1207673986101415189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5176201253102193768}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024142077, y: 0.062394302, z: 0.02414207}
+  m_Center: {x: 0.00000001938187, y: 0.031197166, z: 5.883555e-10}
 --- !u!1 &6189658484065560516
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +153,7 @@ GameObject:
   - component: {fileID: 8273456906226284810}
   - component: {fileID: 6751231485157734129}
   - component: {fileID: 6818893594330052527}
+  - component: {fileID: 6414669077471494616}
   m_Layer: 6
   m_Name: mesh_cano4_low (1)
   m_TagString: Untagged
@@ -206,6 +229,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6414669077471494616
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6189658484065560516}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024142077, y: 0.062394302, z: 0.02414207}
+  m_Center: {x: 0.000000011931291, y: 0.03119715, z: 5.883555e-10}
 --- !u!1 &8087867670597248171
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +261,7 @@ GameObject:
   - component: {fileID: 3931689477936216217}
   - component: {fileID: 6098967475097661785}
   - component: {fileID: 7938013322108638179}
+  - component: {fileID: 2383098730623050958}
   m_Layer: 6
   m_Name: mesh_cano4_low
   m_TagString: Untagged
@@ -292,3 +337,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2383098730623050958
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087867670597248171}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024142077, y: 0.062394302, z: 0.02414207}
+  m_Center: {x: 0.000000008206, y: 0.031197121, z: 0.000000004313646}
