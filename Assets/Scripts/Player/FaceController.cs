@@ -9,12 +9,13 @@ namespace Player
         [SerializeField] private List<GameObject> eyes = new();
         [SerializeField] private List<GameObject> mouth = new();
 
-        private readonly Dictionary<string, int> _eyesIdx;
-        private readonly Dictionary<string, int> _mouthIdx;
+        private readonly Dictionary<string, int> _eyesIdx = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _mouthIdx  = new Dictionary<string, int>();
 
-        private void Awake() => Rebuild();
-        private void OnValidate() => Rebuild();
-
+        private void Start()
+        {
+            Rebuild();
+        }
         private void Rebuild()
         {
             _eyesIdx.Clear();
