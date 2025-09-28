@@ -37,6 +37,7 @@ namespace Player.New
             _didHit = false;
             ChainBuffered = false;
             Model.DashBlocked = true;
+            Model.JumpBlocked = true;
         }
 
         public override void Exit()
