@@ -4,7 +4,6 @@ public class SlidingDoor : MonoBehaviour
 {
     [SerializeField] private float slidingTime;
     [SerializeField] private float yDistance;
-    [SerializeField] private bool startDownwards;
     
     private Vector3 startingPos;
     private Vector3 endPos;
@@ -19,20 +18,10 @@ public class SlidingDoor : MonoBehaviour
     void Start()
     {
 
-        if (startDownwards)
-        {
             currentSign = 1f;
             _currentTimer = slidingTime;
         startingPos = transform.position;
         endPos = transform.position + Vector3.up * yDistance;
-        }
-        else
-        {
-        startingPos = transform.position + Vector3.up * yDistance;
-        endPos = transform.position;
-            currentSign = -1f;
-            _currentTimer = 0;
-        }
     }
 
 
