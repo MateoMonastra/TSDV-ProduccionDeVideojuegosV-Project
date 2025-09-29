@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Interactable
 {
@@ -11,11 +12,11 @@ namespace Interactable
         [SerializeField] private GameObject indicator;
 
         [Header("Timer Settings")] [SerializeField]
-        private bool exitTimerEnabled;
+        private bool resetTimerEnabled;
 
-        [SerializeField] private UnityEvent onExitTimer;
+        [SerializeField] private UnityEvent onReset;
 
-        [SerializeField] private float exitTime;
+        [SerializeField] private float resetTime;
 
         [SerializeField] private Transform interactorTargetTransform;
 
@@ -35,11 +36,11 @@ namespace Interactable
             {
                 _currentExitTime += Time.deltaTime;
 
-                if (_currentExitTime >= exitTime)
+                if (_currentExitTime >= resetTime)
                 {
                     _currentExitTime = 0;
                     interacting = false;
-                    onExitTimer?.Invoke();
+                    onReset?.Invoke();
                 }
             }
         }
@@ -70,7 +71,7 @@ namespace Interactable
         {
             onInteract?.Invoke();
             
-            if (exitTimerEnabled)
+            if (resetTimerEnabled)
                 isOnTimer = true;
         }
 
