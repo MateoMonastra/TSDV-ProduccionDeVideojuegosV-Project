@@ -10,7 +10,7 @@ namespace Interactable
         [SerializeField] private InteractData interactData;
         [SerializeField] private UnityEvent onInteract;
         [SerializeField] private GameObject indicator;
-
+        
         [Header("Timer Settings")] [SerializeField]
         private bool resetTimerEnabled;
 
