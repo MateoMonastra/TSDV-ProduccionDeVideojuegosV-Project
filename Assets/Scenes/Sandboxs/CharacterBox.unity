@@ -3988,32 +3988,88 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: exitTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: interactionRange
       value: 5.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: interactData.interactionTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1918041684}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 922352451}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 922352451}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.ParticleSystem, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.Animator, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Interacted
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
