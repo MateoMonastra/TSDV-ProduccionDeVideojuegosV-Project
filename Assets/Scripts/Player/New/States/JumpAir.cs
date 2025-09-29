@@ -34,10 +34,12 @@ namespace Player.New
 
             if (Model.JumpsLeft > 0)
             {
+                _audioController?.PlayJump2Audio();
                 Model.JumpsLeft = Mathf.Max(0, Model.JumpsLeft - 1);
             }
             else if (Model.HasExtraJump)
             {
+                _audioController?.PlaySuperJumpAudio();
                 Model.HasExtraJump = false;
             }
             else
@@ -53,7 +55,6 @@ namespace Player.New
             _anim?.SetFalling(false);
             _anim?.TriggerDoubleJump();
             _vfxController?.Play(VfxEvent.Jump);
-            _audioController?.PlayJump2Audio();
         }
 
 

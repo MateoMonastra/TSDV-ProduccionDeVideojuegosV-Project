@@ -52,8 +52,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: mesh_ParedExtragrande_low
       objectReference: {fileID: 0}
+    - target: {fileID: 4583544471448154110, guid: 9aee8077a7e2e9e4c908d6a2d343e7db, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 579b5041b4bc1ba4e8673fbc6c7267c7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -6604556984851454665, guid: 9aee8077a7e2e9e4c908d6a2d343e7db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2979619498666428717}
   m_SourcePrefab: {fileID: 100100000, guid: 9aee8077a7e2e9e4c908d6a2d343e7db, type: 3}
+--- !u!1 &3883715218685548821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6604556984851454665, guid: 9aee8077a7e2e9e4c908d6a2d343e7db, type: 3}
+  m_PrefabInstance: {fileID: 1275182799730342946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2979619498666428717
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3883715218685548821}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0, y: 32, z: 32}
+  m_Center: {x: 0, y: 16, z: -16}

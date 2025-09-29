@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3734686607089441925}
   - component: {fileID: 2571142889941110194}
   - component: {fileID: 7844952376256330293}
+  - component: {fileID: 7289660349202881196}
   m_Layer: 6
   m_Name: SM_Hueso1
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7289660349202881196
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404970063778344789}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33249706, y: 0.06578211, z: 0.065782085}
+  m_Center: {x: 0.000000037252903, y: 0.032891173, z: -0.000000033527613}
 --- !u!1 &8307356045287768423
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6690896604357214978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mesh_Hueso1_v01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -140,6 +140,7 @@ namespace Player.New
         {
             if (IsActionBlocked()) return;
             if (!Dash.CanUse(model)) return;
+            if (model.DashBlocked) return;
             _locomotionFsm.ForceTransition(_sDash);
         }
 
@@ -175,6 +176,8 @@ namespace Player.New
             }
 
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
+            _locomotionFsm.ForceTransition(_sIdle);
+            
         }
 
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
@@ -286,6 +289,7 @@ namespace Player.New
             model.HasExtraJump = false;
             model.DashBuffPending = false;
             model.JumpBlocked = false;
+            model.DashBlocked = false;
 
             if (!hud) return;
             hud.SetHealth(health.GetCurrentHealth());
@@ -433,8 +437,8 @@ namespace Player.New
         {
             _actionFsm?.ForceTransition(_aIdle);
         }
-        
-        public void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
+
+        private void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
         {
             animController?.SetCombatActive(false);
 
