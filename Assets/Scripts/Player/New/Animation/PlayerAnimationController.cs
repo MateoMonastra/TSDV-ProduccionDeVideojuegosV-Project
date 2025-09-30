@@ -171,6 +171,7 @@ namespace Player.New
 
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
         public void TriggerIdle() => _anim?.SetTrigger(IsIdle);
+        public void ResetTriggerIdle() => _anim?.Play(IsIdle,0,0f);
 
         public void SetStopAvatarMask(bool value)
         {

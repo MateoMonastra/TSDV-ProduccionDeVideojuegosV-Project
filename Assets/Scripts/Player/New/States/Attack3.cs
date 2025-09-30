@@ -53,6 +53,7 @@ namespace Player.New
                 Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
 
                 Req?.Invoke(ToIdle);
+                _anim.SetCombatActive(false);
                 Finish();
             }
         }

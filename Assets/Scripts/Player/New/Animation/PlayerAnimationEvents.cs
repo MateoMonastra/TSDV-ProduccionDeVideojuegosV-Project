@@ -21,5 +21,11 @@ namespace Player.New.Animation
         {
             anim.AnimEvent_SpinDamage();
         }
+
+        public void FinishTransitionToIdle()
+        {
+            anim?.ResetTriggerIdle();
+            anim?.SetCombatActive(false);
+        }
     }
 }

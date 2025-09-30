@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7870e81a99f56ba45a8b83e52da6c549
+guid: 106583811c48eeb4fa2ccb39263b880e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -29,7 +29,43 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_Jester_Atk02_Idle
+      takeName: A_Jester_Atk02_Idle
+      internalID: 3206974460656821538
+      firstFrame: 89
+      lastFrame: 104
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: FinishTransitionToIdle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 89
     isReadable: 0
   meshes:
     lODScreenPercentages: []
