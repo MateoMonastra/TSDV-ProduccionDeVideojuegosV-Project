@@ -25,7 +25,6 @@ namespace Player.New
         {
             base.Enter();
             _model.ClearActionLocks();
-            _anim?.SetCombatActive(false);
         }
 
         public override void HandleInput(params object[] values)
