@@ -75,6 +75,8 @@ namespace Player.New
 
             _anim?.SetCombatActive(true);
             _anim?.TriggerVerticalStart();
+            _anim?.SetStopAvatarMask(true);
+            
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
 
             _audioController.PlayPlayerAttackSmash();
@@ -87,6 +89,7 @@ namespace Player.New
 
             _model.ClearActionLocks();
             _anim?.SetCombatActive(false);
+            _anim?.SetStopAvatarMask(false);
         }
 
         public override void Tick(float dt)

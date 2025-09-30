@@ -11,6 +11,7 @@ namespace Player.New
         private string _combatLayerName = "Combat";
 
         private int _combatLayer = -1;
+        private bool _stopAvatarMask;
 
         // Params
         static readonly int pIsWalking = Animator.StringToHash("IsWalking");
@@ -56,11 +57,13 @@ namespace Player.New
         // ------- API Animator -------
         public void SetWalking(bool v)
         {
+            if (_stopAvatarMask) return;
             if (_anim) _anim.SetBool(pIsWalking, v);
         }
 
         public void SetSprinting(bool v)
         {
+            if (_stopAvatarMask) return;
             if(_anim) _anim.SetBool(pIsSprinting, v);
         }
 
@@ -169,6 +172,13 @@ namespace Player.New
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
         public void TriggerIdle() => _anim?.SetTrigger(IsIdle);
 
+        public void SetStopAvatarMask(bool value)
+        {
+            SetWalking(false);
+            SetSprinting(false);
+            
+            _stopAvatarMask = value;
+        }
 
         // ------- Layer helpers -------
         public void SetCombatActive(bool active)
