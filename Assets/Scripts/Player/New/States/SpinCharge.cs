@@ -84,8 +84,8 @@ namespace Player.New
             _vfxController.Stop(VfxEvent.BaseAttack);
       
             _anim?.ResetSpinInterruption();
-            _anim?.SetCombatActive(true);
             _anim?.SetSpinCharging(true);
+            _anim?.SetCombatActive(false);
             _anim?.TriggerSpinChargeStart();
             _hud.OnSpinChargeProgress(0f, _model.SpinChargeMinTime, _model.SpinChargeMaxTime);
 
@@ -155,7 +155,6 @@ namespace Player.New
 
                     _anim?.TriggerSpinInterruption();
                     _anim?.SetSpinCharging(false);
-                    _anim?.SetCombatActive(false);
                     
                     Finish();
                     return;

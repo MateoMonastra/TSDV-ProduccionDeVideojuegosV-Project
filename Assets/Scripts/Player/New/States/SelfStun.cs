@@ -60,8 +60,6 @@ namespace Player.New
             
             ZeroHorizontalVelocity();
             
-            _anim?.SetCombatActive(true);
-            _anim?.SetStopAvatarMask(true);
             _anim?.TriggerKnockdown();
             
             _vfxController.Play(VfxEvent.Stun);
@@ -73,8 +71,6 @@ namespace Player.New
             base.Exit();
             _model.IsSelfStunned = false;
             _model.ClearActionLocks();
-            _anim?.SetCombatActive(false);
-            _anim?.SetStopAvatarMask(false);
 
             _vfxController.Stop(VfxEvent.Stun);
         }
