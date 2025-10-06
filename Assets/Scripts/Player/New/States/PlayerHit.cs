@@ -76,7 +76,7 @@ namespace Player.New.States
 
             Vector3 up = _m.CharacterUp;
             Vector3 horiz = Vector3.ProjectOnPlane(fromAttacker, up);
-            if (horiz.sqrMagnitude < 1e-6f) horiz = -_m.transform.forward;
+            if (horiz.sqrMagnitude < _model.MinInputSqr) horiz = -_m.transform.forward;
             horiz.Normalize();
 
             Vector3 v = _m.Velocity;

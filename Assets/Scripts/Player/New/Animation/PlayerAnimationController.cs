@@ -37,6 +37,7 @@ namespace Player.New
         static readonly int IsDie = Animator.StringToHash("Die");
         static readonly int IsHit = Animator.StringToHash("Hit");
         static readonly int IsIdle = Animator.StringToHash("Idle");
+        static readonly int IsIdleAfk = Animator.StringToHash("IdleAfk");
 
 
         [SerializeField] private bool _debugAnimEvents = false;
@@ -172,6 +173,7 @@ namespace Player.New
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
         public void TriggerIdle() => _anim?.SetTrigger(IsIdle);
         public void ResetTriggerIdle() => _anim?.Play(IsIdle,0,0f);
+        public void TriggerIdleAfk() => _anim?.SetTrigger(IsIdleAfk);
 
         // ------- Layer helpers -------
         public void SetCombatActive(bool active)

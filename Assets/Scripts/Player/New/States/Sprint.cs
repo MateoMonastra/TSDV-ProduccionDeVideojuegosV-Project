@@ -106,11 +106,11 @@ namespace Player.New
             Vector3 up = Motor.CharacterUp;
 
             Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
-            if (camFwd.sqrMagnitude < 1e-4f) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
+            if (camFwd.sqrMagnitude < Model.MinInputSqr) camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
 
             Vector3 camRight = Vector3.Cross(up, camFwd);
             Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f) Model.MoveInputWorld = Model.MoveInputWorld.normalized;
+            if (Model.MoveInputWorld.sqrMagnitude > Model.MinInputSqr) Model.MoveInputWorld = Model.MoveInputWorld.normalized;
         }
     }
 }

@@ -171,7 +171,7 @@ namespace Hazards.ConfettiMine
                     Vector3 to = h.bounds.center - center;
                     Vector3 up = motor.CharacterUp;
                     Vector3 horiz = Vector3.ProjectOnPlane(to, up);
-                    if (horiz.sqrMagnitude > 1e-6f) horiz.Normalize();
+                    if (horiz.sqrMagnitude > 1e-5f) horiz.Normalize();
                     Vector3 vel = horiz * knockback.horizontal + up * knockback.vertical;
                     motor.ForceUnground(1);
                     motor.SetVelocity(vel);

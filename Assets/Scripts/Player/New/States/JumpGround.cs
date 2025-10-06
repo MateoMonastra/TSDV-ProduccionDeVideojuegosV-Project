@@ -39,7 +39,7 @@ namespace Player.New
             v.y = Model.JumpSpeed * Mathf.Max(0.01f, Model.ActionJumpSpeedMultiplier);
             Motor.SetVelocity(v);
             
-            Model.JumpWasPureVertical = Model.RawMoveInput.sqrMagnitude <= 1e-6f;
+            Model.JumpWasPureVertical = Model.RawMoveInput.sqrMagnitude <= Model.MinInputSqr;
 
             _anim?.SetGrounded(false);
             _anim?.TriggerJump();

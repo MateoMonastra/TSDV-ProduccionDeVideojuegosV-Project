@@ -50,8 +50,8 @@ namespace Player.New
 
             Vector3 up = _m.CharacterUp;
             Vector3 charFwdPlanar = Vector3.ProjectOnPlane(_m.transform.forward, up);
-            _dir = charFwdPlanar.sqrMagnitude > 1e-6f ? charFwdPlanar.normalized : _m.transform.forward;
-            if (_model.MoveInputWorld.sqrMagnitude > 1e-6f)
+            _dir = charFwdPlanar.sqrMagnitude >_model.MinInputSqr ? charFwdPlanar.normalized : _m.transform.forward;
+            if (_model.MoveInputWorld.sqrMagnitude >_model.MinInputSqr)
                 _dir = _model.MoveInputWorld.normalized;
 
             

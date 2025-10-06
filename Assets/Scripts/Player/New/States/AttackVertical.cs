@@ -194,11 +194,11 @@ namespace Player.New
                 if (rb == null || rb.isKinematic) continue;
 
                 Vector3 to = (c.bounds.center - center);
-                if (to.sqrMagnitude < Mathf.Epsilon) to = Vector3.up;
+                if (to.sqrMagnitude < _model.MinInputSqr) to = Vector3.up;
 
                 Vector3 horiz = to;
                 horiz.y = 0f;
-                if (horiz.sqrMagnitude > Mathf.Epsilon) horiz.Normalize();
+                if (horiz.sqrMagnitude > _model.MinInputSqr) horiz.Normalize();
 
                 Vector3 pushDir = (horiz + Vector3.up * _model.VerticalRigidbodyUpFactor).normalized;
                 rb.AddForce(pushDir * _model.VerticalRigidbodyImpulse, ForceMode.VelocityChange);

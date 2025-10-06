@@ -16,6 +16,7 @@ namespace Player.New
 
         private float _timeSinceUngrounded;
         private int _ungroundedFrames;
+        private int _idleCounter;
 
         private readonly PlayerAnimationController _anim;
 
@@ -33,12 +34,19 @@ namespace Player.New
             _ungroundedFrames = 0;
 
             Model.ResetJumps();
+            
+            Model.ResetAfk();
 
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
             _anim?.SetWalking(false);
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            Model.ResetAfk();
+        }
         public override void Tick(float dt)
         {
             base.Tick(dt);
@@ -47,7 +55,27 @@ namespace Player.New
 
             ApplyLocomotion(dt, inAir: false);
 
-            _anim?.SetWalking(Model.RawMoveInput.sqrMagnitude > 1e-5f);
+            _anim?.SetWalking(Model.RawMoveInput.sqrMagnitude > Model.MinInputSqr);
+            
+            bool grounded   = Motor.IsGrounded;
+            bool noInput    = Model.RawMoveInput.sqrMagnitude <= Model.MinInputSqr;   
+            bool noVelocity = Motor.Velocity.sqrMagnitude <= Model.MinSpeedSqr; 
+
+            if (grounded && noInput && noVelocity)
+            {
+                Model.AfkTimer += dt;
+                
+                if (Model.AfkTimer >= Model.AfkSeconds)
+                {
+                    _anim?.TriggerIdleAfk();
+                    Model.AfkTimer -= Model.AfkSeconds;
+                }
+            }
+            else
+            {
+                Model.AfkTimer = 0f;
+            }
+
 
             if (!Motor.IsGrounded)
             {
@@ -139,13 +167,13 @@ namespace Player.New
             Vector3 up = Motor.CharacterUp;
 
             Vector3 camFwd = Vector3.ProjectOnPlane(Cam.forward, up).normalized;
-            if (camFwd.sqrMagnitude < 1e-4f)
+            if (camFwd.sqrMagnitude <Model.MinInputSqr)
                 camFwd = Vector3.ProjectOnPlane(Cam.up, up).normalized;
 
             Vector3 camRight = Vector3.Cross(up, camFwd);
 
             Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > 1e-6f)
+            if (Model.MoveInputWorld.sqrMagnitude > Model.MinInputSqr)
                 Model.MoveInputWorld = Model.MoveInputWorld.normalized;
         }
     }

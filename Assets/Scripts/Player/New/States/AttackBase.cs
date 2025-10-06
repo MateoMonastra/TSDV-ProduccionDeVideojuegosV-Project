@@ -73,7 +73,7 @@ namespace Player.New
             {
                 var t = cols[i].transform;
                 Vector3 to = Vector3.ProjectOnPlane(t.position - origin, up);
-                if (to.sqrMagnitude <= 1e-6f) continue;
+                if (to.sqrMagnitude <= Model.MinInputSqr) continue;
 
                 float dist = to.magnitude;
                 if (dist > range + 0.001f) continue;

@@ -133,11 +133,16 @@ namespace Player.New
         // ───────────────────────────────────────────────────────────────────────
 
         /// <summary>Actualiza el input de movimiento (clamp a 1 para diagonales).</summary>
-        private void OnMove(Vector2 move) => model.RawMoveInput = Vector2.ClampMagnitude(move, 1f);
+        private void OnMove(Vector2 move)
+        {
+            model.ResetAfk();
+            model.RawMoveInput = Vector2.ClampMagnitude(move, 1f);
+        }
 
         /// <summary>Solicita Dash (si no hay bloqueo ni cooldown).</summary>
         private void OnDash()
         {
+            model.ResetAfk();
             if (IsActionBlocked()) return;
             if (!Dash.CanUse(model)) return;
             if (model.DashBlocked) return;
@@ -146,20 +151,22 @@ namespace Player.New
 
         private void OnJump()
         {
+            model.ResetAfk();
             if (IsActionBlocked()) return;
-            
             _locomotionFsm.GetCurrentState()?.HandleInput(CommandKeys.Jump, true);
         }
 
         private void OnInteract()
         {
+            model.ResetAfk();
             if (IsActionBlocked()) return;
-            
             interactController.Interact();
         }
 
         private void OnAttackBasic()
         {
+            model.ResetAfk();
+            
             if (IsActionBlocked())
             {
                 return;
@@ -183,6 +190,7 @@ namespace Player.New
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
         private void OnAttackHeavyPressed()
         {
+            model.ResetAfk();
             if (!motor.IsGrounded || model.SpinOnCooldown) return;
             
             _actionFsm.ForceTransition(_aSpinCharge);
@@ -192,6 +200,7 @@ namespace Player.New
         /// <summary>Heavy soltado: lo procesa el estado actual (p. ej. SpinCharge → Release).</summary>
         private void OnAttackHeavyReleased()
         {
+            model.ResetAfk();
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackHeavyReleased);
         }
 
@@ -200,6 +209,7 @@ namespace Player.New
 
         private void OnPlayerDeath()
         {
+            model.ResetAfk();
             hud.SetHealth(0);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
@@ -209,6 +219,7 @@ namespace Player.New
 
         private void OnPlayerDamaged(DamageInfo info)
         {
+            model.ResetAfk();
             model.LastDamage = info;
             hud.OnDamaged();
             hud.SetHealth(health.GetCurrentHealth());

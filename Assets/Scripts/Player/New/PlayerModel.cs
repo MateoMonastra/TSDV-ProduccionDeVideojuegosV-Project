@@ -905,6 +905,16 @@ namespace Player.New
 
         [SerializeField, Tooltip("Layer del Player")]
         private LayerMask playerLayer;
+        
+        [SerializeField, Tooltip("Segundos de inactividad para disparar animación AFK.")]
+        private float afkSeconds = 7f;
+
+        /// <summary>Umbral de segundos para AFK.</summary>
+        public float AfkSeconds
+        {
+            get => afkSeconds;
+            set => afkSeconds = value;
+        }
 
         /// <summary>Coyote time al dejar el suelo (s).</summary>
         public float CoyoteTime
@@ -978,6 +988,26 @@ namespace Player.New
         [System.NonSerialized] public Quaternion RespawnRotation;
 
         [System.NonSerialized] private bool _isDead;
+        
+        [System.NonSerialized] private float _afkTimer;
+        [System.NonSerialized] private bool _afkTriggered;
+        
+        [System.NonSerialized] public readonly float MinSpeedSqr = 0.0001f;
+        [System.NonSerialized] public readonly float MinInputSqr = 1e-5f;
+
+        /// <summary>Acumulador de inactividad (s).</summary>
+        public float AfkTimer
+        {
+            get => _afkTimer;
+            set => _afkTimer = value;
+        }
+
+        /// <summary>Flag AFK activo.</summary>
+        public bool AfkTriggered
+        {
+            get => _afkTriggered;
+            set => _afkTriggered = value;
+        }
 
         public bool IsDead
         {
@@ -1170,6 +1200,14 @@ namespace Player.New
             _verticalCooldownLeft = 0f;
             _attackComboOnCooldown = false;
             _attackComboCooldownLeft = 0f;
+        }
+        
+        
+        /// <summary>Resetea contador y estado AFK.</summary>
+        public void ResetAfk()
+        {
+            _afkTimer = 0f;
+            _afkTriggered = false;
         }
 
         #endregion

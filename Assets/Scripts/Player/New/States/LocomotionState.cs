@@ -106,13 +106,13 @@ namespace Player.New
 
             Vector3 lookDir = Vector3.zero;
 
-            if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > 1e-6f)
+            if (Model.AimLockActive && Model.AimLockDirection.sqrMagnitude > Model.MinInputSqr)
             {
                 lookDir = Model.AimLockDirection.normalized;
             }
             else
             {
-                if (desiredDir.sqrMagnitude > 1e-5f)
+                if (desiredDir.sqrMagnitude > Model.MinInputSqr)
                 {
                     lookDir = desiredDir;
                 }
@@ -126,7 +126,7 @@ namespace Player.New
                 }
             }
 
-            if (lookDir.sqrMagnitude > 1e-6f)
+            if (lookDir.sqrMagnitude > Model.MinInputSqr)
             {
                 Motor.SmoothRotation(lookDir, Model.OrientationSharpness, dt);
             }
