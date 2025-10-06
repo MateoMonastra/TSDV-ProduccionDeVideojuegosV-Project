@@ -30,6 +30,8 @@ namespace Player
         
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
+        [SerializeField] private string pipesSceneName;
+        [SerializeField] private string milestone4SceneName;
 
         public void HandleNavigate(InputAction.CallbackContext context)
         {
@@ -113,6 +115,16 @@ namespace Player
             Time.timeScale = 1;
         }
 
+        public void HandlePipesInput(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(pipesSceneName);
+        }
+
+        public void HandleMilestone4Input(InputAction.CallbackContext context)
+        {
+            SceneManager.LoadScene(milestone4SceneName);
+        }
+        
         public void HandleGodModeInput(InputAction.CallbackContext context)
         {
             if (context.started)

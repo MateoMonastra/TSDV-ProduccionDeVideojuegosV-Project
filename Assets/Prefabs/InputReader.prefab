@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showRoomSceneName: ShowroomLvl
   levelSceneName: Lvl_1
+  pipesSceneName: PipeScene
+  milestone4SceneName: NewLvl_Manuel
 --- !u!114 &2179766239188865970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +388,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 074364cc-a993-47ef-9cc5-150c94f7dea2
     m_ActionName: 'Player/HeavyAttack[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8033342697096436698}
+        m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
+        m_MethodName: HandlePipesInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c6596c05-0e46-4cb8-914c-d26d432e283d
+    m_ActionName: 'Player/LoadPipesRoom[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8033342697096436698}
+        m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
+        m_MethodName: HandleMilestone4Input
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f23f47a0-98b3-4a27-81a9-7ff8e5dab775
+    m_ActionName: 'Player/LoadMilestone4Room[/Keyboard/4]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

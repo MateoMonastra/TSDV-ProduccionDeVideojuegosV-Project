@@ -209,6 +209,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""LoadPipesRoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6596c05-0e46-4cb8-914c-d26d432e283d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LoadMilestone4Room"",
+                    ""type"": ""Button"",
+                    ""id"": ""f23f47a0-98b3-4a27-81a9-7ff8e5dab775"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""GodModeCheat"",
                     ""type"": ""Button"",
                     ""id"": ""812323b6-aeef-4a8d-b3d9-8373345f2d94"",
@@ -800,6 +818,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad;Joystick"",
                     ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2874b582-1e77-4c61-b222-0f5213af73e7"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LoadPipesRoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd547b6a-ff8f-409e-9ca1-e75287942c5a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LoadMilestone4Room"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1400,6 +1440,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_LoadShowRoom = m_Player.FindAction("LoadShowRoom", throwIfNotFound: true);
         m_Player_LoadLevelRoom = m_Player.FindAction("LoadLevelRoom", throwIfNotFound: true);
+        m_Player_LoadPipesRoom = m_Player.FindAction("LoadPipesRoom", throwIfNotFound: true);
+        m_Player_LoadMilestone4Room = m_Player.FindAction("LoadMilestone4Room", throwIfNotFound: true);
         m_Player_GodModeCheat = m_Player.FindAction("GodModeCheat", throwIfNotFound: true);
         m_Player_GetDashPickUpCheat = m_Player.FindAction("GetDashPickUpCheat", throwIfNotFound: true);
         m_Player_GetJumpPickUpCheat = m_Player.FindAction("GetJumpPickUpCheat", throwIfNotFound: true);
@@ -1512,6 +1554,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_LoadShowRoom;
     private readonly InputAction m_Player_LoadLevelRoom;
+    private readonly InputAction m_Player_LoadPipesRoom;
+    private readonly InputAction m_Player_LoadMilestone4Room;
     private readonly InputAction m_Player_GodModeCheat;
     private readonly InputAction m_Player_GetDashPickUpCheat;
     private readonly InputAction m_Player_GetJumpPickUpCheat;
@@ -1581,6 +1625,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LoadLevelRoom".
         /// </summary>
         public InputAction @LoadLevelRoom => m_Wrapper.m_Player_LoadLevelRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadPipesRoom".
+        /// </summary>
+        public InputAction @LoadPipesRoom => m_Wrapper.m_Player_LoadPipesRoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadMilestone4Room".
+        /// </summary>
+        public InputAction @LoadMilestone4Room => m_Wrapper.m_Player_LoadMilestone4Room;
         /// <summary>
         /// Provides access to the underlying input action "Player/GodModeCheat".
         /// </summary>
@@ -1670,6 +1722,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started += instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed += instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled += instance.OnLoadLevelRoom;
+            @LoadPipesRoom.started += instance.OnLoadPipesRoom;
+            @LoadPipesRoom.performed += instance.OnLoadPipesRoom;
+            @LoadPipesRoom.canceled += instance.OnLoadPipesRoom;
+            @LoadMilestone4Room.started += instance.OnLoadMilestone4Room;
+            @LoadMilestone4Room.performed += instance.OnLoadMilestone4Room;
+            @LoadMilestone4Room.canceled += instance.OnLoadMilestone4Room;
             @GodModeCheat.started += instance.OnGodModeCheat;
             @GodModeCheat.performed += instance.OnGodModeCheat;
             @GodModeCheat.canceled += instance.OnGodModeCheat;
@@ -1738,6 +1796,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadLevelRoom.started -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.performed -= instance.OnLoadLevelRoom;
             @LoadLevelRoom.canceled -= instance.OnLoadLevelRoom;
+            @LoadPipesRoom.started -= instance.OnLoadPipesRoom;
+            @LoadPipesRoom.performed -= instance.OnLoadPipesRoom;
+            @LoadPipesRoom.canceled -= instance.OnLoadPipesRoom;
+            @LoadMilestone4Room.started -= instance.OnLoadMilestone4Room;
+            @LoadMilestone4Room.performed -= instance.OnLoadMilestone4Room;
+            @LoadMilestone4Room.canceled -= instance.OnLoadMilestone4Room;
             @GodModeCheat.started -= instance.OnGodModeCheat;
             @GodModeCheat.performed -= instance.OnGodModeCheat;
             @GodModeCheat.canceled -= instance.OnGodModeCheat;
@@ -2147,6 +2211,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLoadLevelRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadPipesRoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadPipesRoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadMilestone4Room" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadMilestone4Room(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "GodModeCheat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
