@@ -104,6 +104,11 @@
 							</ReferenceList>
 							<ChildrenList>
 								<AudioFileSource Name="TrashVacuumed-003" ID="{689EA8E2-D6DE-4FDE-ACD0-19F6F32002DF}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.00477536217026087"/>
+										<Property Name="LoopBegin" Type="Real64" Value="0"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
 									<Language>SFX</Language>
 									<AudioFile>TrashVacuumed-003.wav</AudioFile>
 									<MediaIDList>
@@ -133,10 +138,15 @@
 							</ReferenceList>
 							<ChildrenList>
 								<AudioFileSource Name="TrashVacuumed-004" ID="{4E66B171-9107-4AAF-A317-994FF8E98C87}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.00750414055326709"/>
+										<Property Name="LoopBegin" Type="Real64" Value="0"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
 									<Language>SFX</Language>
 									<AudioFile>TrashVacuumed-004.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="319135143"/>
+										<MediaID ID="939596107"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
@@ -191,10 +201,15 @@
 							</ReferenceList>
 							<ChildrenList>
 								<AudioFileSource Name="TrashVacuumed-004" ID="{6CCAFC86-D5AA-4D10-9F1D-5AF4FDBD6441}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.00409316757450934"/>
+										<Property Name="LoopBegin" Type="Real64" Value="0"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
 									<Language>SFX</Language>
 									<AudioFile>TrashVacuumed-004.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="319135143"/>
+										<MediaID ID="542374016"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
@@ -293,10 +308,15 @@
 							</ReferenceList>
 							<ChildrenList>
 								<AudioFileSource Name="TrashVacuumed-004" ID="{3EB7BCD6-CE83-47C8-B106-B504A2C0B771}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.00341097297875775"/>
+										<Property Name="LoopBegin" Type="Real64" Value="0"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
 									<Language>SFX</Language>
 									<AudioFile>TrashVacuumed-004.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="319135143"/>
+										<MediaID ID="726509691"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
@@ -383,6 +403,217 @@
 							</ChildrenList>
 							<ActiveSourceList>
 								<ActiveSource Name="PasosTile-004" ID="{0C6ED22C-2837-4F55-9A00-5218959256C2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SpinCharge_01" ID="{38BF5392-CD90-404B-8253-F77EB831A0D7}" ShortID="62646057">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>40</Value>
+									</ValueList>
+								</Property>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{2E23D677-1FB5-4E82-AE04-B2C745919003}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.777553080772021"/>
+										<Property Name="MarkerInputMode" Type="int16" Value="2"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+										<Property Name="TrimEnd" Type="Real64" Value="0.8806023262095"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Soundly Audio\Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="741664225"/>
+									</MediaIDList>
+									<ObjectLists>
+										<ObjectList Name="Markers">
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{BB6515BC-DE9B-4EB3-95C4-09EAECF56C69}"/>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{C91E7C29-B4B9-4900-BD3B-5D307FFA7FF8}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="2.39909719529655"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{4BAB091A-4A17-49A3-8D70-8C4917BE35DF}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="3.75163541666667"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{2E23D677-1FB5-4E82-AE04-B2C745919003}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SpinCharge_02" ID="{854877E1-B6DD-4FFB-8633-C10640366695}" ShortID="933026967">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>35</Value>
+									</ValueList>
+								</Property>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>110</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{F84AA9C9-B855-46F0-9EE9-B29A11B48646}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.777553080772021"/>
+										<Property Name="MarkerInputMode" Type="int16" Value="2"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+										<Property Name="TrimEnd" Type="Real64" Value="0.8806023262095"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Soundly Audio\Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="741664225"/>
+									</MediaIDList>
+									<ObjectLists>
+										<ObjectList Name="Markers">
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{8FDC4523-050F-49B3-9C44-95D43DDE1BB5}"/>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{42C89FD6-3C24-467E-B80B-229AF7487A37}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="2.39909719529655"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{5A52E0FE-A0AA-482F-AB72-1265C9AC5776}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="3.75163541666667"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{F84AA9C9-B855-46F0-9EE9-B29A11B48646}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SpinCharge_03" ID="{5B2882E1-2E5D-47A0-A60A-10D4569693AF}" ShortID="996877792">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>28</Value>
+									</ValueList>
+								</Property>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-14</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>200</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{8EEB8A2F-77B8-4229-AB74-1770EC5B6AB6}">
+									<PropertyList>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.777553080772021"/>
+										<Property Name="MarkerInputMode" Type="int16" Value="2"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+										<Property Name="TrimEnd" Type="Real64" Value="0.8806023262095"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Soundly Audio\Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="741664225"/>
+									</MediaIDList>
+									<ObjectLists>
+										<ObjectList Name="Markers">
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{84658553-28EC-4640-A62E-71683942CC0D}"/>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{0D808C09-9505-430C-BAC4-3239D9DF5F49}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="2.39909719529655"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<Marker Name="" ID="{F1946066-6965-4DDD-BE7B-767C5148620A}">
+														<PropertyList>
+															<Property Name="Time" Type="Real64" Value="3.75163541666667"/>
+														</PropertyList>
+													</Marker>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2" ID="{8EEB8A2F-77B8-4229-AB74-1770EC5B6AB6}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

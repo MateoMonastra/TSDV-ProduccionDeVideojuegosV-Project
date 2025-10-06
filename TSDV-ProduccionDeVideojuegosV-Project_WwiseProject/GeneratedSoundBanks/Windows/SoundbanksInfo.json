@@ -80,7 +80,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{E141444F-88D4-B0FD-8EE4-0546B2B43F3D}",
+    "Hash": "{6335AF5D-A9DE-AE86-8FBB-42AF8554AE1A}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -99,7 +99,15 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "TrashVacuumed-003.wav",
-      "CachePath": "C7/{C765F427-1395-15A2-DABB-4C6CE2C0842D}.wem"
+      "CachePath": "EE/{EE40EE46-04B1-4F95-45D2-3171C9021ECA}.wem"
+     },
+     {
+      "Id": "542374016",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "TrashVacuumed-004.wav",
+      "CachePath": "DE/{DE9DD16B-0372-26BD-858A-940A4E323703}.wem"
      },
      {
       "Id": "604996596",
@@ -108,6 +116,22 @@
       "Location": "Memory",
       "ShortName": "PlayerMovementJump-003.wav",
       "CachePath": "FE/{FEB39C77-D4C7-66A9-B5CB-A5CF9EC6BE92}.wem"
+     },
+     {
+      "Id": "726509691",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "TrashVacuumed-004.wav",
+      "CachePath": "F2/{F2E67AF2-340F-97E3-C93A-7D47DA0E4647}.wem"
+     },
+     {
+      "Id": "741664225",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Soundly Audio\\Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2.wav",
+      "CachePath": "41/{417ECFD6-2A92-4A04-B8A4-6ACB7B6D6F46}.wem"
      },
      {
       "Id": "842619675",
@@ -124,6 +148,14 @@
       "Location": "Memory",
       "ShortName": "PasosTile-004.wav",
       "CachePath": "06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem"
+     },
+     {
+      "Id": "939596107",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "TrashVacuumed-004.wav",
+      "CachePath": "BA/{BA72CE4B-D59B-F972-8CF7-D15366C9661A}.wem"
      },
      {
       "Id": "1006501114",
@@ -173,7 +205,7 @@
       "DurationMax": "0.4601112",
       "MediaRefs": [
        {
-        "Id": "319135143"
+        "Id": "939596107"
        }
       ]
      },
@@ -201,7 +233,7 @@
       "DurationMax": "0.3891472",
       "MediaRefs": [
        {
-        "Id": "319135143"
+        "Id": "542374016"
        }
       ]
      },
@@ -215,7 +247,7 @@
       "DurationMax": "1.2072471",
       "MediaRefs": [
        {
-        "Id": "319135143"
+        "Id": "726509691"
        }
       ]
      },
@@ -314,6 +346,48 @@
       ]
      },
      {
+      "Id": "395070063",
+      "Name": "PlayerSpinCharge1",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerSpinCharge1",
+      "GUID": "{2A4ABDBA-66B6-4514-8FA7-D071C2CC63CF}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.8806023",
+      "DurationMax": "0.8806023",
+      "MediaRefs": [
+       {
+        "Id": "741664225"
+       }
+      ]
+     },
+     {
+      "Id": "395070060",
+      "Name": "PlayerSpinCharge2",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerSpinCharge2",
+      "GUID": "{DF2DA487-614C-45D1-AEAE-3B2110FE1B0F}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.8263907",
+      "DurationMax": "0.8263907",
+      "MediaRefs": [
+       {
+        "Id": "741664225"
+       }
+      ]
+     },
+     {
+      "Id": "395070061",
+      "Name": "PlayerSpinCharge3",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerSpinCharge3",
+      "GUID": "{BF2FCF5C-FA69-4BE6-B041-63018A524DD9}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.7845274",
+      "DurationMax": "0.7845274",
+      "MediaRefs": [
+       {
+        "Id": "741664225"
+       }
+      ]
+     },
+     {
       "Id": "412471812",
       "Name": "PlayerStep",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerStep",
@@ -330,6 +404,6 @@
     ]
    }
   ],
-  "FileHash": "{2C71662A-E999-7EE7-0978-E7952CF6B449}"
+  "FileHash": "{683C99E4-23C8-1F73-5177-9CA1F707EC8C}"
  }
 }
