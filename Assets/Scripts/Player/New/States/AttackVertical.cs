@@ -5,6 +5,7 @@ using UnityEngine;
 using Platforms;
 using Player.New.VFX;
 using Player.New.Audio;
+using Unity.Mathematics;
 
 namespace Player.New
 {
@@ -28,8 +29,7 @@ namespace Player.New
         private bool _impactDone;
         private bool _impactStarted;
         private float _postTimer;
-
-        private const float ImpactProximity = 0.20f;
+        
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
@@ -72,10 +72,9 @@ namespace Player.New
             var v = _m.Velocity;
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
-
-            _anim?.SetCombatActive(true);
+            
             _anim?.TriggerVerticalStart();
-            _anim?.SetStopAvatarMask(true);
+            _anim?.SetFalling(false);
             
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
 
@@ -88,15 +87,12 @@ namespace Player.New
             if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
 
             _model.ClearActionLocks();
-            _anim?.SetCombatActive(false);
-            _anim?.SetStopAvatarMask(false);
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
             _t += dt;
-
             if (_impactDone)
             {
                 if (_postTimer > 0f)
@@ -129,12 +125,6 @@ namespace Player.New
                 {
                     DoImpact();
                 }
-            }
-            else
-            {
-                // if (Physics.Raycast(_m.transform.position, Vector3.down, out var hit, ImpactProximity, ~0,
-                //         QueryTriggerInteraction.Ignore))
-                //     DoImpact();
             }
 
             if (_t >= MaxAirTime && !_impactDone)
@@ -204,11 +194,11 @@ namespace Player.New
                 if (rb == null || rb.isKinematic) continue;
 
                 Vector3 to = (c.bounds.center - center);
-                if (to.sqrMagnitude < 1e-6f) to = Vector3.up;
+                if (to.sqrMagnitude < Mathf.Epsilon) to = Vector3.up;
 
                 Vector3 horiz = to;
                 horiz.y = 0f;
-                if (horiz.sqrMagnitude > 1e-6f) horiz.Normalize();
+                if (horiz.sqrMagnitude > Mathf.Epsilon) horiz.Normalize();
 
                 Vector3 pushDir = (horiz + Vector3.up * _model.VerticalRigidbodyUpFactor).normalized;
                 rb.AddForce(pushDir * _model.VerticalRigidbodyImpulse, ForceMode.VelocityChange);
