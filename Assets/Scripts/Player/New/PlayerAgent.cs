@@ -201,7 +201,6 @@ namespace Player.New
         private void OnPlayerDeath()
         {
             hud.SetHealth(0);
-            animController?.SetCombatActive(false);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sDeath);
@@ -436,6 +435,10 @@ namespace Player.New
         public void SetPlayerAttackIdleState()
         {
             _actionFsm?.ForceTransition(_aIdle);
+        }
+        public void SetPlayerIdleState()
+        {
+            _locomotionFsm?.ForceTransition(_sIdle);
         }
 
         private void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)

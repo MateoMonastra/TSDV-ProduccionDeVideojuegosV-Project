@@ -66,8 +66,7 @@ namespace Player.New
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
             _postStun = _model.SpinPostStun;
             _model.SelfStunDuration = Mathf.Lerp(_model.SelfStunMinDuration, _model.SelfStunMaxDuration, r);
-
-            _anim?.SetCombatActive(true);
+            
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
             
@@ -87,7 +86,6 @@ namespace Player.New
 
             _model.JumpBlocked = false;
             _model.DashBlocked = false;
-            _anim?.SetCombatActive(false);
 
             _vfxController?.Stop(VfxEvent.SpinAttack);
         }

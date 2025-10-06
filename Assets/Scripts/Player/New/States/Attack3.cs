@@ -26,7 +26,7 @@ namespace Player.New
         {
             base.Enter();
             Duration = Model.Attack3Duration;
-
+            
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
