@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System;
+using FSM;
 using Health;
 using KinematicCharacterController.Examples;
 using Player.New.Audio;
@@ -84,8 +85,7 @@ namespace Player.New
 
         private void OnEnable()
         {
-            SubscribeInputs(true);
-            if (health != null) health.OnDeath += OnPlayerDeath;
+            SubscribeInputs(true); if (health != null) health.OnDeath += OnPlayerDeath;
             if (health) health.OnTakeDamage += OnPlayerDamaged;
 
             if (interactController) interactController.OnStartInteractAction += OnInteractStarted;
@@ -363,6 +363,15 @@ namespace Player.New
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
 
             _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
+
+            _sFall.OnEnter += () =>
+            {
+                if (_actionFsm.GetCurrentState() == _aVertical )
+                {
+                    return;
+                }
+                _actionFsm?.ForceTransition(_aIdle);
+            };
 
             _locomotionFsm = new Fsm(_sIdle);
         }

@@ -19,6 +19,10 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfx;
 
+        private float _timeSinceUngrounded;
+        private int _ungroundedFrames;
+        private const float GroundProbeLength = 100f;
+        
         public Sprint(MyKinematicMotor m,
                       PlayerModel mdl,
                       Transform cam,
@@ -76,8 +80,27 @@ namespace Player.New
             
             if (!Motor.IsGrounded)
             {
-                RequestTransition?.Invoke(ToFall);
-                return;
+                _timeSinceUngrounded += dt;
+                _ungroundedFrames++;
+                
+                Vector3 origin = Motor.transform.position + Motor.CharacterUp * 0.05f;
+                int mask = ~Model.PlayerLayer;
+
+                bool hasGround = Physics.Raycast(origin, -Motor.CharacterUp, out RaycastHit hit, GroundProbeLength, mask);
+                bool heightEnough = !hasGround || (hit.distance >= Model.MinFallHeight);
+
+                if (_timeSinceUngrounded > Model.CoyoteTime &&
+                    _ungroundedFrames >= 2 &&
+                    heightEnough)
+                {
+                    RequestTransition?.Invoke(ToFall);
+                    return;
+                }
+            }
+            else
+            {
+                _timeSinceUngrounded = 0f;
+                _ungroundedFrames = 0;
             }
         }
 
