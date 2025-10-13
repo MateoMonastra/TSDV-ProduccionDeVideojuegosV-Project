@@ -236207,6 +236207,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1410483010749617081, guid: 647088fc32a8bf947b81fa8b29705e42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3511111368582901674, guid: 647088fc32a8bf947b81fa8b29705e42, type: 3}
       propertyPath: m_Name
       value: VFX_Ambiental
@@ -315576,6 +315580,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2466483658284043738, guid: b1a72f08706ac7244b7069d61570f2f6, type: 3}
   m_PrefabInstance: {fileID: 1651402525276886915}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7660124526336012087
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 43.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044929839254205828, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209433451102052957, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
+      propertyPath: m_Name
+      value: VFX_HUMO_ALCANTARILLA
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05ea9605a7f1473469550d6a12d82169, type: 3}
 --- !u!1001 &9024316269374386542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -315662,3 +315723,4 @@ SceneRoots:
   - {fileID: 1561121497}
   - {fileID: 1778619526}
   - {fileID: 1618997624}
+  - {fileID: 7660124526336012087}
