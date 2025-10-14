@@ -4,6 +4,12 @@ using UnityEngine.Serialization;
 
 namespace Health
 {
+     [Serializable]
+    public struct Knockback
+    {
+        [Min(0)] public float horizontal;
+        [Min(0)] public float vertical;
+    }
     public class HealthController : MonoBehaviour
     {
         [SerializeField] private int maxHealth;
@@ -66,13 +72,21 @@ namespace Health
     {
         public int Damage;
         public Vector3 DamageOrigin;
-        public (int, int) Knockback;
+        public Knockback Knockback;
 
-        public DamageInfo(int damage, Vector3 transformPosition, (int, int) knockback)
+        public DamageInfo(int damage, Vector3 transformPosition, (float, float) knockback)
         {
             Damage = damage;
             DamageOrigin = transformPosition;
-            Knockback = (knockback.Item1, knockback.Item2);
+            Knockback.horizontal = knockback.Item1;
+            Knockback.vertical = knockback.Item2;
+        }
+        
+        public DamageInfo(int damage, Vector3 transformPosition, Knockback knockback)
+        {
+            Damage = damage;
+            DamageOrigin = transformPosition;
+            Knockback = knockback;
         }
     }
     

@@ -949,8 +949,8 @@ namespace KinematicCharacterController.Examples
             GameEvents.GameEvents.PlayerDamaged();
             Motor.ForceUnground(0.2f);
             Motor.BaseVelocity =
-                (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.Item1) +
-                 Vector3.up * damageInfo.Knockback.Item2);
+                (((transform.position - damageInfo.DamageOrigin).normalized * damageInfo.Knockback.horizontal) +
+                 Vector3.up * damageInfo.Knockback.vertical);
             yield return new WaitForSeconds(0.5f);
             animator.SetBool(IsDamaged, false);
             TransitionToState(CharacterState.Default);
