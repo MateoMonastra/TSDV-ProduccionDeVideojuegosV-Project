@@ -7,92 +7,72 @@ namespace Enemies.BaseEnemy
     public class BaseEnemyModel : ScriptableObject
     {
         [Header("Detection Settings")]
-        [SerializeField] private float innerRadius;
-        [SerializeField] private float outerRadius;
-        [SerializeField] private LayerMask groundLayer;
-        
+        [Tooltip("Radio interno: a esta distancia pasa de Idle a Chase.")]
+        [Min(0f)] [SerializeField] private float innerRadius = 4f;
+
+        [Tooltip("Radio externo: al superarlo, vuelve a Idle.")]
+        [Min(0f)] [SerializeField] private float outerRadius = 12f;
+
+        [Tooltip("Capa de suelo para raycasts de grounded/impulses.")]
+        [SerializeField] private LayerMask groundLayer = ~0;
+
         [Header("Attack Settings")]
-        [SerializeField] private float attackRange;
-        [SerializeField] private float attackDuration;
-        [SerializeField] private float attackDelay;
-        
+        [Tooltip("Distancia de ataque.")]
+        [Min(0f)] [SerializeField] private float attackRange = 2.2f;
+
+        [Tooltip("Duración de la ventana de impacto.")]
+        [Min(0f)] [SerializeField] private float attackDuration = 0.15f;
+
+        [Tooltip("Demora desde el inicio de la anim hasta abrir la ventana.")]
+        [Min(0f)] [SerializeField] private float attackDelay = 0.25f;
+
         [Header("Damage Feedback Settings")]
-        [SerializeField] private float horizontalImpulseForce;
-        [SerializeField] private float verticalImpulseForce;
-        [SerializeField] private float lowJumpMultiplier;
-        [SerializeField] private float fallMultiplier;
-        [SerializeField] private float damagedStunTime;
-        [SerializeField] private float deathTime;
+        [Tooltip("Impulso horizontal aplicado al recibir daño.")]
+        [Min(0f)] [SerializeField] private float horizontalImpulseForce = 12f;
 
-        public float InnerRadius
-        {
-            get => innerRadius;
-            set => innerRadius = value;
-        }
+        [Tooltip("Impulso vertical aplicado al recibir daño.")]
+        [Min(0f)] [SerializeField] private float verticalImpulseForce = 3.5f;
 
-        public float OuterRadius
-        {
-            get => outerRadius;
-            set => outerRadius = value;
-        }
-        public LayerMask GroundLayer
-        {
-            get => groundLayer;
-            set => groundLayer = value;
-        }
+        [Tooltip("Multiplicador de caída (gravedad extra hacia abajo).")]
+        [Min(0f)] [SerializeField] private float lowJumpMultiplier = 1.5f;
 
-        public float AttackRange
-        {
-            get => attackRange;
-            set => attackRange = value;
-        }
+        [Tooltip("Multiplicador cuando asciende (para saltos bajos).")]
+        [Min(0f)] [SerializeField] private float fallMultiplier = 2.5f;
 
-        public float AttackDuration
-        {
-            get => attackDuration;
-            set => attackDuration = value;
-        }
+        [Tooltip("Stun tras daño (si tu FSM lo usa).")]
+        [Min(0f)] [SerializeField] private float damagedStunTime = 0.1f;
 
-        public float AttackDelay
-        {
-            get => attackDelay;
-            set => attackDelay = value;
-        }
+        [Tooltip("Tiempo hasta despawn en Death.")]
+        [Min(0f)] [SerializeField] private float deathTime = 1.0f;
 
-        public float HorizontalImpulseForce
-        {
-            get => horizontalImpulseForce;
-            set => horizontalImpulseForce = value;
-        }
+        // ───────── Read/Write props (compatibles con tu código actual)
+        public float InnerRadius { get => innerRadius; set => innerRadius = Mathf.Max(0f, value); }
+        public float OuterRadius { get => outerRadius; set => outerRadius = Mathf.Max(0f, value); }
+        public LayerMask GroundLayer { get => groundLayer; set => groundLayer = value; }
+        public float AttackRange { get => attackRange; set => attackRange = Mathf.Max(0f, value); }
+        public float AttackDuration { get => attackDuration; set => attackDuration = Mathf.Max(0f, value); }
+        public float AttackDelay { get => attackDelay; set => attackDelay = Mathf.Max(0f, value); }
+        public float HorizontalImpulseForce { get => horizontalImpulseForce; set => horizontalImpulseForce = Mathf.Max(0f, value); }
+        public float VerticalImpulseForce { get => verticalImpulseForce; set => verticalImpulseForce = Mathf.Max(0f, value); }
+        public float LowJumpMultiplier { get => lowJumpMultiplier; set => lowJumpMultiplier = Mathf.Max(0f, value); }
+        public float FallMultiplier { get => fallMultiplier; set => fallMultiplier = Mathf.Max(0f, value); }
+        public float DamagedStunTime { get => damagedStunTime; set => damagedStunTime = Mathf.Max(0f, value); }
+        public float DeathTime { get => deathTime; set => deathTime = Mathf.Max(0f, value); }
 
-        public float VerticalImpulseForce
-        {
-            get => verticalImpulseForce;
-            set => verticalImpulseForce = value;
-        }
-        
-        public float LowJumpMultiplier
-        {
-            get => lowJumpMultiplier;
-            set => lowJumpMultiplier = value;
-        }
+        // ───────── Cached squared (evitan sqrt por frame)
+        public float SqrInnerRadius => innerRadius * innerRadius;
+        public float SqrOuterRadius => outerRadius * outerRadius;
+        public float SqrAttackRange => attackRange * attackRange;
 
-        public float FallMultiplier
+        private void OnValidate()
         {
-            get => fallMultiplier;
-            set => fallMultiplier = value;
-        }
-        
-        public float DamagedStunTime
-        {
-            get => damagedStunTime;
-            set => damagedStunTime = value;
-        }
-        
-        public float DeathTime
-        {
-            get => deathTime;
-            set => deathTime = value;
+            // Garantizar relaciones sanas
+            if (outerRadius < innerRadius) outerRadius = innerRadius;
+            if (attackRange > outerRadius) attackRange = outerRadius;
+
+            // Multiplicadores no negativos
+            lowJumpMultiplier  = Mathf.Max(0f, lowJumpMultiplier);
+            fallMultiplier     = Mathf.Max(0f, fallMultiplier);
         }
     }
 }

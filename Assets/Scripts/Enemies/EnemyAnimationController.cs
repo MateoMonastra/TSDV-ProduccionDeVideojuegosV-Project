@@ -2,39 +2,45 @@ using UnityEngine;
 
 namespace Enemies
 {
+    [RequireComponent(typeof(Animator))]
     public class EnemyAnimationController : MonoBehaviour
     {
-        private static readonly int IsChase = Animator.StringToHash("IsChase");
-        private static readonly int IsDamaged = Animator.StringToHash("IsDamaged");
-        private static readonly int Attack = Animator.StringToHash("Attack");
-        private static readonly int AttackHit = Animator.StringToHash("AttackHit");
-        private static readonly int Death = Animator.StringToHash("Death");
+        private static readonly int IsChaseHash   = Animator.StringToHash("IsChase");
+        private static readonly int IsDamagedHash = Animator.StringToHash("IsDamaged");
+        private static readonly int AttackHash    = Animator.StringToHash("Attack");
+        private static readonly int AttackHitHash = Animator.StringToHash("AttackHit");
+        private static readonly int DeathHash     = Animator.StringToHash("Death");
 
-        [SerializeField] Animator animator;
+        [SerializeField] private Animator animator;
+
+        private void Awake()
+        {
+            if (!animator) animator = GetComponent<Animator>();
+        }
 
         public void SetWalkAnimation(bool isWalk)
         {
-            animator.SetBool(IsChase, isWalk);
+            animator?.SetBool(IsChaseHash, isWalk);
         }
 
         public void SetDamagedAnimation(bool isDamaged)
         {
-            animator.SetBool(IsDamaged, isDamaged);
+            animator?.SetBool(IsDamagedHash, isDamaged);
         }
 
         public void SetAttackAnimation()
         {
-            animator.SetTrigger(Attack);
+            animator?.SetTrigger(AttackHash);
         }
 
         public void SetAttackHitAnimation()
         {
-            animator.SetTrigger(AttackHit);
+            animator?.SetTrigger(AttackHitHash);
         }
 
         public void SetDeathAnimation()
         {
-            animator.SetTrigger(Death);
+            animator?.SetTrigger(DeathHash);
         }
     }
 }

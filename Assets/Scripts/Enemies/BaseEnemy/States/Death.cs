@@ -1,47 +1,30 @@
-using FSM;
-using UnityEngine;
-
 namespace Enemies.BaseEnemy.States
 {
-    public class Death : State
+    /// <summary>
+    /// Estado de muerte: limpia componentes y hace despawn tras el timer.
+    /// </summary>
+    public sealed class Death : FSM.State
     {
-        private GameObject _enemy;
-        private BaseEnemyModel _model;
+        private readonly EnemyContext _ctx;
+        private float _t;
 
-        private float _deathTimer;
-        public Death(GameObject enemy, BaseEnemyModel model)
-        {
-            this._enemy = enemy;
-            this._model = model;
-        }
+        public Death(EnemyContext ctx) => _ctx = ctx;
+
         public override void Enter()
         {
-            base.Enter();
+            _ctx.Anims?.SetDeathAnimation();
+            if (_ctx.Agent)  _ctx.Agent.enabled = false;
+            if (_ctx.HitBox) _ctx.HitBox.enabled = false;
+            _t = 0f;
         }
 
-        public override void Tick(float delta)
+        public override void Tick(float dt)
         {
-            base.Tick(delta);
-            if (_deathTimer < _model.DeathTime)
+            _t += dt;
+            if (_t >= _ctx.Model.DeathTime)
             {
-                _deathTimer += delta;
+                _ctx.Self.gameObject.SetActive(false);
             }
-            else
-            {
-                _enemy.SetActive(false);
-            }
-            
-            
-        }
-
-        public override void FixedTick(float delta)
-        {
-            base.FixedTick(delta);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
     }
 }

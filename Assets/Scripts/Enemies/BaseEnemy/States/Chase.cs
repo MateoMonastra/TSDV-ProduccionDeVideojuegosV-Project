@@ -1,72 +1,56 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Enemies.BaseEnemy.States
 {
-    public class Chase : BaseEnemyState
+    public sealed class Chase : BaseEnemyState
     {
-        private NavMeshAgent _agent;
-        private System.Action _onExitChase;
-        private System.Action _onEnterAttack;
+        private readonly System.Action _toIdle, _toAttack;
 
-        public Chase(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent,
-            System.Action onExitChase, System.Action onEnterAttack) : base(enemy, player, model)
+        public Chase(EnemyContext ctx, System.Action toIdle, System.Action toAttack) : base(ctx)
         {
-            this._agent = agent;
-            this._onExitChase = onExitChase;
-            this._onEnterAttack = onEnterAttack;
+            _toIdle   = toIdle;
+            _toAttack = toAttack;
         }
 
         public override void Enter()
         {
-            base.Enter();
+            Ctx.Anims?.SetWalkAnimation(true);
+
+            if (Ctx.Agent)
+            {
+                Ctx.Agent.enabled = true;
+                Ctx.Agent.isStopped = false;
+            
+                Ctx.Agent.stoppingDistance = Mathf.Max(0.1f, Ctx.Model.AttackRange * 0.9f);
+            }
         }
 
-        public override void Tick(float delta)
+        public override void Tick(float dt)
         {
-            base.Tick(delta);
+            float sqrDist = SqrDistanceToPlayer();
 
-            float distance = Vector3.Distance(enemy.position, player.position);
+            if (sqrDist > Ctx.SqrOuterRadius)
+            {
+                Ctx.Agent?.ResetPath();
+                _toIdle?.Invoke();
+                return;
+            }
 
-            if (!IsPlayerInChaseRange(distance)) return;
+            if (sqrDist <= Ctx.SqrAttackRange)
+            {
+                Ctx.Agent?.ResetPath();
+                _toAttack?.Invoke();
+                return;
+            }
 
-            if (IsPlayerInAttackRange(distance)) return;
-
-            _agent.SetDestination(player.position);
-        }
-
-        public override void FixedTick(float delta)
-        {
-            base.FixedTick(delta);
+            if (Ctx.Agent && Ctx.Agent.enabled)
+                Ctx.Agent.SetDestination(Ctx.Target.position);
         }
 
         public override void Exit()
         {
-            _agent.ResetPath();
-        }
-
-        private bool IsPlayerInChaseRange(float distance)
-        {
-            if (distance > model.OuterRadius)
-            {
-                _agent.ResetPath();
-                _onExitChase?.Invoke();
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsPlayerInAttackRange(float distance)
-        {
-            if (distance <= model.AttackRange)
-            {
-                _agent.ResetPath();
-                _onEnterAttack?.Invoke();
-                return true;
-            }
-
-            return false;
+            Ctx.Anims?.SetWalkAnimation(false);
+            Ctx.Agent?.ResetPath();
         }
     }
 }

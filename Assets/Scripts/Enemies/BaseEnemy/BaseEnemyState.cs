@@ -1,18 +1,30 @@
-﻿using FSM;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemies.BaseEnemy
 {
-    public abstract class BaseEnemyState : State
+    /// <summary>Base de estados con utilidades comunes.</summary>
+    public abstract class BaseEnemyState : FSM.State
     {
-        protected Transform enemy;
-        protected Transform player;
-        protected BaseEnemyModel model;
-        protected BaseEnemyState(Transform enemy, Transform player, BaseEnemyModel model)
+        protected readonly EnemyContext Ctx;
+        protected BaseEnemyState(EnemyContext ctx) => Ctx = ctx;
+        
+        protected float SqrDistanceToPlayer()
         {
-            this.enemy = enemy;
-            this.player = player;
-            this.model = model;
+            Vector3 d = Ctx.Target.position - Ctx.Self.position;
+            d.y = 0f;
+            return d.sqrMagnitude;
+        }
+
+        protected void ToggleAgent(bool on)
+        {
+            if (!Ctx.Agent) return;
+            Ctx.Agent.enabled = on;
+        }
+
+        protected void ToggleHitBox(bool on)
+        {
+            if (!Ctx.HitBox) return;
+            Ctx.HitBox.enabled = on;
         }
     }
 }

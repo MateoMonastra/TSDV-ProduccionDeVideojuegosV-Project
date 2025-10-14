@@ -1,40 +1,28 @@
-using UnityEngine;
-
 namespace Enemies.BaseEnemy.States
 {
-    public class Idle : BaseEnemyState
+    public sealed class Idle : BaseEnemyState
     {
-        private System.Action _onEnterChase;
-        public Idle(Transform enemy, Transform player, BaseEnemyModel model, System.Action onEnterChase) : base(enemy, player, model)
+        private readonly System.Action _toChase;
+
+        public Idle(EnemyContext ctx, System.Action toChase) : base(ctx)
         {
-            this._onEnterChase = onEnterChase;
+            _toChase = toChase;
         }
-        
+
         public override void Enter()
         {
-            base.Enter();
-        }
-
-        public override void Tick(float delta)
-        {
-            base.Tick(delta);
-            
-            float distance = Vector3.Distance(enemy.position, player.position);
-
-            if (distance <= model.InnerRadius)
+            Ctx.Anims?.SetWalkAnimation(false);
+            if (Ctx.Agent && Ctx.Agent.enabled)
             {
-                _onEnterChase?.Invoke();
+                Ctx.Agent.ResetPath();
+                Ctx.Agent.isStopped = true;
             }
         }
 
-        public override void FixedTick(float delta)
+        public override void Tick(float dt)
         {
-            base.FixedTick(delta);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
+            if (SqrDistanceToPlayer() <= Ctx.SqrInnerRadius)
+                _toChase?.Invoke();
         }
     }
 }
