@@ -90,6 +90,7 @@ namespace Player.New
 
             if (interactController) interactController.OnStartInteractAction += OnInteractStarted;
             if (interactController) interactController.OnEndInteractAction += OnInteractEnded;
+            if (_sFall != null) _sFall.OnEnter += FallResetActionFsm;
         }
 
         private void OnDisable()
@@ -100,6 +101,7 @@ namespace Player.New
             
             if (interactController) interactController.OnStartInteractAction -= OnInteractStarted;
             if (interactController) interactController.OnEndInteractAction -= OnInteractEnded;
+            if (_sFall != null) _sFall.OnEnter -= FallResetActionFsm;
         }
 
         private void Start()
@@ -364,15 +366,6 @@ namespace Player.New
 
             _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
 
-            _sFall.OnEnter += () =>
-            {
-                if (_actionFsm.GetCurrentState() == _aVertical )
-                {
-                    return;
-                }
-                _actionFsm?.ForceTransition(_aIdle);
-            };
-
             _locomotionFsm = new Fsm(_sIdle);
         }
 
@@ -459,6 +452,16 @@ namespace Player.New
         public void SetPlayerIdleState()
         {
             _locomotionFsm?.ForceTransition(_sIdle);
+        }
+        
+        private void FallResetActionFsm()
+        {
+            if (_actionFsm.GetCurrentState() == _aVertical )
+            {
+                return;
+            }
+
+            _actionFsm?.ForceTransition(_aIdle);
         }
 
         private void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)
