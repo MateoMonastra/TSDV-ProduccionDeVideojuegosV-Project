@@ -36,7 +36,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
-            _vfxController?.Play(VfxEvent.BaseAttack);
+            _vfxController?.Play(VfxEvent.Attack2);
             _audioController.PlayPlayerAttack2();
         }
 
