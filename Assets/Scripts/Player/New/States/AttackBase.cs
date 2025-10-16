@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FSM;
 using Health;
 using UnityEngine;
@@ -21,8 +22,8 @@ namespace Player.New
         /// <summary>Acumulador de tiempo del ataque.</summary>
         protected float t;
 
-        /// <summary>Señal de que ya aplicamos el hit (evita multi-hit).</summary>
-        private bool _didHit;
+        /// <summary>Enemigos ya golpeados durante este ataque.</summary>
+        private readonly HashSet<HealthController> _enemiesHit = new HashSet<HealthController>();
 
         /// <summary>Si el jugador pidió encadenar (presionó Attack) en cualquier momento.</summary>
         protected bool ChainBuffered;
@@ -34,8 +35,9 @@ namespace Player.New
         {
             base.Enter();
             t = 0f;
-            _didHit = false;
             ChainBuffered = false;
+            _enemiesHit.Clear();
+
             Model.DashBlocked = true;
             Model.JumpBlocked = true;
         }
@@ -43,8 +45,9 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _didHit = false;
             ChainBuffered = false;
+            _enemiesHit.Clear();
+
             Model.DashBlocked = false;
         }
 
@@ -56,6 +59,7 @@ namespace Player.New
             float halfAngle = (Model != null) ? Model.AttackHalfAngleDegrees : 45f;
             TryDoHitFrontal(normalizedTime, halfAngle);
         }
+
         protected void TryDoHitFrontal(float normalizedTime, float halfAngleDeg)
         {
             Vector3 origin  = M.transform.position;
@@ -89,9 +93,14 @@ namespace Player.New
             if (!bestTf) return;
 
             var enemyHealth = bestTf.GetComponentInParent<HealthController>();
-            if (enemyHealth != null)
-                enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin,(0,0)));
-        }
+            if (enemyHealth == null) return;
 
+            // Evitar golpear dos veces al mismo enemigo en este ataque
+            if (_enemiesHit.Contains(enemyHealth))
+                return;
+
+            _enemiesHit.Add(enemyHealth);
+            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, (0, 0)));
+        }
     }
 }

@@ -9,12 +9,14 @@ namespace Player.New
     {
         public const string ToIdle = "ToIdle";
 
+        private float _windUpTime = 0.25f;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
         public Attack3(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
             : base(m, mdl, req)
         {
             _vfxController = vfxController;
@@ -26,7 +28,7 @@ namespace Player.New
         {
             base.Enter();
             Duration = Model.Attack3Duration;
-            
+
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
@@ -45,11 +47,12 @@ namespace Player.New
             base.Tick(dt);
             t += dt;
 
-            TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
+            if (t >= _windUpTime)
+                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
             if (t >= Duration)
             {
-                Model.AttackComboOnCooldown   = true;
+                Model.AttackComboOnCooldown = true;
                 Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
 
                 Req?.Invoke(ToIdle);
