@@ -10,7 +10,7 @@ namespace Player.New
         public const string ToAttack3 = "ToAttack3";
         public const string ToIdle = "ToIdle";
 
-        private float _windUpTime = 0.3f;
+        private float _windUpTime = 0.1f;
         private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
