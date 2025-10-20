@@ -1,154 +1,199 @@
-using System;
+using System.Collections.Generic;
 using Enemies.BaseEnemy.States;
 using FSM;
 using Health;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace Enemies.BaseEnemy
 {
-    /// <summary>
-    /// Orquesta la FSM del enemigo, conecta animaciones/daño/IA (NavMesh)
-    /// </summary>
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(Rigidbody))]
-    public class BaseEnemyAgent : MonoBehaviour
+    public class BaseEnemyAgent : MonoBehaviour, IEnemy
     {
-        // ───────────────────────────────────────────────────────────────────────
-        #region Inspector References
-        [Header("Refs")]
+        public UnityEvent onAttackDelay;
+        public UnityEvent onAttackHit;
+        public UnityEvent onAttackFinish;
+        public UnityEvent onImpulseStarted;
+        public UnityEvent onImpulseEnded;
+        public UnityEvent<bool> onChase;
+        public UnityEvent onIdle;
+        public UnityEvent onDeath;
+
+        //TODO: pasar conocimiento del player a un scriptable object
+        [SerializeField] private HealthController healthController;
         [SerializeField] private Transform player;
         [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
-        [SerializeField] private Rigidbody rb;
+        [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
-        [SerializeField] private EnemyAnimationController anims;
-        [SerializeField] private HealthController health;
-        #endregion
 
-        // ───────────────────────────────────────────────────────────────────────
-        #region FSM (Core)
         private Fsm _fsm;
-        private Idle    _sIdle;
-        private Chase   _sChase;
-        private Attack  _sAttack;
-        private Impulse _sImpulse;
-        private Death   _sDeath;
 
-        private EnemyContext _ctx;
-        private bool _god;
+        private State death;
         
-        private const string ToChaseID = "ToChase";
-        private const string ToIdleID = "ToIdle";
-        private const string ToImpulseID = "ToImpulse";
-        private const string ToAttackID = "ToAttack";
-        
-        #endregion
+        private List<State> _states = new List<State>();
+        private bool _isGodModeActive = false;
 
-        // ───────────────────────────────────────────────────────────────────────
-        #region Unity Messages
-        private void Awake()
+        private const string ToChaseID = "toChase";
+        private const string ToAttackID = "toAttack";
+        private const string ToIdleID = "toIdle";
+        private const string ToImpulseID = "toImpulse";
+
+        private void Start()
         {
-            InitRefs();
-            BuildFsm();
+            State idle = new Idle(this.transform, player, model, TransitionToChase);
+
+            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, AttackOnDelay, AttackOnHit,
+                TransitionToChase);
+
+            State chase = new Chase(this.transform, player, model, navMeshAgent,
+                onExitChase: TransitionToIdle,
+                onEnterAttack: TransitionToAttack);
+
+            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+
+            death = new Death(this.gameObject, model);
+            _states.Add(death);
+            
+            //Idle Transitions
+            Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
+            idle.AddTransition(idleToChase);
+
+            Transition idleToImpulse = new Transition() { From = idle, To = impulse, ID = ToImpulseID };
+            idle.AddTransition(idleToImpulse);
+            _states.Add(idle);
+
+            //Chase Transitions
+            Transition chaseToAttack = new Transition() { From = chase, To = attack, ID = ToAttackID };
+            chase.AddTransition(chaseToAttack);
+
+            Transition chaseToIdle = new Transition() { From = chase, To = idle, ID = ToIdleID };
+            chase.AddTransition(chaseToIdle);
+
+            Transition chaseToImpulse = new Transition() { From = chase, To = impulse, ID = ToImpulseID };
+            chase.AddTransition(chaseToImpulse);
+            _states.Add(chase);
+
+            //Attack Transitions
+            Transition attackToChase = new Transition() { From = attack, To = chase, ID = ToChaseID };
+            attack.AddTransition(attackToChase);
+
+            Transition attackToImpulse = new Transition() { From = attack, To = impulse, ID = ToImpulseID };
+            attack.AddTransition(attackToImpulse);
+            _states.Add(attack);
+
+            //Impulse transitions
+            Transition impulseToChase = new Transition() { From = impulse, To = chase, ID = ToChaseID };
+            impulse.AddTransition(impulseToChase);
+
+            Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
+            impulse.AddTransition(impulseToImpulse);
+            _states.Add(impulse);
+
+            _fsm = new Fsm(idle);
         }
 
         private void OnEnable()
         {
-            if (health)
-            {
-                health.OnTakeDamage += OnDamaged;
-                health.OnDeath      += OnDied;
-            }
+            GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
+            healthController.OnTakeDamage += OnBeingAttacked;
+            healthController.OnDeath += TransitionToDeath;
         }
 
         private void OnDisable()
         {
-            if (health)
+            GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
+            healthController.OnTakeDamage -= OnBeingAttacked;
+            healthController.OnDeath -= TransitionToDeath;
+        }
+
+        private void TransitionToChase()
+        {
+            onChase?.Invoke(true);
+            _fsm.TryTransitionTo(ToChaseID);
+        }
+
+        private void TransitionToAttack()
+        {
+            _fsm.TryTransitionTo(ToAttackID);
+        }
+
+        private void TransitionToIdle()
+        {
+            onIdle?.Invoke();
+            _fsm.TryTransitionTo(ToIdleID);
+        }
+
+        private void TransitionToImpulse()
+        {
+            _fsm.TryTransitionTo(ToImpulseID);
+        }
+
+        private void TransitionToDeath()
+        {
+            if (_fsm.GetCurrentState() != death)
             {
-                health.OnTakeDamage -= OnDamaged;
-                health.OnDeath      -= OnDied;
+                onDeath?.Invoke();
+                _fsm.ForceTransition(death);
             }
+        }
+
+        private void AttackOnDelay()
+        {
+            onAttackDelay?.Invoke();
+        }
+
+        private void AttackOnHit()
+        {
+            onAttackHit?.Invoke();
+        }
+
+        private void ImpulseOnStart()
+        {
+            onImpulseStarted?.Invoke();
+        }
+
+        private void ImpulseOnEnd()
+        {
+            onImpulseEnded?.Invoke();
+
+            TransitionToChase();
+        }
+
+        private void SetGodModeValue(bool value)
+        {
+            _isGodModeActive = value;
         }
 
         private void Update()
         {
-            if (_god) return;
-            _fsm?.Update();
+            if (!_isGodModeActive)
+                _fsm.Update();
         }
 
         private void FixedUpdate()
         {
-            if (_god) return;
-            _fsm?.FixedUpdate();
+            if (!_isGodModeActive)
+                _fsm.FixedUpdate();
         }
-        #endregion
 
-        // ───────────────────────────────────────────────────────────────────────
-        #region Event Handlers
-        private void OnDamaged(DamageInfo info)
+        private void OnDrawGizmos()
         {
-            _fsm?.ForceTransition(_sImpulse);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, model.InnerRadius);
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, model.OuterRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
 
-        private void OnDied()
+        public void OnBeingAttacked(DamageInfo damageOrigin)
         {
-            if (_fsm.GetCurrentState() == _sDeath) return;
-            _fsm?.ForceTransition(_sDeath);
+            if (healthController.GetCurrentHealth() > 0)
+                TransitionToImpulse();
         }
-        #endregion
-
-        // ───────────────────────────────────────────────────────────────────────
-        #region Setup / Wiring
-        private void InitRefs()
-        {
-            if (!rb) rb = GetComponent<Rigidbody>();
-
-            if (navMeshAgent)
-            {
-                navMeshAgent.updateRotation  = false;
-                navMeshAgent.stoppingDistance = Mathf.Max(0.1f, model.AttackRange * 0.9f);
-            }
-
-            _ctx = new EnemyContext(transform, player, model, navMeshAgent, rb, hitBox, anims);
-        }
-
-        private void BuildFsm()
-        {
-            void Go(string id) => _fsm.TryTransitionTo(id);
-
-            _sIdle    = new Idle(_ctx,   toChase:  () => Go(ToChaseID));
-            _sChase   = new Chase(_ctx,  toIdle:   () => Go(ToIdleID),
-                                                                  toAttack: () => Go(ToAttackID));
-            _sAttack  = new Attack(_ctx, toChase:  () => Go(ToChaseID));
-            _sImpulse = new Impulse(_ctx,onEnd:    () => Go(ToChaseID));
-
-            _sDeath = new Death(_ctx);
-            
-            _sIdle.AddTransition   (new Transition { From = _sIdle,   To = _sChase,   ID = ToChaseID });
-            _sIdle.AddTransition   (new Transition { From = _sIdle,   To = _sImpulse, ID = ToImpulseID});
-            _sChase.AddTransition  (new Transition { From = _sChase,  To = _sAttack,  ID = ToAttackID });
-            _sChase.AddTransition  (new Transition { From = _sChase,  To = _sIdle,    ID = ToIdleID   });
-            _sChase.AddTransition  (new Transition { From = _sChase,  To = _sImpulse, ID = ToImpulseID});
-            _sAttack.AddTransition (new Transition { From = _sAttack, To = _sChase,   ID =ToChaseID  });
-            _sAttack.AddTransition (new Transition { From = _sAttack, To = _sImpulse, ID = ToImpulseID});
-            _sImpulse.AddTransition(new Transition { From = _sImpulse,To = _sChase,   ID = ToChaseID  });
-
-            _fsm = new Fsm(_sIdle);
-        }
-        #endregion
-
-        // ───────────────────────────────────────────────────────────────────────
-        #region Utilities
-        public void SetGodMode(bool on)
-        {
-            _god = on;
-            if (navMeshAgent) navMeshAgent.isStopped = on;
-            if (on) anims?.SetWalkAnimation(false);
-        }
-
-        public void SetIdle()  => _fsm?.ForceTransition(_sIdle);
-        public void SetChase() => _fsm?.ForceTransition(_sChase);
-        #endregion
     }
 }

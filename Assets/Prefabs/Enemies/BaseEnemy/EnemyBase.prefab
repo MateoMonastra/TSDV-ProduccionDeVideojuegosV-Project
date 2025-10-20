@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8957241947310003480}
   - component: {fileID: 6946263649448154249}
   - component: {fileID: 8625324188891851793}
-  - component: {fileID: 6461554366078262830}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Enemy
@@ -56,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  damageCooldown: 0.6
+  damageCooldown: 0.1
 --- !u!114 &5813122811278968515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,13 +68,240 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794e31f5005a4f7498ad81e81f3dfe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAttackDelay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetAttackAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6946263649448154249}
+        m_TargetAssemblyTypeName: Enemies.EnemyStateIndicator, Assembly-CSharp
+        m_MethodName: SetAttackState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttackHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetAttackHitAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttackFinish:
+    m_PersistentCalls:
+      m_Calls: []
+  onImpulseStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetDamagedAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1082947912835332324}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1232179310596176413}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6946263649448154249}
+        m_TargetAssemblyTypeName: Enemies.EnemyStateIndicator, Assembly-CSharp
+        m_MethodName: SetDamageState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onImpulseEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetDamagedAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onChase:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemy.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetWalkAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6946263649448154249}
+        m_TargetAssemblyTypeName: Enemies.EnemyStateIndicator, Assembly-CSharp
+        m_MethodName: SetChaseState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onIdle:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemy.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetWalkAnimation
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6946263649448154249}
+        m_TargetAssemblyTypeName: Enemies.EnemyStateIndicator, Assembly-CSharp
+        m_MethodName: SetIdleState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetDeathAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6946263649448154249}
+        m_TargetAssemblyTypeName: Enemies.EnemyStateIndicator, Assembly-CSharp
+        m_MethodName: SetDeathState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1082947912835332324}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1232179310596176413}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8957241947310003480}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healthController: {fileID: 6096114325307598351}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 55ce2bfbec3bcbb46b654a581783e7e8, type: 2}
   navMeshAgent: {fileID: 3352233999941462722}
-  rb: {fileID: 8625324188891851793}
+  rigidbody: {fileID: 8625324188891851793}
   hitBox: {fileID: 9095588081920352081}
-  anims: {fileID: 6952151925575430033}
-  health: {fileID: 6096114325307598351}
 --- !u!114 &6952151925575430033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,12 +328,12 @@ NavMeshAgent:
   m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.24
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -130,10 +356,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 2.7
+  m_Radius: 0.49
+  m_Height: 1.61
   m_Direction: 1
-  m_Center: {x: 0, y: 1.3, z: 0}
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!114 &6946263649448154249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,20 +373,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateText: {fileID: 208887400935774378}
-  onAttack: Attack
-  onIdle: Idle
-  onSpecial: SpecialAttack
-  onDamaged: Damaged
-  onChase: Chase
-  onImpulse: Impulse
-  onDeath: Death
-  attackColor: {r: 1, g: 0, b: 0, a: 1}
-  idleColor: {r: 1, g: 1, b: 1, a: 1}
-  specialColor: {r: 1, g: 0, b: 1, a: 1}
-  damagedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  chaseColor: {r: 0, g: 1, b: 0, a: 1}
-  impulseColor: {r: 1, g: 0.5, b: 0, a: 1}
-  deathColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!54 &8625324188891851793
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,28 +400,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!95 &6461554366078262830
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378120186435083909}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 69ce5dd747afb75488c00ed0f554f1d6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1941076761489559800
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +412,7 @@ GameObject:
   - component: {fileID: 9095588081920352081}
   - component: {fileID: 678627448334236753}
   - component: {fileID: 4140123507331930578}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,8 +453,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.1935265
+  m_Center: {x: -0.0000039768806, y: 0.090258986, z: 0.6032681}
 --- !u!114 &678627448334236753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,13 +471,8 @@ MonoBehaviour:
   knockback:
     horizontal: 20
     vertical: 35
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  requireTag: 0
-  requiredTag: Player
-  perTargetCooldown: 0.05
   activateLogs: 1
+  requirePlayerTag: 1
 --- !u!54 &4140123507331930578
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -691,6 +876,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3561036696941246577, guid: 9f52a6156fe657741b7c99898636b7ca, type: 3}
   m_PrefabInstance: {fileID: 3631437700424887255}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1082947912835332324 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4423117827486356275, guid: 9f52a6156fe657741b7c99898636b7ca, type: 3}
+  m_PrefabInstance: {fileID: 3631437700424887255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1232179310596176413 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2557166992685715914, guid: 9f52a6156fe657741b7c99898636b7ca, type: 3}
+  m_PrefabInstance: {fileID: 3631437700424887255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5600099830142806178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -709,7 +904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 889124584727623655, guid: 594f9643ef29c1b4c8227848f85ed0de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.231
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 889124584727623655, guid: 594f9643ef29c1b4c8227848f85ed0de, type: 3}
       propertyPath: m_LocalRotation.w

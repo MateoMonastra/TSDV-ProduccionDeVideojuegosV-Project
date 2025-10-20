@@ -8,15 +8,17 @@ namespace Player.New
     public class Attack2 : AttackBase
     {
         public const string ToAttack3 = "ToAttack3";
-        public const string ToIdle    = "ToIdle";
+        public const string ToIdle = "ToIdle";
 
+        private float _windUpTime = 0.1f;
         private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
         public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
             : base(m, mdl, req)
         {
             _vfxController = vfxController;
@@ -28,7 +30,12 @@ namespace Player.New
         {
             base.Enter();
 
-            if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
+            if (!M.IsGrounded)
+            {
+                Req?.Invoke(ToIdle);
+                Finish();
+                return;
+            }
 
             Duration = Model.Attack2Duration;
             _windowOpen = false;
@@ -36,7 +43,7 @@ namespace Player.New
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
-            _vfxController?.Play(VfxEvent.BaseAttack);
+            _vfxController?.Play(VfxEvent.Attack2);
             _audioController.PlayPlayerAttack2();
         }
 
@@ -51,10 +58,11 @@ namespace Player.New
             base.Tick(dt);
             t += dt;
 
-            TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
+            if (t >= _windUpTime)
+                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
             float chainWindow = Model.AttackChainWindow;
-            float lateGrace   = Model.AttackLateChainGrace;
+            float lateGrace = Model.AttackLateChainGrace;
 
             if (!_windowOpen && t >= Duration - chainWindow)
             {

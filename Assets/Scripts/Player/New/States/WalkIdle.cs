@@ -40,7 +40,7 @@ namespace Player.New
 
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
-            _anim?.SetWalking(false);
+            //_anim?.SetWalking(false);
         }
 
         public override void Exit()

@@ -416,7 +416,7 @@ namespace Player.New
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")]
         private float attackRange = 2.0f;
 
-        [SerializeField, Range(5f, 90f), Tooltip("Semiancho del cono frontal (°).")]
+        [SerializeField, Range(5f, 360f), Tooltip("Semiancho del cono frontal (°).")]
         private float attackHalfAngleDegrees = 55f;
 
         [SerializeField, Tooltip("Ventana para encadenar siguiente golpe (s).")]

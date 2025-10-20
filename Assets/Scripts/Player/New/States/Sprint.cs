@@ -13,8 +13,8 @@ namespace Player.New
     public class Sprint : LocomotionState
     {
         public const string ToWalkIdle = "Sprint->WalkIdle";
-        public const string ToFall     = "Sprint->Fall";
-        public const string ToJump     = "Sprint->JumpGround";
+        public const string ToFall = "Sprint->Fall";
+        public const string ToJump = "Sprint->JumpGround";
 
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfx;
@@ -22,13 +22,13 @@ namespace Player.New
         private float _timeSinceUngrounded;
         private int _ungroundedFrames;
         private const float GroundProbeLength = 100f;
-        
+
         public Sprint(MyKinematicMotor m,
-                      PlayerModel mdl,
-                      Transform cam,
-                      System.Action<string> requestTransition,
-                      PlayerAnimationController anim = null,
-                      PlayerVfxController vfx = null)
+            PlayerModel mdl,
+            Transform cam,
+            System.Action<string> requestTransition,
+            PlayerAnimationController anim = null,
+            PlayerVfxController vfx = null)
             : base(m, mdl, cam, requestTransition)
         {
             _anim = anim;
@@ -38,12 +38,12 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            
+
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
 
             _anim?.SetWalking(false);
             _anim?.SetSprinting(true);
-            
+
             _vfx.Play(VfxEvent.Run);
         }
 
@@ -53,14 +53,14 @@ namespace Player.New
             Model.ActionMoveSpeedMultiplier = 1f;
             Model.SprintArmed = false;
             _anim.SetSprinting(false);
-            
+
             _vfx.Stop(VfxEvent.Run);
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
-            
+
             if (Model.LocomotionBlocked)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
@@ -69,24 +69,37 @@ namespace Player.New
 
             UpdateMoveInputWorld();
             ApplyLocomotion(dt, inAir: false);
-            
-            var hv = Motor.Velocity; hv.y = 0f;
+
+            var hv = Motor.Velocity;
+            hv.y = 0f;
             bool moving = hv.sqrMagnitude > Model.SprintMinSpeedToKeep * Model.SprintMinSpeedToKeep;
             if (!moving)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
+                _anim?.SetWalking(false);
                 return;
             }
-            
+
+            if (!Model.DashHeld)
+            {
+                RequestTransition?.Invoke(ToWalkIdle);
+                
+                if (Model.RawMoveInput.sqrMagnitude > Model.MinInputSqr)
+                    _anim?.SetWalking(true);
+                
+                return;
+            }
+
             if (!Motor.IsGrounded)
             {
                 _timeSinceUngrounded += dt;
                 _ungroundedFrames++;
-                
+
                 Vector3 origin = Motor.transform.position + Motor.CharacterUp * 0.05f;
                 int mask = ~Model.PlayerLayer;
 
-                bool hasGround = Physics.Raycast(origin, -Motor.CharacterUp, out RaycastHit hit, GroundProbeLength, mask);
+                bool hasGround = Physics.Raycast(origin, -Motor.CharacterUp, out RaycastHit hit, GroundProbeLength,
+                    mask);
                 bool heightEnough = !hasGround || (hit.distance >= Model.MinFallHeight);
 
                 if (_timeSinceUngrounded > Model.CoyoteTime &&
@@ -112,9 +125,8 @@ namespace Player.New
                 if (cmd == CommandKeys.Jump &&
                     values[1] is bool pressed && pressed)
                 {
-
                     if (Motor.IsGrounded && !Model.JumpBlocked)
-                        
+
                         if (Model.JumpsLeft > 0)
                         {
                             RequestTransition?.Invoke(ToJump);
@@ -122,7 +134,7 @@ namespace Player.New
                 }
             }
         }
-        
+
 
         private void UpdateMoveInputWorld()
         {
@@ -133,7 +145,8 @@ namespace Player.New
 
             Vector3 camRight = Vector3.Cross(up, camFwd);
             Model.MoveInputWorld = camFwd * Model.RawMoveInput.y + camRight * Model.RawMoveInput.x;
-            if (Model.MoveInputWorld.sqrMagnitude > Model.MinInputSqr) Model.MoveInputWorld = Model.MoveInputWorld.normalized;
+            if (Model.MoveInputWorld.sqrMagnitude > Model.MinInputSqr)
+                Model.MoveInputWorld = Model.MoveInputWorld.normalized;
         }
     }
 }
