@@ -41,12 +41,17 @@ namespace Enemies.BaseEnemy.States
 
             _attackTimer += delta;
 
+
             if (model.AttackDelay <= _attackTimer && !_delayed)
             {
                 _delayed = true;
                 _attackTimer = 0;
                 _onAttackHit?.Invoke();
                 _collider.gameObject.SetActive(true);
+            }
+            else
+            {
+                enemy.LookAt(player);
             }
 
             if (!_delayed) return;
