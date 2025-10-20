@@ -45,6 +45,7 @@ namespace Player.New
             _deathCamera.gameObject.SetActive(true);
             _cameraRef.gameObject.SetActive(false);
 
+            _anim?.SetCombatActive(false);
             _anim?.TriggerDeath();
             if (_anim != null) _anim.OnAnim_DeathFinished += OnDeathFinished;
         }
