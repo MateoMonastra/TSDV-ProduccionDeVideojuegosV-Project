@@ -55,9 +55,37 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0
+        functionName: SetEyes
+        data: Emotion_Eyes
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.014685313
+        functionName: SetMouth
+        data: Sad_Mouth
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.74668473
+        functionName: SetEyes
+        data: Neutral_Eyes
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 1
         functionName: FinishTransitionToIdle
         data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.85219705
+        functionName: SetMouth
+        data: Smiling_Mouth
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
