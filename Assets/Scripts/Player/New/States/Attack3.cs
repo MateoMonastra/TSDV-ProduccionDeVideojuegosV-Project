@@ -9,7 +9,7 @@ namespace Player.New
     {
         public const string ToIdle = "ToIdle";
 
-        private float _windUpTime = 0.25f;
+        private float _windUpTime = 0.45f;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
