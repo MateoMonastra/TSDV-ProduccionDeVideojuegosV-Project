@@ -22,12 +22,15 @@ namespace Enemies.BaseEnemy
         //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private HealthController healthController;
         [SerializeField] private Transform player;
-        [SerializeField] private BaseEnemyModel model;  
+        [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
 
         private Fsm _fsm;
+
+        private State death;
+        
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
 
@@ -50,6 +53,9 @@ namespace Enemies.BaseEnemy
             State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
+            death = new Death(this.gameObject, model);
+            _states.Add(death);
+            
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
             idle.AddTransition(idleToChase);
@@ -126,9 +132,11 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToDeath()
         {
-            onDeath?.Invoke();
-            State death = new Death(this.gameObject, model);
-            _fsm.ForceTransition(death);
+            if (_fsm.GetCurrentState() != death)
+            {
+                onDeath?.Invoke();
+                _fsm.ForceTransition(death);
+            }
         }
 
         private void AttackOnDelay()
@@ -184,7 +192,8 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked(DamageInfo damageOrigin)
         {
-            TransitionToImpulse();
+            if (healthController.GetCurrentHealth() > 0)
+                TransitionToImpulse();
         }
     }
 }
