@@ -26,6 +26,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
+        [SerializeField] private EnemyAnimationController animator;
 
         private Fsm _fsm;
 
@@ -43,7 +44,7 @@ namespace Enemies.BaseEnemy
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, AttackOnDelay, AttackOnHit,
+            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox,animator, AttackOnDelay, AttackOnHit,
                 TransitionToChase);
 
             State chase = new Chase(this.transform, player, model, navMeshAgent,
