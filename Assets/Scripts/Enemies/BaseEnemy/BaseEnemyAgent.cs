@@ -28,8 +28,8 @@ namespace Enemies.BaseEnemy
         [SerializeField] private Collider hitBox;
 
         private Fsm _fsm;
-
-        private State death;
+        
+        private State _deathImpulse;
         
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
@@ -38,6 +38,7 @@ namespace Enemies.BaseEnemy
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
         private const string ToImpulseID = "toImpulse";
+        private const string ToDeathID = "toDeath";
 
         private void Start()
         {
@@ -52,8 +53,11 @@ namespace Enemies.BaseEnemy
 
             State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+            
+            _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: DeathImpulseOnEnd);
 
-            death = new Death(this.gameObject, model);
+            State death = new Death(this.gameObject, model);
             _states.Add(death);
             
             //Idle Transitions
@@ -90,6 +94,11 @@ namespace Enemies.BaseEnemy
             Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
             impulse.AddTransition(impulseToImpulse);
             _states.Add(impulse);
+            
+            //Death Impulse transitions
+            Transition deathImpulseToDeath = new Transition() { From = _deathImpulse, To = death, ID = ToDeathID };
+            _deathImpulse.AddTransition(deathImpulseToDeath);
+            _states.Add(_deathImpulse);
 
             _fsm = new Fsm(idle);
         }
@@ -98,14 +107,14 @@ namespace Enemies.BaseEnemy
         {
             GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
             healthController.OnTakeDamage += OnBeingAttacked;
-            healthController.OnDeath += TransitionToDeath;
+            healthController.OnDeath += TransitionToDeathImpulse;
         }
 
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
             healthController.OnTakeDamage -= OnBeingAttacked;
-            healthController.OnDeath -= TransitionToDeath;
+            healthController.OnDeath -= TransitionToDeathImpulse;
         }
 
         private void TransitionToChase()
@@ -132,10 +141,15 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToDeath()
         {
-            if (_fsm.GetCurrentState() != death)
+            onDeath?.Invoke();
+            _fsm.TryTransitionTo(ToDeathID);
+        }
+
+        private void TransitionToDeathImpulse()
+        {
+            if (_fsm.GetCurrentState() != _deathImpulse)
             {
-                onDeath?.Invoke();
-                _fsm.ForceTransition(death);
+                _fsm.ForceTransition(_deathImpulse);
             }
         }
 
@@ -159,6 +173,12 @@ namespace Enemies.BaseEnemy
             onImpulseEnded?.Invoke();
 
             TransitionToChase();
+        }
+        private void DeathImpulseOnEnd()
+        {
+            onImpulseEnded?.Invoke();
+
+            TransitionToDeath();
         }
 
         private void SetGodModeValue(bool value)

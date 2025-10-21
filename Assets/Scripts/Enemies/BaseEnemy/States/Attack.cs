@@ -73,6 +73,7 @@ namespace Enemies.BaseEnemy.States
 
         public override void Exit()
         {
+            _collider.gameObject.SetActive(false);
             base.Exit();
         }
     }
