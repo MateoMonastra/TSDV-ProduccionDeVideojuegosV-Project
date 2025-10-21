@@ -51,7 +51,10 @@ namespace Enemies.BaseEnemy.States
             }
             else
             {
-                enemy.LookAt(player);
+                Vector3 flatTarget = player.position;
+                flatTarget.y = enemy.position.y;
+                enemy.LookAt(flatTarget, Vector3.up);
+
             }
 
             if (!_delayed) return;
