@@ -49,6 +49,13 @@ namespace Enemies.BaseEnemy.States
                 _onAttackHit?.Invoke();
                 _collider.gameObject.SetActive(true);
             }
+            else
+            {
+                Vector3 flatTarget = player.position;
+                flatTarget.y = enemy.position.y;
+                enemy.LookAt(flatTarget, Vector3.up);
+
+            }
 
             if (!_delayed) return;
 
@@ -66,8 +73,6 @@ namespace Enemies.BaseEnemy.States
 
         public override void Exit()
         {
-            enemy.LookAt(player, Vector3.up);
-
             base.Exit();
         }
     }
