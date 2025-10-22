@@ -2,13 +2,17 @@
 <WwiseDocument Type="WorkUnit" ID="{7B7B5D13-FFAB-49C1-874D-26DB6806DF7D}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
 	<Events>
 		<WorkUnit Name="Player" ID="{7B7B5D13-FFAB-49C1-874D-26DB6806DF7D}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="2"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
 			<ChildrenList>
 				<Event Name="PlayerJump" ID="{96AE7904-2812-4EB8-842E-AA63D546BCA7}">
 					<ChildrenList>
 						<Action Name="" ID="{88F6047E-C292-4827-8C2C-4C502E9631C4}" ShortID="123713699">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerJump" ID="{EBB654EB-8573-4D88-BDC5-C1F7276E43A3}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerJump" ID="{4771F4C7-14B0-4532-BD1C-0E3554A8304D}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -19,7 +23,7 @@
 						<Action Name="" ID="{06A80667-3A76-4EB1-8787-97B8FAFA2F67}" ShortID="162903133">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerJump2" ID="{9BFFCD90-2D3E-4FA3-8909-E9E91F14116A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerJump" ID="{4771F4C7-14B0-4532-BD1C-0E3554A8304D}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -130,7 +134,7 @@
 						<Action Name="" ID="{512CE768-FA42-47AF-B4CC-5C1815FA8190}" ShortID="176761527">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerJump2" ID="{9BFFCD90-2D3E-4FA3-8909-E9E91F14116A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerJump" ID="{4771F4C7-14B0-4532-BD1C-0E3554A8304D}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
