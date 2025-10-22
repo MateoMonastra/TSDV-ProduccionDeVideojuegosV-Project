@@ -17,13 +17,15 @@ namespace Player.New
 
         private readonly PlayerAnimationController _anim;
         private readonly PlayerAudioController _audioController;
+        private readonly Fsm _actionFsm;
 
         public Fall(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerAudioController audioController = null, Fsm actionFsm = null)
             : base(m, mdl, cam, req)
         {
             _audioController = audioController;
             _anim = anim;
+            _actionFsm =  actionFsm;
         }
 
         public override void Enter()

@@ -22,12 +22,16 @@ namespace Enemies.BaseEnemy
         //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private HealthController healthController;
         [SerializeField] private Transform player;
-        [SerializeField] private BaseEnemyModel model;  
+        [SerializeField] private BaseEnemyModel model;
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
+        [SerializeField] private EnemyAnimationController animator;
 
         private Fsm _fsm;
+        
+        private State _deathImpulse;
+        
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
 
@@ -35,12 +39,13 @@ namespace Enemies.BaseEnemy
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
         private const string ToImpulseID = "toImpulse";
+        private const string ToDeathID = "toDeath";
 
         private void Start()
         {
             State idle = new Idle(this.transform, player, model, TransitionToChase);
 
-            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox, AttackOnDelay, AttackOnHit,
+            State attack = new Attack(this.transform, player, model, navMeshAgent, hitBox,animator, AttackOnDelay, AttackOnHit,
                 TransitionToChase);
 
             State chase = new Chase(this.transform, player, model, navMeshAgent,
@@ -49,7 +54,13 @@ namespace Enemies.BaseEnemy
 
             State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+            
+            _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: DeathImpulseOnEnd);
 
+            State death = new Death(this.gameObject, model);
+            _states.Add(death);
+            
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
             idle.AddTransition(idleToChase);
@@ -84,6 +95,11 @@ namespace Enemies.BaseEnemy
             Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
             impulse.AddTransition(impulseToImpulse);
             _states.Add(impulse);
+            
+            //Death Impulse transitions
+            Transition deathImpulseToDeath = new Transition() { From = _deathImpulse, To = death, ID = ToDeathID };
+            _deathImpulse.AddTransition(deathImpulseToDeath);
+            _states.Add(_deathImpulse);
 
             _fsm = new Fsm(idle);
         }
@@ -92,14 +108,14 @@ namespace Enemies.BaseEnemy
         {
             GameEvents.GameEvents.OnPlayerGodMode += SetGodModeValue;
             healthController.OnTakeDamage += OnBeingAttacked;
-            healthController.OnDeath += TransitionToDeath;
+            healthController.OnDeath += TransitionToDeathImpulse;
         }
 
         private void OnDisable()
         {
             GameEvents.GameEvents.OnPlayerGodMode -= SetGodModeValue;
             healthController.OnTakeDamage -= OnBeingAttacked;
-            healthController.OnDeath -= TransitionToDeath;
+            healthController.OnDeath -= TransitionToDeathImpulse;
         }
 
         private void TransitionToChase()
@@ -127,8 +143,15 @@ namespace Enemies.BaseEnemy
         private void TransitionToDeath()
         {
             onDeath?.Invoke();
-            State death = new Death(this.gameObject, model);
-            _fsm.ForceTransition(death);
+            _fsm.TryTransitionTo(ToDeathID);
+        }
+
+        private void TransitionToDeathImpulse()
+        {
+            if (_fsm.GetCurrentState() != _deathImpulse)
+            {
+                _fsm.ForceTransition(_deathImpulse);
+            }
         }
 
         private void AttackOnDelay()
@@ -151,6 +174,12 @@ namespace Enemies.BaseEnemy
             onImpulseEnded?.Invoke();
 
             TransitionToChase();
+        }
+        private void DeathImpulseOnEnd()
+        {
+            onImpulseEnded?.Invoke();
+
+            TransitionToDeath();
         }
 
         private void SetGodModeValue(bool value)
@@ -184,7 +213,8 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked(DamageInfo damageOrigin)
         {
-            TransitionToImpulse();
+            if (healthController.GetCurrentHealth() > 0)
+                TransitionToImpulse();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System;
+using FSM;
 using Health;
 using KinematicCharacterController.Examples;
 using Player.New.Audio;
@@ -84,12 +85,12 @@ namespace Player.New
 
         private void OnEnable()
         {
-            SubscribeInputs(true);
-            if (health != null) health.OnDeath += OnPlayerDeath;
+            SubscribeInputs(true); if (health != null) health.OnDeath += OnPlayerDeath;
             if (health) health.OnTakeDamage += OnPlayerDamaged;
 
             if (interactController) interactController.OnStartInteractAction += OnInteractStarted;
             if (interactController) interactController.OnEndInteractAction += OnInteractEnded;
+            if (_sFall != null) _sFall.OnEnter += FallResetActionFsm;
         }
 
         private void OnDisable()
@@ -100,6 +101,7 @@ namespace Player.New
             
             if (interactController) interactController.OnStartInteractAction -= OnInteractStarted;
             if (interactController) interactController.OnEndInteractAction -= OnInteractEnded;
+            if (_sFall != null) _sFall.OnEnter -= FallResetActionFsm;
         }
 
         private void Start()
@@ -450,6 +452,16 @@ namespace Player.New
         public void SetPlayerIdleState()
         {
             _locomotionFsm?.ForceTransition(_sIdle);
+        }
+        
+        private void FallResetActionFsm()
+        {
+            if (_actionFsm.GetCurrentState() == _aVertical )
+            {
+                return;
+            }
+
+            _actionFsm?.ForceTransition(_aIdle);
         }
 
         private void RespawnAt(Vector3 pos, Quaternion rot, bool resetHealth = true)

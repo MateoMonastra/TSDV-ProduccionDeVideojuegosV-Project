@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Enemies
@@ -35,6 +36,13 @@ namespace Enemies
         public void SetDeathAnimation()
         {
             animator.SetTrigger(Death);
+        }
+        
+        public Action OnAnim_AttackDamage;
+
+        public void AnimEvent_AttackDamage()
+        {
+            OnAnim_AttackDamage?.Invoke();
         }
     }
 }

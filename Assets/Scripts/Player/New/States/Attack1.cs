@@ -1,6 +1,7 @@
 ﻿using FSM;
 using Player.New.Audio;
 using Player.New.VFX;
+using UnityEngine;
 
 namespace Player.New
 {
@@ -8,15 +9,16 @@ namespace Player.New
     public class Attack1 : AttackBase
     {
         public const string ToAttack2 = "ToAttack2";
-        public const string ToIdle    = "ToIdle";
-
+        public const string ToIdle = "ToIdle";
+        private float _windUpTime = 0.5f;
         private bool _windowOpen;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
         public Attack1(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
             : base(m, mdl, req)
         {
             _vfxController = vfxController;
@@ -28,7 +30,12 @@ namespace Player.New
         {
             base.Enter();
 
-            if (!M.IsGrounded) { Req?.Invoke(ToIdle); Finish(); return; }
+            if (!M.IsGrounded)
+            {
+                Req?.Invoke(ToIdle);
+                Finish();
+                return;
+            }
 
             Duration = Model.Attack1Duration;
             _windowOpen = false;
@@ -38,7 +45,7 @@ namespace Player.New
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
             _vfxController?.Play(VfxEvent.BaseAttack);
             _audioController.PlayPlayerAttack1();
-            }
+        }
 
         public override void Exit()
         {
@@ -51,16 +58,17 @@ namespace Player.New
         {
             base.Tick(dt);
             t += dt;
-            
-            TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
+
+            if (t >= _windUpTime)
+                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
 
             float chainWindow = Model.AttackChainWindow;
-            float lateGrace   = Model.AttackLateChainGrace;
-            
+            float lateGrace = Model.AttackLateChainGrace;
+
             if (!_windowOpen && t >= Duration - chainWindow)
             {
                 _windowOpen = true;
-                
+
                 if (ChainBuffered)
                 {
                     Req?.Invoke(ToAttack2);
@@ -68,7 +76,7 @@ namespace Player.New
                     return;
                 }
             }
-            
+
             if (t >= Duration)
             {
                 if (ChainBuffered && (t - Duration) <= lateGrace)
@@ -91,7 +99,7 @@ namespace Player.New
                 cmd == CommandKeys.AttackPressed)
             {
                 BufferChain();
-                
+
                 if (_windowOpen || (t >= Duration && (t - Duration) <= Model.AttackLateChainGrace))
                 {
                     Req?.Invoke(ToAttack2);
@@ -100,6 +108,10 @@ namespace Player.New
             }
         }
 
-        private void OnAnimHit() => TryDoHitFrontal(0f);
+        private void OnAnimHit()
+        {
+            Debug.Log("Que problema");
+            TryDoHitFrontal(0f);   
+        }
     }
 }

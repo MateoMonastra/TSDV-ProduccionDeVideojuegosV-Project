@@ -22,6 +22,7 @@ MonoBehaviour:
   sprintLateralFriction: 14
   groundBrakingDecel: 32
   sprintBrakingDecel: 55
+  minFallHeight: 6
   sprintSpeedMultiplier: 2
   sprintMinSpeedToKeep: 0.1
   sprintArmWindow: 0.8
@@ -40,18 +41,18 @@ MonoBehaviour:
   dashBuffPending: 0
   dashBuffDistance: 25
   dashBuffSpeed: 48
-  hitStunTime: 0.35
-  hitKnockbackHorizontal: 7.5
-  hitKnockbackUp: 2
+  hitStunTime: 0.5
+  hitKnockbackHorizontal: 10
+  hitKnockbackUp: 15
   enemyMask:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
   attack1Duration: 1.25
-  attack2Duration: 0.9
+  attack2Duration: 0.43
   attack3Duration: 1.25
-  attackRange: 3.5
-  attackHalfAngleDegrees: 70
+  attackRange: 4
+  attackHalfAngleDegrees: 120
   attackChainWindow: 0.3
   attackLateChainGrace: 0.08
   attackComboCooldown: 0.4

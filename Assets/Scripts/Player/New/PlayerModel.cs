@@ -48,7 +48,15 @@ namespace Player.New
 
         [SerializeField, Range(0f, 100f), Tooltip("Deceleración al soltar input durante sprint.")]
         private float sprintBrakingDecel = 32f;
-
+        
+        [SerializeField, Tooltip("Altura mínima desde el suelo para considerar Fall")]
+        private float minFallHeight = 0.35f;
+        public float MinFallHeight
+        {
+            get => minFallHeight;
+            set => minFallHeight = value;
+        }
+        
         /// <summary>Sharpness de reorientación en suelo.</summary>
         public float GroundReorientationSharpness
         {
@@ -408,7 +416,7 @@ namespace Player.New
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")]
         private float attackRange = 2.0f;
 
-        [SerializeField, Range(5f, 90f), Tooltip("Semiancho del cono frontal (°).")]
+        [SerializeField, Range(5f, 360f), Tooltip("Semiancho del cono frontal (°).")]
         private float attackHalfAngleDegrees = 55f;
 
         [SerializeField, Tooltip("Ventana para encadenar siguiente golpe (s).")]

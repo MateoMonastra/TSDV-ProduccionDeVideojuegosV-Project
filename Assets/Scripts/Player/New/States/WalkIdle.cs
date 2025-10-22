@@ -18,6 +18,7 @@ namespace Player.New
         private int _ungroundedFrames;
         private int _idleCounter;
 
+        public readonly float GroundProbeLength = 100f;
         private readonly PlayerAnimationController _anim;
 
         public WalkIdle(MyKinematicMotor m, PlayerModel mdl, Transform cam, System.Action<string> req,
@@ -39,7 +40,7 @@ namespace Player.New
 
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
-            _anim?.SetWalking(false);
+            //_anim?.SetWalking(false);
         }
 
         public override void Exit()
@@ -81,8 +82,20 @@ namespace Player.New
             {
                 _timeSinceUngrounded += dt;
                 _ungroundedFrames++;
+                
+                Vector3 origin = Motor.transform.position +  Motor.CharacterUp * 0.05f;
+                float distToGround = 0f;
 
-                if (_timeSinceUngrounded > Model.CoyoteTime && _ungroundedFrames >= 2)
+                if (Physics.Raycast(origin, -Motor.CharacterUp, out RaycastHit hit, GroundProbeLength, ~Model.PlayerLayer))
+                    distToGround = hit.distance;
+                else 
+                    distToGround = GroundProbeLength;
+
+                bool isHeightEnough = distToGround >= Model.MinFallHeight;
+
+                if (_timeSinceUngrounded > Model.CoyoteTime &&
+                    _ungroundedFrames >= 2 &&
+                    isHeightEnough)
                 {
                     RequestTransition?.Invoke(ToFall);
                     return;

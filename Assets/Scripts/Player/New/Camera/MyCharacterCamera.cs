@@ -25,8 +25,6 @@ namespace Player.New
         [Range(-90f, 90f)] public float maxVerticalAngle = 80f;
         public float mouseRotationSpeed = 0.1f;
         public float joystickRotationSpeed = 1f;
-        public float rotationSharpness = 12f;
-        public bool rotateWithPhysicsMover = false;
 
         [Header("Obstruction")]
         public float obstructionCheckRadius = 0.2f;
@@ -35,10 +33,9 @@ namespace Player.New
         public Collider[] ignoredColliders;
 
         [Header("Refs")]
-        public Transform followTransform;       // Player/CameraPivot (o el player)
-        public InputReader inputReader;         // tu lector de inputs (opcional)
-
-        // --- internos ---
+        public Transform followTransform;     
+        public InputReader inputReader;       
+        
         private Transform _transform;
         private CameraRotationHandler _rotationHandler;
         private CameraDistanceHandler _distanceHandler;
@@ -46,10 +43,9 @@ namespace Player.New
         private CameraObstructionHandler _obstructionHandler;
 
         private Vector3 _currentFollowPosition;
-
-        // buffers de input
+        
         private Vector2 _look;
-        private float _zoom;                    // acumulado por frame (scroll)
+        private float _zoom;                  
         private InputDevice _lastDevice;
 
         public Vector3 PlanarDirection => _rotationHandler.PlanarDirection;
