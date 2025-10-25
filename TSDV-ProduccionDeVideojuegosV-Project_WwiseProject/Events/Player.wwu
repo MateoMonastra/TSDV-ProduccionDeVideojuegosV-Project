@@ -32,9 +32,12 @@
 				<Event Name="PlayerAttack1" ID="{BE099AE6-BA0D-46D8-BB76-B23E524C3386}">
 					<ChildrenList>
 						<Action Name="" ID="{19013772-973A-4990-A97E-6DD934C34D41}" ShortID="41193273">
+							<PropertyList>
+								<Property Name="Delay" Type="Real64" Value="0.2"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerAttack_01" ID="{A6E1BDA1-50BC-4560-82E3-47A140F981E0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerAttack_01_Blend" ID="{A0044FB5-6E44-40C2-8BAD-AFCD12BEB956}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -45,7 +48,7 @@
 						<Action Name="" ID="{745ABF0B-46B3-4F06-82F0-17E9C0CBF4C9}" ShortID="782249982">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerAttack_02" ID="{E4AB46AE-FB1A-4763-A355-5A4A4E8F8272}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerAttack_02_Blend" ID="{1C613C80-4E2E-4DDA-940E-2F3CAB372BC3}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -56,7 +59,7 @@
 						<Action Name="" ID="{0FEEB19D-8AAB-42D6-9FE3-C264AF019254}" ShortID="520265574">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerAttack_03" ID="{376EA044-8D55-4492-BA69-7F515E0A81F0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerAttack_03_Blend" ID="{688F93F9-B30D-4158-BF16-3EE9777E70A6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
