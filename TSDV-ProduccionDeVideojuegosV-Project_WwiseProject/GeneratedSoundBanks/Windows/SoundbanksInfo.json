@@ -80,7 +80,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{62360EB6-AAF0-4924-EB0A-07E0B5DD8EFF}",
+    "Hash": "{56FF779B-46C7-E8FA-0057-0E7C097D5F43}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -302,6 +302,24 @@
       "CachePath": "DC/{DCE99993-818D-0DE4-EC72-595D7814424A}.wem"
      },
      {
+      "Id": "833462405",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "AmbAcidStream_003.wav",
+      "Path": "Media/833462405.wem",
+      "CachePath": "6B/{6B945E81-775F-36FA-C725-1314C3B49C8A}.wem"
+     },
+     {
+      "Id": "861232703",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "AmbAcidStream_001.wav",
+      "Path": "Media/861232703.wem",
+      "CachePath": "80/{80B007EF-6050-A499-DE47-EA03B5888A48}.wem"
+     },
+     {
       "Id": "916099941",
       "Language": "SFX",
       "Streaming": "false",
@@ -318,6 +336,15 @@
       "CachePath": "50/{5007E98C-4596-70E2-C7FC-F6FA4C1DFDB8}.wem"
      },
      {
+      "Id": "1015983070",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "AmbAcidStream_002.wav",
+      "Path": "Media/1015983070.wem",
+      "CachePath": "35/{3530F0B2-3701-2B75-4224-609A4B8DC5F1}.wem"
+     },
+     {
       "Id": "1045516680",
       "Language": "SFX",
       "Streaming": "false",
@@ -327,6 +354,26 @@
      }
     ],
     "Events": [
+     {
+      "Id": "2773708536",
+      "Name": "AmbAcidStream",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX_Lvl_1\\AmbAcidStream",
+      "GUID": "{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}",
+      "Color": "4",
+      "MaxAttenuation": "40",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "833462405"
+       },
+       {
+        "Id": "861232703"
+       },
+       {
+        "Id": "1015983070"
+       }
+      ]
+     },
      {
       "Id": "3417696939",
       "Name": "PlayerAttack1",
@@ -707,6 +754,6 @@
     ]
    }
   ],
-  "FileHash": "{F522D092-E65A-2091-8D35-88101C245F6F}"
+  "FileHash": "{45C345BA-67EE-759E-4090-2F3B04384CA5}"
  }
 }

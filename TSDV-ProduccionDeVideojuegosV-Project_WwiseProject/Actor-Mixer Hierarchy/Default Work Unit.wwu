@@ -1607,7 +1607,15 @@
 				<Folder Name="Lvl_1" ID="{5E95B9C6-FA4A-4898-A3A3-C9F8466A20C3}" ShortID="1037207084">
 					<ChildrenList>
 						<ActorMixer Name="Ambs" ID="{9109C7F2-53E7-4FEC-BDAD-DA4BA50FD355}" ShortID="487489310">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="Color" Type="int16" Value="4"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="AmbAcidStream" ID="{1D703CB0-5AF3-4794-B080-B555F3FB86D1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
 								</Reference>
@@ -1615,6 +1623,131 @@
 									<ObjectRef Name="Ambs" ID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
 								</Reference>
 							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="AmbAcidStreams" ID="{EBD0F654-A4B9-4B74-9285-0B2F219C7C1B}" ShortID="355060747">
+									<PropertyList>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
+										<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="AmbAcidStream_001" ID="{5D4E4597-5F79-431E-979C-7D7C2A9A36B4}" ShortID="455486439">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="IsStreamingEnabled" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbAcidStream_001" ID="{4605F077-D93D-4813-A795-BC059FF966B9}">
+													<Language>SFX</Language>
+													<AudioFile>AmbAcidStream_001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="861232703"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbAcidStream_001" ID="{4605F077-D93D-4813-A795-BC059FF966B9}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="AmbAcidStream_002" ID="{903F4084-DF4A-4D0B-B4F3-98DCA7FA5BFF}" ShortID="264440983">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="IsStreamingEnabled" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbAcidStream_002" ID="{6DB7C183-6DAD-4146-B1A3-B5227B1D37AD}">
+													<Language>SFX</Language>
+													<AudioFile>AmbAcidStream_002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1015983070"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbAcidStream_002" ID="{6DB7C183-6DAD-4146-B1A3-B5227B1D37AD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="AmbAcidStream_003" ID="{84A46F28-6D70-4AED-A46D-C3D8E7BF48D1}" ShortID="539081984">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="IsStreamingEnabled" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbAcidStream_003" ID="{D1989F46-2E6C-4778-BBD6-212E342CD7D4}">
+													<Language>SFX</Language>
+													<AudioFile>AmbAcidStream_003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="833462405"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbAcidStream_003" ID="{D1989F46-2E6C-4778-BBD6-212E342CD7D4}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists>
+										<ObjectList Name="Playlist">
+											<Reference>
+												<ObjectRef Name="AmbAcidStream_001" ID="{5D4E4597-5F79-431E-979C-7D7C2A9A36B4}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+											</Reference>
+											<Reference>
+												<ObjectRef Name="AmbAcidStream_002" ID="{903F4084-DF4A-4D0B-B4F3-98DCA7FA5BFF}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+											</Reference>
+											<Reference>
+												<ObjectRef Name="AmbAcidStream_003" ID="{84A46F28-6D70-4AED-A46D-C3D8E7BF48D1}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</RandomSequenceContainer>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{D2F73E6D-030B-4E2E-AC64-0433CD009BEA}"/>
+								<Position Name="" ID="{3DDC2605-0C5F-4EF0-B5F7-58760DA7759D}"/>
+							</PositioningInfo>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B7944E46-B1C8-4107-8E70-039B01F818CF}" ShortID="974094692">
 							<ReferenceList>

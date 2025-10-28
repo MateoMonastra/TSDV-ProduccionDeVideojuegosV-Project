@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
+	<Events>
+		<WorkUnit Name="SFX_Lvl_1" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="4"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="AmbAcidStream" ID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}">
+					<ChildrenList>
+						<Action Name="" ID="{881789FC-F840-40D7-921B-70F4460C961C}" ShortID="517878067">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbAcidStreams" ID="{EBD0F654-A4B9-4B74-9285-0B2F219C7C1B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
