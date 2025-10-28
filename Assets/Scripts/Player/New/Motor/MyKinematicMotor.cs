@@ -148,15 +148,12 @@ namespace Player.New
                 float preMoveProbeDistance = groundSnapDistance + Mathf.Max(0, -_velocity.y * deltaTime);
                 _groundingSolver.CheckProbe(ref _position, _rotation, preMoveProbeDistance, _velocity,
                     ref _groundingReport);
-
-                if (_velocity.y <= maxSnapSpeed)
-                    TrySnapToGround(groundSnapDistance);
             }
             else
             {
                 _groundingReport = default;
             }
-
+            
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
             if (_ungroundTimer <= 0f && _velocity.y <= maxSnapSpeed)
