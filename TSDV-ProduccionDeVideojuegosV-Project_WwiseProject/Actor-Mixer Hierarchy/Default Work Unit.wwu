@@ -1626,6 +1626,11 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="AmbAcidStreams" ID="{EBD0F654-A4B9-4B74-9285-0B2F219C7C1B}" ShortID="355060747">
 									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
 										<Property Name="RandomOrSequence" Type="int16" Value="0"/>
 									</PropertyList>
