@@ -27,7 +27,7 @@
 				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{0DD4E2D5-E8A4-D4D3-91F6-D6D488CD8C13}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{DA033AF2-EC5D-E2D0-D1C1-DB4F58300C45}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -68,9 +68,17 @@
 					<ShortName>PlayerJump_002.wav</ShortName>
 					<CachePath>63/{632B336D-072B-7BE1-6470-E9D65E4EC5AC}.wem</CachePath>
 				</File>
+				<File Id="270755844" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_005.wav</ShortName>
+					<CachePath>90/{904A0554-A3E8-23D3-4809-AB408A4F3D7D}.wem</CachePath>
+				</File>
 				<File Id="319135143" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>TrashVacuumed-004.wav</ShortName>
 					<CachePath>AF/{AF66EA86-0BF7-E52F-9F61-E8B8F3DACFB7}.wem</CachePath>
+				</File>
+				<File Id="370264577" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_004.wav</ShortName>
+					<CachePath>13/{1342E0C8-8BA3-C15A-7DA2-31DCFCBF75DB}.wem</CachePath>
 				</File>
 				<File Id="381791278" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_002.wav</ShortName>
@@ -140,15 +148,13 @@
 					<ShortName>PlayerAttack_01_004.wav</ShortName>
 					<CachePath>A5/{A5A751E3-BF8E-1EF5-244A-00C8869C641A}.wem</CachePath>
 				</File>
-				<File Id="833462405" Language="SFX" Streaming="true" Location="Loose">
+				<File Id="833462405" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidStream_003.wav</ShortName>
-					<Path>Media/833462405.wem</Path>
-					<CachePath>7D/{7DE84965-1163-0647-AE1B-4CA6341A215B}.wem</CachePath>
+					<CachePath>FC/{FC140BA5-9710-3FE3-EC4F-C22DB6B91C3C}.wem</CachePath>
 				</File>
-				<File Id="861232703" Language="SFX" Streaming="true" Location="Loose">
+				<File Id="861232703" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidStream_001.wav</ShortName>
-					<Path>Media/861232703.wem</Path>
-					<CachePath>AF/{AFFE030B-4F75-7825-F57B-3AF984C235DE}.wem</CachePath>
+					<CachePath>6B/{6B22ECC5-0091-9D91-A410-D9B092509214}.wem</CachePath>
 				</File>
 				<File Id="916099941" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PasosTile-004.wav</ShortName>
@@ -158,10 +164,9 @@
 					<ShortName>PlayerMovementJump-001.wav</ShortName>
 					<CachePath>50/{5007E98C-4596-70E2-C7FC-F6FA4C1DFDB8}.wem</CachePath>
 				</File>
-				<File Id="1015983070" Language="SFX" Streaming="true" Location="Loose">
+				<File Id="1015983070" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidStream_002.wav</ShortName>
-					<Path>Media/1015983070.wem</Path>
-					<CachePath>2F/{2F4958A5-AD71-2671-FE59-CFB64F590933}.wem</CachePath>
+					<CachePath>37/{375FC76F-AD9D-370D-D8B0-894D2AAEE7AD}.wem</CachePath>
 				</File>
 				<File Id="1045516680" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_03_001.wav</ShortName>
@@ -171,6 +176,8 @@
 			<Events>
 				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
 					<MediaRefs>
+						<MediaRef Id="270755844"/>
+						<MediaRef Id="370264577"/>
 						<MediaRef Id="833462405"/>
 						<MediaRef Id="861232703"/>
 						<MediaRef Id="1015983070"/>
@@ -302,5 +309,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{27AEAEFE-99B6-2A08-BACC-74B0E0B0527E}</FileHash>
+	<FileHash>{D9D9408F-CDBC-E3CD-8887-8213B9F61C24}</FileHash>
 </SoundBanksInfo>
