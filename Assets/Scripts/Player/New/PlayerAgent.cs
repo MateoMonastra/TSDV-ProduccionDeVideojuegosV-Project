@@ -221,6 +221,8 @@ namespace Player.New
 
         private void OnPlayerDamaged(DamageInfo info)
         {
+            if (_locomotionFsm.GetCurrentState() == _sDeath) return;
+            
             model.ResetAfk();
             model.LastDamage = info;
             hud.OnDamaged();
