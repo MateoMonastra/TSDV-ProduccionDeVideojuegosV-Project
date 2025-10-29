@@ -1,5 +1,6 @@
 ﻿using Health;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.New
 {
@@ -273,6 +274,9 @@ namespace Player.New
 
         [SerializeField, Range(1f, 30f), Tooltip("Sharpness del ease-out (↑ más snappy).")]
         private float dashExitSharpness = 10f;
+        
+        [SerializeField, Tooltip("Sharpness de la rotación.")]
+        private float dashRotationSharpness = 12f;
 
         /// <summary>Distancia total del dash (m).</summary>
         public float DashDistance
@@ -307,6 +311,11 @@ namespace Player.New
         {
             get => dashExitSharpness;
             set => dashExitSharpness = value;
+        }
+        public float DashRotationSharpness
+        {
+            get => dashRotationSharpness;
+            set => dashRotationSharpness = value;
         }
 
         #endregion

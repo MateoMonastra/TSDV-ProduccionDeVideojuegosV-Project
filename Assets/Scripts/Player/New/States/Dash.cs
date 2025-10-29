@@ -54,6 +54,7 @@ namespace Player.New
             if (_model.MoveInputWorld.sqrMagnitude >_model.MinInputSqr)
                 _dir = _model.MoveInputWorld.normalized;
 
+            _m.SetRotation(_dir);
             
             if (_model.DashBuffPending)
             {
@@ -111,6 +112,8 @@ namespace Player.New
             if (!_recovering)
             {
                 _t += dt;
+                
+                _m.SmoothRotation(_dir, _model.DashRotationSharpness, dt);
                 
                 Vector3 v = _m.Velocity;
                 float y = v.y < 0f ? 0f : v.y;
