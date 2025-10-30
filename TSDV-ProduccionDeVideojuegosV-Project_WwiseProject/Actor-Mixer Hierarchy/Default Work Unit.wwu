@@ -46,40 +46,6 @@
 								<ActiveSource Name="TrashVacuumed-004" ID="{FA6329B9-D19E-430F-9056-B50B24AA5353}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="PlayerSmashHit" ID="{681AB08A-586D-4177-8534-07D6271E60EA}" ShortID="320955934">
-							<PropertyList>
-								<Property Name="Pitch" Type="int32">
-									<ValueList>
-										<Value>210</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="TrashVacuumed-004" ID="{6CCAFC86-D5AA-4D10-9F1D-5AF4FDBD6441}">
-									<PropertyList>
-										<Property Name="FadeOutDuration" Type="Real64" Value="0.00409316757450934"/>
-										<Property Name="LoopBegin" Type="Real64" Value="0"/>
-										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-									</PropertyList>
-									<Language>SFX</Language>
-									<AudioFile>TrashVacuumed-004.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="542374016"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="TrashVacuumed-004" ID="{6CCAFC86-D5AA-4D10-9F1D-5AF4FDBD6441}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
 						<Sound Name="ChargeStart" ID="{172DF3B1-7CDA-461E-A943-C141A68A9ADC}" ShortID="335806586">
 							<PropertyList>
 								<Property Name="Lowpass" Type="int16">
@@ -1602,6 +1568,47 @@
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</BlendContainer>
+						<RandomSequenceContainer Name="PlayerAttackSmashHitFloor" ID="{A95B3C79-570E-4CCB-8980-4D5E980AEAB7}" ShortID="95583500">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>-1</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="PlayerAttackSmashHitFloor_rpp" ID="{02CB0F46-C36F-4FCE-B4E9-345E9F7CD0BA}" ShortID="239798604">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerAttackSmashHitFloor" ID="{C183EFA5-8CE9-42B5-9CA5-C0335F43C5E9}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerAttackSmashHitFloor.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="266148139"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerAttackSmashHitFloor" ID="{C183EFA5-8CE9-42B5-9CA5-C0335F43C5E9}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
 					</ChildrenList>
 				</ActorMixer>
 				<Folder Name="Lvl_1" ID="{5E95B9C6-FA4A-4898-A3A3-C9F8466A20C3}" ShortID="1037207084">
