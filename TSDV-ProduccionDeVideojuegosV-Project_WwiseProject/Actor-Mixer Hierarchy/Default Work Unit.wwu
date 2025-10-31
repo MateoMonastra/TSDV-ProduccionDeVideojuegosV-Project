@@ -1585,7 +1585,7 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="PlayerAttackSmashHitFloor_rpp" ID="{02CB0F46-C36F-4FCE-B4E9-345E9F7CD0BA}" ShortID="239798604">
+								<Sound Name="PlayerAttackSmashHitFloor_001" ID="{D090B75A-547A-4A9E-9602-BE3E06E612D1}" ShortID="797502230">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
@@ -1595,16 +1595,82 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="PlayerAttackSmashHitFloor" ID="{C183EFA5-8CE9-42B5-9CA5-C0335F43C5E9}">
+										<AudioFileSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}">
 											<Language>SFX</Language>
-											<AudioFile>PlayerAttackSmashHitFloor.wav</AudioFile>
+											<AudioFile>PlayerAttackSmashHitFloor_001.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="266148139"/>
+												<MediaID ID="1055424899"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="PlayerAttackSmashHitFloor" ID="{C183EFA5-8CE9-42B5-9CA5-C0335F43C5E9}" Platform="Linked"/>
+										<ActiveSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerAttackSmashHitFloor_002" ID="{AAFFE0C8-E71F-48F1-8738-95041F8AF6FF}" ShortID="73959097">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerAttackSmashHitFloor_002.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="334170738"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerAttackSmashHitFloor_003" ID="{8AF470AD-1CC2-4FC1-9E2C-8632318D762A}" ShortID="774978242">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerAttackSmashHitFloor_003.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="545483333"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerAttackSmashHitFloor_004" ID="{3F206BE2-A85E-444A-AF14-183396436BA5}" ShortID="956392998">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerAttackSmashHitFloor_004.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="813132997"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

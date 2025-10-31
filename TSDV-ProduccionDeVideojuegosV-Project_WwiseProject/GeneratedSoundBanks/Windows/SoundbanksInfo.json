@@ -80,7 +80,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{33653A40-B60D-8AEA-228C-15DFFD04902F}",
+    "Hash": "{0DCE1786-F16D-1A48-D274-B6AED4247CE1}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -158,20 +158,20 @@
       "CachePath": "63/{632B336D-072B-7BE1-6470-E9D65E4EC5AC}.wem"
      },
      {
-      "Id": "266148139",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Memory",
-      "ShortName": "PlayerAttackSmashHitFloor.wav",
-      "CachePath": "D7/{D77AC241-E4CA-9324-B1A1-327F978DDD0B}.wem"
-     },
-     {
       "Id": "270755844",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "AmbAcidStream_005.wav",
       "CachePath": "90/{904A0554-A3E8-23D3-4809-AB408A4F3D7D}.wem"
+     },
+     {
+      "Id": "334170738",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerAttackSmashHitFloor_002.wav",
+      "CachePath": "E9/{E9DE0C4B-1C81-75DC-326A-C9B45A4C3760}.wem"
      },
      {
       "Id": "370264577",
@@ -246,6 +246,14 @@
       "CachePath": "C8/{C8633A4A-1A36-D0B3-C9CD-F04CED00F698}.wem"
      },
      {
+      "Id": "545483333",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerAttackSmashHitFloor_003.wav",
+      "CachePath": "95/{95662C12-9A9E-7746-18A5-339C614C7854}.wem"
+     },
+     {
       "Id": "558616669",
       "Language": "SFX",
       "Streaming": "false",
@@ -302,6 +310,14 @@
       "CachePath": "74/{7400CE7C-523E-47CC-E314-08A2AF7E7AA7}.wem"
      },
      {
+      "Id": "813132997",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerAttackSmashHitFloor_004.wav",
+      "CachePath": "EF/{EF7DA6CC-6348-0443-BE88-CC18C9D700CE}.wem"
+     },
+     {
       "Id": "814360967",
       "Language": "SFX",
       "Streaming": "false",
@@ -356,6 +372,14 @@
       "Location": "Memory",
       "ShortName": "PlayerAttack_03_001.wav",
       "CachePath": "07/{07B8B7FB-26EB-C232-F84D-27DB23EA6E68}.wem"
+     },
+     {
+      "Id": "1055424899",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerAttackSmashHitFloor_001.wav",
+      "CachePath": "6C/{6CFC1562-DE3B-AA15-0392-0BB42063CF1E}.wem"
      }
     ],
     "Events": [
@@ -536,11 +560,20 @@
       "GUID": "{963549E2-EDEE-4C73-AD09-98CF47D31C47}",
       "Color": "2",
       "DurationType": "OneShot",
-      "DurationMin": "2.2013125",
-      "DurationMax": "2.2013125",
+      "DurationMin": "2.2853541",
+      "DurationMax": "2.285375",
       "MediaRefs": [
        {
-        "Id": "266148139"
+        "Id": "334170738"
+       },
+       {
+        "Id": "545483333"
+       },
+       {
+        "Id": "813132997"
+       },
+       {
+        "Id": "1055424899"
        }
       ]
      },
@@ -786,6 +819,6 @@
     ]
    }
   ],
-  "FileHash": "{D5509949-0E5A-ADD0-BFA2-495682BBF519}"
+  "FileHash": "{E420BD12-E172-A4A8-4D92-9E1E7C5A3BFF}"
  }
 }
