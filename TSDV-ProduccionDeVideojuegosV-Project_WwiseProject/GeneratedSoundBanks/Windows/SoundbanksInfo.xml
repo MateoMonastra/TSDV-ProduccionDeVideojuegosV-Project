@@ -27,7 +27,7 @@
 				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{0DCE1786-F16D-1A48-D274-B6AED4247CE1}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{E93F688B-0BE1-2920-ABA0-DE123D797AE3}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -56,9 +56,17 @@
 					<ShortName>PlayerAttack_01_002.wav</ShortName>
 					<CachePath>FC/{FC215B7C-5559-1DA0-F87F-883AB13A9EC8}.wem</CachePath>
 				</File>
+				<File Id="128700052" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerChargeStart_001.wav</ShortName>
+					<CachePath>42/{426AE8BD-F4E0-3507-DCD9-0341B175E2A2}.wem</CachePath>
+				</File>
 				<File Id="134049214" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerJump_004.wav</ShortName>
 					<CachePath>31/{31F133DF-180C-8A44-528B-D02077E27A11}.wem</CachePath>
+				</File>
+				<File Id="158121360" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerChargeStart_003.wav</ShortName>
+					<CachePath>69/{69E5F9B8-07D5-CBA9-F8FD-66C1826A3E36}.wem</CachePath>
 				</File>
 				<File Id="186583858" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_02_002.wav</ShortName>
@@ -95,6 +103,10 @@
 				<File Id="406088048" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_004.wav</ShortName>
 					<CachePath>EF/{EF13CE64-F0FB-BC89-CC43-40F57E5E3C7D}.wem</CachePath>
+				</File>
+				<File Id="422686684" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerChargeStart_002.wav</ShortName>
+					<CachePath>FE/{FEB3D6A2-3A3C-EC59-37AD-AD0B34EE0BD7}.wem</CachePath>
 				</File>
 				<File Id="460485397" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_003.wav</ShortName>
@@ -180,6 +192,10 @@
 					<ShortName>PlayerAttackSmashHitFloor_001.wav</ShortName>
 					<CachePath>6C/{6CFC1562-DE3B-AA15-0392-0BB42063CF1E}.wem</CachePath>
 				</File>
+				<File Id="1064310873" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerChargeStart_004.wav</ShortName>
+					<CachePath>B5/{B5811594-BD30-D143-FA64-6E52E4E28FC7}.wem</CachePath>
+				</File>
 			</Media>
 			<Events>
 				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
@@ -257,16 +273,15 @@
 						<MediaRef Id="1006501114"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="297139706" Name="PlayerChargeStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStart" GUID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}" Color="2" DurationType="OneShot" DurationMin="1.0603616" DurationMax="1.0603616">
+				<Event Id="297139706" Name="PlayerChargeStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStart" GUID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}" Color="2" DurationType="OneShot" DurationMin="1.7783748" DurationMax="1.9732524">
 					<MediaRefs>
-						<MediaRef Id="1006501114"/>
+						<MediaRef Id="128700052"/>
+						<MediaRef Id="158121360"/>
+						<MediaRef Id="422686684"/>
+						<MediaRef Id="1064310873"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="185233618" Name="PlayerChargeStopFail" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStopFail" GUID="{CA1461DD-6251-4A54-BBB5-8C5960391289}" Color="2" DurationType="OneShot" DurationMin="0.53634125" DurationMax="0.53634125">
-					<MediaRefs>
-						<MediaRef Id="1006501114"/>
-					</MediaRefs>
-				</Event>
+				<Event Id="185233618" Name="PlayerChargeStopFail" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStopFail" GUID="{CA1461DD-6251-4A54-BBB5-8C5960391289}" Color="2" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2525052962" Name="PlayerDash" ObjectPath="\Events\Default Work Unit\Player\PlayerDash" GUID="{767A710A-D4B6-4AB6-94D4-06417B1DAE2D}" Color="2" DurationType="OneShot" DurationMin="0.943875" DurationMax="0.98879164">
 					<MediaRefs>
 						<MediaRef Id="24336308"/>
@@ -327,5 +342,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{84AF8962-77D0-52AC-AAD8-471012949083}</FileHash>
+	<FileHash>{D0A63E92-83AB-F2CC-DF42-104CB857172A}</FileHash>
 </SoundBanksInfo>

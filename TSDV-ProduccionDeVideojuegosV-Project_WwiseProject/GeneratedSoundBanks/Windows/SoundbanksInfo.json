@@ -80,7 +80,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{0DCE1786-F16D-1A48-D274-B6AED4247CE1}",
+    "Hash": "{E93F688B-0BE1-2920-ABA0-DE123D797AE3}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -134,12 +134,28 @@
       "CachePath": "FC/{FC215B7C-5559-1DA0-F87F-883AB13A9EC8}.wem"
      },
      {
+      "Id": "128700052",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerChargeStart_001.wav",
+      "CachePath": "42/{426AE8BD-F4E0-3507-DCD9-0341B175E2A2}.wem"
+     },
+     {
       "Id": "134049214",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "PlayerJump_004.wav",
       "CachePath": "31/{31F133DF-180C-8A44-528B-D02077E27A11}.wem"
+     },
+     {
+      "Id": "158121360",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerChargeStart_003.wav",
+      "CachePath": "69/{69E5F9B8-07D5-CBA9-F8FD-66C1826A3E36}.wem"
      },
      {
       "Id": "186583858",
@@ -212,6 +228,14 @@
       "Location": "Memory",
       "ShortName": "PlayerAttackVoice_03_004.wav",
       "CachePath": "EF/{EF13CE64-F0FB-BC89-CC43-40F57E5E3C7D}.wem"
+     },
+     {
+      "Id": "422686684",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerChargeStart_002.wav",
+      "CachePath": "FE/{FEB3D6A2-3A3C-EC59-37AD-AD0B34EE0BD7}.wem"
      },
      {
       "Id": "460485397",
@@ -380,6 +404,14 @@
       "Location": "Memory",
       "ShortName": "PlayerAttackSmashHitFloor_001.wav",
       "CachePath": "6C/{6CFC1562-DE3B-AA15-0392-0BB42063CF1E}.wem"
+     },
+     {
+      "Id": "1064310873",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerChargeStart_004.wav",
+      "CachePath": "B5/{B5811594-BD30-D143-FA64-6E52E4E28FC7}.wem"
      }
     ],
     "Events": [
@@ -614,11 +646,20 @@
       "GUID": "{14475DD6-2FA7-4A97-954E-F49545CC53C8}",
       "Color": "2",
       "DurationType": "OneShot",
-      "DurationMin": "1.0603616",
-      "DurationMax": "1.0603616",
+      "DurationMin": "1.7783748",
+      "DurationMax": "1.9732524",
       "MediaRefs": [
        {
-        "Id": "1006501114"
+        "Id": "128700052"
+       },
+       {
+        "Id": "158121360"
+       },
+       {
+        "Id": "422686684"
+       },
+       {
+        "Id": "1064310873"
        }
       ]
      },
@@ -628,14 +669,10 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerChargeStopFail",
       "GUID": "{CA1461DD-6251-4A54-BBB5-8C5960391289}",
       "Color": "2",
+      "MaxAttenuation": "0",
       "DurationType": "OneShot",
-      "DurationMin": "0.53634125",
-      "DurationMax": "0.53634125",
-      "MediaRefs": [
-       {
-        "Id": "1006501114"
-       }
-      ]
+      "DurationMin": "0",
+      "DurationMax": "0"
      },
      {
       "Id": "2525052962",
@@ -819,6 +856,6 @@
     ]
    }
   ],
-  "FileHash": "{E420BD12-E172-A4A8-4D92-9E1E7C5A3BFF}"
+  "FileHash": "{CAA29DFF-56B4-458A-075F-5F8247DAE6AA}"
  }
 }

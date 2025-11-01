@@ -89,26 +89,16 @@
 				</Event>
 				<Event Name="PlayerChargeStart" ID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}">
 					<ChildrenList>
-						<Action Name="" ID="{6A6982A2-B40C-4B1D-AFED-6A2532150B32}" ShortID="584873552">
+						<Action Name="" ID="{00879D6B-D387-4C52-AD3A-B4A3163921B4}" ShortID="309909883">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="ChargeStart" ID="{172DF3B1-7CDA-461E-A943-C141A68A9ADC}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerChargeStart" ID="{82E3D85C-94D5-46F3-B312-4EA45AC46D19}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="PlayerChargeStopFail" ID="{CA1461DD-6251-4A54-BBB5-8C5960391289}">
-					<ChildrenList>
-						<Action Name="" ID="{8AE374A4-2B89-4B87-843D-F56083192B33}" ShortID="558598435">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="ChargeStopFail" ID="{4BA89CF2-EF0F-43BD-818B-E6A98375E5C6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
+				<Event Name="PlayerChargeStopFail" ID="{CA1461DD-6251-4A54-BBB5-8C5960391289}"/>
 				<Event Name="PlayerAttackSmash" ID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}">
 					<ChildrenList>
 						<Action Name="" ID="{747BF610-B5B7-4A13-A372-EEC1ECA389E9}" ShortID="2974872">

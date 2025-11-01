@@ -46,42 +46,13 @@
 								<ActiveSource Name="TrashVacuumed-004" ID="{FA6329B9-D19E-430F-9056-B50B24AA5353}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="ChargeStart" ID="{172DF3B1-7CDA-461E-A943-C141A68A9ADC}" ShortID="335806586">
-							<PropertyList>
-								<Property Name="Lowpass" Type="int16">
-									<ValueList>
-										<Value>50</Value>
-									</ValueList>
-								</Property>
-								<Property Name="Pitch" Type="int32">
-									<ValueList>
-										<Value>360</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="PlayerMovementJump-001" ID="{143C775A-F77C-48BC-9B76-7042F87B743E}">
-									<Language>SFX</Language>
-									<AudioFile>PlayerMovementJump-001.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="1006501114"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="PlayerMovementJump-001" ID="{143C775A-F77C-48BC-9B76-7042F87B743E}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
 						<Sound Name="ChargeStopFail" ID="{4BA89CF2-EF0F-43BD-818B-E6A98375E5C6}" ShortID="1054467916">
 							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
 										<Value>50</Value>
@@ -1671,6 +1642,122 @@
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<RandomSequenceContainer Name="PlayerChargeStart" ID="{82E3D85C-94D5-46F3-B312-4EA45AC46D19}" ShortID="919007144">
+							<PropertyList>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{A684CACB-FD0C-4179-A274-23DCA3D0A97D}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="90"/>
+													<Property Name="Min" Type="Real64" Value="-90"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="PlayerChargeStart_001" ID="{53FD45E9-A015-443D-8EF1-B97C67BE9833}" ShortID="390995963">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerChargeStart_001" ID="{A1D74B42-8FE8-42D0-9DA2-B9A21D37CFF8}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerChargeStart_001.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="128700052"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerChargeStart_001" ID="{A1D74B42-8FE8-42D0-9DA2-B9A21D37CFF8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerChargeStart_002" ID="{3776CBEA-DC90-452B-ACA1-9F2E4F0A906A}" ShortID="420662901">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerChargeStart_002" ID="{64B3702E-5278-43E5-AF3F-9878CEF182F2}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerChargeStart_002.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="422686684"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerChargeStart_002" ID="{64B3702E-5278-43E5-AF3F-9878CEF182F2}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerChargeStart_003" ID="{D11A016D-506E-43E0-B17B-D29F1754A2B7}" ShortID="835808657">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerChargeStart_003" ID="{E9D10DFD-18C7-444F-BDF1-77DAC446E61D}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerChargeStart_003.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="158121360"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerChargeStart_003" ID="{E9D10DFD-18C7-444F-BDF1-77DAC446E61D}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="PlayerChargeStart_004" ID="{D024D72A-7FD6-471B-88AF-B4D2D4EC606E}" ShortID="258220185">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="PlayerChargeStart_004" ID="{D16871A7-076A-4FAF-B7DA-E997CB6311E3}">
+											<Language>SFX</Language>
+											<AudioFile>PlayerChargeStart_004.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1064310873"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="PlayerChargeStart_004" ID="{D16871A7-076A-4FAF-B7DA-E997CB6311E3}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
