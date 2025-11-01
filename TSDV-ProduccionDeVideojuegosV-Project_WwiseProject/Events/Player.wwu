@@ -70,7 +70,31 @@
 						<Action Name="" ID="{3DD087AB-B87A-4168-A764-9DCBB7D41C1D}" ShortID="209042007">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="ChargeAttackStart" ID="{337ED9CE-9A4C-452C-AAAE-2881615A5E10}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerAttack_03_Blend" ID="{688F93F9-B30D-4158-BF16-3EE9777E70A6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{934DFDA6-0B13-409C-9B26-05A23A7F26EE}" ShortID="475147654">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.8"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_001" ID="{ED5658F5-A8FB-48C7-8888-E9008ECF98A5}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{F25E644E-4436-4080-8183-72C2FFD072C5}" ShortID="649086322">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.8"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_002" ID="{384EA532-AE14-4AFA-A72D-D97679548199}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -96,9 +120,139 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{22508B9B-0D5A-46E3-AC86-83E74FD10F16}" ShortID="199830469">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartWisps" ID="{E0E56583-7CCB-4F2C-AC4D-749F50529175}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{4C1648BC-3BC5-45C5-BE13-2520D8A57C6C}" ShortID="140841489">
+							<PropertyList>
+								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="FadeInCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.75"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_001" ID="{ED5658F5-A8FB-48C7-8888-E9008ECF98A5}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{1FC82AF9-5916-4EB5-AE18-5CA1C42D8ACD}" ShortID="419760119">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{57517F50-6125-4F58-BE78-4E6285CE1DC3}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="SeekTime" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{EDF53ADB-4ADD-4B6A-AC7A-CF10FA1147BE}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="10"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="SeekType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_001" ID="{ED5658F5-A8FB-48C7-8888-E9008ECF98A5}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{C0FD5B8C-4DDA-48F9-8D1A-B19B0FC72D4F}" ShortID="617069895">
+							<PropertyList>
+								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="FadeInCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.75"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_002" ID="{384EA532-AE14-4AFA-A72D-D97679548199}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{7E3ED157-AB5C-4D5B-9598-90E2FF9C6FFA}" ShortID="586370673">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{4B7C1237-FC32-4887-B946-47FC7991DD76}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="SeekTime" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{6DD8BC5A-EE85-4B03-872D-57BB61C69285}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="10"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="SeekType" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_002" ID="{384EA532-AE14-4AFA-A72D-D97679548199}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="PlayerChargeStopFail" ID="{CA1461DD-6251-4A54-BBB5-8C5960391289}"/>
+				<Event Name="PlayerChargeStopFail" ID="{CA1461DD-6251-4A54-BBB5-8C5960391289}">
+					<ChildrenList>
+						<Action Name="" ID="{46EE5CB9-A3B8-4BB0-B612-4D9AF7A68EC1}" ShortID="4325175">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.8"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_001" ID="{ED5658F5-A8FB-48C7-8888-E9008ECF98A5}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{2E1C05A6-5D3B-440F-9E55-71413B4612FB}" ShortID="951618448">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.8"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerChargeStartSustain_002" ID="{384EA532-AE14-4AFA-A72D-D97679548199}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 				<Event Name="PlayerAttackSmash" ID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}">
 					<ChildrenList>
 						<Action Name="" ID="{747BF610-B5B7-4A13-A372-EEC1ECA389E9}" ShortID="2974872">
@@ -149,7 +303,7 @@
 						<Action Name="" ID="{3403D3F1-15A5-4D2F-966C-BF29B458D624}" ShortID="620620842">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="SpinCharge_01" ID="{38BF5392-CD90-404B-8253-F77EB831A0D7}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="SpinCharge_01" ID="{556C402E-0ACC-41C9-83A4-E6138061581B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
