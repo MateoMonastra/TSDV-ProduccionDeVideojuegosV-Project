@@ -129,9 +129,9 @@
 						</Action>
 						<Action Name="" ID="{4C1648BC-3BC5-45C5-BE13-2520D8A57C6C}" ShortID="140841489">
 							<PropertyList>
-								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
 								<Property Name="FadeInCurve" Type="int16" Value="5"/>
-								<Property Name="FadeTime" Type="Real64" Value="0.75"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.775"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
@@ -142,7 +142,7 @@
 						<Action Name="" ID="{1FC82AF9-5916-4EB5-AE18-5CA1C42D8ACD}" ShortID="419760119">
 							<PropertyList>
 								<Property Name="ActionType" Type="int16" Value="36"/>
-								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
 								<Property Name="SeekPercent" Type="Real64">
 									<ModifierList>
 										<ModifierInfo>
@@ -167,7 +167,6 @@
 										</ModifierInfo>
 									</ModifierList>
 								</Property>
-								<Property Name="SeekType" Type="int16" Value="1"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
@@ -177,7 +176,7 @@
 						</Action>
 						<Action Name="" ID="{C0FD5B8C-4DDA-48F9-8D1A-B19B0FC72D4F}" ShortID="617069895">
 							<PropertyList>
-								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
 								<Property Name="FadeInCurve" Type="int16" Value="5"/>
 								<Property Name="FadeTime" Type="Real64" Value="0.75"/>
 							</PropertyList>
@@ -190,7 +189,7 @@
 						<Action Name="" ID="{7E3ED157-AB5C-4D5B-9598-90E2FF9C6FFA}" ShortID="586370673">
 							<PropertyList>
 								<Property Name="ActionType" Type="int16" Value="36"/>
-								<Property Name="Delay" Type="Real64" Value="0.6"/>
+								<Property Name="Delay" Type="Real64" Value="0.5"/>
 								<Property Name="SeekPercent" Type="Real64">
 									<ModifierList>
 										<ModifierInfo>
@@ -215,7 +214,6 @@
 										</ModifierInfo>
 									</ModifierList>
 								</Property>
-								<Property Name="SeekType" Type="int16" Value="1"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">

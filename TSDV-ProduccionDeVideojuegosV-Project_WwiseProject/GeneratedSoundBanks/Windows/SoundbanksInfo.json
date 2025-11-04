@@ -88,7 +88,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{46B6A9E2-71FE-56BA-0F16-1418632D4E42}",
+    "Hash": "{A132647F-A880-A013-BB3E-8A730FE19A1C}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -219,7 +219,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "PlayerChargeStartSustain_001.wav",
-      "CachePath": "B5/{B581D8DF-1367-77FB-C285-7099310EAF18}.wem"
+      "CachePath": "0E/{0EEC713B-DEC3-2DB9-DBF0-E5C48C849492}.wem"
      },
      {
       "Id": "334170738",
@@ -235,7 +235,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "PlayerChargeStartSustain_002.wav",
-      "CachePath": "BE/{BEA7B9F2-B08B-278A-97DC-03AEC6F0BBFA}.wem"
+      "CachePath": "BA/{BA493198-AE05-86FF-ED6A-3F4CFDAA44B3}.wem"
      },
      {
       "Id": "370264577",
@@ -382,6 +382,14 @@
       "CachePath": "74/{7400CE7C-523E-47CC-E314-08A2AF7E7AA7}.wem"
      },
      {
+      "Id": "781123289",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "AmbFire_002.wav",
+      "CachePath": "3B/{3B1707C9-969F-7B92-B9E3-77FDB20DC9AE}.wem"
+     },
+     {
       "Id": "813132997",
       "Language": "SFX",
       "Streaming": "false",
@@ -420,6 +428,14 @@
       "Location": "Memory",
       "ShortName": "PasosTile-004.wav",
       "CachePath": "06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem"
+     },
+     {
+      "Id": "969703663",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "AmbFire_001.wav",
+      "CachePath": "E6/{E6AF6EF6-3B16-2E62-24FE-87A86612258A}.wem"
      },
      {
       "Id": "1006501114",
@@ -494,6 +510,23 @@
        },
        {
         "Id": "1015983070"
+       }
+      ]
+     },
+     {
+      "Id": "857272499",
+      "Name": "AmbFire",
+      "ObjectPath": "\\Events\\Default Work Unit\\SFX_Lvl_1\\AmbFire",
+      "GUID": "{D5235B01-656C-498E-90F2-DAAE8EF5F842}",
+      "Color": "4",
+      "MaxAttenuation": "25",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "781123289"
+       },
+       {
+        "Id": "969703663"
        }
       ]
      },
@@ -722,9 +755,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerChargeStart",
       "GUID": "{14475DD6-2FA7-4A97-954E-F49545CC53C8}",
       "Color": "2",
-      "DurationType": "OneShot",
-      "DurationMin": "25.1675",
-      "DurationMax": "25.1675",
+      "DurationType": "Infinite",
       "MediaRefs": [
        {
         "Id": "128700052"
@@ -951,6 +982,6 @@
     ]
    }
   ],
-  "FileHash": "{96BE99E4-CEC9-D8E0-E5CB-1083A34F251A}"
+  "FileHash": "{D35DC3E7-91C7-4AC3-0E10-531944EF54A6}"
  }
 }

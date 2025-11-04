@@ -30,7 +30,7 @@
 				<GameParameter Id="3671138082" Name="New_Game_Parameter" ObjectPath="\Game Parameters\Default Work Unit\New_Game_Parameter" GUID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{46B6A9E2-71FE-56BA-0F16-1418632D4E42}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{A132647F-A880-A013-BB3E-8A730FE19A1C}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -97,7 +97,7 @@
 				</File>
 				<File Id="307907536" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartSustain_001.wav</ShortName>
-					<CachePath>B5/{B581D8DF-1367-77FB-C285-7099310EAF18}.wem</CachePath>
+					<CachePath>0E/{0EEC713B-DEC3-2DB9-DBF0-E5C48C849492}.wem</CachePath>
 				</File>
 				<File Id="334170738" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_002.wav</ShortName>
@@ -105,7 +105,7 @@
 				</File>
 				<File Id="364665653" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartSustain_002.wav</ShortName>
-					<CachePath>BE/{BEA7B9F2-B08B-278A-97DC-03AEC6F0BBFA}.wem</CachePath>
+					<CachePath>BA/{BA493198-AE05-86FF-ED6A-3F4CFDAA44B3}.wem</CachePath>
 				</File>
 				<File Id="370264577" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidStream_004.wav</ShortName>
@@ -179,6 +179,10 @@
 					<ShortName>Soundly Audio\Games, Video, Coin, Pick Up, Collect, Positive, Variations 01 SND99822 2.wav</ShortName>
 					<CachePath>74/{7400CE7C-523E-47CC-E314-08A2AF7E7AA7}.wem</CachePath>
 				</File>
+				<File Id="781123289" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbFire_002.wav</ShortName>
+					<CachePath>3B/{3B1707C9-969F-7B92-B9E3-77FDB20DC9AE}.wem</CachePath>
+				</File>
 				<File Id="813132997" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_004.wav</ShortName>
 					<CachePath>EF/{EF7DA6CC-6348-0443-BE88-CC18C9D700CE}.wem</CachePath>
@@ -198,6 +202,10 @@
 				<File Id="916099941" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PasosTile-004.wav</ShortName>
 					<CachePath>06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem</CachePath>
+				</File>
+				<File Id="969703663" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbFire_001.wav</ShortName>
+					<CachePath>E6/{E6AF6EF6-3B16-2E62-24FE-87A86612258A}.wem</CachePath>
 				</File>
 				<File Id="1006501114" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerMovementJump-001.wav</ShortName>
@@ -232,6 +240,12 @@
 						<MediaRef Id="833462405"/>
 						<MediaRef Id="861232703"/>
 						<MediaRef Id="1015983070"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="857272499" Name="AmbFire" ObjectPath="\Events\Default Work Unit\SFX_Lvl_1\AmbFire" GUID="{D5235B01-656C-498E-90F2-DAAE8EF5F842}" Color="4" MaxAttenuation="25" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="781123289"/>
+						<MediaRef Id="969703663"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="3417696939" Name="PlayerAttack1" ObjectPath="\Events\Default Work Unit\Player\PlayerAttack1" GUID="{BE099AE6-BA0D-46D8-BB76-B23E524C3386}" Color="2" DurationType="OneShot" DurationMin="1.8384792" DurationMax="1.8385">
@@ -307,7 +321,7 @@
 						<MediaRef Id="1006501114"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="297139706" Name="PlayerChargeStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStart" GUID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}" Color="2" DurationType="OneShot" DurationMin="25.1675" DurationMax="25.1675">
+				<Event Id="297139706" Name="PlayerChargeStart" ObjectPath="\Events\Default Work Unit\Player\PlayerChargeStart" GUID="{14475DD6-2FA7-4A97-954E-F49545CC53C8}" Color="2" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="128700052"/>
 						<MediaRef Id="157252345"/>
@@ -382,5 +396,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{F1412652-6BD7-CB49-B252-0E50AAF9F54C}</FileHash>
+	<FileHash>{5A5149F7-F8D8-CB18-09ED-429EFA814FF5}</FileHash>
 </SoundBanksInfo>

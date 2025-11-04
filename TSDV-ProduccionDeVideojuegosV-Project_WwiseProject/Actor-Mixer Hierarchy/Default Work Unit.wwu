@@ -1816,6 +1816,9 @@
 									</ChildrenList>
 								</RandomSequenceContainer>
 								<Sound Name="PlayerChargeStartSustain_001" ID="{ED5658F5-A8FB-48C7-8888-E9008ECF98A5}" ShortID="763447650">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
@@ -1838,6 +1841,14 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="PlayerChargeStartSustain_002" ID="{384EA532-AE14-4AFA-A72D-D97679548199}" ShortID="182155853">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-4</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
@@ -1902,9 +1913,10 @@
 						<ActorMixer Name="Ambs" ID="{9109C7F2-53E7-4FEC-BDAD-DA4BA50FD355}" ShortID="487489310">
 							<PropertyList>
 								<Property Name="3DSpatialization" Type="int16" Value="2"/>
-								<Property Name="BelowThresholdBehavior" Type="int16" Value="3"/>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
 								<Property Name="Color" Type="int16" Value="4"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="65"/>
 								<Property Name="VirtualVoiceQueueBehavior" Type="int16" Value="0"/>
 							</PropertyList>
 							<ReferenceList>
@@ -2092,6 +2104,80 @@
 										</ObjectList>
 									</ObjectLists>
 								</RandomSequenceContainer>
+								<ActorMixer Name="AmbFire" ID="{D275B6F0-ADC1-4D39-A37D-08A1A43980D4}" ShortID="862919627">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Torch" ID="{4B559C80-9FA6-470B-8148-3C4AE1E8E1BF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="AmbFire_001" ID="{C5A32FFB-32F8-4C10-B9E9-5073F9AB2B1C}" ShortID="118882055">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbFire_001" ID="{91B2BFA3-0848-4D6C-87E3-EDAEAC09FE8F}">
+													<Language>SFX</Language>
+													<AudioFile>AmbFire_001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="969703663"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbFire_001" ID="{91B2BFA3-0848-4D6C-87E3-EDAEAC09FE8F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="AmbFire_002" ID="{68622995-A446-4F69-AF12-EC6C10D38EC7}" ShortID="776054611">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbFire_002" ID="{A7CA3D82-2BF0-4B8A-BCE9-749DE6C23CD4}">
+													<Language>SFX</Language>
+													<AudioFile>AmbFire_002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="781123289"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbFire_002" ID="{A7CA3D82-2BF0-4B8A-BCE9-749DE6C23CD4}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</ActorMixer>
 							</ChildrenList>
 							<PositioningInfo>
 								<Panner Name="" ID="{D2F73E6D-030B-4E2E-AC64-0433CD009BEA}"/>
