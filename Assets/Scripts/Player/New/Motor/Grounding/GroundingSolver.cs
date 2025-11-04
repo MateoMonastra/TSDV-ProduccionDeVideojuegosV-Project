@@ -9,7 +9,10 @@ namespace Player.New
         private readonly float _maxStepHeight = 0.4f;
         private readonly float _stepCheckForwardDistance = 0.1f;
         private readonly float _stepCheckDownDistance = 0.5f;
+       private readonly float _lowSpeedStepCancel = 0.25f;
         private readonly LayerMask _groundLayers;
+        
+
 
         public GroundingSolver(CapsuleCollider capsule, LayerMask groundLayers)
         {
@@ -43,8 +46,16 @@ namespace Player.New
                 
                 if (!groundingReport.IsStableOnGround && groundingReport.FoundAnyGround)
                 {
-                    TryStepUp(ref position, rotation, baseVelocity, ref groundingReport);
+                    if (baseVelocity.sqrMagnitude <= _lowSpeedStepCancel * _lowSpeedStepCancel)
+                    {
+                        groundingReport.SnappingPrevented = false;
+                    }
+                    else
+                    {
+                        TryStepUp(ref position, rotation, baseVelocity, ref groundingReport);
+                    }
                 }
+
             }
             else
             {

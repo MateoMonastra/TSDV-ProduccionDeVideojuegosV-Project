@@ -46,6 +46,12 @@ namespace Player.New
         [SerializeField, Tooltip("Si está activo, el motor NO integra ni mueve al personaje.")]
         private bool frozen = false;
 
+        [Header("Low-speed snap")] [SerializeField]
+        private float lowSpeedMin = 0.25f;
+
+        [SerializeField] private float lowSpeedSnapMaxDist = 0.50f;
+
+
         /// <summary>Congela/descongela la integración del motor.</summary>
         public bool Frozen
         {
@@ -153,7 +159,13 @@ namespace Player.New
             {
                 _groundingReport = default;
             }
-            
+
+            if (_velocity.sqrMagnitude <= lowSpeedMin * lowSpeedMin)
+            {
+                _groundingReport.SnappingPrevented = false;
+                TrySnapToGround(lowSpeedSnapMaxDist);
+            }
+
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
             if (_ungroundTimer <= 0f && _velocity.y <= maxSnapSpeed)
