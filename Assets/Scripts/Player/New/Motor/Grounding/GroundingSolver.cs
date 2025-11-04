@@ -92,6 +92,7 @@ namespace Player.New
                         position = new Vector3(position.x, downHit.point.y, position.z);
                         report.FoundAnyGround = true;
                         report.IsStableOnGround = true;
+                        report.SnappingPrevented = false;
                         report.GroundPoint = downHit.point;
                         report.GroundNormal = downHit.normal;
                         report.GroundCollider = downHit.collider;
