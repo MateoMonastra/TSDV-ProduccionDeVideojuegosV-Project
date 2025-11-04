@@ -328,7 +328,7 @@ namespace Player.New
             
             _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, audioController);
 
-            _sDash = new Dash(motor, model, RequestLocomotionTransition, anim: animController, vfxController, audioController);
+            _sDash = new Dash(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
             _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
 
             _sDeath = new Death(
@@ -454,6 +454,11 @@ namespace Player.New
         public void SetPlayerIdleState()
         {
             _locomotionFsm?.ForceTransition(_sIdle);
+        }
+
+        public void JumpAnim()
+        {
+            animController?.TriggerDoubleJump();
         }
         
         private void FallResetActionFsm()
