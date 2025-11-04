@@ -455,6 +455,11 @@ namespace Player.New
         {
             _locomotionFsm?.ForceTransition(_sIdle);
         }
+
+        public void JumpAnim()
+        {
+            animController?.TriggerDoubleJump();
+        }
         
         private void FallResetActionFsm()
         {
