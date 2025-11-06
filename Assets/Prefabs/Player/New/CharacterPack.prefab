@@ -207,6 +207,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2410854633578054885}
     m_Modifications:
+    - target: {fileID: 846255110456409464, guid: 7ec9c692637873c49ba91a022f405e01, type: 3}
+      propertyPath: isEnvironmentAware
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 846255110456409464, guid: 7ec9c692637873c49ba91a022f405e01, type: 3}
+      propertyPath: m_positionOffsetData.KeepMe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3675687534634105591, guid: 7ec9c692637873c49ba91a022f405e01, type: 3}
       propertyPath: m_Name
       value: PlayerAudio
@@ -251,6 +259,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6876116958146728204, guid: 7ec9c692637873c49ba91a022f405e01, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5047515412822201820}
+    - target: {fileID: 6876116958146728204, guid: 7ec9c692637873c49ba91a022f405e01, type: 3}
+      propertyPath: characterCamera
+      value: 
+      objectReference: {fileID: 5707298125523688470}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -395,6 +411,11 @@ CapsuleCollider:
 --- !u!4 &2743252631990637210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789657387331442103, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
+  m_PrefabInstance: {fileID: 6911582245982717741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5047515412822201820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1866390101230211825, guid: 1d96af8ae808fc549b68a64b8f49ab9e, type: 3}
   m_PrefabInstance: {fileID: 6911582245982717741}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6038951754994347097 stripped

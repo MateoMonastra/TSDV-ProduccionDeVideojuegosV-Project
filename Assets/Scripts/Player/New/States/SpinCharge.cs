@@ -132,16 +132,19 @@ namespace Player.New
             {
                 charge1 = true;
                 _vfxController.Play(VfxEvent.SpinCharge1);
+                _audioController.PlayPlayerSpinCharge1();
             }
-            else if (valor >0.6f && !charge2)
+            else if (valor > 0.6f && !charge2)
             {
                 charge2 = true;
                 _vfxController.Play(VfxEvent.SpinCharge2);
+                _audioController.PlayPlayerSpinCharge2();
             }
             else if (valor > 0.9f && !charge3)
             {
                 charge3 = true;
                 _vfxController.Play(VfxEvent.SpinCharge3);
+                _audioController.PlayPlayerSpinCharge3();
             }
             
             if (_released)
