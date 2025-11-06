@@ -87,6 +87,8 @@ namespace Platforms
             agent.GetPlayerModel().ClearActionLocks();
             agent.SetPlayerAttackIdleState();
             agent.SetPlayerIdleState();
+            agent.JumpAnim();
+            
         }
 
         private void OnTriggerExit(Collider other)
