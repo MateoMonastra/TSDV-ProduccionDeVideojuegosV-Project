@@ -21,6 +21,7 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
+        private readonly Transform _cam;
 
         private Vector3 _dir;
         private float   _duration;
@@ -34,11 +35,12 @@ namespace Player.New
 
         public System.Action<float> OnDashCooldownUI;
 
-        public Dash(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
+        public Dash(MyKinematicMotor m, PlayerModel model, Transform cam, System.Action<string> req,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
         {
             _audioController = audioController;
             _vfxController = vfxController;
+            _cam = cam;
             _m = m; _model = model; _req = req; _anim = anim;
         }
 
@@ -49,11 +51,36 @@ namespace Player.New
             base.Enter();
 
             Vector3 up = _m.CharacterUp;
-            Vector3 charFwdPlanar = Vector3.ProjectOnPlane(_m.transform.forward, up);
-            _dir = charFwdPlanar.sqrMagnitude >_model.MinInputSqr ? charFwdPlanar.normalized : _m.transform.forward;
-            if (_model.MoveInputWorld.sqrMagnitude >_model.MinInputSqr)
-                _dir = _model.MoveInputWorld.normalized;
+            
+            // Calculate direction directly from input and camera (like other states)
+            if (_model.RawMoveInput.sqrMagnitude > _model.MinInputSqr)
+            {
+                // Calculate camera-relative directions
+                Vector3 camFwd = Vector3.ProjectOnPlane(_cam.forward, up).normalized;
+                if (camFwd.sqrMagnitude < _model.MinInputSqr)
+                    camFwd = Vector3.ProjectOnPlane(_cam.up, up).normalized;
+                
+                Vector3 camRight = Vector3.Cross(up, camFwd);
+                
+                // Calculate input direction in world space
+                _dir = (camFwd * _model.RawMoveInput.y + camRight * _model.RawMoveInput.x);
+                _dir = Vector3.ProjectOnPlane(_dir, up).normalized;
+                
+                // Ensure the direction is valid
+                if (_dir.sqrMagnitude < _model.MinInputSqr)
+                {
+                    Vector3 charFwdPlanar = Vector3.ProjectOnPlane(_m.transform.forward, up);
+                    _dir = charFwdPlanar.sqrMagnitude > _model.MinInputSqr ? charFwdPlanar.normalized : _m.transform.forward;
+                }
+            }
+            else
+            {
+                // No input, use character forward
+                Vector3 charFwdPlanar = Vector3.ProjectOnPlane(_m.transform.forward, up);
+                _dir = charFwdPlanar.sqrMagnitude > _model.MinInputSqr ? charFwdPlanar.normalized : _m.transform.forward;
+            }
 
+            _m.SetRotation(_dir);
             
             if (_model.DashBuffPending)
             {
@@ -82,14 +109,13 @@ namespace Player.New
 
             _m.ForceUnground(0.05f);
             
+            // Set velocity based on input direction, completely ignoring current horizontal velocity
             Vector3 v = _m.Velocity;
+            float y = v.y < 0f ? 0f : v.y; // Preserve positive Y velocity (upward momentum)
             
-            float y = v.y < 0f ? 0f : v.y;
-            
+            // Set horizontal velocity directly from input direction, ignoring current velocity
             Vector3 h = _dir * _dashSpeedSel;
-            v.x = h.x;
-            v.z = h.z;
-            v.y = y;
+            v = new Vector3(h.x, y, h.z);
 
             _m.SetVelocity(v);
 
@@ -112,13 +138,15 @@ namespace Player.New
             {
                 _t += dt;
                 
+                _m.SmoothRotation(_dir, _model.DashRotationSharpness, dt);
+                
+                // Maintain velocity based on input direction, completely ignoring current horizontal velocity
                 Vector3 v = _m.Velocity;
-                float y = v.y < 0f ? 0f : v.y;
+                float y = v.y < 0f ? 0f : v.y; // Preserve positive Y velocity
 
+                // Set horizontal velocity directly from input direction
                 Vector3 h = _dir * _dashSpeedSel;
-                v.x = h.x;
-                v.z = h.z;
-                v.y = y;
+                v = new Vector3(h.x, y, h.z);
 
                 _m.SetVelocity(v);
 

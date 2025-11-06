@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551bb5f85ff448b4990bf09cf79c635d, type: 3}
   m_Name: NewPlayerModel
   m_EditorClassIdentifier: 
-  moveSpeed: 11
+  moveSpeed: 8
   moveAcceleration: 30
   airHorizontalSpeed: 15
   landStopsHorizontal: 0
@@ -23,9 +23,9 @@ MonoBehaviour:
   groundBrakingDecel: 32
   sprintBrakingDecel: 55
   minFallHeight: 6
-  sprintSpeedMultiplier: 2
+  sprintSpeedMultiplier: 3
   sprintMinSpeedToKeep: 0.1
-  sprintArmWindow: 0.8
+  sprintArmWindow: 0.5
   sprintHoldTime: 0.1
   orientationMethod: 0
   orientationSharpness: 12
@@ -36,7 +36,8 @@ MonoBehaviour:
   dashSpeed: 30
   dashCooldown: 1.8
   dashExitBlendTime: 0.12
-  dashExitSharpness: 10
+  dashExitSharpness: 1
+  dashRotationSharpness: 12
   hasExtraJump: 0
   dashBuffPending: 0
   dashBuffDistance: 25
