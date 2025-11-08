@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -582367402082311314, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 87358e86e9878f64aafa426d448eec81, type: 2}
     - target: {fileID: 919132149155446097, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
       propertyPath: m_Name
       value: Mesh_ParedesLobby_v01.fbx
@@ -55,5 +59,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7611293668805181883, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6747997820871638752}
   m_SourcePrefab: {fileID: 100100000, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
+--- !u!1 &6445974509127616919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7611293668805181883, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
+  m_PrefabInstance: {fileID: 3518451408541468716}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &6747997820871638752
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6445974509127616919}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3900835443473558952, guid: a64d0c5b50078504e9494abbc7194d34, type: 3}
