@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID AMBACIDSTREAM = 2773708536U;
+        static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;
@@ -26,8 +28,16 @@ namespace AK
         static const AkUniqueID PLAYERGETSHIT = 608095284U;
         static const AkUniqueID PLAYERJUMP = 4008126242U;
         static const AkUniqueID PLAYERJUMP2 = 937597620U;
+        static const AkUniqueID PLAYERSPINCHARGE1 = 395070063U;
+        static const AkUniqueID PLAYERSPINCHARGE2 = 395070060U;
+        static const AkUniqueID PLAYERSPINCHARGE3 = 395070061U;
         static const AkUniqueID PLAYERSTEP = 412471812U;
     } // namespace EVENTS
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {

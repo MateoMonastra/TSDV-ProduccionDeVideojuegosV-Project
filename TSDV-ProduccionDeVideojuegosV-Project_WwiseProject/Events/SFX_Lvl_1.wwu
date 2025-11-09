@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
+	<Events>
+		<WorkUnit Name="SFX_Lvl_1" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="4"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="AmbAcidStream" ID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}">
+					<ChildrenList>
+						<Action Name="" ID="{881789FC-F840-40D7-921B-70F4460C961C}" ShortID="517878067">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbAcidStreams" ID="{EBD0F654-A4B9-4B74-9285-0B2F219C7C1B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AmbFire" ID="{D5235B01-656C-498E-90F2-DAAE8EF5F842}">
+					<ChildrenList>
+						<Action Name="" ID="{B6E79243-3E64-4AF9-8F99-E7256F3FF77B}" ShortID="207012830">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbFire_001" ID="{C5A32FFB-32F8-4C10-B9E9-5073F9AB2B1C}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{F07D4D98-0DE0-4366-BF22-FBDB4B0F6A18}" ShortID="149228767">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{83622946-C60B-4035-A698-9F15ED844CAD}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbFire_001" ID="{C5A32FFB-32F8-4C10-B9E9-5073F9AB2B1C}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{9047E09E-0253-4249-8CF2-6BAADB14F0AC}" ShortID="878364081">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbFire_002" ID="{68622995-A446-4F69-AF12-EC6C10D38EC7}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{EAD0C55C-756D-4381-A7BC-2E39B75367E2}" ShortID="249523456">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{F7267E4B-9E49-484F-8A4F-7BBAA0D92C68}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbFire_002" ID="{68622995-A446-4F69-AF12-EC6C10D38EC7}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
