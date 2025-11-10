@@ -203,10 +203,7 @@ namespace Player.New
 
         public void ApplyGravity(float gravity, float deltaTime)
         {
-            if (!IsGrounded)
-            {
                 _velocity.y += gravity * deltaTime;
-            }
         }
 
         /// <summary>Ignora detección de suelo durante "duration" segundos.</summary>
