@@ -182,8 +182,6 @@ namespace Player.New
 
                 if (_recoverT >= _model.DashExitBlendTime)
                 {
-                    Debug.LogError("RECOVER T: " + _recoverT);
-                    Debug.LogError("TIME: " + _t);
                     _recoverT = 0;
                     _recovering = false;
                     _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
@@ -200,13 +198,11 @@ namespace Player.New
                 //_model.SprintArmed = false;
                 //_model.SprintHoldCounter = 0f;
                 
-                Debug.LogError("NOT GROUNDED");
                 return;
             }
 
             if (!_model.SprintArmed)
             {
-                Debug.LogError("NOT ARMED");
                 return;
             }
 
@@ -216,7 +212,6 @@ namespace Player.New
             {
                 _model.SprintArmed = false;
                 _model.SprintHoldCounter = 0f;
-                Debug.LogError("NO TIME TO ARM SPRINT: " + _model.SprintArmWindow);
                 return;
             }
 
@@ -228,10 +223,6 @@ namespace Player.New
 
             if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput)
             {
-                Debug.LogError("RECOVER T: " + _recoverT);
-                Debug.LogError("TIME: " + _t);
-                
-                
                 _req?.Invoke(ToSprint);
                 _anim.SetWalking(false);
                 _anim.SetSprinting(true);
