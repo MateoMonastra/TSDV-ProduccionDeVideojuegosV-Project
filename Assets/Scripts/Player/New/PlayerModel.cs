@@ -1,5 +1,6 @@
 ﻿using Health;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Player.New
@@ -1140,8 +1141,15 @@ namespace Player.New
         /// <summary>Ventana post-dash armada para iniciar sprint.</summary>
         public bool SprintArmed
         {
-            get => _sprintArmed;
-            set => _sprintArmed = value;
+            get { Debug.Log($"get {_sprintArmed}");
+            return _sprintArmed;
+        }
+            set
+            {
+                
+                Debug.Log($"Set {_sprintArmed}");
+                _sprintArmed = value;   
+            }
         }
 
         /// <summary>Estado de botón de dash mantenido (para hold de sprint).</summary>

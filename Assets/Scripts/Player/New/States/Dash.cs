@@ -121,18 +121,25 @@ namespace Player.New
 
             _vfxController?.Play(VfxEvent.Dash);
 
+            _model.BeginSprintWindow();
         }
 
         public override void Exit()
         {
             base.Exit();
             _model.BeginSprintWindow();
+            _model.ResetAfk();
+            _recoverT = 0;
+            _recovering = false;
+            
             _model.InvulnerableToEnemies = false;
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
+
+            SprintWindow(dt);
 
             if (!_recovering)
             {
@@ -154,7 +161,6 @@ namespace Player.New
                 {
                     _recovering = true;
                     _recoverT = 0f;
-                    _model.BeginSprintWindow();
                 }
 
             }
@@ -172,12 +178,58 @@ namespace Player.New
                 v.x = h.x; v.z = h.z;
                 _m.SetVelocity(v);
 
-                if (_recoverT >= _model.DashExitBlendTime)
+                if (_recoverT >= _model.DashExitBlendTime && _model.SprintArmWindow < _model.SprintHoldCounter)
                 {
+                    Debug.Log($"SPRINT HOLD TIME: {_model.SprintHoldTime}");
+                    Debug.Log($"SPRINT HOLD COUNTER: {_model.SprintHoldCounter}");
                     _recovering = false;
                     _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
                     Finish();
                 }
+            }
+            
+        }
+
+        private void SprintWindow(float dt)
+        {
+            if (!_m.IsGrounded)
+            {
+                //_model.SprintArmed = false;
+                _model.SprintHoldCounter = 0f;
+                Debug.LogError("NOT GROUNDED");
+                return;
+            }
+
+            if (!_model.SprintArmed)
+            {
+                Debug.LogError("NOT ARMED");
+                return;
+            }
+
+            _model.SprintArmTimeLeft -= dt;
+            if (_model.SprintArmTimeLeft <= 0f)
+            {
+                _model.SprintArmed = false;
+                _model.SprintHoldCounter = 0f;
+                Debug.LogError("NO TIME TO ARM SPRINT");
+                return;
+            }
+
+            if (_model.DashHeld) _model.SprintHoldCounter += dt;
+            else _model.SprintHoldCounter = 0f;
+
+            bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
+
+            if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput)
+            {
+                _req?.Invoke(ToSprint);
+                _anim.SetWalking(false);
+                _anim.SetSprinting(true);
+                _model.SprintHoldCounter = 0f;
+            }
+            else
+            {
+                
             }
         }
     }

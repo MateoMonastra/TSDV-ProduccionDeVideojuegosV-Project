@@ -52,6 +52,8 @@ namespace Player.New
         {
             base.Tick(dt);
 
+            Debug.LogError("TICKING IN WALK IDLE: " + Model.SprintHoldCounter);
+            
             UpdateMoveInputWorld();
 
             ApplyLocomotion(dt, inAir: false);
@@ -117,6 +119,7 @@ namespace Player.New
         /// </summary>
         private void HandleSprintWindow(float dt)
         {
+
             if (!Motor.IsGrounded)
             {
                 Model.SprintArmed = false;
