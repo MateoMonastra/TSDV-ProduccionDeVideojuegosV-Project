@@ -149,6 +149,7 @@ namespace Player.New
             if (!Dash.CanUse(model)) return;
             if (model.DashBlocked) return;
             _locomotionFsm.ForceTransition(_sDash);
+            _actionFsm.ForceTransition(_aIdle);
         }
 
         private void OnJump()
