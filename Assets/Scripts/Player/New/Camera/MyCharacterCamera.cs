@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -62,6 +63,8 @@ namespace Player.New
             
             if (followTransform != null)
                 _currentFollowPosition = followTransform.position;
+            
+            GameEvents.GameEvents.OnPlayerDied += ResetLook;
         }
 
         private void OnEnable()
@@ -82,7 +85,12 @@ namespace Player.New
             }
             GameEvents.GameEvents.OnGamePaused -= PauseTheCamera;
         }
-        
+
+        private void OnDestroy()
+        {
+            GameEvents.GameEvents.OnPlayerDied -= ResetLook;
+        }
+
         private void CollectFallbackInput()
         {
             if (Mouse.current != null)
@@ -111,6 +119,11 @@ namespace Player.New
             _lastDevice = device;
         }
 
+        private void ResetLook(GameObject g)
+        {
+            _look = Vector2.zero;
+        }
+
         private void LateUpdate()
         {
             if (followTransform == null)
@@ -119,7 +132,8 @@ namespace Player.New
             if (inputReader == null) CollectFallbackInput();
             
             UpdateCamera(Time.deltaTime, _zoom, new Vector3(_look.x, _look.y, 0f), _lastDevice ?? Mouse.current);
-            
+            Debug.Log($"look x: {_look.x}");
+            Debug.Log($"look y: {_look.y}");
             _zoom = 0f;
         }
 
