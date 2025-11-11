@@ -21,6 +21,7 @@ namespace Player.New
 
         private float _timeSinceUngrounded;
         private int _ungroundedFrames;
+        private bool cancelledSprint = false;
         private const float GroundProbeLength = 100f;
 
         public Sprint(MyKinematicMotor m,
@@ -85,7 +86,6 @@ namespace Player.New
                 RequestTransition?.Invoke(ToWalkIdle);
                 Model.SprintArmed = false;
                 Model.SprintHoldCounter = 0;
-                
                 if (Model.RawMoveInput.sqrMagnitude > Model.MinInputSqr)
                     _anim?.SetWalking(true);
                 

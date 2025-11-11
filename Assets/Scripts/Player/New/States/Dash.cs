@@ -207,6 +207,13 @@ namespace Player.New
             }
 
                 
+            if (!_model.DashHeld)
+            {
+                _model.SprintArmed = false;
+                _model.SprintHoldCounter = 0f;
+                return; 
+            }
+                
             _model.SprintArmTimeLeft -= dt;
             if (_model.SprintArmTimeLeft <= 0f)
             {
@@ -215,9 +222,14 @@ namespace Player.New
                 return;
             }
 
-            if (_model.DashHeld && _t >= _duration) _model.SprintHoldCounter += dt;
-            else _model.SprintHoldCounter = 0f;
-
+            if (_t >= _duration) 
+            {
+                _model.SprintHoldCounter += dt;
+            }
+            else 
+            {
+                _model.SprintHoldCounter = 0f;
+            }
             //bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
             bool hasMoveInput = true;
 
