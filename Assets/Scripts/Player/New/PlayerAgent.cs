@@ -363,6 +363,7 @@ namespace Player.New
 
             _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });
             _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
+            _sDash.AddTransition(new Transition {From = _sDash, To = _sSprint, ID = Dash.ToSprint });
 
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
 

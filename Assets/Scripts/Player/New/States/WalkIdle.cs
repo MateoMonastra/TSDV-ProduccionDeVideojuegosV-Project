@@ -52,8 +52,6 @@ namespace Player.New
         {
             base.Tick(dt);
 
-            Debug.LogError("TICKING IN WALK IDLE: " + Model.SprintHoldCounter);
-            
             UpdateMoveInputWorld();
 
             ApplyLocomotion(dt, inAir: false);

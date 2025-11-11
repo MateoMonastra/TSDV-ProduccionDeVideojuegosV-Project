@@ -14,6 +14,7 @@ namespace Player.New
     {
         public const string ToFall     = "ToFall";
         public const string ToWalkIdle = "ToWalkIdle";
+        public const string ToSprint = "ToSprint";
 
         private readonly MyKinematicMotor _m;
         private readonly PlayerModel _model;
@@ -122,6 +123,8 @@ namespace Player.New
             _vfxController?.Play(VfxEvent.Dash);
 
             _model.BeginSprintWindow();
+            _recovering = false;
+
         }
 
         public override void Exit()
@@ -130,7 +133,6 @@ namespace Player.New
             _model.BeginSprintWindow();
             _model.ResetAfk();
             _recoverT = 0;
-            _recovering = false;
             
             _model.InvulnerableToEnemies = false;
         }
@@ -178,10 +180,11 @@ namespace Player.New
                 v.x = h.x; v.z = h.z;
                 _m.SetVelocity(v);
 
-                if (_recoverT >= _model.DashExitBlendTime && _model.SprintArmWindow < _model.SprintHoldCounter)
+                if (_recoverT >= _model.DashExitBlendTime)
                 {
-                    Debug.Log($"SPRINT HOLD TIME: {_model.SprintHoldTime}");
-                    Debug.Log($"SPRINT HOLD COUNTER: {_model.SprintHoldCounter}");
+                    Debug.LogError("RECOVER T: " + _recoverT);
+                    Debug.LogError("TIME: " + _t);
+                    _recoverT = 0;
                     _recovering = false;
                     _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
                     Finish();
@@ -195,7 +198,8 @@ namespace Player.New
             if (!_m.IsGrounded)
             {
                 //_model.SprintArmed = false;
-                _model.SprintHoldCounter = 0f;
+                //_model.SprintHoldCounter = 0f;
+                
                 Debug.LogError("NOT GROUNDED");
                 return;
             }
@@ -206,22 +210,28 @@ namespace Player.New
                 return;
             }
 
+                
             _model.SprintArmTimeLeft -= dt;
             if (_model.SprintArmTimeLeft <= 0f)
             {
                 _model.SprintArmed = false;
                 _model.SprintHoldCounter = 0f;
-                Debug.LogError("NO TIME TO ARM SPRINT");
+                Debug.LogError("NO TIME TO ARM SPRINT: " + _model.SprintArmWindow);
                 return;
             }
 
             if (_model.DashHeld) _model.SprintHoldCounter += dt;
             else _model.SprintHoldCounter = 0f;
 
-            bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
+            //bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
+            bool hasMoveInput = true;
 
             if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput)
             {
+                Debug.LogError("RECOVER T: " + _recoverT);
+                Debug.LogError("TIME: " + _t);
+                
+                
                 _req?.Invoke(ToSprint);
                 _anim.SetWalking(false);
                 _anim.SetSprinting(true);
@@ -229,7 +239,7 @@ namespace Player.New
             }
             else
             {
-                
+                //Debug.LogError("SPRINT HOLD COUNTER " + _model.SprintHoldCounter);
             }
         }
     }

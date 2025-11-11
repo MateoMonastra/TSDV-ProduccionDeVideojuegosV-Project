@@ -29,9 +29,10 @@ namespace Player.New
         [SerializeField, Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         private float airHorizontalSpeed = 6f;
 
-        [SerializeField, Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
+        [SerializeField,
+         Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
         private bool landStopsHorizontal = false;
-        
+
         [Header("Ground Tuning (Anti-Drift / Sprint Turning)")]
         [SerializeField, Range(1f, 40f), Tooltip("Qué tan rápido gira la velocidad hacia el input en suelo.")]
         private float groundReorientationSharpness = 10f;
@@ -50,15 +51,16 @@ namespace Player.New
 
         [SerializeField, Range(0f, 100f), Tooltip("Deceleración al soltar input durante sprint.")]
         private float sprintBrakingDecel = 32f;
-        
+
         [SerializeField, Tooltip("Altura mínima desde el suelo para considerar Fall")]
         private float minFallHeight = 0.35f;
+
         public float MinFallHeight
         {
             get => minFallHeight;
             set => minFallHeight = value;
         }
-        
+
         /// <summary>Sharpness de reorientación en suelo.</summary>
         public float GroundReorientationSharpness
         {
@@ -102,7 +104,6 @@ namespace Player.New
         }
 
 
-
         /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
         public bool LandStopsHorizontal
         {
@@ -132,6 +133,7 @@ namespace Player.New
         }
 
         #endregion
+
         // ───────────────────────────────────────────────────────────────────────
 
         #region Sprint (hold window + behavior)
@@ -275,7 +277,7 @@ namespace Player.New
 
         [SerializeField, Range(1f, 30f), Tooltip("Sharpness del ease-out (↑ más snappy).")]
         private float dashExitSharpness = 10f;
-        
+
         [SerializeField, Tooltip("Sharpness de la rotación.")]
         private float dashRotationSharpness = 12f;
 
@@ -313,6 +315,7 @@ namespace Player.New
             get => dashExitSharpness;
             set => dashExitSharpness = value;
         }
+
         public float DashRotationSharpness
         {
             get => dashRotationSharpness;
@@ -529,7 +532,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Stagger en enemigos (s).")]
         private float verticalStaggerTime = 0.35f;
-        
+
         [SerializeField, Tooltip("Tiempo para atrasar el impacto para que sincronice con la animación (s).")]
         private float verticalAttackImpactDelay = 0.35f;
 
@@ -620,7 +623,7 @@ namespace Player.New
             get => verticalAttackImpactDelay;
             set => verticalAttackImpactDelay = value;
         }
-        
+
         public float VerticalAttackCooldown
         {
             get => verticalAttackCooldown;
@@ -841,7 +844,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Bloquea el salto.")]
         private bool jumpBlocked = false;
-        
+
         [SerializeField, Tooltip("Bloquea el dash.")]
         private bool dashBlocked = false;
 
@@ -877,6 +880,7 @@ namespace Player.New
             get => jumpBlocked;
             set => jumpBlocked = value;
         }
+
         public bool DashBlocked
         {
             get => dashBlocked;
@@ -923,7 +927,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Layer del Player")]
         private LayerMask playerLayer;
-        
+
         [SerializeField, Tooltip("Segundos de inactividad para disparar animación AFK.")]
         private float afkSeconds = 7f;
 
@@ -1006,10 +1010,10 @@ namespace Player.New
         [System.NonSerialized] public Quaternion RespawnRotation;
 
         [System.NonSerialized] private bool _isDead;
-        
+
         [System.NonSerialized] private float _afkTimer;
         [System.NonSerialized] private bool _afkTriggered;
-        
+
         [System.NonSerialized] public readonly float MinSpeedSqr = 0.0001f;
         [System.NonSerialized] public readonly float MinInputSqr = 1e-5f;
 
@@ -1141,14 +1145,11 @@ namespace Player.New
         /// <summary>Ventana post-dash armada para iniciar sprint.</summary>
         public bool SprintArmed
         {
-            get { Debug.Log($"get {_sprintArmed}");
-            return _sprintArmed;
-        }
+            get => _sprintArmed;
+
             set
             {
-                
-                Debug.Log($"Set {_sprintArmed}");
-                _sprintArmed = value;   
+                _sprintArmed = value;
             }
         }
 
@@ -1170,7 +1171,7 @@ namespace Player.New
         public float SprintHoldCounter
         {
             get => _sprintHoldCounter;
-            set => _sprintHoldCounter = value;
+            set { _sprintHoldCounter = value; }
         }
 
         #endregion
@@ -1226,8 +1227,8 @@ namespace Player.New
             _attackComboOnCooldown = false;
             _attackComboCooldownLeft = 0f;
         }
-        
-        
+
+
         /// <summary>Resetea contador y estado AFK.</summary>
         public void ResetAfk()
         {

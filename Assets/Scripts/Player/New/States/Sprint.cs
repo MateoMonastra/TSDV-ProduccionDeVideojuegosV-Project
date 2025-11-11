@@ -61,7 +61,6 @@ namespace Player.New
         {
             base.Tick(dt);
 
-            Debug.LogError("TICKING");
             if (Model.LocomotionBlocked)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
@@ -83,7 +82,6 @@ namespace Player.New
 
             if (!Model.DashHeld)
             {
-                Debug.LogError("Happening");
                 RequestTransition?.Invoke(ToWalkIdle);
                 Model.SprintArmed = false;
                 Model.SprintHoldCounter = 0;
