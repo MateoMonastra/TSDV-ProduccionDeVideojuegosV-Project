@@ -215,7 +215,7 @@ namespace Player.New
                 return;
             }
 
-            if (_model.DashHeld) _model.SprintHoldCounter += dt;
+            if (_model.DashHeld && _t >= _duration) _model.SprintHoldCounter += dt;
             else _model.SprintHoldCounter = 0f;
 
             //bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
