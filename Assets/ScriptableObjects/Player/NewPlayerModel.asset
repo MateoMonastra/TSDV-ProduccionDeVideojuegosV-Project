@@ -17,9 +17,9 @@ MonoBehaviour:
   airHorizontalSpeed: 15
   landStopsHorizontal: 0
   groundReorientationSharpness: 24
-  sprintReorientationSharpness: 5
-  groundLateralFriction: 28
-  sprintLateralFriction: 14
+  sprintReorientationSharpness: 60
+  groundLateralFriction: 2.4
+  sprintLateralFriction: 4.4
   groundBrakingDecel: 32
   sprintBrakingDecel: 55
   minFallHeight: 6
@@ -36,7 +36,7 @@ MonoBehaviour:
   dashSpeed: 20
   dashCooldown: 1.8
   dashExitBlendTime: 0.12
-  dashExitSharpness: 15.1
+  dashExitSharpness: 10
   dashRotationSharpness: 12
   hasExtraJump: 0
   dashBuffPending: 0
