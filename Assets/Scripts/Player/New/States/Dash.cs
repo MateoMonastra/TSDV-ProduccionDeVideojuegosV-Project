@@ -130,7 +130,7 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            _model.BeginSprintWindow();
+            
             _model.ResetAfk();
             _recoverT = 0;
             
@@ -233,7 +233,7 @@ namespace Player.New
             //bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
             bool hasMoveInput = true;
 
-            if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput)
+            if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput && _model.SprintArmed)
             {
                 _req?.Invoke(ToSprint);
                 _anim.SetWalking(false);
