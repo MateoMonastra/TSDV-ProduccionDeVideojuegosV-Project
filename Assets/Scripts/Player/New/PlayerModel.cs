@@ -1149,7 +1149,6 @@ namespace Player.New
 
             set
             {
-                Debug.Log("Sprint armed: " + value);
                 _sprintArmed = value;
             }
         }
