@@ -132,8 +132,6 @@ namespace Player.New
             if (inputReader == null) CollectFallbackInput();
             
             UpdateCamera(Time.deltaTime, _zoom, new Vector3(_look.x, _look.y, 0f), _lastDevice ?? Mouse.current);
-            Debug.Log($"look x: {_look.x}");
-            Debug.Log($"look y: {_look.y}");
             _zoom = 0f;
         }
 

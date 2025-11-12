@@ -55,7 +55,9 @@ namespace Player.New
             Model.SprintArmed = false;
             _anim.SetSprinting(false);
 
-            _vfx.Stop(VfxEvent.Run);
+            _vfx.Stop(VfxEvent.Run, 0, 0, ParticleSystemStopBehavior.StopEmitting);
+            _vfx.Stop(VfxEvent.Run, 0, 1, ParticleSystemStopBehavior.StopEmitting);
+            _vfx.Stop(VfxEvent.Run, 0, 2, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         public override void Tick(float dt)
@@ -88,7 +90,7 @@ namespace Player.New
                 Model.SprintHoldCounter = 0;
                 if (Model.RawMoveInput.sqrMagnitude > Model.MinInputSqr)
                     _anim?.SetWalking(true);
-                
+
                 return;
             }
 
@@ -134,8 +136,6 @@ namespace Player.New
                             RequestTransition?.Invoke(ToJump);
                         }
                 }
-                
-                
             }
         }
 
