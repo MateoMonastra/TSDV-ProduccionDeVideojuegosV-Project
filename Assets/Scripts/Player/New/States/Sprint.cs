@@ -52,7 +52,6 @@ namespace Player.New
         {
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
-            Model.SprintArmed = false;
             _anim.SetSprinting(false);
 
             _vfx.Stop(VfxEvent.Run, 0, 0, ParticleSystemStopBehavior.StopEmitting);
@@ -79,6 +78,7 @@ namespace Player.New
             if (!moving)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
+                Model.SprintArmed = false;
                 _anim?.SetWalking(false);
                 return;
             }
