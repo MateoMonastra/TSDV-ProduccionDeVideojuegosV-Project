@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7788598504248495047}
   - component: {fileID: 6211971142166479603}
   - component: {fileID: 4235892327968251340}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9088472681605099159}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EscombroRedondo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,8 @@ GameObject:
   - component: {fileID: 5079745695223436064}
   - component: {fileID: 5444487543442023116}
   - component: {fileID: 3145598185084631909}
-  m_Layer: 0
+  - component: {fileID: 1916025163016510541}
+  m_Layer: 6
   m_Name: polySurface5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,6 +210,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &1916025163016510541
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370966967399573000}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5.3778687
+  m_Height: 31.464687
+  m_Direction: 1
+  m_Center: {x: -0.00000071525574, y: 15.732344, z: 0.0000011920929}
 --- !u!1 &2450308220176959510
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +244,7 @@ GameObject:
   - component: {fileID: 2102777744261992420}
   - component: {fileID: 255956722708799895}
   - component: {fileID: 1666578513861846843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +330,7 @@ GameObject:
   - component: {fileID: 4704722563330603036}
   - component: {fileID: 308747589460175754}
   - component: {fileID: 7968635400699676539}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +416,7 @@ GameObject:
   - component: {fileID: 3889206564961742925}
   - component: {fileID: 3584981318826441585}
   - component: {fileID: 1147466791289531487}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +502,7 @@ GameObject:
   - component: {fileID: 6115897396388677914}
   - component: {fileID: 8109299846985111041}
   - component: {fileID: 2331697901339993323}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

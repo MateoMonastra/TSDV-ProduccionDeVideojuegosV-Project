@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 452aa319c9cc1bb4ba9d37efa010e10a, type: 2}
+    - target: {fileID: -3573388711348936697, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
       propertyPath: m_Name
       value: mesh_PisoTuberia2
@@ -65,7 +69,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -3573388711348936697, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 821530258846258011}
+      addedObject: {fileID: 3775688706485525514}
   m_SourcePrefab: {fileID: 100100000, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
 --- !u!4 &4196146534256123229 stripped
 Transform:
@@ -77,8 +81,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -3573388711348936697, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
   m_PrefabInstance: {fileID: 4445348012724583094}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &821530258846258011
-MeshCollider:
+--- !u!65 &3775688706485525514
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,10 +99,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4749694849602528060, guid: a0b687f24f1ffde40be948bb81e1f19f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 28.08457, y: 0.29925948, z: 12.418647}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8724850431553220806
 PrefabInstance:
   m_ObjectHideFlags: 0

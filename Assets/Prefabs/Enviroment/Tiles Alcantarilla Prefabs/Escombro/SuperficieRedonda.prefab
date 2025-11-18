@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 694858878351084389}
   - component: {fileID: 3862737211602972642}
   - component: {fileID: 1359107731094658010}
-  m_Layer: 0
+  - component: {fileID: 8087900491820721242}
+  m_Layer: 6
   m_Name: SuperficieRedonda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,3 +87,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8087900491820721242
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7887952552140674459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7361654776244856673, guid: 4304fc7e39075144a905616fcc6da8f4, type: 3}

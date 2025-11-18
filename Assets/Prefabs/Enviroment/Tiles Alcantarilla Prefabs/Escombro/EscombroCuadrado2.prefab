@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6614526311120927472}
   - component: {fileID: 937165957595461955}
   - component: {fileID: 1871668647126136962}
-  m_Layer: 0
+  - component: {fileID: 8272576815000290378}
+  m_Layer: 6
   m_Name: EscombroCuadrado2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,3 +87,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8272576815000290378
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3232264415227828507}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.384269, y: 30.558575, z: 8.822126}
+  m_Center: {x: -0.00000047683716, y: 15.279291, z: 0.0000023841858}

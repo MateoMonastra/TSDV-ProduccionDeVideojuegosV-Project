@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5936115758566557954, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}
       propertyPath: m_Name
       value: Mesh_Engranajes_v04
@@ -59,5 +63,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -5936115758566557954, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2994246442882724529}
   m_SourcePrefab: {fileID: 100100000, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}
+--- !u!1 &289208282623830189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5936115758566557954, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}
+  m_PrefabInstance: {fileID: 2998789655680147027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &2994246442882724529
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289208282623830189}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1340396185688004795, guid: 0fa5f58759724bf45a6186edc1353ad2, type: 3}

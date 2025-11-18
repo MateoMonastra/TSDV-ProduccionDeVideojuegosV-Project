@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8508835076514164188}
   - component: {fileID: 4593327643798478337}
   - component: {fileID: 935797045872672378}
-  m_Layer: 0
+  - component: {fileID: 3378153803869489799}
+  m_Layer: 6
   m_Name: SM_chapav1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,3 +87,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3378153803869489799
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929246753732774232}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4151718715272649614, guid: 3a57a809835692d4bad8b52816de5e00, type: 3}
