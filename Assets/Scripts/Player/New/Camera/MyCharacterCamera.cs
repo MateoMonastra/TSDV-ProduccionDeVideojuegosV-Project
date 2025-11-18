@@ -119,7 +119,7 @@ namespace Player.New
             _lastDevice = device;
         }
 
-        private void ResetLook(GameObject g)
+        private void ResetLook()
         {
             _look = Vector2.zero;
         }
