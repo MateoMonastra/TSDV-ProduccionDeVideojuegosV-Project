@@ -143,6 +143,7 @@ namespace Player.New
 
                         if (Model.JumpsLeft > 0)
                         {
+                            Model.SprintBuffered = true;
                             RequestTransition?.Invoke(ToJump);
                         }
                 }
