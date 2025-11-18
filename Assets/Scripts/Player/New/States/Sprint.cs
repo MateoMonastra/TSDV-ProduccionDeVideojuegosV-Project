@@ -40,13 +40,14 @@ namespace Player.New
         {
             base.Enter();
 
+            Model.ResetJumps();
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
 
             if (Model.SprintBuffered)
             {
                 Model.SprintArmed = true;
             }
-            
+
             _anim?.SetWalking(false);
             _anim?.SetSprinting(true);
 
@@ -119,7 +120,7 @@ namespace Player.New
                     {
                         Model.SprintBuffered = true;
                     }
-                    
+
                     RequestTransition?.Invoke(ToFall);
                     return;
                 }
@@ -139,6 +140,10 @@ namespace Player.New
                 if (cmd == CommandKeys.Jump &&
                     values[1] is bool pressed && pressed)
                 {
+                    Debug.Log("MOTOR GROUNDED: " + Motor.IsGrounded);
+                    Debug.Log("JUMP BLOCKED " + Model.JumpBlocked);
+                    Debug.Log("JUMPS LEFT " + Model.JumpsLeft);
+
                     if (Motor.IsGrounded && !Model.JumpBlocked)
 
                         if (Model.JumpsLeft > 0)
