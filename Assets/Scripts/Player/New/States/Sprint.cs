@@ -42,6 +42,11 @@ namespace Player.New
 
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
 
+            if (Model.SprintBuffered)
+            {
+                Model.SprintArmed = true;
+            }
+            
             _anim?.SetWalking(false);
             _anim?.SetSprinting(true);
 
@@ -52,8 +57,8 @@ namespace Player.New
         {
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
-            Model.SprintArmed = false;
             _anim.SetSprinting(false);
+            Model.SprintArmed = false;
 
             _vfx.Stop(VfxEvent.Run, 0, 0, ParticleSystemStopBehavior.StopEmitting);
             _vfx.Stop(VfxEvent.Run, 0, 1, ParticleSystemStopBehavior.StopEmitting);
@@ -110,6 +115,11 @@ namespace Player.New
                     _ungroundedFrames >= 2 &&
                     heightEnough)
                 {
+                    if (Model.DashHeld)
+                    {
+                        Model.SprintBuffered = true;
+                    }
+                    
                     RequestTransition?.Invoke(ToFall);
                     return;
                 }
@@ -133,6 +143,7 @@ namespace Player.New
 
                         if (Model.JumpsLeft > 0)
                         {
+                            Model.SprintBuffered = true;
                             RequestTransition?.Invoke(ToJump);
                         }
                 }

@@ -360,6 +360,7 @@ namespace Player.New
             _sJumpAir.AddTransition(new Transition { From = _sJumpAir, To = _sFall, ID = JumpAir.ToFall });
 
             _sFall.AddTransition(new Transition { From = _sFall, To = _sIdle, ID = Fall.ToWalkIdle });
+            _sFall.AddTransition(new Transition { From = _sFall, To = _sSprint, ID = Fall.ToSprint });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sJumpAir, ID = Fall.ToJumpAir });
 
             _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });

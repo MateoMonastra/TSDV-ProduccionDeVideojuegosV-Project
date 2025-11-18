@@ -1,5 +1,6 @@
 ﻿using Health;
 using UnityEngine;
+using UnityEngine.InputSystem.Composites;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
@@ -1002,6 +1003,7 @@ namespace Player.New
         [System.NonSerialized] private float _selfStunDuration;
 
         [System.NonSerialized] private bool _sprintArmed;
+        [System.NonSerialized] private bool _sprintBuffered;
         [System.NonSerialized] private bool _dashHeld;
         [System.NonSerialized] private float _sprintArmTimeLeft;
         [System.NonSerialized] private float _sprintHoldCounter;
@@ -1142,6 +1144,12 @@ namespace Player.New
             set => _selfStunDuration = value;
         }
 
+        public bool SprintBuffered
+        {
+            get => _sprintBuffered;
+            set => _sprintBuffered = value;
+        }
+        
         /// <summary>Ventana post-dash armada para iniciar sprint.</summary>
         public bool SprintArmed
         {
@@ -1157,7 +1165,13 @@ namespace Player.New
         public bool DashHeld
         {
             get => _dashHeld;
-            set => _dashHeld = value;
+            set
+            {
+                if(value == false)
+                _sprintBuffered = value;
+                
+                _dashHeld = value;   
+            }
         }
 
         /// <summary>Tiempo restante de la ventana de sprint (s).</summary>

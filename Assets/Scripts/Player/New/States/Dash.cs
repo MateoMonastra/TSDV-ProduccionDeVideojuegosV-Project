@@ -193,14 +193,6 @@ namespace Player.New
 
         private void SprintWindow(float dt)
         {
-            if (!_m.IsGrounded)
-            {
-                //_model.SprintArmed = false;
-                //_model.SprintHoldCounter = 0f;
-                
-                return;
-            }
-
             if (!_model.SprintArmed)
             {
                 return;
@@ -235,10 +227,17 @@ namespace Player.New
 
             if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput && _model.SprintArmed)
             {
-                _req?.Invoke(ToSprint);
-                _anim.SetWalking(false);
-                _anim.SetSprinting(true);
-                _model.SprintHoldCounter = 0f;
+                if (_m.IsGrounded)
+                {
+                    _req?.Invoke(ToSprint);
+                    _anim.SetWalking(false);
+                    _anim.SetSprinting(true);
+                    _model.SprintHoldCounter = 0f;
+                }
+                else
+                {
+                    _model.SprintBuffered = true;
+                }
             }
             else
             {
