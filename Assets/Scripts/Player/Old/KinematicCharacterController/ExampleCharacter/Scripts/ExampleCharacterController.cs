@@ -920,7 +920,7 @@ namespace KinematicCharacterController.Examples
             yield return new WaitUntil(HasCurrentAnimationFinished);
 
             _isDead = false;
-            GameEvents.GameEvents.PlayerDied(gameObject);
+            GameEvents.GameEvents.PlayerDied();
         }
 
 
