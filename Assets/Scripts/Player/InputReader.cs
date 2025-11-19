@@ -150,8 +150,12 @@ namespace Player
         }
         public void HandleDashInput(InputAction.CallbackContext context)
         {
-            if (context.started)   OnDash?.Invoke();   
-            if (context.performed) OnDashHeldChanged?.Invoke(true);
+            if (context.started)
+            {
+                OnDash?.Invoke();
+                OnDashHeldChanged?.Invoke(true);
+            }
+
             if (context.canceled)  OnDashHeldChanged?.Invoke(false);
         }
 
