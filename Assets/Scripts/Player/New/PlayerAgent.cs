@@ -307,6 +307,7 @@ namespace Player.New
             model.DashBlocked = false;
 
             if (!hud) return;
+            health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());
             
         }

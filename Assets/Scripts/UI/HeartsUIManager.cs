@@ -12,12 +12,10 @@ namespace UI
     {
         [SerializeField] private HeartWidget[] hearts;
 
-        [Header("Animación")]
-        [SerializeField, Tooltip("Si está activo, aplica los cambios uno por uno.")]
+        [Header("Animación")] [SerializeField, Tooltip("Si está activo, aplica los cambios uno por uno.")]
         private bool rtlSequential = false;
 
-        [SerializeField, Range(0.01f, 0.25f)]
-        private float rtlStepDelay = 0.06f;
+        [SerializeField, Range(0.01f, 0.25f)] private float rtlStepDelay = 0.06f;
 
         private int _prevCount = -1;
         private Coroutine _seqCo;
@@ -35,30 +33,47 @@ namespace UI
         /// </summary>
         public void SetHearts(int current)
         {
+            Debug.LogError("1");
             int capacity = (hearts != null) ? hearts.Length : 0;
             if (capacity == 0) return;
 
+            Debug.LogError("2");
             current = Mathf.Clamp(current, 0, capacity);
 
             if (_prevCount < 0)
             {
+                Debug.LogError("3");
                 for (int i = 0; i < capacity; i++)
                 {
                     var state = (i < current) ? HeartState.Full : HeartState.Empty;
-                    if (hearts != null) hearts[i]?.Init(state);
+                    if (hearts != null)
+                    {
+                        Debug.LogError("4");
+                        hearts[i]?.Init(state);
+                    }
                 }
+
                 _prevCount = current;
                 return;
             }
 
-            if (_seqCo != null) { StopCoroutine(_seqCo); _seqCo = null; }
+            if (_seqCo != null)
+            {
+                Debug.LogError("5");
+                StopCoroutine(_seqCo);
+                _seqCo = null;
+            }
 
             if (!rtlSequential)
             {
+                Debug.LogError("Health: " + current);
+                Debug.LogError("Capacity: " + capacity);
+                Debug.LogError("PrevCount: " + _prevCount);
                 ApplyImmediate(current, capacity);
             }
             else
             {
+                Debug.LogError("7");
                 _seqCo = StartCoroutine(ApplySequential(current, capacity));
             }
         }
@@ -70,7 +85,10 @@ namespace UI
             if (current < _prevCount)
             {
                 for (int i = _prevCount - 1; i >= current; i--)
+                {
+                    Debug.LogError("DONE");
                     hearts[i]?.Play(HeartState.Empty, TransitionCause.Damage);
+                }
             }
             else if (current > _prevCount)
             {
