@@ -215,6 +215,8 @@ MonoBehaviour:
   maxPickupsPerFrame: 8
   useRigidbodyForPose: 1
   frozen: 0
+  lowSpeedMin: 0.25
+  lowSpeedSnapMaxDist: 0.5
 --- !u!136 &8849222996993031085
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1754,10 +1756,6 @@ PrefabInstance:
     - target: {fileID: 4394505058039123048, guid: 8c7f515c412417942b93dac12c6fe068, type: 3}
       propertyPath: m_Layer
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4394505058039123048, guid: 8c7f515c412417942b93dac12c6fe068, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5025022945514726568, guid: 8c7f515c412417942b93dac12c6fe068, type: 3}
       propertyPath: MinDistance
