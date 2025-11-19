@@ -33,22 +33,18 @@ namespace UI
         /// </summary>
         public void SetHearts(int current)
         {
-            Debug.LogError("1");
             int capacity = (hearts != null) ? hearts.Length : 0;
             if (capacity == 0) return;
 
-            Debug.LogError("2");
             current = Mathf.Clamp(current, 0, capacity);
 
             if (_prevCount < 0)
             {
-                Debug.LogError("3");
                 for (int i = 0; i < capacity; i++)
                 {
                     var state = (i < current) ? HeartState.Full : HeartState.Empty;
                     if (hearts != null)
                     {
-                        Debug.LogError("4");
                         hearts[i]?.Init(state);
                     }
                 }
@@ -59,21 +55,16 @@ namespace UI
 
             if (_seqCo != null)
             {
-                Debug.LogError("5");
                 StopCoroutine(_seqCo);
                 _seqCo = null;
             }
 
             if (!rtlSequential)
             {
-                Debug.LogError("Health: " + current);
-                Debug.LogError("Capacity: " + capacity);
-                Debug.LogError("PrevCount: " + _prevCount);
                 ApplyImmediate(current, capacity);
             }
             else
             {
-                Debug.LogError("7");
                 _seqCo = StartCoroutine(ApplySequential(current, capacity));
             }
         }
@@ -86,7 +77,6 @@ namespace UI
             {
                 for (int i = _prevCount - 1; i >= current; i--)
                 {
-                    Debug.LogError("DONE");
                     hearts[i]?.Play(HeartState.Empty, TransitionCause.Damage);
                 }
             }
