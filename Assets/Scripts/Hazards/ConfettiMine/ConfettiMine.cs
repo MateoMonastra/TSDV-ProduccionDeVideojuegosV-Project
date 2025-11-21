@@ -192,7 +192,7 @@ namespace Hazards.ConfettiMine
             yield break;
         }
 
-        private void Respawn(GameObject _)
+        private void Respawn()
         {
             if (_explodeCoroutine != null) StopCoroutine(_explodeCoroutine);
             if (_warningCoroutine != null) StopCoroutine(_warningCoroutine);

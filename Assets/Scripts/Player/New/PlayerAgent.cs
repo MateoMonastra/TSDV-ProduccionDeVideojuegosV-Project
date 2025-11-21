@@ -217,7 +217,7 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sDeath);
-            GameEvents.GameEvents.PlayerDied(gameObject);
+            GameEvents.GameEvents.PlayerDied();
         }
 
         private void OnPlayerDamaged(DamageInfo info)
@@ -482,6 +482,8 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm?.ForceTransition(_sIdle);
 
+            GameEvents.GameEvents.PlayerRevived();
+            
             model.ClearActionLocks();
             model.ResetJumps();
             model.LocomotionBlocked = false;
@@ -493,6 +495,7 @@ namespace Player.New
             if (!resetHealth || health == null) return;
             health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());
+            
         }
 
         #endregion
