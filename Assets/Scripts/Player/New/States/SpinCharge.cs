@@ -107,6 +107,8 @@ namespace Player.New
             _vfxController.Stop(VfxEvent.SpinCharge1);
             _vfxController.Stop(VfxEvent.SpinCharge2);
             _vfxController.Stop(VfxEvent.SpinCharge3);
+            
+            _audioController.PlayPlayerChargeStopFail();
         }
 
         /// <summary>

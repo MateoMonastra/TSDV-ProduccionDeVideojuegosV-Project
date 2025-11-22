@@ -132,19 +132,19 @@ namespace Player.New.Audio
         }
         public void PlayPlayerSpinCharge1()
         {
-            Debug.Log("PlayPlayerSpinCharge1");
+            //Debug.Log("PlayPlayerSpinCharge1");
             _akPlayerSpinCharge1.Post(this.gameObject);
 
         }
         public void PlayPlayerSpinCharge2()
         {
-            Debug.Log("PlayPlayerSpinCharge2");
+            //Debug.Log("PlayPlayerSpinCharge2");
             _akPlayerSpinCharge2.Post(this.gameObject);
 
         }
         public void PlayPlayerSpinCharge3()
         {
-            Debug.Log("PlayPlayerSpinCharge3");
+            //Debug.Log("PlayPlayerSpinCharge3");
             _akPlayerSpinCharge3.Post(this.gameObject);
 
         }
