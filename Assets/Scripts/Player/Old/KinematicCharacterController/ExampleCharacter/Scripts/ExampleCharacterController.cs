@@ -4,6 +4,7 @@ using UnityEngine;
 using KinematicCharacterController;
 using System;
 using Health;
+using Player.Old.KinematicCharacterController.ExampleCharacter.Scripts;
 using Player.Old.PlayerPrototype;
 using UnityEngine.Serialization;
 
