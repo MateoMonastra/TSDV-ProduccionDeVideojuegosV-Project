@@ -140,10 +140,6 @@ namespace Player.New
                 if (cmd == CommandKeys.Jump &&
                     values[1] is bool pressed && pressed)
                 {
-                    Debug.Log("MOTOR GROUNDED: " + Motor.IsGrounded);
-                    Debug.Log("JUMP BLOCKED " + Model.JumpBlocked);
-                    Debug.Log("JUMPS LEFT " + Model.JumpsLeft);
-
                     if (Motor.IsGrounded && !Model.JumpBlocked)
 
                         if (Model.JumpsLeft > 0)
