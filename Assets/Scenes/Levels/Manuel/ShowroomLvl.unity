@@ -3409,6 +3409,74 @@ RectTransform:
   m_AnchoredPosition: {x: -177.82, y: 70.74}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &909234127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -173.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 57.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 24.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2234063315159379269, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778613205265174400, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+      propertyPath: m_Name
+      value: InteractableDoor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+--- !u!114 &909234128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8480021448340531337, guid: f63318bd04a00234f818216db23e94d5, type: 3}
+  m_PrefabInstance: {fileID: 909234127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a5fcc725fc18e48a05c11713567401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &934437658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9268,7 +9336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6921171363604469345, guid: 6c4c1f0c595427c429cef17f906368d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.56
+      value: 58.39
       objectReference: {fileID: 0}
     - target: {fileID: 6921171363604469345, guid: 6c4c1f0c595427c429cef17f906368d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9373,13 +9441,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 611206751}
+      objectReference: {fileID: 909234128}
     - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
       propertyPath: onExitTimer.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 611206751}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Slide
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SlidingDoor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Interacted
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887914100358649902, guid: 9af67d0623afa8d48b2a68774a4a0ac2, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9418,6 +9514,7 @@ SceneRoots:
   - {fileID: 738999393}
   - {fileID: 1699119718}
   - {fileID: 670787710}
+  - {fileID: 909234127}
   - {fileID: 4941372653318380879}
   - {fileID: 611206750}
   - {fileID: 946155086765788004}
