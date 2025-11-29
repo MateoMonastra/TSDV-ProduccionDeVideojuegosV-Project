@@ -97,47 +97,85 @@ PrefabInstance:
       propertyPath: m_Name
       value: mesh_Ventilacion_low
       objectReference: {fileID: 0}
+    - target: {fileID: 3646219898985428233, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9c84f9ecf675d3c449e4b049b566815a, type: 2}
+    - target: {fileID: 5361039339786939381, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9c84f9ecf675d3c449e4b049b566815a, type: 2}
     m_RemovedComponents:
     - {fileID: 5932845368056372179, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6376811087730824191, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4806839315514570035, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8267329430650288796}
+      addedObject: {fileID: 3233086606357604975}
+    - targetCorrespondingSourceObject: {fileID: 7796338051883454757, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4754616667848176327}
   m_SourcePrefab: {fileID: 100100000, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
 --- !u!4 &3827528805033348518 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1251884921912545044, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
   m_PrefabInstance: {fileID: 2612522775509025458}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8952998250875621709 stripped
+--- !u!1 &5220696410743804823 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6376811087730824191, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7796338051883454757, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
   m_PrefabInstance: {fileID: 2612522775509025458}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &8267329430650288796
-MeshCollider:
+--- !u!95 &4754616667848176327
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8952998250875621709}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_GameObject: {fileID: 5220696410743804823}
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5261662881531568513, guid: 2694790959cb5b04b8141382371b8984, type: 3}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58d5b17b12c45ea40aa5f907a9bcc1a7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7418793615544416129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4806839315514570035, guid: bf55a409fcc8ad647b7baab65d7f8f1c, type: 3}
+  m_PrefabInstance: {fileID: 2612522775509025458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3233086606357604975
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7418793615544416129}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d2f8ba84602ab545b41ec21f2b964c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2882929145279095321
 PrefabInstance:
   m_ObjectHideFlags: 0
