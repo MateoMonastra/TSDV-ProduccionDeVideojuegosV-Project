@@ -1,16 +1,20 @@
-﻿using UnityEngine;
+﻿using Player;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Interactable
 {
     public class InteractableLever : MonoBehaviour, IInteractable
     {
-        [Header("Settings")] 
-        [SerializeField] private InteractData interactData;
+        [Header("Settings")] [SerializeField] private InteractData interactData;
         [SerializeField] private UnityEvent onInteract;
-        [SerializeField] private GameObject indicator;
-        
+        [SerializeField] private InputReader inputReader;
+        [SerializeField] private Image pcIndicator;
+        [SerializeField] private Image joystickIndicator;
+
         [Header("Timer Settings")] [SerializeField]
         private bool resetTimerEnabled;
 
@@ -24,10 +28,17 @@ namespace Interactable
         private bool interacting;
         private bool isOnTimer;
         private float _currentExitTime;
+        private InputDevice _lastDevice;
+
 
         public bool IsBeingInteracted()
         {
             return interacting;
+        }
+
+        private void OnEnable()
+        {
+            inputReader.OnInputPressed += UpdateInputDeviceCanvas;
         }
 
         private void Update()
@@ -47,12 +58,11 @@ namespace Interactable
 
         public InteractData Interact(bool hammer)
         {
-
             interactData.successInteraction = false;
-            
+
             if (hammer)
                 return interactData;
-            
+
 
             if (interacting)
                 return interactData;
@@ -70,7 +80,7 @@ namespace Interactable
         public void FinishInteraction()
         {
             onInteract?.Invoke();
-            
+
             if (resetTimerEnabled)
                 isOnTimer = true;
         }
@@ -88,14 +98,33 @@ namespace Interactable
         public void SetIndicator(bool value)
         {
             if (interacting)
-                indicator.SetActive(false);
+            {
+                pcIndicator.gameObject.SetActive(false);
+                joystickIndicator.gameObject.SetActive(false);
+            }
             else
-                indicator.SetActive(value);
+            {
+                if (_lastDevice is Gamepad)
+                {
+                    joystickIndicator.gameObject.SetActive(value);
+                    pcIndicator.gameObject.SetActive(false);
+                }
+                else
+                {
+                    pcIndicator.gameObject.SetActive(value);
+                    joystickIndicator.gameObject.SetActive(false);
+                }
+            }
         }
 
         public Vector3 GetInteractionPoint()
         {
             return interactorTargetTransform.position;
+        }
+
+        private void UpdateInputDeviceCanvas(InputDevice device)
+        {
+            _lastDevice = device;
         }
 
         private void OnDrawGizmos()

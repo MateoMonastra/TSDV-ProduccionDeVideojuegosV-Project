@@ -26,22 +26,25 @@ namespace Player
         public Action OnAttackHeavyPressed;
         public Action OnAttackHeavyReleased;
         public Action<bool> OnDashHeldChanged;
+        public Action<InputDevice> OnInputPressed;
 
         
         [SerializeField] private string showRoomSceneName;
         [SerializeField] private string levelSceneName;
         [SerializeField] private string pipesSceneName;
         [SerializeField] private string milestone4SceneName;
-
+        
         public void HandleNavigate(InputAction.CallbackContext context)
         {
             OnNavigate?.Invoke();
+            OnInputPressed?.Invoke(context.control.device);
         }
         
         public void HandleClick(InputAction.CallbackContext context)
         {
             if(context.started)
                 OnClick?.Invoke();
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandlePauseInput(InputAction.CallbackContext context)
@@ -50,6 +53,8 @@ namespace Player
             {
                 OnPause?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
@@ -57,6 +62,8 @@ namespace Player
             {
                 OnJump?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleInteractInput(InputAction.CallbackContext context)
@@ -65,22 +72,30 @@ namespace Player
             {
                 OnInteract?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
         
         public void HandleLookInput(InputAction.CallbackContext context)
         {
             OnLook?.Invoke(context.ReadValue<Vector2>(), context.control.device);
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
 
         public void HandleMoveInput(InputAction.CallbackContext context)
         {
             OnMove?.Invoke(context.ReadValue<Vector2>());
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleFlyMoveInput(InputAction.CallbackContext context)
         {
             OnFlyMove?.Invoke(context.ReadValue<Vector2>());
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleFlyUpInput(InputAction.CallbackContext context)
@@ -91,6 +106,8 @@ namespace Player
             {
                 OnFlyUpCanceled?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleFlyDownInput(InputAction.CallbackContext context)
@@ -101,28 +118,38 @@ namespace Player
             {
                 OnFlyDownCanceled?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleShowRoomInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(showRoomSceneName);
             Time.timeScale = 1;
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleLevelInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(levelSceneName);
             Time.timeScale = 1;
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandlePipesInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(pipesSceneName);
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleMilestone4Input(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene(milestone4SceneName);
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
         
         public void HandleGodModeInput(InputAction.CallbackContext context)
@@ -131,6 +158,8 @@ namespace Player
             {
                 OnGodModeCheat?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleDashCheatInput(InputAction.CallbackContext context)
@@ -139,6 +168,8 @@ namespace Player
             {
                 OnDashPickUpCheat?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleJumpCheatInput(InputAction.CallbackContext context)
@@ -147,6 +178,8 @@ namespace Player
             {
                 OnJumpPickUpCheat?.Invoke();
             }
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
         public void HandleDashInput(InputAction.CallbackContext context)
         {
@@ -157,12 +190,16 @@ namespace Player
             }
 
             if (context.canceled)  OnDashHeldChanged?.Invoke(false);
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleAttackHeavyInput(InputAction.CallbackContext context)
         {
             if (context.started) OnAttackHeavyPressed?.Invoke();
             if (context.canceled) OnAttackHeavyReleased?.Invoke();
+            
+            OnInputPressed?.Invoke(context.control.device);
         }
     }
 }
