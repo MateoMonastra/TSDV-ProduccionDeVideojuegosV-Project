@@ -29,12 +29,12 @@ namespace Health
         public void Damage(DamageInfo damageInfo)
         {
             if (_timer <= damageCooldown) return;
-            
+
             _currentHealth -= damageInfo.Damage;
 
             if (_currentHealth > 0)
                 OnTakeDamage?.Invoke(damageInfo);
-            else
+            else if (_currentHealth == 0)
                 OnDeath?.Invoke();
 
             _timer = 0;
@@ -75,5 +75,4 @@ namespace Health
             Knockback = (knockback.Item1, knockback.Item2);
         }
     }
-    
 }
