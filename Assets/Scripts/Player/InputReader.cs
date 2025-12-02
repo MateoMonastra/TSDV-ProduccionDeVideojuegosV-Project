@@ -128,6 +128,12 @@ namespace Player
             OnInputPressed?.Invoke(context.control.device);
         }
 
+        public void HandleShowroomButton()
+        {
+            SceneManager.LoadScene("SplashScene");
+            Time.timeScale = 1;
+        }
+        
         public void HandleShowRoomInput(InputAction.CallbackContext context)
         {
             SceneManager.LoadScene("SplashScene");
