@@ -18,7 +18,6 @@ namespace Player.New
         static readonly int pIsSprinting = Animator.StringToHash("IsSprinting");
         static readonly int pIsGrounded = Animator.StringToHash("IsGrounded");
         static readonly int pIsFalling = Animator.StringToHash("IsFalling");
-        static readonly int pIsInteracting = Animator.StringToHash("IsInteracting");
         static readonly int tJump = Animator.StringToHash("Jump");
         static readonly int tDoubleJump = Animator.StringToHash("DoubleJump");
         static readonly int tLand = Animator.StringToHash("Land");
@@ -38,6 +37,7 @@ namespace Player.New
         static readonly int IsHit = Animator.StringToHash("Hit");
         static readonly int IsIdle = Animator.StringToHash("Idle");
         static readonly int IsIdleAfk = Animator.StringToHash("IdleAfk");
+        static readonly int IsInteract = Animator.StringToHash("Interact");
 
 
         [SerializeField] private bool _debugAnimEvents = false;
@@ -65,14 +65,9 @@ namespace Player.New
         public void SetSprinting(bool v)
         {
             if (_stopAvatarMask) return;
-            if(_anim) _anim.SetBool(pIsSprinting, v);
+            if (_anim) _anim.SetBool(pIsSprinting, v);
         }
 
-        public void SetInteracting(bool v)
-        {
-            if(_anim) _anim.SetBool(pIsInteracting, v);
-        }
-        
         public void SetGrounded(bool v)
         {
             if (_anim) _anim.SetBool(pIsGrounded, v);
@@ -135,8 +130,9 @@ namespace Player.New
 
         public void TriggerSpinChargeStart()
         {
-            if(_anim) _anim.SetTrigger(tSpinChargeStart);
+            if (_anim) _anim.SetTrigger(tSpinChargeStart);
         }
+
         public void TriggerSpinRelease()
         {
             if (_anim) _anim.SetTrigger(tSpinRelease);
@@ -146,12 +142,12 @@ namespace Player.New
         {
             if (_anim) _anim.ResetTrigger(tSpinInterruption);
         }
-        
+
         public void TriggerSpinInterruption()
         {
             if (_anim) _anim.SetTrigger(tSpinInterruption);
-    }
-        
+        }
+
         public void TriggerKnockdown()
         {
             if (_anim) _anim.SetTrigger(tKnockdown);
@@ -162,17 +158,21 @@ namespace Player.New
             if (_anim) _anim.SetTrigger(tGetUp);
         }
 
+        public void TriggerInteract()
+        {
+            if (_anim) _anim.SetTrigger(IsInteract);
+        }
+
         public void TriggerDeath()
         {
             SetFalling(false);
-            SetInteracting(false);
             SetWalking(false);
             _anim?.SetTrigger(IsDie);
         }
 
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
         public void TriggerIdle() => _anim?.SetTrigger(IsIdle);
-        public void ResetTriggerIdle() => _anim?.Play(IsIdle,0,0f);
+        public void ResetTriggerIdle() => _anim?.Play(IsIdle, 0, 0f);
         public void TriggerIdleAfk() => _anim?.SetTrigger(IsIdleAfk);
 
         // ------- Layer helpers -------

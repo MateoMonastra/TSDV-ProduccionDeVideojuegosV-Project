@@ -22,6 +22,7 @@ namespace Interactable
         [SerializeField] private float resetTime;
 
         [SerializeField] private Transform interactorTargetTransform;
+        [SerializeField] private Transform playerInteractTargetPosition;
 
         [SerializeField] private float interactionRange;
         private bool interacting;
@@ -72,6 +73,7 @@ namespace Interactable
             SetIndicator(false);
 
             interactData.interactPos = interactorTargetTransform.position;
+            interactData.interactPlayerPos = playerInteractTargetPosition.position;
             interactData.successInteraction = true;
             return interactData;
         }

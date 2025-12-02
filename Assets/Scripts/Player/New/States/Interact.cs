@@ -45,12 +45,12 @@ namespace Player.New.States
 
             ZeroHorizontalVelocity();
 
-            Vector3 interactDir = _interactData.interactPos - _motor.transform.position;
+            Vector3 interactDir = _interactData.interactPos - _interactData.interactPlayerPos;
             interactDir.y = 0;
             Quaternion lookRot = Quaternion.LookRotation(interactDir, Vector3.up);
-            _motor.WarpTo(_motor.transform.position, lookRot);
+            _motor.WarpTo(_interactData.interactPlayerPos, lookRot);
             
-            _anim?.SetInteracting(true);
+            _anim?.TriggerInteract();
         }
 
         /// <summary>Salir: limpia flag y locks (vía <see cref="PlayerModel.ClearActionLocks"/>).</summary>
@@ -59,7 +59,6 @@ namespace Player.New.States
             base.Exit();
             _model.IsSelfStunned = false;
             _model.ClearActionLocks();
-            _anim?.SetInteracting(false);
         }
 
         /// <summary>

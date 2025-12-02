@@ -15,6 +15,7 @@ public interface IInteractable
 [Serializable]
 public struct InteractData
 {
+    public Vector3 interactPlayerPos;
     public Vector3 interactPos;
     public Quaternion interactRot;
     public float interactionTime;
