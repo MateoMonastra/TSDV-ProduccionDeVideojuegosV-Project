@@ -53,13 +53,15 @@
       "Id": "1069431850",
       "Name": "Player",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Player",
-      "GUID": "{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}"
+      "GUID": "{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}",
+      "Color": "1"
      },
      {
       "Id": "3537656742",
       "Name": "Ambs",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Ambs",
-      "GUID": "{5B54036C-E97F-42B8-9A6F-EF72D840B311}"
+      "GUID": "{5B54036C-E97F-42B8-9A6F-EF72D840B311}",
+      "Color": "4"
      },
      {
       "Id": "3803692087",
@@ -81,6 +83,40 @@
       "ObjectPath": "\\Game Parameters\\Default Work Unit\\New_Game_Parameter",
       "GUID": "{24FCBC6D-2A4F-4525-913B-7FB39460590E}"
      }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3407025663",
+      "Name": "StepFloorType",
+      "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType",
+      "GUID": "{4C12FC41-69B4-4002-854D-DA066D33727E}",
+      "Switches": [
+       {
+        "Id": "2058049674",
+        "Name": "Wood",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Wood",
+        "GUID": "{B363AF5F-456D-439E-AE32-9F2A0939BC62}"
+       },
+       {
+        "Id": "2412606308",
+        "Name": "Carpet",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Carpet",
+        "GUID": "{7808F1B5-C468-42CB-8C39-E6B2FFA83DC1}"
+       },
+       {
+        "Id": "2473969246",
+        "Name": "Metal",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Metal",
+        "GUID": "{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"
+       },
+       {
+        "Id": "2637588553",
+        "Name": "Tile",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Tile",
+        "GUID": "{195E5C04-BF13-4DBC-B4A3-675D8704875B}"
+       }
+      ]
+     }
     ]
    },
    {
@@ -88,7 +124,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{A132647F-A880-A013-BB3E-8A730FE19A1C}",
+    "Hash": "{E61D86AC-3DBD-554C-84FC-6428FC458A65}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -190,6 +226,14 @@
       "CachePath": "63/{632B336D-072B-7BE1-6470-E9D65E4EC5AC}.wem"
      },
      {
+      "Id": "239242516",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_002.wav",
+      "CachePath": "D1/{D1BC3058-B171-512F-63E5-A9979BCBED98}.wem"
+     },
+     {
       "Id": "247642743",
       "Language": "SFX",
       "Streaming": "false",
@@ -236,6 +280,14 @@
       "Location": "Memory",
       "ShortName": "PlayerChargeStartSustain_002.wav",
       "CachePath": "BA/{BA493198-AE05-86FF-ED6A-3F4CFDAA44B3}.wem"
+     },
+     {
+      "Id": "369648277",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_004.wav",
+      "CachePath": "E1/{E17A395E-6DBD-99B9-DCB2-C78DA1DC9E36}.wem"
      },
      {
       "Id": "370264577",
@@ -334,6 +386,14 @@
       "CachePath": "7F/{7F5EF0C8-58EE-4488-37CE-8D2764BBC6E1}.wem"
      },
      {
+      "Id": "567729985",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_001.wav",
+      "CachePath": "99/{99AC56A9-2C8B-5ECB-9B07-BC25E00D8D7B}.wem"
+     },
+     {
       "Id": "583577687",
       "Language": "SFX",
       "Streaming": "false",
@@ -382,12 +442,36 @@
       "CachePath": "74/{7400CE7C-523E-47CC-E314-08A2AF7E7AA7}.wem"
      },
      {
+      "Id": "743525097",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_006.wav",
+      "CachePath": "F5/{F50573E7-7695-ADE9-AD94-51754D1379BB}.wem"
+     },
+     {
       "Id": "781123289",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "AmbFire_002.wav",
       "CachePath": "3B/{3B1707C9-969F-7B92-B9E3-77FDB20DC9AE}.wem"
+     },
+     {
+      "Id": "790525623",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_003.wav",
+      "CachePath": "2C/{2C5A17DF-78FC-D783-BA0C-845AA26EC7E1}.wem"
+     },
+     {
+      "Id": "800603467",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_008.wav",
+      "CachePath": "DE/{DE42A173-AFCF-90E1-6FEC-DB9E73527F45}.wem"
      },
      {
       "Id": "813132997",
@@ -406,6 +490,14 @@
       "CachePath": "A5/{A5A751E3-BF8E-1EF5-244A-00C8869C641A}.wem"
      },
      {
+      "Id": "833436336",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_005.wav",
+      "CachePath": "9A/{9A5550DE-6BB8-8E27-5184-971B314B74A2}.wem"
+     },
+     {
       "Id": "833462405",
       "Language": "SFX",
       "Streaming": "false",
@@ -414,20 +506,20 @@
       "CachePath": "FC/{FC140BA5-9710-3FE3-EC4F-C22DB6B91C3C}.wem"
      },
      {
+      "Id": "840186586",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "StepMetal_007.wav",
+      "CachePath": "7F/{7F731239-FD0D-01C8-1BF5-94AED99DC368}.wem"
+     },
+     {
       "Id": "861232703",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "AmbAcidStream_001.wav",
       "CachePath": "6B/{6B22ECC5-0091-9D91-A410-D9B092509214}.wem"
-     },
-     {
-      "Id": "916099941",
-      "Language": "SFX",
-      "Streaming": "false",
-      "Location": "Memory",
-      "ShortName": "PasosTile-004.wav",
-      "CachePath": "06/{06E360A9-9817-912B-0A1E-A82212CEF607}.wem"
      },
      {
       "Id": "969703663",
@@ -971,17 +1063,83 @@
       "GUID": "{15573B1B-AD76-4A48-A3CF-50379F7131A7}",
       "Color": "2",
       "DurationType": "OneShot",
-      "DurationMin": "0.6002853",
-      "DurationMax": "0.6359801",
-      "MediaRefs": [
+      "DurationMin": "1.9430639",
+      "DurationMax": "2.0586045",
+      "SwitchContainers": [
        {
-        "Id": "916099941"
+        "SwitchValue": {
+         "GroupType": "Switch",
+         "GroupId": "3407025663",
+         "Id": "2473969246",
+         "GUID": "{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}",
+         "Default": "true"
+        },
+        "MediaRefs": [
+         {
+          "Id": "239242516"
+         },
+         {
+          "Id": "369648277"
+         },
+         {
+          "Id": "567729985"
+         },
+         {
+          "Id": "743525097"
+         },
+         {
+          "Id": "790525623"
+         },
+         {
+          "Id": "800603467"
+         },
+         {
+          "Id": "833436336"
+         },
+         {
+          "Id": "840186586"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3407025663",
+      "Name": "StepFloorType",
+      "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType",
+      "GUID": "{4C12FC41-69B4-4002-854D-DA066D33727E}",
+      "Switches": [
+       {
+        "Id": "2058049674",
+        "Name": "Wood",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Wood",
+        "GUID": "{B363AF5F-456D-439E-AE32-9F2A0939BC62}"
+       },
+       {
+        "Id": "2412606308",
+        "Name": "Carpet",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Carpet",
+        "GUID": "{7808F1B5-C468-42CB-8C39-E6B2FFA83DC1}"
+       },
+       {
+        "Id": "2473969246",
+        "Name": "Metal",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Metal",
+        "GUID": "{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"
+       },
+       {
+        "Id": "2637588553",
+        "Name": "Tile",
+        "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType\\Tile",
+        "GUID": "{195E5C04-BF13-4DBC-B4A3-675D8704875B}"
        }
       ]
      }
     ]
    }
   ],
-  "FileHash": "{D35DC3E7-91C7-4AC3-0E10-531944EF54A6}"
+  "FileHash": "{14467409-ED14-6ED8-6C60-02415E3DC1BE}"
  }
 }

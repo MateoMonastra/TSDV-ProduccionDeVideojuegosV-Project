@@ -34,6 +34,23 @@ namespace AK
         static const AkUniqueID PLAYERSTEP = 412471812U;
     } // namespace EVENTS
 
+    namespace SWITCHES
+    {
+        namespace STEPFLOORTYPE
+        {
+            static const AkUniqueID GROUP = 3407025663U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID CARPET = 2412606308U;
+                static const AkUniqueID METAL = 2473969246U;
+                static const AkUniqueID TILE = 2637588553U;
+                static const AkUniqueID WOOD = 2058049674U;
+            } // namespace SWITCH
+        } // namespace STEPFLOORTYPE
+
+    } // namespace SWITCHES
+
     namespace GAME_PARAMETERS
     {
         static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;

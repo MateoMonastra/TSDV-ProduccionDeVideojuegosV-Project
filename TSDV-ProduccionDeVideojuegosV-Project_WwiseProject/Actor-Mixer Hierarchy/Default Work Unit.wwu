@@ -6,6 +6,7 @@
 				<ActorMixer Name="Player" ID="{C52AF56E-EBA8-49C5-80B3-E4792F118081}" ShortID="590632921">
 					<PropertyList>
 						<Property Name="Color" Type="int16" Value="2"/>
+						<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
@@ -1906,7 +1907,257 @@
 								<ActiveSource Name="TrashVacuumed-004" ID="{3EB7BCD6-CE83-47C8-B106-B504A2C0B771}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Folder Name="Steps" ID="{53B6A4AD-ACEC-4509-BDC8-70148A8F282B}" ShortID="427754473">
+							<ChildrenList>
+								<SwitchContainer Name="Steps" ID="{D3207183-DDB7-465E-9A58-C0DD9FA7FA17}" ShortID="1044555346">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-11</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="DefaultSwitchOrState">
+											<ObjectRef Name="Metal" ID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}" WorkUnitID="{EC71673D-A7A5-462A-96EC-2812DA035D9F}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="SwitchGroupOrStateGroup">
+											<ObjectRef Name="StepFloorType" ID="{4C12FC41-69B4-4002-854D-DA066D33727E}" WorkUnitID="{EC71673D-A7A5-462A-96EC-2812DA035D9F}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<RandomSequenceContainer Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}" ShortID="890270765">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{8865E294-ED26-4CF9-AAB5-4791ED5A2D4D}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="50"/>
+																	<Property Name="Min" Type="Real64" Value="-50"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Player" ID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="StepMetal_001" ID="{B7BD6C37-0CAE-4739-8212-5DDB996D9FE4}" ShortID="68794943">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_001" ID="{E083A684-459A-44D5-B914-E9068DAA9042}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="567729985"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_001" ID="{E083A684-459A-44D5-B914-E9068DAA9042}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_002" ID="{2EC85A64-06DA-4EA8-A858-FDAF6FAA15CE}" ShortID="380131838">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_002" ID="{90A35EB3-86AA-4735-BE2B-6D6626F09223}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="239242516"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_002" ID="{90A35EB3-86AA-4735-BE2B-6D6626F09223}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_003" ID="{2A973C7B-523B-44BB-81E4-9E64A110DE73}" ShortID="74968492">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_003" ID="{F57FF182-3B96-4C36-8D23-CE53A53A13D6}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="790525623"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_003" ID="{F57FF182-3B96-4C36-8D23-CE53A53A13D6}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_004" ID="{60747E69-255F-42C3-9921-DA44BB4BF477}" ShortID="383896169">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_004" ID="{FEB55B2C-9679-4436-800B-36D943F87C20}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="369648277"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_004" ID="{FEB55B2C-9679-4436-800B-36D943F87C20}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_005" ID="{D7486FD3-9CBF-41DB-97E7-568190146812}" ShortID="842931791">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_005" ID="{DDF969A5-45D4-463E-A5DB-D075AC80EA82}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_005.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="833436336"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_005" ID="{DDF969A5-45D4-463E-A5DB-D075AC80EA82}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_006" ID="{740B99B8-B85F-41C0-AFBA-40D87DE53B36}" ShortID="508290513">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_006" ID="{5E834730-5ABE-44DD-825F-A06BFE89BA70}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_006.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="743525097"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_006" ID="{5E834730-5ABE-44DD-825F-A06BFE89BA70}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_007" ID="{5004F6DA-3593-43F1-A74F-E6076EDD0AC7}" ShortID="622794389">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_007" ID="{00002185-9A11-4E0E-A85F-133C79395E81}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_007.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="840186586"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_007" ID="{00002185-9A11-4E0E-A85F-133C79395E81}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepMetal_008" ID="{0DD5C542-6C18-4222-ACE9-DCCF9FF0F919}" ShortID="405796603">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepMetal_008" ID="{8ABA6925-7E76-4490-AFA3-5A2DE524CCBE}">
+															<Language>SFX</Language>
+															<AudioFile>StepMetal_008.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="800603467"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepMetal_008" ID="{8ABA6925-7E76-4490-AFA3-5A2DE524CCBE}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
+									</ChildrenList>
+									<GroupingInfo>
+										<GroupingBehaviorList>
+											<GroupingBehavior>
+												<ItemRef Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}"/>
+											</GroupingBehavior>
+										</GroupingBehaviorList>
+										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Metal" ID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"/>
+												<ItemList>
+													<ItemRef Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}"/>
+												</ItemList>
+											</Grouping>
+										</GroupingList>
+									</GroupingInfo>
+								</SwitchContainer>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
+					<PositioningInfo>
+						<Panner Name="" ID="{D2D7ACE6-1A6D-460D-A097-869CA28E5FDB}"/>
+					</PositioningInfo>
 				</ActorMixer>
 				<Folder Name="Lvl_1" ID="{5E95B9C6-FA4A-4898-A3A3-C9F8466A20C3}" ShortID="1037207084">
 					<ChildrenList>
