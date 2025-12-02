@@ -240,6 +240,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 926597569}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleJumpInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player.InputReader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179766239188865970, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6170505254225582712, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 507.5
@@ -531,6 +559,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &926597569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8033342697096436698, guid: c56438f03f21f004a84bd09d7195a82b, type: 3}
+  m_PrefabInstance: {fileID: 261126634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6b23ed983321c4cb6b1bdbba3b48d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &985932007
 GameObject:
   m_ObjectHideFlags: 0
