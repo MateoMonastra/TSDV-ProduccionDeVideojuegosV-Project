@@ -2560,43 +2560,308 @@
 										</Sound>
 									</ChildrenList>
 								</ActorMixer>
-								<Sound Name="AmbAcidPipes" ID="{5506D7D3-7B36-4DB5-9811-19EE53094619}" ShortID="639464591">
-									<PropertyList>
-										<Property Name="3DSpatialization" Type="int16" Value="2"/>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-										<Property Name="IsStreamingEnabled" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
-										<Property Name="OverrideConversion" Type="bool" Value="True"/>
-										<Property Name="OverridePositioning" Type="bool" Value="True"/>
-										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="48"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Attenuation">
-											<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
-										</Reference>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-										</Reference>
-									</ReferenceList>
+								<Folder Name="AmbAcidPipesSum" ID="{CF32497D-33A3-4910-ADB7-D9BD753F46C2}" ShortID="533246823">
 									<ChildrenList>
-										<AudioFileSource Name="AmbAcidPipes" ID="{B35AABA8-79CA-4294-A93B-BF8CF258EF62}">
-											<Language>SFX</Language>
-											<AudioFile>AmbAcidPipes.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="32135626"/>
-											</MediaIDList>
-										</AudioFileSource>
+										<Sound Name="AmbAcidPipes" ID="{5506D7D3-7B36-4DB5-9811-19EE53094619}" ShortID="639464591">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="IsStreamingEnabled" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+												<Property Name="OverrideConversion" Type="bool" Value="True"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="48"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Ambs" ID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbAcidPipes" ID="{B35AABA8-79CA-4294-A93B-BF8CF258EF62}">
+													<Language>SFX</Language>
+													<AudioFile>AmbAcidPipes.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="32135626"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<PositioningInfo>
+												<Position Name="" ID="{4AE78449-7D32-4ABC-BFFD-D8564E4C317D}"/>
+											</PositioningInfo>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbAcidPipes" ID="{B35AABA8-79CA-4294-A93B-BF8CF258EF62}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<RandomSequenceContainer Name="AmbAcidPipesImpacts" ID="{FB7891F9-8502-460D-A379-FC2DC97067AB}" ShortID="703330904">
+											<PropertyList>
+												<Property Name="3DPosition" Type="int16" Value="1"/>
+												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="GlobalOrPerObject" Type="int16" Value="0"/>
+												<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
+												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="3"/>
+												<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="2"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="AmbAcidPipesImpacts_001" ID="{193DCBDA-E40F-4266-B78E-A3AEB96F0CD9}" ShortID="497285826">
+													<PropertyList>
+														<Property Name="3DPosition" Type="int16" Value="1"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="AmbAcidPipesImpacts_001" ID="{7F58D991-307E-41C3-BC05-28A6C2BDAD40}">
+															<Language>SFX</Language>
+															<AudioFile>AmbAcidPipesImpacts_001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="943652025"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Position Name="" ID="{07A78358-4381-40B5-859E-F494B2D8395D}">
+															<ChildrenList>
+																<Path2D Name="AmbAcidPipesImpacts_001_Path" ID="{D5E9BA2B-50BE-4861-95A4-632CB35E3AD6}">
+																	<PropertyList>
+																		<Property Name="RandomX" Type="Real64" Value="75"/>
+																		<Property Name="RandomY" Type="Real64" Value="79"/>
+																		<Property Name="RandomZ" Type="Real64" Value="21"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>50</YPos>
+																			<Flags>12</Flags>
+																			<Time>0</Time>
+																		</Point>
+																	</PointList>
+																</Path2D>
+															</ChildrenList>
+														</Position>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="AmbAcidPipesImpacts_001" ID="{7F58D991-307E-41C3-BC05-28A6C2BDAD40}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="AmbAcidPipesImpacts_002" ID="{1114B005-0C14-4872-A885-F48EA8290F46}" ShortID="784884930">
+													<PropertyList>
+														<Property Name="3DPosition" Type="int16" Value="1"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="AmbAcidPipesImpacts_002" ID="{120C0E01-A158-47D4-A7C5-046BC321A353}">
+															<Language>SFX</Language>
+															<AudioFile>AmbAcidPipesImpacts_002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="968236804"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Position Name="" ID="{A71AB08E-801D-4004-91E6-5E8643435555}">
+															<ChildrenList>
+																<Path2D Name="AmbAcidPipesImpacts_002_Path" ID="{4881DBAF-356F-4D8C-857D-1A3D66A6861E}">
+																	<PropertyList>
+																		<Property Name="RandomX" Type="Real64" Value="82"/>
+																		<Property Name="RandomY" Type="Real64" Value="82"/>
+																		<Property Name="RandomZ" Type="Real64" Value="20"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>50</YPos>
+																			<Flags>12</Flags>
+																			<Time>0</Time>
+																		</Point>
+																	</PointList>
+																</Path2D>
+															</ChildrenList>
+														</Position>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="AmbAcidPipesImpacts_002" ID="{120C0E01-A158-47D4-A7C5-046BC321A353}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="AmbAcidPipesImpacts_003" ID="{8358EC8C-6AEF-437B-9679-7E6196E197A1}" ShortID="795117954">
+													<PropertyList>
+														<Property Name="3DPosition" Type="int16" Value="1"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="AmbAcidPipesImpacts_003" ID="{5D42A5BC-C3F5-4A99-ABB0-F888D752596D}">
+															<Language>SFX</Language>
+															<AudioFile>AmbAcidPipesImpacts_003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="797798555"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Position Name="" ID="{68B5A750-1C3A-46C5-B76F-5F72CC6DDCF5}">
+															<ChildrenList>
+																<Path2D Name="AmbAcidPipesImpacts_003_Path" ID="{FADB9824-8A66-43B9-8C1E-28D8D4FFDD31}">
+																	<PropertyList>
+																		<Property Name="RandomX" Type="Real64" Value="85"/>
+																		<Property Name="RandomY" Type="Real64" Value="79"/>
+																		<Property Name="RandomZ" Type="Real64" Value="26"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0.88692</XPos>
+																			<YPos>38.74459</YPos>
+																			<Flags>12</Flags>
+																			<Time>0</Time>
+																		</Point>
+																	</PointList>
+																</Path2D>
+															</ChildrenList>
+														</Position>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="AmbAcidPipesImpacts_003" ID="{5D42A5BC-C3F5-4A99-ABB0-F888D752596D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="AmbAcidPipesImpacts_004" ID="{762D56AB-2BB1-42A7-B40D-BC7A2E1A045C}" ShortID="413589405">
+													<PropertyList>
+														<Property Name="3DPosition" Type="int16" Value="1"/>
+														<Property Name="3DSpatialization" Type="int16" Value="2"/>
+														<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="AmbAcidPipes" ID="{7DDB51DB-E1DB-4220-9FF2-E336109BA4C1}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="AmbAcidPipesImpacts_004" ID="{6C3CA222-5417-480E-888D-97976FCCF987}">
+															<Language>SFX</Language>
+															<AudioFile>AmbAcidPipesImpacts_004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="229810075"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<PositioningInfo>
+														<Position Name="" ID="{55F064EC-CD38-405A-B712-CA1B558891A3}">
+															<ChildrenList>
+																<Path2D Name="AmbAcidPipesImpacts_004_Path" ID="{95D3F772-D99F-46E9-90D3-E539F8C84BC8}">
+																	<PropertyList>
+																		<Property Name="RandomX" Type="Real64" Value="94"/>
+																		<Property Name="RandomY" Type="Real64" Value="89"/>
+																		<Property Name="RandomZ" Type="Real64" Value="19"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>47.8355</YPos>
+																			<Flags>12</Flags>
+																			<Time>0</Time>
+																		</Point>
+																	</PointList>
+																</Path2D>
+															</ChildrenList>
+														</Position>
+													</PositioningInfo>
+													<ActiveSourceList>
+														<ActiveSource Name="AmbAcidPipesImpacts_004" ID="{6C3CA222-5417-480E-888D-97976FCCF987}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<PositioningInfo>
+												<Position Name="" ID="{BA47C7A7-3295-4246-8A80-13B3B204432B}">
+													<ChildrenList>
+														<Path2D Name="AmbAcidPipesImpacts_Path" ID="{B174C3A2-A86A-44DA-B109-7559FB7B0352}">
+															<PropertyList>
+																<Property Name="RandomX" Type="Real64" Value="91"/>
+																<Property Name="RandomY" Type="Real64" Value="92"/>
+																<Property Name="RandomZ" Type="Real64" Value="30"/>
+															</PropertyList>
+															<PointList>
+																<Point>
+																	<XPos>-0.44346</XPos>
+																	<YPos>21.42857</YPos>
+																	<Flags>12</Flags>
+																	<Time>0</Time>
+																</Point>
+															</PointList>
+														</Path2D>
+													</ChildrenList>
+												</Position>
+											</PositioningInfo>
+										</RandomSequenceContainer>
 									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="AmbAcidPipes" ID="{B35AABA8-79CA-4294-A93B-BF8CF258EF62}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
+								</Folder>
 							</ChildrenList>
 							<PositioningInfo>
 								<Panner Name="" ID="{D2F73E6D-030B-4E2E-AC64-0433CD009BEA}"/>
