@@ -13,6 +13,7 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID AMBACIDPIPE = 3640817996U;
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
@@ -60,6 +61,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID LVL_1 = 2397100949U;
+        static const AkUniqueID PLAYER = 1069431850U;
     } // namespace BANKS
 
     namespace BUSSES

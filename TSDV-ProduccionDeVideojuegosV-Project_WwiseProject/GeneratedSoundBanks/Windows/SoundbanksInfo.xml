@@ -9,41 +9,10 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{79DD2BD1-5F59-3D8B-BDBA-7AE6198C7771}">
-			<ObjectPath>Init</ObjectPath>
-			<ShortName>Init</ShortName>
-			<Path>Init.bnk</Path>
-			<Plugins>
-				<AudioDevices>
-					<Plugin Id="2317455096" Name="No_Output" ObjectPath="\Audio Devices\Default Work Unit\No_Output" GUID="{13663FD5-53CA-46E1-916D-83B242B94A51}" LibName="No Output" LibId="11862023"/>
-					<Plugin Id="3859886410" Name="System" ObjectPath="\Audio Devices\Default Work Unit\System" GUID="{F8F3700D-ABDF-4590-90A2-8194BBB352C4}" LibName="System" LibId="11403271"/>
-				</AudioDevices>
-			</Plugins>
-			<Busses>
-				<Bus Id="393239870" Name="SFX" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX" GUID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
-				<Bus Id="1069431850" Name="Player" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Player" GUID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}" Color="1"/>
-				<Bus Id="3537656742" Name="Ambs" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Ambs" GUID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}" Color="4"/>
-				<Bus Id="3803692087" Name="Master Audio Bus" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus" GUID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
-				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
-			</Busses>
-			<GameParameters>
-				<GameParameter Id="3671138082" Name="New_Game_Parameter" ObjectPath="\Game Parameters\Default Work Unit\New_Game_Parameter" GUID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}"/>
-			</GameParameters>
-			<SwitchGroups>
-				<SwitchGroup Id="3407025663" Name="StepFloorType" ObjectPath="\Switches\Default Work Unit\StepFloorType" GUID="{4C12FC41-69B4-4002-854D-DA066D33727E}">
-					<Switches>
-						<Switch Id="2058049674" Name="Wood" ObjectPath="\Switches\Default Work Unit\StepFloorType\Wood" GUID="{B363AF5F-456D-439E-AE32-9F2A0939BC62}"/>
-						<Switch Id="2412606308" Name="Carpet" ObjectPath="\Switches\Default Work Unit\StepFloorType\Carpet" GUID="{7808F1B5-C468-42CB-8C39-E6B2FFA83DC1}"/>
-						<Switch Id="2473969246" Name="Metal" ObjectPath="\Switches\Default Work Unit\StepFloorType\Metal" GUID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"/>
-						<Switch Id="2637588553" Name="Tile" ObjectPath="\Switches\Default Work Unit\StepFloorType\Tile" GUID="{195E5C04-BF13-4DBC-B4A3-675D8704875B}"/>
-					</Switches>
-				</SwitchGroup>
-			</SwitchGroups>
-		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{E61D86AC-3DBD-554C-84FC-6428FC458A65}">
-			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
-			<ShortName>Lvl_1</ShortName>
-			<Path>Lvl_1.bnk</Path>
+		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{17529EFE-1FC5-84EF-CCF4-242C5D540DEC}">
+			<ObjectPath>\SoundBanks\Default Work Unit\Player</ObjectPath>
+			<ShortName>Player</ShortName>
+			<Path>Player.bnk</Path>
 			<Media>
 				<File Id="10724109" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_01_003.wav</ShortName>
@@ -89,13 +58,17 @@
 					<ShortName>PlayerAttack_02_002.wav</ShortName>
 					<CachePath>C7/{C7C1722A-BAEA-E7DD-AEDB-09BFC6A6A5AA}.wem</CachePath>
 				</File>
+				<File Id="211116133" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_012.wav</ShortName>
+					<CachePath>CC/{CCB71014-ACAD-79DC-D480-CDEBF0F646AA}.wem</CachePath>
+				</File>
 				<File Id="219992862" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerJump_002.wav</ShortName>
 					<CachePath>63/{632B336D-072B-7BE1-6470-E9D65E4EC5AC}.wem</CachePath>
 				</File>
 				<File Id="239242516" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_002.wav</ShortName>
-					<CachePath>D1/{D1BC3058-B171-512F-63E5-A9979BCBED98}.wem</CachePath>
+					<CachePath>92/{92859333-8229-FCD0-663D-5F7B4CD092BF}.wem</CachePath>
 				</File>
 				<File Id="247642743" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartWisps_004.wav</ShortName>
@@ -104,10 +77,6 @@
 				<File Id="260858375" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerSpinCharge_01.wav</ShortName>
 					<CachePath>84/{84531F57-A31B-7BD0-E516-416418E7EE5D}.wem</CachePath>
-				</File>
-				<File Id="270755844" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbAcidStream_005.wav</ShortName>
-					<CachePath>90/{904A0554-A3E8-23D3-4809-AB408A4F3D7D}.wem</CachePath>
 				</File>
 				<File Id="307907536" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartSustain_001.wav</ShortName>
@@ -123,11 +92,7 @@
 				</File>
 				<File Id="369648277" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_004.wav</ShortName>
-					<CachePath>E1/{E17A395E-6DBD-99B9-DCB2-C78DA1DC9E36}.wem</CachePath>
-				</File>
-				<File Id="370264577" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbAcidStream_004.wav</ShortName>
-					<CachePath>13/{1342E0C8-8BA3-C15A-7DA2-31DCFCBF75DB}.wem</CachePath>
+					<CachePath>44/{4461CDFB-CED1-50BC-0A06-7A6955264977}.wem</CachePath>
 				</File>
 				<File Id="381791278" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_002.wav</ShortName>
@@ -161,9 +126,17 @@
 					<ShortName>PlayerAttack_03_003.wav</ShortName>
 					<CachePath>84/{84094819-9A88-AC76-E878-B2492B62F277}.wem</CachePath>
 				</File>
+				<File Id="539001714" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_014.wav</ShortName>
+					<CachePath>CA/{CA68885E-D2B6-8A80-5C16-3900E2E7A410}.wem</CachePath>
+				</File>
 				<File Id="539892687" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_02_001.wav</ShortName>
 					<CachePath>C8/{C8633A4A-1A36-D0B3-C9CD-F04CED00F698}.wem</CachePath>
+				</File>
+				<File Id="544271888" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_011.wav</ShortName>
+					<CachePath>6A/{6AF0A568-C036-C428-01EE-2ED1107F1C47}.wem</CachePath>
 				</File>
 				<File Id="545483333" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_003.wav</ShortName>
@@ -175,7 +148,7 @@
 				</File>
 				<File Id="567729985" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_001.wav</ShortName>
-					<CachePath>99/{99AC56A9-2C8B-5ECB-9B07-BC25E00D8D7B}.wem</CachePath>
+					<CachePath>5A/{5A53E17E-5771-FD1F-A55E-E66A589E8539}.wem</CachePath>
 				</File>
 				<File Id="583577687" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerJump_001.wav</ShortName>
@@ -203,19 +176,19 @@
 				</File>
 				<File Id="743525097" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_006.wav</ShortName>
-					<CachePath>F5/{F50573E7-7695-ADE9-AD94-51754D1379BB}.wem</CachePath>
-				</File>
-				<File Id="781123289" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbFire_002.wav</ShortName>
-					<CachePath>3B/{3B1707C9-969F-7B92-B9E3-77FDB20DC9AE}.wem</CachePath>
+					<CachePath>A5/{A5851B18-42F2-9E5D-8B7B-FB33911FC8D5}.wem</CachePath>
 				</File>
 				<File Id="790525623" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_003.wav</ShortName>
-					<CachePath>2C/{2C5A17DF-78FC-D783-BA0C-845AA26EC7E1}.wem</CachePath>
+					<CachePath>C0/{C057B99D-EF0D-E915-8E79-87B5B0FE84F7}.wem</CachePath>
 				</File>
 				<File Id="800603467" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_008.wav</ShortName>
-					<CachePath>DE/{DE42A173-AFCF-90E1-6FEC-DB9E73527F45}.wem</CachePath>
+					<CachePath>C6/{C6C7FCC4-D03B-855F-9967-CAD758560C35}.wem</CachePath>
+				</File>
+				<File Id="805685633" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_013.wav</ShortName>
+					<CachePath>32/{321C6E0B-D5C9-8C99-27DE-4DE8508038FA}.wem</CachePath>
 				</File>
 				<File Id="813132997" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_004.wav</ShortName>
@@ -225,33 +198,21 @@
 					<ShortName>PlayerAttack_01_004.wav</ShortName>
 					<CachePath>A5/{A5A751E3-BF8E-1EF5-244A-00C8869C641A}.wem</CachePath>
 				</File>
+				<File Id="822155391" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_010.wav</ShortName>
+					<CachePath>A5/{A5AC42CE-11AE-7A49-6A67-E33CB59F5E3D}.wem</CachePath>
+				</File>
 				<File Id="833436336" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_005.wav</ShortName>
-					<CachePath>9A/{9A5550DE-6BB8-8E27-5184-971B314B74A2}.wem</CachePath>
-				</File>
-				<File Id="833462405" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbAcidStream_003.wav</ShortName>
-					<CachePath>FC/{FC140BA5-9710-3FE3-EC4F-C22DB6B91C3C}.wem</CachePath>
+					<CachePath>97/{976D261D-958B-688A-01E7-C26E95C3D548}.wem</CachePath>
 				</File>
 				<File Id="840186586" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_007.wav</ShortName>
-					<CachePath>7F/{7F731239-FD0D-01C8-1BF5-94AED99DC368}.wem</CachePath>
-				</File>
-				<File Id="861232703" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbAcidStream_001.wav</ShortName>
-					<CachePath>6B/{6B22ECC5-0091-9D91-A410-D9B092509214}.wem</CachePath>
-				</File>
-				<File Id="969703663" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbFire_001.wav</ShortName>
-					<CachePath>E6/{E6AF6EF6-3B16-2E62-24FE-87A86612258A}.wem</CachePath>
+					<CachePath>1B/{1BB78847-0152-65C7-4495-2BDBD839A15B}.wem</CachePath>
 				</File>
 				<File Id="1006501114" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerMovementJump-001.wav</ShortName>
 					<CachePath>50/{5007E98C-4596-70E2-C7FC-F6FA4C1DFDB8}.wem</CachePath>
-				</File>
-				<File Id="1015983070" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AmbAcidStream_002.wav</ShortName>
-					<CachePath>37/{375FC76F-AD9D-370D-D8B0-894D2AAEE7AD}.wem</CachePath>
 				</File>
 				<File Id="1045516680" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_03_001.wav</ShortName>
@@ -260,6 +221,10 @@
 				<File Id="1055424899" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_001.wav</ShortName>
 					<CachePath>6C/{6CFC1562-DE3B-AA15-0392-0BB42063CF1E}.wem</CachePath>
+				</File>
+				<File Id="1057995068" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>StepMetal_009.wav</ShortName>
+					<CachePath>C6/{C6E1A29A-4628-B9B0-FFA5-F8DE007EF61C}.wem</CachePath>
 				</File>
 				<File Id="1061254692" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartWisps_002.wav</ShortName>
@@ -271,21 +236,6 @@
 				</File>
 			</Media>
 			<Events>
-				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="270755844"/>
-						<MediaRef Id="370264577"/>
-						<MediaRef Id="833462405"/>
-						<MediaRef Id="861232703"/>
-						<MediaRef Id="1015983070"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="857272499" Name="AmbFire" ObjectPath="\Events\Default Work Unit\SFX_Lvl_1\AmbFire" GUID="{D5235B01-656C-498E-90F2-DAAE8EF5F842}" Color="4" MaxAttenuation="25" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="781123289"/>
-						<MediaRef Id="969703663"/>
-					</MediaRefs>
-				</Event>
 				<Event Id="3417696939" Name="PlayerAttack1" ObjectPath="\Events\Default Work Unit\Player\PlayerAttack1" GUID="{BE099AE6-BA0D-46D8-BB76-B23E524C3386}" Color="2" DurationType="OneShot" DurationMin="1.8384792" DurationMax="1.8385">
 					<MediaRefs>
 						<MediaRef Id="10724109"/>
@@ -426,19 +376,25 @@
 						<MediaRef Id="741664225"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="412471812" Name="PlayerStep" ObjectPath="\Events\Default Work Unit\Player\PlayerStep" GUID="{15573B1B-AD76-4A48-A3CF-50379F7131A7}" Color="2" DurationType="OneShot" DurationMin="1.9430639" DurationMax="2.0586045">
+				<Event Id="412471812" Name="PlayerStep" ObjectPath="\Events\Default Work Unit\Player\PlayerStep" GUID="{15573B1B-AD76-4A48-A3CF-50379F7131A7}" Color="2" DurationType="OneShot" DurationMin="1.9430436" DurationMax="2.0586045">
 					<SwitchContainers>
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="3407025663" Id="2473969246" GUID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}" Default="true"/>
 							<MediaRefs>
+								<MediaRef Id="211116133"/>
 								<MediaRef Id="239242516"/>
 								<MediaRef Id="369648277"/>
+								<MediaRef Id="539001714"/>
+								<MediaRef Id="544271888"/>
 								<MediaRef Id="567729985"/>
 								<MediaRef Id="743525097"/>
 								<MediaRef Id="790525623"/>
 								<MediaRef Id="800603467"/>
+								<MediaRef Id="805685633"/>
+								<MediaRef Id="822155391"/>
 								<MediaRef Id="833436336"/>
 								<MediaRef Id="840186586"/>
+								<MediaRef Id="1057995068"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -455,6 +411,99 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{79DD2BD1-5F59-3D8B-BDBA-7AE6198C7771}">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" ObjectPath="\Audio Devices\Default Work Unit\No_Output" GUID="{13663FD5-53CA-46E1-916D-83B242B94A51}" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" ObjectPath="\Audio Devices\Default Work Unit\System" GUID="{F8F3700D-ABDF-4590-90A2-8194BBB352C4}" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="393239870" Name="SFX" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX" GUID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
+				<Bus Id="1069431850" Name="Player" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Player" GUID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}" Color="1"/>
+				<Bus Id="3537656742" Name="Ambs" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Ambs" GUID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}" Color="4"/>
+				<Bus Id="3803692087" Name="Master Audio Bus" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus" GUID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
+				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="3671138082" Name="New_Game_Parameter" ObjectPath="\Game Parameters\Default Work Unit\New_Game_Parameter" GUID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}"/>
+			</GameParameters>
+			<SwitchGroups>
+				<SwitchGroup Id="3407025663" Name="StepFloorType" ObjectPath="\Switches\Default Work Unit\StepFloorType" GUID="{4C12FC41-69B4-4002-854D-DA066D33727E}">
+					<Switches>
+						<Switch Id="2058049674" Name="Wood" ObjectPath="\Switches\Default Work Unit\StepFloorType\Wood" GUID="{B363AF5F-456D-439E-AE32-9F2A0939BC62}"/>
+						<Switch Id="2412606308" Name="Carpet" ObjectPath="\Switches\Default Work Unit\StepFloorType\Carpet" GUID="{7808F1B5-C468-42CB-8C39-E6B2FFA83DC1}"/>
+						<Switch Id="2473969246" Name="Metal" ObjectPath="\Switches\Default Work Unit\StepFloorType\Metal" GUID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"/>
+						<Switch Id="2637588553" Name="Tile" ObjectPath="\Switches\Default Work Unit\StepFloorType\Tile" GUID="{195E5C04-BF13-4DBC-B4A3-675D8704875B}"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{31A35982-8DF1-6ABE-6C8B-700CC291221C}">
+			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
+			<ShortName>Lvl_1</ShortName>
+			<Path>Lvl_1.bnk</Path>
+			<Media>
+				<File Id="32135626" Language="SFX" Streaming="true" Location="Loose">
+					<ShortName>AmbAcidPipes.wav</ShortName>
+					<Path>Media/32135626.wem</Path>
+					<CachePath>3C/{3CAC8894-4810-5EA1-A1B0-BA0E7DD2721D}.wem</CachePath>
+				</File>
+				<File Id="270755844" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_005.wav</ShortName>
+					<CachePath>90/{904A0554-A3E8-23D3-4809-AB408A4F3D7D}.wem</CachePath>
+				</File>
+				<File Id="370264577" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_004.wav</ShortName>
+					<CachePath>13/{1342E0C8-8BA3-C15A-7DA2-31DCFCBF75DB}.wem</CachePath>
+				</File>
+				<File Id="781123289" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbFire_002.wav</ShortName>
+					<CachePath>3B/{3B1707C9-969F-7B92-B9E3-77FDB20DC9AE}.wem</CachePath>
+				</File>
+				<File Id="833462405" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_003.wav</ShortName>
+					<CachePath>FC/{FC140BA5-9710-3FE3-EC4F-C22DB6B91C3C}.wem</CachePath>
+				</File>
+				<File Id="861232703" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_001.wav</ShortName>
+					<CachePath>6B/{6B22ECC5-0091-9D91-A410-D9B092509214}.wem</CachePath>
+				</File>
+				<File Id="969703663" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbFire_001.wav</ShortName>
+					<CachePath>E6/{E6AF6EF6-3B16-2E62-24FE-87A86612258A}.wem</CachePath>
+				</File>
+				<File Id="1015983070" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_002.wav</ShortName>
+					<CachePath>37/{375FC76F-AD9D-370D-D8B0-894D2AAEE7AD}.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3640817996" Name="AmbAcidPipe" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidPipe" GUID="{AB7BBBB6-4E93-4CB3-A3B3-A388C1FE5EF7}" Color="4" MaxAttenuation="50" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="32135626"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="270755844"/>
+						<MediaRef Id="370264577"/>
+						<MediaRef Id="833462405"/>
+						<MediaRef Id="861232703"/>
+						<MediaRef Id="1015983070"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="857272499" Name="AmbFire" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbFire" GUID="{D5235B01-656C-498E-90F2-DAAE8EF5F842}" Color="4" MaxAttenuation="25" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="781123289"/>
+						<MediaRef Id="969703663"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{B501ACD8-7A92-F1D9-41FF-69315207840B}</FileHash>
+	<FileHash>{1BB77A1A-1C1C-A0BB-1F54-D00245B4B3F4}</FileHash>
 </SoundBanksInfo>

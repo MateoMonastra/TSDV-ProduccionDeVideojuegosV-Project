@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
+<WwiseDocument Type="WorkUnit" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{8FEC1668-79F2-401A-B63F-E1ADA7C31B69}">
 	<Events>
-		<WorkUnit Name="SFX_Lvl_1" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested">
+		<WorkUnit Name="SFX_Lvl_1" ID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}" OwnerID="{8FEC1668-79F2-401A-B63F-E1ADA7C31B69}" PersistMode="Nested">
 			<PropertyList>
 				<Property Name="Color" Type="int16" Value="4"/>
 				<Property Name="OverrideColor" Type="bool" Value="True"/>
@@ -75,6 +75,17 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="AmbFire_002" ID="{68622995-A446-4F69-AF12-EC6C10D38EC7}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AmbAcidPipe" ID="{AB7BBBB6-4E93-4CB3-A3B3-A388C1FE5EF7}">
+					<ChildrenList>
+						<Action Name="" ID="{628AF365-973E-4B11-B495-45C2C93C01BE}" ShortID="333790428">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbAcidPipes" ID="{5506D7D3-7B36-4DB5-9811-19EE53094619}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
