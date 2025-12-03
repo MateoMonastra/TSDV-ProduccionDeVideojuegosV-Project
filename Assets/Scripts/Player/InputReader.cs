@@ -58,6 +58,12 @@ namespace Player
         }
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
+            if (SceneManager.GetActiveScene().name == "SplashScene")
+            {
+                SceneManager.LoadScene(levelSceneName);
+                Time.timeScale = 1;
+            }
+            
             if (context.started)
             {
                 OnJump?.Invoke();
@@ -122,9 +128,15 @@ namespace Player
             OnInputPressed?.Invoke(context.control.device);
         }
 
+        public void HandleShowroomButton()
+        {
+            SceneManager.LoadScene("SplashScene");
+            Time.timeScale = 1;
+        }
+        
         public void HandleShowRoomInput(InputAction.CallbackContext context)
         {
-            SceneManager.LoadScene(showRoomSceneName);
+            SceneManager.LoadScene("SplashScene");
             Time.timeScale = 1;
             
             OnInputPressed?.Invoke(context.control.device);
@@ -140,14 +152,14 @@ namespace Player
 
         public void HandlePipesInput(InputAction.CallbackContext context)
         {
-            SceneManager.LoadScene(pipesSceneName);
+            // SceneManager.LoadScene(pipesSceneName);
             
             OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleMilestone4Input(InputAction.CallbackContext context)
         {
-            SceneManager.LoadScene(milestone4SceneName);
+            // SceneManager.LoadScene(milestone4SceneName);
             
             OnInputPressed?.Invoke(context.control.device);
         }
