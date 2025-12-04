@@ -105,6 +105,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="PropulsorBounce" ID="{7446A1F9-7D18-4029-880C-36C66725B72B}">
+					<ChildrenList>
+						<Action Name="" ID="{77B28718-1B1C-4F90-8924-4960BEE0A4E1}" ShortID="1050786909">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PropulsorBounce" ID="{4D829B59-978F-4C6B-98A1-5E6279B6B43B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

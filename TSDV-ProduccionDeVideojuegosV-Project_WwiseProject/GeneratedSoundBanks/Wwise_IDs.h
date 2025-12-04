@@ -33,6 +33,7 @@ namespace AK
         static const AkUniqueID PLAYERSPINCHARGE2 = 395070060U;
         static const AkUniqueID PLAYERSPINCHARGE3 = 395070061U;
         static const AkUniqueID PLAYERSTEP = 412471812U;
+        static const AkUniqueID PROPULSORBOUNCE = 778438783U;
     } // namespace EVENTS
 
     namespace SWITCHES

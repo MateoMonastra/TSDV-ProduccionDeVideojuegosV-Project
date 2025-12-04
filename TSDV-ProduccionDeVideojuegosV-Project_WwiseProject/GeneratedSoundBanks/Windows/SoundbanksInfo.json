@@ -18,7 +18,7 @@
     "Type": "User",
     "GUID": "{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}",
     "Language": "SFX",
-    "Hash": "{01BD3F07-121F-CD39-BD09-ECE28C0F62E3}",
+    "Hash": "{E406396E-4C54-39AA-82FB-F19F3B080EF8}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Player",
     "ShortName": "Player",
     "Path": "Player.bnk",
@@ -1034,7 +1034,8 @@
       "Id": "393239870",
       "Name": "SFX",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\SFX",
-      "GUID": "{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"
+      "GUID": "{A683C51F-7F0B-4700-8627-BC59ABA13EBA}",
+      "Color": "13"
      },
      {
       "Id": "1069431850",
@@ -1111,11 +1112,19 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{06FD92AE-E633-2223-4696-C7B88E0AE159}",
+    "Hash": "{96B20824-8FF9-3351-E045-E756B4812342}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
     "Media": [
+     {
+      "Id": "24105696",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PropulsorBounce_004.wav",
+      "CachePath": "DF/{DF1864D3-D88A-F502-A7E3-A2A641D50C7F}.wem"
+     },
      {
       "Id": "32135626",
       "Language": "SFX",
@@ -1124,6 +1133,14 @@
       "ShortName": "AmbAcidPipes.wav",
       "Path": "Media/32135626.wem",
       "CachePath": "3C/{3CAC8894-4810-5EA1-A1B0-BA0E7DD2721D}.wem"
+     },
+     {
+      "Id": "61881615",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PropulsorBounce_002.wav",
+      "CachePath": "90/{908F22A0-8D5E-0B8A-F5A4-C7689E450D8B}.wem"
      },
      {
       "Id": "72582532",
@@ -1366,6 +1383,14 @@
       "CachePath": "68/{68B04A57-B824-9114-D1F1-1218BCDBC051}.wem"
      },
      {
+      "Id": "577405053",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PropulsorBounce_001.wav",
+      "CachePath": "95/{9527A67C-D45D-A32B-FC31-131D72F9F0AA}.wem"
+     },
+     {
       "Id": "579559471",
       "Language": "SFX",
       "Streaming": "false",
@@ -1500,6 +1525,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts2_014.wav",
       "CachePath": "76/{76F52338-1DC0-276A-E71D-6EBD5F934996}.wem"
+     },
+     {
+      "Id": "782662004",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PropulsorBounce_003.wav",
+      "CachePath": "F3/{F3FEDA8F-AF08-2C4F-6158-FE143D671AFD}.wem"
      },
      {
       "Id": "798195727",
@@ -1844,10 +1877,35 @@
         "Id": "969703663"
        }
       ]
+     },
+     {
+      "Id": "778438783",
+      "Name": "PropulsorBounce",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\PropulsorBounce",
+      "GUID": "{7446A1F9-7D18-4029-880C-36C66725B72B}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "1.6466045",
+      "DurationMax": "1.8060586",
+      "MediaRefs": [
+       {
+        "Id": "24105696"
+       },
+       {
+        "Id": "61881615"
+       },
+       {
+        "Id": "577405053"
+       },
+       {
+        "Id": "782662004"
+       }
+      ]
      }
     ]
    }
   ],
-  "FileHash": "{E6775D56-5C58-40DD-EFDE-B72D57BF1995}"
+  "FileHash": "{233FC28B-4344-150F-8F0E-CB0252633ED0}"
  }
 }

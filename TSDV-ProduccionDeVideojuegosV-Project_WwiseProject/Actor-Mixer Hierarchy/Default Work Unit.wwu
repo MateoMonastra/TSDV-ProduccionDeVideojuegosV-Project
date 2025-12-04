@@ -1442,13 +1442,6 @@
 									</ChildrenList>
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="SpinCharge_01" ID="{556C402E-0ACC-41C9-83A4-E6138061581B}" ShortID="642748402">
-									<PropertyList>
-										<Property Name="MakeUpGain" Type="Real64">
-											<ValueList>
-												<Value>-2</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
@@ -4230,7 +4223,15 @@
 							</ReferenceList>
 						</ActorMixer>
 						<ActorMixer Name="SFX" ID="{7A88DFCE-CAB2-4AD0-AA07-8989C07EDAAA}" ShortID="445444081">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="Color" Type="int16" Value="12"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="SFX small" ID="{CCCE8E98-A92B-4F24-9337-453546471F7B}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
 								</Reference>
@@ -4238,6 +4239,125 @@
 									<ObjectRef Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
 								</Reference>
 							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="PropulsorBounce" ID="{4D829B59-978F-4C6B-98A1-5E6279B6B43B}" ShortID="328664413">
+									<PropertyList>
+										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{72B1CDA2-9D55-463D-863B-A5EA75E52B03}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="80"/>
+															<Property Name="Min" Type="Real64" Value="-80"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="PropulsorBounce_001" ID="{BADC8B4F-7541-4128-A3AD-7621683BDB59}" ShortID="1015825818">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PropulsorBounce_001" ID="{796782CE-465A-498C-A497-29FDB812E753}">
+													<Language>SFX</Language>
+													<AudioFile>PropulsorBounce_001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="577405053"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PropulsorBounce_001" ID="{796782CE-465A-498C-A497-29FDB812E753}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PropulsorBounce_002" ID="{98CF9630-B395-4565-B51D-150426B8F571}" ShortID="995940128">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PropulsorBounce_002" ID="{FCC47948-F0E0-453D-BBFC-0744B4598788}">
+													<Language>SFX</Language>
+													<AudioFile>PropulsorBounce_002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="61881615"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PropulsorBounce_002" ID="{FCC47948-F0E0-453D-BBFC-0744B4598788}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PropulsorBounce_003" ID="{1890F1FF-7C3F-4EE0-B9A2-5BEA4B8E7CB9}" ShortID="338332484">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PropulsorBounce_003" ID="{EB5D6A4D-A610-4A94-9431-7622C71F1D2E}">
+													<Language>SFX</Language>
+													<AudioFile>PropulsorBounce_003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="782662004"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PropulsorBounce_003" ID="{EB5D6A4D-A610-4A94-9431-7622C71F1D2E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PropulsorBounce_004" ID="{53B6C80F-447D-439A-B300-CFCF4983521B}" ShortID="937349470">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PropulsorBounce_004" ID="{7793ABAF-E9E3-4459-952D-A8A149F2ED03}">
+													<Language>SFX</Language>
+													<AudioFile>PropulsorBounce_004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="24105696"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PropulsorBounce_004" ID="{7793ABAF-E9E3-4459-952D-A8A149F2ED03}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
 						</ActorMixer>
 					</ChildrenList>
 				</Folder>

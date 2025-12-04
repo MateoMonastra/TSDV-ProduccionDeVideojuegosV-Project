@@ -16,7 +16,12 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 						</Bus>
-						<Bus Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
+						<Bus Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="13"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
 						<Bus Name="Ambs" ID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}">
 							<PropertyList>
 								<Property Name="Color" Type="int16" Value="4"/>
