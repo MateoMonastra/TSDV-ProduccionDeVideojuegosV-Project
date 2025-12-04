@@ -426,7 +426,7 @@
 				<Bus Id="1069431850" Name="Player" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Player" GUID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}" Color="1"/>
 				<Bus Id="3537656742" Name="Ambs" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Ambs" GUID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}" Color="4"/>
 				<Bus Id="3803692087" Name="Master Audio Bus" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus" GUID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"/>
-				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
+				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}" Color="7"/>
 			</Busses>
 			<GameParameters>
 				<GameParameter Id="3671138082" Name="New_Game_Parameter" ObjectPath="\Game Parameters\Default Work Unit\New_Game_Parameter" GUID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}"/>
@@ -442,7 +442,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{ECA03952-3FAC-5C4D-4FA4-1654EA20EE21}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{44C5CB24-392A-1082-3EF9-F5E40EDD27F4}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -700,6 +700,11 @@
 					<ShortName>AmbAcidPipesImpacts2_008.wav</ShortName>
 					<CachePath>EB/{EBF6D4C0-03BD-0E11-14EE-A02CEA3CC6A0}.wem</CachePath>
 				</File>
+				<File Id="942279562" Language="SFX" Streaming="true" Location="Loose">
+					<ShortName>Musica1.wav</ShortName>
+					<Path>Media/942279562.wem</Path>
+					<CachePath>22/{2287638D-12EA-7C86-0838-0069E6E891D7}.wem</CachePath>
+				</File>
 				<File Id="969703663" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbFire_001.wav</ShortName>
 					<CachePath>E6/{E6AF6EF6-3B16-2E62-24FE-87A86612258A}.wem</CachePath>
@@ -802,6 +807,11 @@
 						<MediaRef Id="969703663"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="158641202" Name="Music_Lvl1_1" ObjectPath="\Events\Default Work Unit\Lvl_1\Music_Lvl_1\Music_Lvl1_1" GUID="{CB2ADAF6-C641-4D54-B219-96254DC1E816}" Color="9" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="942279562"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="778438783" Name="PropulsorBounce" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\PropulsorBounce" GUID="{7446A1F9-7D18-4029-880C-36C66725B72B}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="1.6466045" DurationMax="1.8060586">
 					<MediaRefs>
 						<MediaRef Id="24105696"/>
@@ -813,5 +823,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{38E41807-D3DA-B3C7-AB27-E5EFB55AC253}</FileHash>
+	<FileHash>{1B48E5B0-E6CE-29D1-A8D5-15331257E096}</FileHash>
 </SoundBanksInfo>

@@ -2565,6 +2565,11 @@
 														<Value>True</Value>
 													</ValueList>
 												</Property>
+												<Property Name="MakeUpGain" Type="Real64">
+													<ValueList>
+														<Value>2</Value>
+													</ValueList>
+												</Property>
 												<Property Name="OverrideConversion" Type="bool" Value="True"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="48"/>
@@ -2604,7 +2609,7 @@
 												<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
 												<Property Name="MakeUpGain" Type="Real64">
 													<ValueList>
-														<Value>-6</Value>
+														<Value>-4</Value>
 													</ValueList>
 												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -3460,7 +3465,7 @@
 												<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
 												<Property Name="MakeUpGain" Type="Real64">
 													<ValueList>
-														<Value>-6</Value>
+														<Value>-4</Value>
 													</ValueList>
 												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
@@ -4210,6 +4215,11 @@
 									<PropertyList>
 										<Property Name="3DSpatialization" Type="int16" Value="2"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-5</Value>
+											</ValueList>
+										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="76"/>
 									</PropertyList>
@@ -4243,16 +4253,6 @@
 								<Position Name="" ID="{3DDC2605-0C5F-4EF0-B5F7-58760DA7759D}"/>
 							</PositioningInfo>
 						</ActorMixer>
-						<ActorMixer Name="Music" ID="{B7944E46-B1C8-4107-8E70-039B01F818CF}" ShortID="974094692">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-								</Reference>
-							</ReferenceList>
-						</ActorMixer>
 						<ActorMixer Name="SFX" ID="{7A88DFCE-CAB2-4AD0-AA07-8989C07EDAAA}" ShortID="445444081">
 							<PropertyList>
 								<Property Name="3DSpatialization" Type="int16" Value="2"/>
@@ -4273,6 +4273,11 @@
 							<ChildrenList>
 								<RandomSequenceContainer Name="PropulsorBounce" ID="{4D829B59-978F-4C6B-98A1-5E6279B6B43B}" ShortID="328664413">
 									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
 										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 										<Property Name="Pitch" Type="int32">
 											<ModifierList>

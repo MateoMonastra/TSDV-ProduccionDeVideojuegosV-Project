@@ -17,6 +17,7 @@ namespace AK
         static const AkUniqueID AMBACIDPIPEGAS = 3927828283U;
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
+        static const AkUniqueID MUSIC_LVL1_1 = 158641202U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;

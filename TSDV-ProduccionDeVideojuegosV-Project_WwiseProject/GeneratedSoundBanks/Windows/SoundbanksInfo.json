@@ -1061,7 +1061,8 @@
       "Id": "3991942870",
       "Name": "Music",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Music",
-      "GUID": "{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"
+      "GUID": "{41152D0D-5F63-4B2C-B7F4-D544143EF62E}",
+      "Color": "7"
      }
     ],
     "GameParameters": [
@@ -1112,7 +1113,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{ECA03952-3FAC-5C4D-4FA4-1654EA20EE21}",
+    "Hash": "{44C5CB24-392A-1082-3EF9-F5E40EDD27F4}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1623,6 +1624,15 @@
       "CachePath": "EB/{EBF6D4C0-03BD-0E11-14EE-A02CEA3CC6A0}.wem"
      },
      {
+      "Id": "942279562",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "Musica1.wav",
+      "Path": "Media/942279562.wem",
+      "CachePath": "22/{2287638D-12EA-7C86-0838-0069E6E891D7}.wem"
+     },
+     {
       "Id": "969703663",
       "Language": "SFX",
       "Streaming": "false",
@@ -1901,6 +1911,19 @@
       ]
      },
      {
+      "Id": "158641202",
+      "Name": "Music_Lvl1_1",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\Music_Lvl_1\\Music_Lvl1_1",
+      "GUID": "{CB2ADAF6-C641-4D54-B219-96254DC1E816}",
+      "Color": "9",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "942279562"
+       }
+      ]
+     },
+     {
       "Id": "778438783",
       "Name": "PropulsorBounce",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\PropulsorBounce",
@@ -1928,6 +1951,6 @@
     ]
    }
   ],
-  "FileHash": "{24C0820C-3CB8-E3F5-B3DE-0A5CE9CB7F94}"
+  "FileHash": "{710E57F3-81BA-152E-3595-9865430835E6}"
  }
 }

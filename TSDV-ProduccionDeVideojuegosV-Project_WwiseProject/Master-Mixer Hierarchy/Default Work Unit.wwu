@@ -37,7 +37,12 @@
 								</ObjectList>
 							</ObjectLists>
 						</Bus>
-						<Bus Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
+						<Bus Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="7"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
 					</ChildrenList>
 				</Bus>
 			</ChildrenList>
