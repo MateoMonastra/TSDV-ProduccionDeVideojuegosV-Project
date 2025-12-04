@@ -4206,6 +4206,37 @@
 										</RandomSequenceContainer>
 									</ChildrenList>
 								</Folder>
+								<Sound Name="AmbAcidPipeGas" ID="{6BFC4B4B-3F54-4FC0-BA5D-72B135B062C0}" ShortID="119349330">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="76"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="AmbAcidPipeGas" ID="{1EF19A62-F82C-4B6B-BD4D-A7E6CB94E6F7}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="AmbAcidPipeGas" ID="{B8015687-3084-4AD3-8B96-B551BACA5E0B}">
+											<Language>SFX</Language>
+											<AudioFile>AmbAcidPipeGas.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="806812880"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="AmbAcidPipeGas" ID="{B8015687-3084-4AD3-8B96-B551BACA5E0B}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 							<PositioningInfo>
 								<Panner Name="" ID="{D2F73E6D-030B-4E2E-AC64-0433CD009BEA}"/>

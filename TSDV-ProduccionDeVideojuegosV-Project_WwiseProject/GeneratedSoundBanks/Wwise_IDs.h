@@ -14,6 +14,7 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID AMBACIDPIPE = 3640817996U;
+        static const AkUniqueID AMBACIDPIPEGAS = 3927828283U;
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;

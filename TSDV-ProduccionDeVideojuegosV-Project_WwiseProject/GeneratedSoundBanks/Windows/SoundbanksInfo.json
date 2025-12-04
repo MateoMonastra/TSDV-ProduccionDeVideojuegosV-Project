@@ -1112,7 +1112,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{96B20824-8FF9-3351-E045-E756B4812342}",
+    "Hash": "{ECA03952-3FAC-5C4D-4FA4-1654EA20EE21}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1551,6 +1551,14 @@
       "CachePath": "40/{40FEBC8A-CA9C-28B5-0A5F-3DD5FAB2B367}.wem"
      },
      {
+      "Id": "806812880",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "AmbAcidPipeGas.wav",
+      "CachePath": "3F/{3FB56D39-7CDD-24DF-BD32-471D256C7ECC}.wem"
+     },
+     {
       "Id": "833462405",
       "Language": "SFX",
       "Streaming": "false",
@@ -1836,6 +1844,20 @@
       ]
      },
      {
+      "Id": "3927828283",
+      "Name": "AmbAcidPipeGas",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\AmbAcidPipeGas",
+      "GUID": "{2BC5A590-EA80-44B6-8657-E4E3FD40104E}",
+      "Color": "4",
+      "MaxAttenuation": "80",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "806812880"
+       }
+      ]
+     },
+     {
       "Id": "2773708536",
       "Name": "AmbAcidStream",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\AmbAcidStream",
@@ -1906,6 +1928,6 @@
     ]
    }
   ],
-  "FileHash": "{233FC28B-4344-150F-8F0E-CB0252633ED0}"
+  "FileHash": "{24C0820C-3CB8-E3F5-B3DE-0A5CE9CB7F94}"
  }
 }

@@ -442,7 +442,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{96B20824-8FF9-3351-E045-E756B4812342}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{ECA03952-3FAC-5C4D-4FA4-1654EA20EE21}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -664,6 +664,10 @@
 					<ShortName>AmbAcidPipesImpacts1_021.wav</ShortName>
 					<CachePath>40/{40FEBC8A-CA9C-28B5-0A5F-3DD5FAB2B367}.wem</CachePath>
 				</File>
+				<File Id="806812880" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidPipeGas.wav</ShortName>
+					<CachePath>3F/{3FB56D39-7CDD-24DF-BD32-471D256C7ECC}.wem</CachePath>
+				</File>
 				<File Id="833462405" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidStream_003.wav</ShortName>
 					<CachePath>FC/{FC140BA5-9710-3FE3-EC4F-C22DB6B91C3C}.wem</CachePath>
@@ -778,6 +782,11 @@
 						<MediaRef Id="1061482636"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3927828283" Name="AmbAcidPipeGas" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidPipeGas" GUID="{2BC5A590-EA80-44B6-8657-E4E3FD40104E}" Color="4" MaxAttenuation="80" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="806812880"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="270755844"/>
@@ -804,5 +813,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{EAA9DFAB-C27C-0EBF-79F6-F811C0F109A3}</FileHash>
+	<FileHash>{38E41807-D3DA-B3C7-AB27-E5EFB55AC253}</FileHash>
 </SoundBanksInfo>
