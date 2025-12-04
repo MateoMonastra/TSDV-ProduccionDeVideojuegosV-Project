@@ -97742,7 +97742,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterPack
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 294377820344304503, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
+    - {fileID: 3447226533079424852, guid: 4c31d583ca9b03a47b3b5e6a91b79b1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -264453,6 +264455,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632634300438031370, guid: d433f92159eac5c4582add83f730a505, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632634300438031370, guid: d433f92159eac5c4582add83f730a505, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7632634300438031370, guid: d433f92159eac5c4582add83f730a505, type: 3}
