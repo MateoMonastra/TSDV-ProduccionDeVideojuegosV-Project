@@ -26,6 +26,7 @@
 					</ValueList>
 				</Property>
 				<Property Name="GenerateSoundBankJSON" Type="bool" Value="True"/>
+				<Property Name="SoundBankGenerateDefinitionFile" Type="bool" Value="False"/>
 				<Property Name="SoundBankGenerateEstimatedDuration" Type="bool" Value="True"/>
 				<Property Name="SoundBankGenerateHeaderFile" Type="bool" Value="True"/>
 				<Property Name="SoundBankGenerateMaxAttenuationInfo" Type="bool" Value="True"/>
@@ -62,6 +63,7 @@
 						<Value Platform="Windows"></Value>
 					</ValueList>
 				</Property>
+				<Property Name="SourceControlGeneratedFiles" Type="bool" Value="True"/>
 				<Property Name="WwiseVersionWhenCreated" Type="string" Value="Branch=wwise_v2023.1|Build=8417|VersionName=v2023.1.1|Config=Release"/>
 			</PropertyList>
 			<MiscSettings>
