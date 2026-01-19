@@ -44,6 +44,7 @@ namespace Player
         {
             if(context.started)
                 OnClick?.Invoke();
+            
             OnInputPressed?.Invoke(context.control.device);
         }
 

@@ -179,10 +179,10 @@ namespace Player.New
 
             if (!motor.IsGrounded)
             {
-                // if (AttackVertical.CanUse(motor, model))
-                // {
-                //     _actionFsm.ForceTransition(_aVertical);
-                // }
+                if (AttackVertical.CanUse(motor, model))
+                {
+                    _actionFsm.ForceTransition(_aVertical);
+                }
 
                 return;
             }
