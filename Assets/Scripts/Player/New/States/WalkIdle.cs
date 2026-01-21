@@ -40,6 +40,8 @@ namespace Player.New
 
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
+            Model.DashOnCooldown = false;
+
             //_anim?.SetWalking(false);
         }
 
