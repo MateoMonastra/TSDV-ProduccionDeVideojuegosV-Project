@@ -128,14 +128,9 @@ namespace Player.New
                     _impactStarted = true;
                 }
 
-                if (_t - 0.05f >= _model.VerticalAttackImpactDelay)
-                {
-                    DoImpact();
-                }
-            }
 
-            if (_t >= MaxAirTime && !_impactDone)
                 DoImpact();
+            }
         }
 
         private void OnAnimVerticalImpact() => DoImpact();
@@ -146,11 +141,20 @@ namespace Player.New
             _impactDone = true;
             _impactStarted = true;
 
-            _vfxController?.Play(VfxEvent.VerticalAttackLand);
 
             _audioController.PlayPlayerAttackSmashHitFloor();
 
-            Vector3 center = _m.transform.position;
+            Vector3 center;
+
+            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 3.0f, Vector3.down, out RaycastHit hit,
+                    3.0f, _m.groundMask))
+            {
+                center = hit.point + Vector3.up * 0.5f;
+            }
+            else
+            {
+                center = _m.transform.position;
+            }
 
             Collider[] hits = Physics.OverlapSphere(
                 center,
@@ -158,6 +162,8 @@ namespace Player.New
                 _model.VerticalHitMask,
                 QueryTriggerInteraction.Collide
             );
+
+            _vfxController?.PlayAt(VfxEvent.VerticalAttackLand, center);
 
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();
