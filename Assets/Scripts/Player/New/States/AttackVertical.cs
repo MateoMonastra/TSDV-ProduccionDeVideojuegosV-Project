@@ -29,11 +29,12 @@ namespace Player.New
         private bool _impactDone;
         private bool _impactStarted;
         private float _postTimer;
-        
+
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
         {
             _m = m;
             _model = mdl;
@@ -72,10 +73,10 @@ namespace Player.New
             var v = _m.Velocity;
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
-            
+
             _anim?.SetVerticalStart(true);
             _anim?.SetFalling(false);
-            
+
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
 
             _audioController.PlayPlayerAttackSmash();
@@ -88,7 +89,7 @@ namespace Player.New
 
             _anim.SetVerticalStart(false);
             _anim.CleanVerticalImpact();
-            
+
             _model.ClearActionLocks();
         }
 
@@ -116,7 +117,9 @@ namespace Player.New
             v.y = Mathf.Max(v.y - _model.VerticalSlamExtraAccel * dt, -_model.VerticalSlamMaxDownSpeed);
             _m.SetVelocity(v);
 
-            if (_m.IsGrounded && _t > 0.05f)
+            bool hasHit = Physics.Raycast(_m.transform.position, Vector3.down, out RaycastHit hit, 3.0f, _m.groundMask);
+            Debug.DrawRay(_m.transform.position, Vector3.down * 3.0f, hasHit ? Color.red : Color.green);
+            if (hasHit)
             {
                 if (!_impactStarted)
                 {
@@ -146,7 +149,7 @@ namespace Player.New
             _vfxController?.Play(VfxEvent.VerticalAttackLand);
 
             _audioController.PlayPlayerAttackSmashHitFloor();
-            
+
             Vector3 center = _m.transform.position;
 
             Collider[] hits = Physics.OverlapSphere(
