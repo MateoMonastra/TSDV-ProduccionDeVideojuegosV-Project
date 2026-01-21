@@ -73,7 +73,7 @@ namespace Player.New
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
             
-            _anim?.TriggerVerticalStart();
+            _anim?.SetVerticalStart(true);
             _anim?.SetFalling(false);
             
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
@@ -86,6 +86,9 @@ namespace Player.New
             base.Exit();
             if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
 
+            _anim.SetVerticalStart(false);
+            _anim.CleanVerticalImpact();
+            
             _model.ClearActionLocks();
         }
 
@@ -117,6 +120,7 @@ namespace Player.New
             {
                 if (!_impactStarted)
                 {
+                    _anim.SetVerticalStart(false);
                     _anim?.TriggerVerticalImpact();
                     _impactStarted = true;
                 }

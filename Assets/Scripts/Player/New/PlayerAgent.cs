@@ -491,9 +491,11 @@ namespace Player.New
             model.LocomotionBlocked = false;
             model.IsDead = false;
 
+            
             motor.WarpTo(pos, rot);
             motor.SetVelocity(Vector3.zero);
 
+            
             if (!resetHealth || health == null) return;
             health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());

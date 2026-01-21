@@ -47,5 +47,27 @@ namespace Player.New
             Quaternion verticalRot = Quaternion.Euler(_targetVerticalAngle, 0f, 0f);
             return planarRot * verticalRot;
         }
+
+        public void ResetCameraRotation()
+        {
+            _planarDirection = _camera.followTransform ? _camera.followTransform.forward : Vector3.forward;
+        }
+
+        public void SetCameraRotation(Quaternion rotation)
+        {
+            Vector3 targetForward = rotation * Vector3.forward;
+    
+            _planarDirection = Vector3.ProjectOnPlane(targetForward, _camera.followTransform.up).normalized;
+
+            float angle = rotation.eulerAngles.x;
+    
+            if (angle > 180) angle -= 360; 
+
+            _targetVerticalAngle = Mathf.Clamp(
+                angle,
+                _camera.minVerticalAngle,
+                _camera.maxVerticalAngle
+            );
+        }
     }
 }

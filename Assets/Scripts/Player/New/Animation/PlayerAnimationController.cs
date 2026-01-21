@@ -113,14 +113,19 @@ namespace Player.New
             if (_anim) _anim.SetTrigger(tAttack3);
         }
 
-        public void TriggerVerticalStart()
+        public void SetVerticalStart(bool value)
         {
-            if (_anim) _anim.SetTrigger(tVerticalStart);
+            if (_anim) _anim.SetBool(tVerticalStart, value);
         }
 
         public void TriggerVerticalImpact()
         {
             if (_anim) _anim.SetTrigger(tVerticalImpact);
+        }
+
+        public void CleanVerticalImpact()
+        {
+            if (_anim) _anim.ResetTrigger(tVerticalImpact);
         }
 
         public void SetSpinCharging(bool v)
