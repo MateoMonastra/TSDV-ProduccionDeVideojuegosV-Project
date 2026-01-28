@@ -79,7 +79,7 @@ namespace Enemies.BaseEnemy
             Transition idleToImpulse = new Transition() { From = idle, To = impulse, ID = ToImpulseID };
             idle.AddTransition(idleToImpulse);
 
-            Transition idleToSpinImpulse = new Transition() { From = idle, To = impulse, ID = ToImpulseID };
+            Transition idleToSpinImpulse = new Transition() { From = idle, To = _spinningImpulse, ID = ToImpulseID };
             idle.AddTransition(idleToSpinImpulse);
             _states.Add(idle);
 
