@@ -15,6 +15,8 @@ namespace Enemies.BaseEnemy
         public UnityEvent onAttackFinish;
         public UnityEvent onImpulseStarted;
         public UnityEvent onImpulseEnded;
+        public UnityEvent onSpinningImpulseStarted;
+        public UnityEvent onSpinningImpulseEnded;
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
@@ -261,6 +263,7 @@ namespace Enemies.BaseEnemy
             {
                 if (damageOrigin.DamageName == "PlayerVerticalAttack")
                 {
+                    
                     _spinningImpulse.SetImpulse(damageOrigin.Knockback);
                     _spinningImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
                     TransitionToSpinningImpulse();
