@@ -123,8 +123,8 @@ namespace Player.New
             {
                 if (!_impactStarted)
                 {
-                    _anim.SetVerticalStart(false);
                     _anim?.TriggerVerticalImpact();
+                    _anim?.SetVerticalStart(false);
                     _impactStarted = true;
                 }
 
