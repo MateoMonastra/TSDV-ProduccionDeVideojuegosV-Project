@@ -64,7 +64,7 @@ namespace Enemies.BaseEnemy.States
 
         private void GroundCheck()
         {
-            bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, 0.5f, model.GroundLayer);
+            bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.2f, Vector3.down, 1.0f, model.GroundLayer);
 
             if (isGrounded)
             {
