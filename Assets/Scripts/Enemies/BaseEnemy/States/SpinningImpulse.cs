@@ -7,19 +7,21 @@ namespace Enemies.BaseEnemy.States
     {
         private UnityEngine.AI.NavMeshAgent _agent;
         private Rigidbody _rigidbody;
+        private TrailRenderer _trailRenderer;
         private Action _onImpulseStarted;
         private Action _onImpulseEnded;
         private Vector3 _impulseSource;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
         private (float, float) _impulseForce;
         
-        public SpinningImpulse(Transform enemy, Transform player, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
+        public SpinningImpulse(Transform enemy, Transform player, TrailRenderer trailRenderer, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
         {
             _agent = agent;
             _rigidbody = rigidbody;
             _onImpulseStarted = onImpulseStarted;
             _onImpulseEnded = onImpulseEnded;
+            _trailRenderer = trailRenderer;
 
             _impulseForce = (model.VerticalImpulseForce,model.VerticalImpulseForce);
         }
@@ -36,6 +38,8 @@ namespace Enemies.BaseEnemy.States
             Vector3 toPlayer = _impulseSource;
             toPlayer.y = enemy.position.y;
             enemy.LookAt(toPlayer);
+            
+            _trailRenderer.enabled = true;
 
             _rigidbody.AddForce(
                 (enemy.position - _impulseSource).normalized * _impulseForce.Item1 + Vector3.up * _impulseForce.Item2,
@@ -81,6 +85,8 @@ namespace Enemies.BaseEnemy.States
         {
             _agent.enabled = true;
             _rigidbody.isKinematic = true;
+            _trailRenderer.enabled = false;
+
             _agent.ResetPath();
         }
 

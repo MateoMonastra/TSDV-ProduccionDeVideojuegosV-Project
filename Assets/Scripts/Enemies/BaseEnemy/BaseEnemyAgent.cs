@@ -27,6 +27,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
         [SerializeField] private EnemyAnimationController animator;
+        [SerializeField] private TrailRenderer trailRenderer;
 
         private Fsm _fsm;
 
@@ -59,7 +60,8 @@ namespace Enemies.BaseEnemy
             impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
-            _spinningImpulse = new SpinningImpulse(this.transform, player, model, navMeshAgent, rigidbody,
+            _spinningImpulse = new SpinningImpulse(this.transform, player, trailRenderer, model, navMeshAgent,
+                rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
             _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
