@@ -184,12 +184,12 @@ namespace Player.New
             Vector3 originalPos = transform.localPosition;
             float elapsed = 0.0f;
 
-            while (elapsed < 1.0f)
+            while (elapsed < 0.25f)
             {
-                float x = (Mathf.PerlinNoise(Time.time * 20, 0) - 0.5f) * 2.0f;
-                float y = (Mathf.PerlinNoise(0,Time.time * 20) - 0.5f) * 2.0f;
+                float x = (Mathf.PerlinNoise(Time.time * 8, 0) - 0.5f) * 0.8f;
+                float y = (Mathf.PerlinNoise(0,Time.time * 8) - 0.5f) * 0.8f;
                 
-                _framingHandler.SetCameraFollowPointFraming(new Vector2(x, y));
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x, _framingHandler.DefaultFraming.y + y));
                 elapsed += Time.deltaTime;
                 yield return null;
             }

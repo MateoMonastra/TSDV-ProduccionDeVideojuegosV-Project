@@ -5,12 +5,12 @@ namespace Player.New
     public class CameraFramingHandler
     {
         private readonly MyCharacterCamera _camera;
-        private Vector2 _defaultFraming = Vector2.zero;
-        
+        public Vector2 DefaultFraming { get; }
+
         public CameraFramingHandler(MyCharacterCamera camera)
         {
             _camera = camera;
-            _defaultFraming = _camera.followPointFraming;
+            DefaultFraming = _camera.followPointFraming;
         }
 
         public Vector3 ApplyFramingOffset(Vector3 position, Transform cameraTransform)
@@ -27,7 +27,8 @@ namespace Player.New
 
         public void ResetCameraFollowPointFraming()
         {
-            _camera.followPointFraming = _defaultFraming;
+            _camera.followPointFraming = DefaultFraming;
         }
+        
     }
 }
