@@ -51,7 +51,8 @@ namespace Enemies.RangeEnemy
                 playerHealth.Damage(new DamageInfo(
                     damage,
                     fakeOrigin,
-                    (knockback.horizontal, knockback.vertical)
+                    (knockback.horizontal, knockback.vertical),
+                    "Projectile"
                 ));
 
 

@@ -185,7 +185,7 @@ namespace Player.New
                     {
                         processedEnemies.Add(key);
 
-                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (8, 60)));
+                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (8, 60), "PlayerVerticalAttack"));
                     }
 
                     continue;

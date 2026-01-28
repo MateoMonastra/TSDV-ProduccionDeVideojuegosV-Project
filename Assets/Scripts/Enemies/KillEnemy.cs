@@ -30,7 +30,7 @@ public class KillEnemy : MonoBehaviour
                 if (other.gameObject.TryGetComponent(out HealthController enemy))
                 {
                     hitColliders.Add(other);
-                    enemy.Damage(new DamageInfo(damage,transform.position,knockback));
+                    enemy.Damage(new DamageInfo(damage,transform.position,knockback, "PlayerVerticalAttack"));
 
                     if (!_multipleHits)
                     {

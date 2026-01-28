@@ -50,7 +50,7 @@ namespace Enemies.BaseEnemy
             if (activateLogs)
                 Debug.Log($"[EnemyHitBox] Player hit by {name}", this);
             
-            health.Damage(new DamageInfo(damage, transform.position, (knockback.horizontal, knockback.vertical)));
+            health.Damage(new DamageInfo(damage, transform.position, (knockback.horizontal, knockback.vertical), "TeddyAttack"));
         }
     }
 }

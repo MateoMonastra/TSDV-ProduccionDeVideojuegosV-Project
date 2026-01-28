@@ -21,6 +21,8 @@ namespace Enemies.BaseEnemy
         [SerializeField] private float verticalImpulseForce;
         [SerializeField] private float lowJumpMultiplier;
         [SerializeField] private float fallMultiplier;
+        [SerializeField] private float spinningLowJumpMultiplier;
+        [SerializeField] private float spinningFallMultiplier;
         [SerializeField] private float damagedStunTime;
         [SerializeField] private float deathTime;
 
@@ -81,6 +83,18 @@ namespace Enemies.BaseEnemy
         {
             get => fallMultiplier;
             set => fallMultiplier = value;
+        }
+
+        public float SpinningLowJumpMultiplier
+        {
+            get => spinningLowJumpMultiplier;
+            set => spinningLowJumpMultiplier = value;
+        }
+
+        public float SpinningFallMultiplier
+        {
+            get => spinningFallMultiplier;
+            set => spinningFallMultiplier = value;
         }
         
         public float DamagedStunTime

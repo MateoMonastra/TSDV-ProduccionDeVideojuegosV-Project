@@ -100,7 +100,7 @@ namespace Player.New
                 return;
 
             _enemiesHit.Add(enemyHealth);
-            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, (0, 0)));
+            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, (0, 0),"PlayerBaseAttack"));
         }
     }
 }
