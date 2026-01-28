@@ -31,6 +31,7 @@ namespace Enemies.BaseEnemy
         private Fsm _fsm;
         
         private State _deathImpulse;
+        private Impulse impulse;
         
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
@@ -52,7 +53,7 @@ namespace Enemies.BaseEnemy
                 onExitChase: TransitionToIdle,
                 onEnterAttack: TransitionToAttack);
 
-            State impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
+            impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
             
             _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
@@ -213,6 +214,8 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked(DamageInfo damageOrigin)
         {
+            impulse.SetImpulse(damageOrigin.Knockback);
+            impulse.SetImpulseSource(damageOrigin.DamageOrigin);
             if (healthController.GetCurrentHealth() > 0)
                 TransitionToImpulse();
         }

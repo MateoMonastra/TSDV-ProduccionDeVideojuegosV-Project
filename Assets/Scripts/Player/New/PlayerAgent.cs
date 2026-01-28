@@ -179,10 +179,10 @@ namespace Player.New
 
             if (!motor.IsGrounded)
             {
-                // if (AttackVertical.CanUse(motor, model))
-                // {
-                //     _actionFsm.ForceTransition(_aVertical);
-                // }
+                if (AttackVertical.CanUse(motor, model))
+                {
+                    _actionFsm.ForceTransition(_aVertical);
+                }
 
                 return;
             }
@@ -257,13 +257,13 @@ namespace Player.New
         /// <summary>Aplica tick a todos los cooldowns y actualiza la UI (si existe).</summary>
         private void UpdateCooldowns(float dt)
         {
-            // Dash
-            if (model.DashOnCooldown)
-            {
-                model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
-                if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
-                _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
-            }
+            // // Dash
+            // if (model.DashOnCooldown)
+            // {
+            //     model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
+            //     if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
+            //     _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
+            // }
 
             // Spin
             if (model.SpinOnCooldown)
@@ -491,9 +491,11 @@ namespace Player.New
             model.LocomotionBlocked = false;
             model.IsDead = false;
 
+            
             motor.WarpTo(pos, rot);
             motor.SetVelocity(Vector3.zero);
 
+            
             if (!resetHealth || health == null) return;
             health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());

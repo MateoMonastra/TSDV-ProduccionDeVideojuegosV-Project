@@ -66,9 +66,9 @@ namespace Health
     {
         public int Damage;
         public Vector3 DamageOrigin;
-        public (int, int) Knockback;
+        public (float, float) Knockback;
 
-        public DamageInfo(int damage, Vector3 transformPosition, (int, int) knockback)
+        public DamageInfo(int damage, Vector3 transformPosition, (float, float) knockback)
         {
             Damage = damage;
             DamageOrigin = transformPosition;

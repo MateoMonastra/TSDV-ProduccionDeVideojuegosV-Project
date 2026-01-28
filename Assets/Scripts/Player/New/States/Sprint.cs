@@ -52,6 +52,8 @@ namespace Player.New
             _anim?.SetSprinting(true);
 
             _vfx.Play(VfxEvent.Run);
+
+            Model.DashOnCooldown = false;
         }
 
         public override void Exit()

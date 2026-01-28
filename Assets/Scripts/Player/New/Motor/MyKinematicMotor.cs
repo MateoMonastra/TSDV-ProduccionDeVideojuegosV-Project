@@ -11,7 +11,7 @@ namespace Player.New
         private CapsuleCollider capsule;
 
         [SerializeField] private LayerMask collisionMask;
-        [SerializeField] private LayerMask groundMask;
+        public LayerMask groundMask;
 
         [Header("Movement Settings")] [SerializeField]
         private float characterMass = 1f;

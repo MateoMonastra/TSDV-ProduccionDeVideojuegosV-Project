@@ -29,11 +29,12 @@ namespace Player.New
         private bool _impactDone;
         private bool _impactStarted;
         private float _postTimer;
-        
+
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
         {
             _m = m;
             _model = mdl;
@@ -72,10 +73,10 @@ namespace Player.New
             var v = _m.Velocity;
             v.y = Mathf.Min(v.y, -_model.VerticalSlamStartDownSpeed);
             _m.SetVelocity(v);
-            
-            _anim?.TriggerVerticalStart();
+
+            _anim?.SetVerticalStart(true);
             _anim?.SetFalling(false);
-            
+
             if (_anim != null) _anim.OnAnim_VerticalImpact += OnAnimVerticalImpact;
 
             _audioController.PlayPlayerAttackSmash();
@@ -85,6 +86,9 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_VerticalImpact -= OnAnimVerticalImpact;
+
+            _anim.SetVerticalStart(false);
+            _anim.CleanVerticalImpact();
 
             _model.ClearActionLocks();
         }
@@ -113,22 +117,20 @@ namespace Player.New
             v.y = Mathf.Max(v.y - _model.VerticalSlamExtraAccel * dt, -_model.VerticalSlamMaxDownSpeed);
             _m.SetVelocity(v);
 
-            if (_m.IsGrounded && _t > 0.05f)
+            bool hasHit = Physics.Raycast(_m.transform.position, Vector3.down, out RaycastHit hit, 3.0f, _m.groundMask);
+            Debug.DrawRay(_m.transform.position, Vector3.down * 3.0f, hasHit ? Color.red : Color.green);
+            if (hasHit)
             {
                 if (!_impactStarted)
                 {
                     _anim?.TriggerVerticalImpact();
+                    _anim?.SetVerticalStart(false);
                     _impactStarted = true;
                 }
 
-                if (_t - 0.05f >= _model.VerticalAttackImpactDelay)
-                {
-                    DoImpact();
-                }
-            }
 
-            if (_t >= MaxAirTime && !_impactDone)
                 DoImpact();
+            }
         }
 
         private void OnAnimVerticalImpact() => DoImpact();
@@ -139,11 +141,20 @@ namespace Player.New
             _impactDone = true;
             _impactStarted = true;
 
-            _vfxController?.Play(VfxEvent.VerticalAttackLand);
 
             _audioController.PlayPlayerAttackSmashHitFloor();
-            
-            Vector3 center = _m.transform.position;
+
+            Vector3 center;
+
+            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 3.0f, Vector3.down, out RaycastHit hit,
+                    3.0f, _m.groundMask))
+            {
+                center = hit.point + Vector3.up * 0.5f;
+            }
+            else
+            {
+                center = _m.transform.position;
+            }
 
             Collider[] hits = Physics.OverlapSphere(
                 center,
@@ -151,6 +162,8 @@ namespace Player.New
                 _model.VerticalHitMask,
                 QueryTriggerInteraction.Collide
             );
+
+            _vfxController?.PlayAt(VfxEvent.VerticalAttackLand, center);
 
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();
@@ -168,7 +181,7 @@ namespace Player.New
                     {
                         processedEnemies.Add(key);
 
-                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (0, 0)));
+                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (8, 60)));
                     }
 
                     continue;
