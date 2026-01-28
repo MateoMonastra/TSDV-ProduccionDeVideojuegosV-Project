@@ -149,7 +149,9 @@ namespace Player.New
 
             Vector3 center;
 
-            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 3.0f, Vector3.down, out RaycastHit hit,
+            Debug.DrawRay(_m.transform.position + _m.transform.forward * 2.5f + _m.transform.right * 0.4f, Vector3.down * 3.0f, Color.green,
+                3.0f);
+            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 2.5f + _m.transform.right * 0.4f, Vector3.down, out RaycastHit hit,
                     3.0f, _m.groundMask))
             {
                 center = hit.point + Vector3.up * 0.5f;
