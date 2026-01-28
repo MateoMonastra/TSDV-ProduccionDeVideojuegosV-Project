@@ -71,6 +71,9 @@ namespace Player.New
 
         #endregion
 
+        MyCharacterCamera _myCharacterCamera;
+
+        
         // ───────────────────────────────────────────────────────────────────────
 
         #region Unity Messages
@@ -302,6 +305,8 @@ namespace Player.New
             if (motor == null) motor = GetComponent<MyKinematicMotor>();
             if (model == null) model = ScriptableObject.CreateInstance<PlayerModel>();
 
+            _myCharacterCamera = cameraRef.GetComponent<MyCharacterCamera>();
+
             if (!model) return;
             model.HasExtraJump = false;
             model.DashBuffPending = false;
@@ -388,7 +393,7 @@ namespace Player.New
             _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController, audioController);
             _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController, audioController);
             _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera ,animController, vfxController, audioController);
             _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController, vfxController);

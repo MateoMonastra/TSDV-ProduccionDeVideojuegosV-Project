@@ -24,6 +24,7 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
+        private readonly MyCharacterCamera _characterCamera;
 
         private float _t;
         private bool _impactDone;
@@ -33,12 +34,14 @@ namespace Player.New
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+            MyCharacterCamera characterCamera,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
             PlayerAudioController audioController = null)
         {
             _m = m;
             _model = mdl;
             _req = req;
+            _characterCamera = characterCamera;
             _anim = anim;
             _vfxController = vfxController;
             _audioController = audioController;
@@ -164,7 +167,8 @@ namespace Player.New
             );
 
             _vfxController?.PlayAt(VfxEvent.VerticalAttackLand, center);
-
+            _characterCamera.CameraTest();
+            
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();
 

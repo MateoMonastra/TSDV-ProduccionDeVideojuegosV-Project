@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -170,6 +172,29 @@ namespace Player.New
 
             _transform.position = targetPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
+        }
+
+        public void CameraTest()
+        {
+            StartCoroutine(sas());
+        }
+
+        public IEnumerator sas()
+        {
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0.0f;
+
+            while (elapsed < 1.0f)
+            {
+                float x = (Mathf.PerlinNoise(Time.time * 20, 0) - 0.5f) * 2.0f;
+                float y = (Mathf.PerlinNoise(0,Time.time * 20) - 0.5f) * 2.0f;
+                
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(x, y));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            _framingHandler.ResetCameraFollowPointFraming();
         }
     }
 }
