@@ -1216,113 +1216,6 @@
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</BlendContainer>
-						<RandomSequenceContainer Name="PlayerAttackSmashHitFloor" ID="{A95B3C79-570E-4CCB-8980-4D5E980AEAB7}" ShortID="95583500">
-							<PropertyList>
-								<Property Name="MakeUpGain" Type="Real64">
-									<ValueList>
-										<Value>-1</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<Sound Name="PlayerAttackSmashHitFloor_001" ID="{D090B75A-547A-4A9E-9602-BE3E06E612D1}" ShortID="797502230">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}">
-											<Language>SFX</Language>
-											<AudioFile>PlayerAttackSmashHitFloor_001.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="1055424899"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PlayerAttackSmashHitFloor_002" ID="{AAFFE0C8-E71F-48F1-8738-95041F8AF6FF}" ShortID="73959097">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}">
-											<Language>SFX</Language>
-											<AudioFile>PlayerAttackSmashHitFloor_002.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="334170738"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PlayerAttackSmashHitFloor_003" ID="{8AF470AD-1CC2-4FC1-9E2C-8632318D762A}" ShortID="774978242">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}">
-											<Language>SFX</Language>
-											<AudioFile>PlayerAttackSmashHitFloor_003.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="545483333"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="PlayerAttackSmashHitFloor_004" ID="{3F206BE2-A85E-444A-AF14-183396436BA5}" ShortID="956392998">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}">
-											<Language>SFX</Language>
-											<AudioFile>PlayerAttackSmashHitFloor_004.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="813132997"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-							</ChildrenList>
-						</RandomSequenceContainer>
 						<Folder Name="ChargeAttack" ID="{E597891C-0A3C-4DAA-A29B-605FDCF28764}" ShortID="827061022">
 							<ChildrenList>
 								<RandomSequenceContainer Name="PlayerChargeStart" ID="{82E3D85C-94D5-46F3-B312-4EA45AC46D19}" ShortID="919007144">
@@ -2279,6 +2172,300 @@
 								</SwitchContainer>
 							</ChildrenList>
 						</Folder>
+						<BlendContainer Name="PlayerAttackSmashHitFloorBlend" ID="{2B92E129-AB1B-4A57-94E9-0889CEF4A775}" ShortID="851048590">
+							<PropertyList>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>2</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="PlayerAttackSmashHitFloor" ID="{A95B3C79-570E-4CCB-8980-4D5E980AEAB7}" ShortID="95583500">
+									<PropertyList>
+										<Property Name="EnableAttenuation" Type="bool" Value="False"/>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Player" ID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="PlayerAttackSmashHitFloor_001" ID="{D090B75A-547A-4A9E-9602-BE3E06E612D1}" ShortID="797502230">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}">
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackSmashHitFloor_001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1055424899"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackSmashHitFloor_001" ID="{5F0A4B63-8A59-4E57-A858-B9089C88E205}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackSmashHitFloor_002" ID="{AAFFE0C8-E71F-48F1-8738-95041F8AF6FF}" ShortID="73959097">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}">
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackSmashHitFloor_002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="334170738"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackSmashHitFloor_002" ID="{8F94AB72-3524-4C1B-A430-7DDFDA7FA716}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackSmashHitFloor_003" ID="{8AF470AD-1CC2-4FC1-9E2C-8632318D762A}" ShortID="774978242">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}">
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackSmashHitFloor_003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="545483333"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackSmashHitFloor_003" ID="{E9125DAD-4611-4515-9A38-6F8135A6481E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackSmashHitFloor_004" ID="{3F206BE2-A85E-444A-AF14-183396436BA5}" ShortID="956392998">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}">
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackSmashHitFloor_004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="813132997"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackSmashHitFloor_004" ID="{E5D6DFB2-E96F-48E8-9CB1-471D533BF5E1}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<PositioningInfo>
+										<Panner Name="" ID="{D6ECE36D-6C1C-49F4-A500-67DA55C724B9}"/>
+									</PositioningInfo>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="PlayerAttackVoice_03" ID="{C06E558D-57D8-42F9-8161-2F31627C4F51}" ShortID="310941927">
+									<PropertyList>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>-9</Value>
+											</ValueList>
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{D9603480-90BC-45BA-92E9-A6C38EA1A153}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="1"/>
+															<Property Name="Min" Type="Real64" Value="-1"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{B22728C5-1FAD-4542-ACD7-F5D67C9A6DEF}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="90"/>
+															<Property Name="Min" Type="Real64" Value="-90"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
+										<Property Name="Volume" Type="Real64">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{751FB4FF-F574-49F4-8EAA-DCDEB6801303}">
+														<PropertyList>
+															<Property Name="Max" Type="Real64" Value="1"/>
+															<Property Name="Min" Type="Real64" Value="-1"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="PlayerAttackVoice_03_001" ID="{88BD5C4D-872C-46BD-89A8-55EA5F889AB0}" ShortID="124889992">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackVoice_03_001" ID="{4024579C-9A10-427F-B0A4-735ED053712B}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.0341588385994876"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.258326216908625"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackVoice_03_001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="457045746"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackVoice_03_001" ID="{4024579C-9A10-427F-B0A4-735ED053712B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackVoice_03_002" ID="{FBFE29DA-05FE-44EC-9D90-4B0C9739F8CA}" ShortID="5034825">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackVoice_03_002" ID="{2992350E-2168-4706-B6C2-1A15B02FD4E3}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.0384286934244236"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.330913748932536"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackVoice_03_002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1049525045"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackVoice_03_002" ID="{2992350E-2168-4706-B6C2-1A15B02FD4E3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackVoice_03_003" ID="{9407CD98-F56A-44E5-8EC7-150A93596422}" ShortID="909059416">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackVoice_03_003" ID="{50255540-A85C-4396-97EC-9A71D97F8B8D}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.0298889837745517"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.303159692570453"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackVoice_03_003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="342814479"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackVoice_03_003" ID="{50255540-A85C-4396-97EC-9A71D97F8B8D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="PlayerAttackVoice_03_004" ID="{567C9381-B848-423D-9F7C-6B9DCF077ED7}" ShortID="106682021">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="PlayerAttackVoice_03_004" ID="{C377C674-DAF1-4DB3-A586-1F6237D86304}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.0341585519271056"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.266863686930512"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>PlayerAttackVoice_03_004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="104068066"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="PlayerAttackVoice_03_004" ID="{C377C674-DAF1-4DB3-A586-1F6237D86304}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+							</ChildrenList>
+						</BlendContainer>
 					</ChildrenList>
 					<PositioningInfo>
 						<Panner Name="" ID="{D2D7ACE6-1A6D-460D-A097-869CA28E5FDB}"/>
@@ -2293,6 +2480,7 @@
 								<Property Name="Color" Type="int16" Value="4"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 								<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="65"/>
+								<Property Name="VirtualVoiceQueueBehavior" Type="int16" Value="2"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -2317,7 +2505,7 @@
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
 										<Property Name="RandomOrSequence" Type="int16" Value="0"/>
-										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="65"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="69"/>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -2410,6 +2598,11 @@
 										</Sound>
 										<Sound Name="AmbAcidStream_004" ID="{D5B29C3B-F02A-405A-9620-070A0C73AACD}" ShortID="850392544">
 											<PropertyList>
+												<Property Name="Inclusion" Type="bool">
+													<ValueList>
+														<Value>False</Value>
+													</ValueList>
+												</Property>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 											</PropertyList>
 											<ReferenceList>
@@ -2435,6 +2628,11 @@
 										</Sound>
 										<Sound Name="AmbAcidStream_005" ID="{4971E799-C8BB-4B80-9AFA-7BCE5EF0ECC6}" ShortID="616881064">
 											<PropertyList>
+												<Property Name="Inclusion" Type="bool">
+													<ValueList>
+														<Value>False</Value>
+													</ValueList>
+												</Property>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 											</PropertyList>
 											<ReferenceList>
@@ -2470,12 +2668,6 @@
 											<Reference>
 												<ObjectRef Name="AmbAcidStream_003" ID="{229EB50D-17F9-47D2-B2A1-EE7B6E44498C}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 											</Reference>
-											<Reference>
-												<ObjectRef Name="AmbAcidStream_004" ID="{D5B29C3B-F02A-405A-9620-070A0C73AACD}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-											</Reference>
-											<Reference>
-												<ObjectRef Name="AmbAcidStream_005" ID="{4971E799-C8BB-4B80-9AFA-7BCE5EF0ECC6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-											</Reference>
 										</ObjectList>
 									</ObjectLists>
 								</RandomSequenceContainer>
@@ -2488,6 +2680,7 @@
 											</ValueList>
 										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="75"/>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -2572,7 +2765,7 @@
 												</Property>
 												<Property Name="OverrideConversion" Type="bool" Value="True"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
-												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="48"/>
+												<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="72"/>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
@@ -2605,6 +2798,7 @@
 											<PropertyList>
 												<Property Name="3DPosition" Type="int16" Value="1"/>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
 												<Property Name="GlobalOrPerObject" Type="int16" Value="0"/>
 												<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
 												<Property Name="MakeUpGain" Type="Real64">
@@ -2614,6 +2808,7 @@
 												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="3"/>
@@ -3461,6 +3656,7 @@
 											<PropertyList>
 												<Property Name="3DPosition" Type="int16" Value="1"/>
 												<Property Name="3DSpatialization" Type="int16" Value="2"/>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
 												<Property Name="GlobalOrPerObject" Type="int16" Value="0"/>
 												<Property Name="HoldEmitterPositionOrientation" Type="bool" Value="True"/>
 												<Property Name="MakeUpGain" Type="Real64">
@@ -3470,6 +3666,7 @@
 												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="3"/>
@@ -4221,7 +4418,7 @@
 											</ValueList>
 										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
-										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="76"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="75"/>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -4392,6 +4589,111 @@
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="RotarySaw" ID="{C51DA2CC-235D-4485-9903-5FE092F0B982}" ShortID="306132493">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="BelowThresholdBehavior" Type="int16" Value="2"/>
+										<Property Name="MakeUpGain" Type="Real64">
+											<ValueList>
+												<Value>4</Value>
+											</ValueList>
+										</Property>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+										<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="65"/>
+										<Property Name="VirtualVoiceQueueBehavior" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="RotarySaw" ID="{D94ECCBF-C763-4A9E-BA8E-874043A385AF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="RotarySaw" ID="{A9F8DB64-8322-4BEB-85C0-D94ED43E2904}" ShortID="100482272">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="RotarySaw" ID="{7A3E7A09-DD5C-45DC-BB65-8DD53FD74297}">
+													<Language>SFX</Language>
+													<AudioFile>RotarySaw.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="489728472"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="RotarySaw" ID="{7A3E7A09-DD5C-45DC-BB65-8DD53FD74297}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+									<ObjectLists>
+										<ObjectList Name="Playlist">
+											<Reference>
+												<ObjectRef Name="RotarySaw" ID="{A9F8DB64-8322-4BEB-85C0-D94ED43E2904}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+											</Reference>
+										</ObjectList>
+										<ObjectList Name="RTPC">
+											<Reference>
+												<Local>
+													<RTPC Name="" ID="{75F49E07-AA3C-4790-9308-817C92FDE094}" ShortID="669893562">
+														<PropertyList>
+															<Property Name="PropertyName" Type="string" Value="Pitch"/>
+														</PropertyList>
+														<ReferenceList>
+															<Reference Name="ControlInput">
+																<ObjectRef Name="RotatingSawAngle" ID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}" WorkUnitID="{A887767D-CC9C-42A9-BA58-731D2EC7B1DC}"/>
+															</Reference>
+															<Reference Name="Curve">
+																<Custom>
+																	<Curve Name="" ID="{75A7CE57-BCAE-4B4E-A902-D1C8DF4B7A52}">
+																		<PropertyList>
+																			<Property Name="Flags" Type="int32" Value="65537"/>
+																		</PropertyList>
+																		<PointList>
+																			<Point>
+																				<XPos>-60</XPos>
+																				<YPos>-120</YPos>
+																				<Flags>5</Flags>
+																				<SegmentShape>Log2</SegmentShape>
+																			</Point>
+																			<Point>
+																				<XPos>0</XPos>
+																				<YPos>0</YPos>
+																				<Flags>0</Flags>
+																				<SegmentShape>Exp2</SegmentShape>
+																			</Point>
+																			<Point>
+																				<XPos>60</XPos>
+																				<YPos>-120</YPos>
+																				<Flags>37</Flags>
+																			</Point>
+																		</PointList>
+																	</Curve>
+																</Custom>
+															</Reference>
+														</ReferenceList>
+													</RTPC>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</ActorMixer>

@@ -3,9 +3,11 @@
 	<GameParameters>
 		<WorkUnit Name="Default Work Unit" ID="{A887767D-CC9C-42A9-BA58-731D2EC7B1DC}" PersistMode="Standalone">
 			<ChildrenList>
-				<GameParameter Name="New_Game_Parameter" ID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}">
+				<GameParameter Name="RotatingSawAngle" ID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}">
 					<PropertyList>
 						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="Max" Type="Real64" Value="60"/>
+						<Property Name="Min" Type="Real64" Value="-60"/>
 					</PropertyList>
 				</GameParameter>
 			</ChildrenList>
