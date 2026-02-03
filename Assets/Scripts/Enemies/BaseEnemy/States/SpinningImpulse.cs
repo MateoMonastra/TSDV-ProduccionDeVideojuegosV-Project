@@ -12,7 +12,7 @@ namespace Enemies.BaseEnemy.States
         private Action _onImpulseEnded;
         private Vector3 _impulseSource;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
-        private (float, float) _impulseForce;
+        private Vector2 _impulseForce;
         
         public SpinningImpulse(Transform enemy, Transform player, TrailRenderer trailRenderer, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
@@ -22,8 +22,6 @@ namespace Enemies.BaseEnemy.States
             _onImpulseStarted = onImpulseStarted;
             _onImpulseEnded = onImpulseEnded;
             _trailRenderer = trailRenderer;
-
-            _impulseForce = (model.VerticalImpulseForce,model.VerticalImpulseForce);
         }
 
         public override void Enter()
@@ -42,7 +40,7 @@ namespace Enemies.BaseEnemy.States
             _trailRenderer.enabled = true;
 
             _rigidbody.AddForce(
-                (enemy.position - _impulseSource).normalized * _impulseForce.Item1 + Vector3.up * _impulseForce.Item2,
+                (enemy.position - _impulseSource).normalized * _impulseForce.x + Vector3.up * _impulseForce.y,
                 ForceMode.Impulse);
         }
 
@@ -90,7 +88,7 @@ namespace Enemies.BaseEnemy.States
             _agent.ResetPath();
         }
 
-        public void SetImpulse((float, float) newImpulse)
+        public void SetImpulse(Vector2 newImpulse)
         {
             _impulseForce = newImpulse;
         }

@@ -17,8 +17,6 @@ namespace Enemies.BaseEnemy
         [SerializeField] private float attackDelay;
         
         [Header("Damage Feedback Settings")]
-        [SerializeField] private float horizontalImpulseForce;
-        [SerializeField] private float verticalImpulseForce;
         [SerializeField] private float lowJumpMultiplier;
         [SerializeField] private float fallMultiplier;
         [SerializeField] private float spinningLowJumpMultiplier;
@@ -61,18 +59,6 @@ namespace Enemies.BaseEnemy
             set => attackDelay = value;
         }
 
-        public float HorizontalImpulseForce
-        {
-            get => horizontalImpulseForce;
-            set => horizontalImpulseForce = value;
-        }
-
-        public float VerticalImpulseForce
-        {
-            get => verticalImpulseForce;
-            set => verticalImpulseForce = value;
-        }
-        
         public float LowJumpMultiplier
         {
             get => lowJumpMultiplier;

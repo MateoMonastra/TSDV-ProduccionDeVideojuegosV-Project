@@ -263,7 +263,6 @@ namespace Enemies.BaseEnemy
             {
                 if (damageOrigin.DamageName == "PlayerVerticalAttack")
                 {
-                    
                     _spinningImpulse.SetImpulse(damageOrigin.Knockback);
                     _spinningImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
                     TransitionToSpinningImpulse();

@@ -28,6 +28,8 @@ namespace Player.New
         /// <summary>Si el jugador pidió encadenar (presionó Attack) en cualquier momento.</summary>
         protected bool ChainBuffered;
 
+        protected Vector2 knockbackDistance;
+
         protected AttackBase(MyKinematicMotor m, PlayerModel mdl, Action<string> req)
         { M = m; Model = mdl; Req = req; }
 
@@ -100,7 +102,7 @@ namespace Player.New
                 return;
 
             _enemiesHit.Add(enemyHealth);
-            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, (0, 0),"PlayerBaseAttack"));
+            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance,"PlayerBaseAttack"));
         }
     }
 }

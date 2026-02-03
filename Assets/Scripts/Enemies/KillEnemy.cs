@@ -7,7 +7,7 @@ public class KillEnemy : MonoBehaviour
 {
     [SerializeField] private HammerController hammerController;
     [SerializeField] private int damage;
-    [SerializeField] private (int, int) knockback = (20,35);
+    [SerializeField] private Vector2 knockback = new Vector2(20,35);
     private bool _dealingDamage = false;
     private bool _multipleHits = false;
 
@@ -30,7 +30,7 @@ public class KillEnemy : MonoBehaviour
                 if (other.gameObject.TryGetComponent(out HealthController enemy))
                 {
                     hitColliders.Add(other);
-                    enemy.Damage(new DamageInfo(damage,transform.position,knockback, "PlayerVerticalAttack"));
+                    enemy.Damage(new DamageInfo(damage,transform.position, knockback, "PlayerVerticalAttack"));
 
                     if (!_multipleHits)
                     {

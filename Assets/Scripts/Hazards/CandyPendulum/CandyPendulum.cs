@@ -121,7 +121,7 @@ namespace Hazards.CandyPendulum
 
             _nextAllowedHit[controller] = now + rehitCooldown;
 
-            controller.Damage(new DamageInfo(damage, transform.position, (knockback.horizontal, knockback.vertical), "PendulumHazard"));
+            controller.Damage(new DamageInfo(damage, transform.position, new Vector2(knockback.horizontal, knockback.vertical), "PendulumHazard"));
         }
     }
 }

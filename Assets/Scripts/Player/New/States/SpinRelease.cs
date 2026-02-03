@@ -142,7 +142,7 @@ namespace Player.New
                 var objectiveHealth = hits[i].GetComponentInParent<HealthController>();
                 if (objectiveHealth == null) continue;
 
-                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, (0,0), "PlayerSpinAttack"));
+                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.one, "PlayerSpinAttack"));
             }
 
         }

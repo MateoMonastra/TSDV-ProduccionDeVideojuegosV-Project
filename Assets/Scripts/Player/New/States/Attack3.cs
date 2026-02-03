@@ -34,6 +34,7 @@ namespace Player.New
             if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
             _vfxController?.Play(VfxEvent.Attack3);
             _audioController.PlayPlayerAttack3();
+            knockbackDistance = Model.Attack3KnockbackDistance;
         }
 
         public override void Exit()

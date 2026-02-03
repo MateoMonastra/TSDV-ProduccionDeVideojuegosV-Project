@@ -49,6 +49,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
+  attack1KnockbackDistance: {x: 8, y: 12}
+  attack2KnockbackDistance: {x: 8, y: 12}
+  attack3KnockbackDistance: {x: 8, y: 12}
   attack1Duration: 1.25
   attack2Duration: 0.43
   attack3Duration: 1.25
@@ -59,7 +62,7 @@ MonoBehaviour:
   attackComboCooldown: 0.4
   verticalAttackRadius: 2.8
   verticalDamage: 1
-  verticalKnockbackDistance: 2.5
+  verticalAttackKnockbackDistance: {x: 1, y: 1}
   verticalStaggerTime: 0.35
   verticalAttackImpactDelay: 0.35
   verticalAttackCooldown: 1

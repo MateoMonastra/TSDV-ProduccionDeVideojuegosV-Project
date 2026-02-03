@@ -417,6 +417,13 @@ namespace Player.New
 
         [Header("Attack (Combo Básico)")] [SerializeField, Tooltip("Daño base por golpe.")]
         private int attackDamage = 10;
+        
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack1KnockbackDistance = new Vector2(8,8);
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack2KnockbackDistance = new Vector2(8,8);
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack3KnockbackDistance = new Vector2(8,8);
 
         [SerializeField, Tooltip("Duración del ataque 1 (s).")]
         private float attack1Duration = 0.25f;
@@ -496,12 +503,24 @@ namespace Player.New
             set => attackLateChainGrace = value;
         }
 
-        // public float AttackKnockbackDistance
-        // {
-        //     get => attackKnockbackDistance;
-        //     set => attackKnockbackDistance = value;
-        // }
+        public Vector2 Attack1KnockbackDistance
+        {
+            get => attack1KnockbackDistance;
+            set => attack1KnockbackDistance = value;
+        }
 
+        public Vector2 Attack2KnockbackDistance
+        {
+            get => attack2KnockbackDistance;
+            set => attack2KnockbackDistance = value;
+        }
+
+        public Vector2 Attack3KnockbackDistance
+        {
+            get => attack3KnockbackDistance;
+            set => attack3KnockbackDistance = value;
+        }
+        
         // public float AttackStaggerTime
         // {
         //     get => attackStaggerTime;
@@ -529,7 +548,7 @@ namespace Player.New
         private int verticalDamage = 12;
 
         [SerializeField, Tooltip("Empuje radial (m).")]
-        private float verticalKnockbackDistance = 2.5f;
+        private Vector2 verticalAttackKnockbackDistance = Vector2.one;
 
         [SerializeField, Tooltip("Stagger en enemigos (s).")]
         private float verticalStaggerTime = 0.35f;
@@ -607,10 +626,10 @@ namespace Player.New
             set => verticalDamage = value;
         }
 
-        public float VerticalKnockbackDistance
+        public Vector2 VerticalAttackKnockbackDistance
         {
-            get => verticalKnockbackDistance;
-            set => verticalKnockbackDistance = value;
+            get => verticalAttackKnockbackDistance;
+            set => verticalAttackKnockbackDistance = value;
         }
 
         public float VerticalStaggerTime

@@ -66,14 +66,14 @@ namespace Health
     {
         public int Damage;
         public Vector3 DamageOrigin;
-        public (float, float) Knockback;
+        public Vector2 Knockback;
         public string DamageName;
 
-        public DamageInfo(int damage, Vector3 transformPosition, (float, float) knockback, string damageName)
+        public DamageInfo(int damage, Vector3 transformPosition, Vector2 knockback, string damageName)
         {
             Damage = damage;
             DamageOrigin = transformPosition;
-            Knockback = (knockback.Item1, knockback.Item2);
+            Knockback = knockback;
             DamageName = damageName;
         }
     }
