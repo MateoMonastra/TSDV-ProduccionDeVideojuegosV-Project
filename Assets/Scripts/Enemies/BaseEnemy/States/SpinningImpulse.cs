@@ -13,6 +13,7 @@ namespace Enemies.BaseEnemy.States
         private Vector3 _impulseSource;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
         private Vector2 _impulseForce;
+        private float elapsed = 0;
         
         public SpinningImpulse(Transform enemy, Transform player, TrailRenderer trailRenderer, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
@@ -36,6 +37,8 @@ namespace Enemies.BaseEnemy.States
             Vector3 toPlayer = _impulseSource;
             toPlayer.y = enemy.position.y;
             enemy.LookAt(toPlayer);
+
+            elapsed = 0;
             
             _trailRenderer.enabled = true;
 
@@ -48,6 +51,7 @@ namespace Enemies.BaseEnemy.States
         {
             base.Tick(delta);
 
+            elapsed += delta;
             if (_rigidbody.linearVelocity.y < 0)
             {
                 _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.SpinningFallMultiplier - 1) * delta);
@@ -57,7 +61,7 @@ namespace Enemies.BaseEnemy.States
                 _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.SpinningLowJumpMultiplier - 1) * delta);
             }
 
-            Quaternion deltaRotation = Quaternion.Euler(-460 * Time.fixedDeltaTime, 0, 0);
+            Quaternion deltaRotation = Quaternion.Euler(-460 * delta, 0, 0);
         
             _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
             
@@ -66,9 +70,10 @@ namespace Enemies.BaseEnemy.States
 
         private void GroundCheck()
         {
-            bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.2f, Vector3.down, 1.0f, model.GroundLayer);
+            Debug.DrawRay(enemy.position + enemy.up * 1.2f,Vector3.down * 2.2f, Color.yellow);
+            bool isGrounded = Physics.Raycast(enemy.position + enemy.up * 1.2f, Vector3.down, 2.2f, model.GroundLayer);
 
-            if (isGrounded)
+            if (isGrounded && elapsed > 0.65f)  //Enough time to get off the ground
             {
                 _onImpulseEnded?.Invoke();
             }
