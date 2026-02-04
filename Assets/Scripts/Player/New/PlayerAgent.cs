@@ -199,7 +199,8 @@ namespace Player.New
         private void OnAttackHeavyPressed()
         {
             model.ResetAfk();
-            if (!motor.IsGrounded || model.SpinOnCooldown) return;
+            if (!motor.IsGrounded || model.SpinOnCooldown || _actionFsm.GetCurrentState() == _aSpinRelease ||
+                _actionFsm.GetCurrentState() == _aSelfStun) return;
 
             _actionFsm.ForceTransition(_aSpinCharge);
             _locomotionFsm.ForceTransition(_sIdle);
@@ -324,7 +325,7 @@ namespace Player.New
         /// </summary>
         private void BuildLocomotionFsm()
         {
-            void RequestLocomotionTransition(string transitionId) 
+            void RequestLocomotionTransition(string transitionId)
             {
                 if (_locomotionFsm.GetCurrentState() != _sDeath)
                 {
