@@ -13,10 +13,10 @@ namespace Player.New
 
         // Timing Configuration
         private float _hitTime = 0.15f;          // Adjusted from old _windUpTime
-        private float _chainWindowStart = 0.15f; 
+        private float _chainWindowStart = 0.05f; 
         private float _chainWindowEnd = 0.4f;    
-        private float _lateGraceEnd = 0.45f;     
-        private float _totalDuration = 0.8f;     
+        private float _lateGraceEnd = 0.75f;     
+        private float _totalDuration = 1.0f;     
 
         private bool _hitProcessed;
         private readonly PlayerAnimationController _anim;
