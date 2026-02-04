@@ -32,6 +32,8 @@ namespace Player.New
 
             if (!M.IsGrounded)
             {
+                _anim.SetCombatActive(false);
+
                 Req?.Invoke(ToIdle);
                 Finish();
                 return;
@@ -85,6 +87,8 @@ namespace Player.New
                     Finish();
                     return;
                 }
+
+                _anim.SetCombatActive(false);
 
                 Req?.Invoke(ToIdle);
                 Finish();
