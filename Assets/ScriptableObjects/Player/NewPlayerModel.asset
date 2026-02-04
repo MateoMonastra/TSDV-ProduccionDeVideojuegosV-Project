@@ -57,7 +57,7 @@ MonoBehaviour:
   attack3Duration: 1.25
   attackRange: 4
   attackHalfAngleDegrees: 120
-  attackChainWindow: 0.3
+  attackChainWindow: 0.8
   attackLateChainGrace: 0.08
   attackComboCooldown: 0.4
   verticalAttackRadius: 2.8
@@ -98,8 +98,8 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  jumpBlocked: 0
-  dashBlocked: 0
+  jumpBlocked: 1
+  dashBlocked: 1
   invulnerableToEnemies: 0
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}

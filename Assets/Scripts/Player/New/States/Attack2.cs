@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System;
+using FSM;
 using Player.New.Audio;
 using Player.New.VFX;
 
@@ -10,13 +11,19 @@ namespace Player.New
         public const string ToAttack3 = "ToAttack3";
         public const string ToIdle = "ToIdle";
 
-        private float _windUpTime = 0.1f;
-        private bool _windowOpen;
+        // Timing Configuration
+        private float _hitTime = 0.15f;          // Adjusted from old _windUpTime
+        private float _chainWindowStart = 0.15f; 
+        private float _chainWindowEnd = 0.4f;    
+        private float _lateGraceEnd = 0.45f;     
+        private float _totalDuration = 0.8f;     
+
+        private bool _hitProcessed;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
-        public Attack2(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+        public Attack2(MyKinematicMotor m, PlayerModel mdl, Action<string> req,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
             PlayerAudioController audioController = null)
             : base(m, mdl, req)
@@ -29,67 +36,49 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-
             if (!M.IsGrounded)
             {
-                _anim.SetCombatActive(false);
-
+                _anim?.SetCombatActive(false);
                 Req?.Invoke(ToIdle);
                 Finish();
                 return;
             }
 
-            Duration = Model.Attack2Duration;
-            _windowOpen = false;
+            // Initialize local state
+            t = 0;
+            _hitProcessed = false;
+            ChainBuffered = false;
 
+            // Trigger Visuals/Audio
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack2();
-            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
             _vfxController?.Play(VfxEvent.Attack2);
-            _audioController.PlayPlayerAttack2();
-            knockbackDistance = Model.Attack2KnockbackDistance;
-        }
+            _audioController?.PlayPlayerAttack2();
 
-        public override void Exit()
-        {
-            base.Exit();
-            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
+            knockbackDistance = Model.Attack2KnockbackDistance;
         }
 
         public override void Tick(float dt)
         {
-            base.Tick(dt);
             t += dt;
 
-            if (t >= _windUpTime)
-                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
-
-            float chainWindow = Model.AttackChainWindow;
-            float lateGrace = Model.AttackLateChainGrace;
-
-            if (!_windowOpen && t >= Duration - chainWindow)
+            // 1. HIT LOGIC
+            if (!_hitProcessed && t >= _hitTime)
             {
-                _windowOpen = true;
-
-                if (ChainBuffered)
-                {
-                    Req?.Invoke(ToAttack3);
-                    Finish();
-                    return;
-                }
+                _hitProcessed = true;
+                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 
-            if (t >= Duration)
+            // 2. BUFFERED TRANSITION: If player pressed early, transition at the end of the window
+            if (t >= _chainWindowEnd && ChainBuffered)
             {
-                if (ChainBuffered && (t - Duration) <= lateGrace)
-                {
-                    Req?.Invoke(ToAttack3);
-                    Finish();
-                    return;
-                }
+                ExecuteChain();
+            }
 
-                _anim.SetCombatActive(false);
-
+            // 3. EXPIRATION LOGIC
+            if (t >= _totalDuration)
+            {
+                _anim?.SetCombatActive(false);
                 Req?.Invoke(ToIdle);
                 Finish();
             }
@@ -97,20 +86,25 @@ namespace Player.New
 
         public override void HandleInput(params object[] values)
         {
-            if (values is { Length: >= 1 } &&
-                values[0] is string cmd &&
-                cmd == CommandKeys.AttackPressed)
+            if (values is { Length: >= 1 } && values[0] is string cmd && cmd == CommandKeys.AttackPressed)
             {
-                BufferChain();
-
-                if (_windowOpen || (t >= Duration && (t - Duration) <= Model.AttackLateChainGrace))
+                // Buffer period: Input is saved for later
+                if (t >= _chainWindowStart && t < _chainWindowEnd)
                 {
-                    Req?.Invoke(ToAttack3);
-                    Finish();
+                    BufferChain();
+                }
+                // Grace period: Input triggers next attack immediately
+                else if (t >= _chainWindowEnd && t <= _lateGraceEnd)
+                {
+                    ExecuteChain();
                 }
             }
         }
 
-        private void OnAnimHit() => TryDoHitFrontal(0f);
+        private void ExecuteChain()
+        {
+            Req?.Invoke(ToAttack3);
+            Finish();
+        }
     }
 }
