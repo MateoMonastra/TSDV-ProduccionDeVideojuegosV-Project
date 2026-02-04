@@ -51,6 +51,14 @@ namespace Player.New
 
         [SerializeField] private float lowSpeedSnapMaxDist = 0.50f;
 
+        [SerializeField] private bool rotationLocked = false;
+
+        public bool RotationLocked
+        {
+            get => rotationLocked;
+            set => rotationLocked = value;
+        }
+
 
         /// <summary>Congela/descongela la integración del motor.</summary>
         public bool Frozen
@@ -96,7 +104,15 @@ namespace Player.New
 
         public void SetVelocity(Vector3 velocity) => _velocity = velocity;
         public void AddVelocity(Vector3 deltaVelocity) => _velocity += deltaVelocity;
-        public void SetRotation(Quaternion rotation) => _rotation = rotation;
+
+        public void SetRotation(Quaternion rotation)
+        {
+            if (rotationLocked)
+                return;
+
+            _rotation = rotation;
+        }
+
         public Vector3 CharacterUp => Vector3.up;
         public CharacterGroundingReport GroundingReport => _groundingReport;
 
@@ -186,7 +202,7 @@ namespace Player.New
 
         public void SetRotation(Vector3 direction)
         {
-            if (direction != Vector3.zero)
+            if (direction != Vector3.zero && !RotationLocked)
             {
                 _rotation = Quaternion.LookRotation(direction);
             }
@@ -194,7 +210,7 @@ namespace Player.New
 
         public void SmoothRotation(Vector3 direction, float sharpness, float deltaTime)
         {
-            if (direction.sqrMagnitude > 0.01f)
+            if (direction.sqrMagnitude > 0.01f && !RotationLocked)
             {
                 Quaternion targetRot = Quaternion.LookRotation(direction);
                 _rotation = Quaternion.Slerp(_rotation, targetRot, 1 - Mathf.Exp(-sharpness * deltaTime));
@@ -203,7 +219,7 @@ namespace Player.New
 
         public void ApplyGravity(float gravity, float deltaTime)
         {
-                _velocity.y += gravity * deltaTime;
+            _velocity.y += gravity * deltaTime;
         }
 
         /// <summary>Ignora detección de suelo durante "duration" segundos.</summary>
