@@ -7,15 +7,16 @@ namespace Player.New
 {
     public class Attack1 : AttackBase
     {
+        public const string ToAttack1 = "ToAttack1";
         public const string ToAttack2 = "ToAttack2";
         public const string ToIdle = "ToIdle";
 
         // Timing Configuration (These would ideally come from your Model/ScriptableObject)
-        private float _hitTime = 0.2f; // When the damage happens
+        private float _hitTime = 0.0f; // When the damage happens
         private float _chainWindowStart = 0.2f; // When we start listening for the next combo
-        private float _chainWindowEnd = 0.9f; // When the natural window closes (Duration)
-        private float _lateGraceEnd = 1.0f; // Total time allowed to "save" the combo
-        private float _totalDuration = 1.45f; // Total time allowed to "save" the combo
+        private float _chainWindowEnd = 0.5f; // When the natural window closes (Duration)
+        private float _lateGraceEnd = 0.85f; // Total time allowed to "save" the combo
+        private float _totalDuration = 1.0f; // Total time allowed to "save" the combo
 
         private bool _hitProcessed;
         private bool _chainRequested;
@@ -95,6 +96,11 @@ namespace Player.New
                 else if (t >= _chainWindowEnd && t <= _lateGraceEnd)
                 {
                     ExecuteChain();
+                }
+                else if(t>= _lateGraceEnd && t <= _totalDuration)
+                {
+                    Req?.Invoke(ToAttack1);
+                    Finish();
                 }
             }
         }
