@@ -424,15 +424,37 @@ namespace Player.New
         private Vector2 attack2KnockbackDistance = new Vector2(8,8);
         [SerializeField, Tooltip("Empuje radial (m).")]
         private Vector2 attack3KnockbackDistance = new Vector2(8,8);
+        
+        [SerializeField]
+        private float attack1HitTime = 0.0f; // When the damage happens
+        [SerializeField]
+        private float attack1ChainWindowStart = 0.2f; // When we start listening for the next combo
+        [SerializeField]
+        private float attack1ChainWindowEnd = 0.5f; // When the natural window closes (Duration)
+        [SerializeField]
+        private float attack1LateGraceEnd = 0.85f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack1TotalDuration = 1.0f; // Total time allowed to "save" the combo
+        
+        //
+        
+        [SerializeField]
+        private float attack2HitTime = 0.15f; // When the damage happens
+        [SerializeField]
+        private float attack2ChainWindowStart = 0.05f; // When we start listening for the next combo
+        [SerializeField]
+        private float attack2ChainWindowEnd = 0.4f; // When the natural window closes (Duration)
+        [SerializeField]
+        private float attack2LateGraceEnd = 0.75f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack2TotalDuration = 1.0f; // Total time allowed to "save" the combo
 
-        [SerializeField, Tooltip("Duración del ataque 1 (s).")]
-        private float attack1Duration = 0.25f;
-
-        [SerializeField, Tooltip("Duración del ataque 2 (s).")]
-        private float attack2Duration = 0.28f;
-
-        [SerializeField, Tooltip("Duración del ataque 3 (s).")]
-        private float attack3Duration = 0.34f;
+        //
+        
+        [SerializeField]
+        private float attack3HitTime = 0.1f; // When the damage happens
+        [SerializeField]
+        private float attack3TotalDuration = 0.8f; // Total time allowed to "save" the combo
 
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")]
         private float attackRange = 2.0f;
@@ -461,24 +483,80 @@ namespace Player.New
             set => attackDamage = value;
         }
 
-        public float Attack1Duration
+        public float Attack1HitTime
         {
-            get => attack1Duration;
-            set => attack1Duration = value;
+            get => attack1HitTime;
+            set => attack1HitTime = value;
         }
 
-        public float Attack2Duration
+
+        public float Attack1ChainWindowStart
         {
-            get => attack2Duration;
-            set => attack2Duration = value;
+            get => attack1ChainWindowStart;
+            set => attack1ChainWindowStart = value;
         }
 
-        public float Attack3Duration
+        public float Attack1ChainWindowEnd
         {
-            get => attack3Duration;
-            set => attack3Duration = value;
+            get => attack1ChainWindowEnd;
+            set => attack1ChainWindowEnd = value;
         }
 
+        public float Attack1LateGraceEnd
+        {
+            get => attack1LateGraceEnd;
+            set => attack1LateGraceEnd = value;
+        }
+
+        public float Attack1TotalDuration
+        {
+            get => attack1TotalDuration;
+            set => attack1TotalDuration = value;
+        }
+        
+        public float Attack2HitTime
+        {
+            get => attack2HitTime;
+            set => attack2HitTime = value;
+        }
+
+
+        public float Attack2ChainWindowStart
+        {
+            get => attack2ChainWindowStart;
+            set => attack2ChainWindowStart = value;
+        }
+
+        public float Attack2ChainWindowEnd
+        {
+            get => attack2ChainWindowEnd;
+            set => attack2ChainWindowEnd = value;
+        }
+
+        public float Attack2LateGraceEnd
+        {
+            get => attack2LateGraceEnd;
+            set => attack2LateGraceEnd = value;
+        }
+
+        public float Attack2TotalDuration
+        {
+            get => attack2TotalDuration;
+            set => attack2TotalDuration = value;
+        }
+        
+        public float Attack3HitTime
+        {
+            get => attack3HitTime;
+            set => attack3HitTime = value;
+        }
+
+        public float Attack3TotalDuration
+        {
+            get => attack3TotalDuration;
+            set => attack3TotalDuration = value;
+        }
+        
         public float AttackRange
         {
             get => attackRange;

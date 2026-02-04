@@ -52,9 +52,18 @@ MonoBehaviour:
   attack1KnockbackDistance: {x: 8, y: 12}
   attack2KnockbackDistance: {x: 8, y: 12}
   attack3KnockbackDistance: {x: 8, y: 12}
-  attack1Duration: 1.25
-  attack2Duration: 0.43
-  attack3Duration: 1.25
+  attack1HitTime: 0.1
+  attack1ChainWindowStart: 0.2
+  attack1ChainWindowEnd: 0.55
+  attack1LateGraceEnd: 0.65
+  attack1TotalDuration: 0.8
+  attack2HitTime: 0.1
+  attack2ChainWindowStart: 0.2
+  attack2ChainWindowEnd: 0.3
+  attack2LateGraceEnd: 0.55
+  attack2TotalDuration: 0.8
+  attack3HitTime: 0.1
+  attack3TotalDuration: 0.7
   attackRange: 4
   attackHalfAngleDegrees: 120
   attackChainWindow: 0.8
@@ -98,8 +107,8 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  jumpBlocked: 1
-  dashBlocked: 1
+  jumpBlocked: 0
+  dashBlocked: 0
   invulnerableToEnemies: 0
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}

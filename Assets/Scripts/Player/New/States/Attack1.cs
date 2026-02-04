@@ -2,6 +2,7 @@
 using FSM;
 using Player.New.Audio;
 using Player.New.VFX;
+using UnityEngine;
 
 namespace Player.New
 {
@@ -11,12 +12,7 @@ namespace Player.New
         public const string ToAttack2 = "ToAttack2";
         public const string ToIdle = "ToIdle";
 
-        // Timing Configuration (These would ideally come from your Model/ScriptableObject)
-        private float _hitTime = 0.0f; // When the damage happens
-        private float _chainWindowStart = 0.2f; // When we start listening for the next combo
-        private float _chainWindowEnd = 0.5f; // When the natural window closes (Duration)
-        private float _lateGraceEnd = 0.85f; // Total time allowed to "save" the combo
-        private float _totalDuration = 1.0f; // Total time allowed to "save" the combo
+        
 
         private bool _hitProcessed;
         private bool _chainRequested;
@@ -57,6 +53,8 @@ namespace Player.New
             _anim?.TriggerAttack1();
             _vfxController?.Play(VfxEvent.BaseAttack);
             _audioController?.PlayPlayerAttack1();
+            
+            Debug.Log("Entered 1");
         }
 
         public override void Tick(float dt)
@@ -64,19 +62,19 @@ namespace Player.New
             t += dt;
 
             // 1. HIT LOGIC: Independent of other windows
-            if (!_hitProcessed && t >= _hitTime)
+            if (!_hitProcessed && t >= Model.Attack1HitTime)
             {
                 _hitProcessed = true;
                 TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 
-            if (t >= _chainWindowEnd && ChainBuffered)
+            if (t >= Model.Attack1ChainWindowEnd && ChainBuffered)
             {
                 ExecuteChain();
             }
 
             // 3. EXPIRATION LOGIC: If we pass the absolute last chance
-            if (t >= _totalDuration)
+            if (t >= Model.Attack1TotalDuration)
             {
                 _anim.SetCombatActive(false);
                 Req?.Invoke(ToIdle);
@@ -89,15 +87,15 @@ namespace Player.New
             if (values is { Length: >= 1 } && values[0] is string cmd && cmd == CommandKeys.AttackPressed)
             {
                 // If we are in the active window, chain immediately
-                if (t >= _chainWindowStart && t <= _chainWindowEnd)
+                if (t >= Model.Attack1ChainWindowStart && t <= Model.Attack1ChainWindowEnd)
                 {
                     BufferChain();
                 }
-                else if (t >= _chainWindowEnd && t <= _lateGraceEnd)
+                else if (t >= Model.Attack1ChainWindowEnd && t <= Model.Attack1LateGraceEnd)
                 {
                     ExecuteChain();
                 }
-                else if(t>= _lateGraceEnd && t <= _totalDuration)
+                else if(t >= Model.Attack1LateGraceEnd && t <= Model.Attack1TotalDuration)
                 {
                     Req?.Invoke(ToAttack1);
                     Finish();

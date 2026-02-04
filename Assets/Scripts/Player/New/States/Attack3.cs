@@ -2,6 +2,7 @@
 using FSM;
 using Player.New.Audio;
 using Player.New.VFX;
+using UnityEngine;
 
 namespace Player.New
 {
@@ -9,10 +10,6 @@ namespace Player.New
     public class Attack3 : AttackBase
     {
         public const string ToIdle = "ToIdle";
-
-        // Timing Configuration
-        private float _hitTime = 0.2f;         // When the final "thump" happens
-        private float _totalDuration = 0.7f;    // Total time for the finisher animation/recovery
 
         private bool _hitProcessed;
         private readonly PlayerAnimationController _anim;
@@ -60,14 +57,14 @@ namespace Player.New
             t += dt;
 
             // 1. HIT LOGIC
-            if (!_hitProcessed && t >= _hitTime)
+            if (!_hitProcessed && t >= Model.Attack3HitTime)
             {
                 _hitProcessed = true;
                 TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 
             // 2. FINISHER / COOLDOWN LOGIC
-            if (t >= _totalDuration)
+            if (t >= Model.Attack3TotalDuration)
             {
                 // Set combo cooldown values in the model
                 Model.AttackComboOnCooldown = true;
@@ -77,6 +74,13 @@ namespace Player.New
                 Req?.Invoke(ToIdle);
                 Finish();
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            Debug.Log("Exited 3");
         }
     }
 }
