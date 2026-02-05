@@ -435,9 +435,11 @@ namespace Player.New
         private float attack1LateGraceEnd = 0.85f; // Total time allowed to "save" the combo
         [SerializeField]
         private float attack1TotalDuration = 1.0f; // Total time allowed to "save" the combo
-        
+        [SerializeField]
+        private float attack1TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
+
         //
-        
+
         [SerializeField]
         private float attack2HitTime = 0.15f; // When the damage happens
         [SerializeField]
@@ -448,25 +450,26 @@ namespace Player.New
         private float attack2LateGraceEnd = 0.75f; // Total time allowed to "save" the combo
         [SerializeField]
         private float attack2TotalDuration = 1.0f; // Total time allowed to "save" the combo
-
+        [SerializeField]
+        private float attack2TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
+                                                    
         //
-        
+
         [SerializeField]
         private float attack3HitTime = 0.1f; // When the damage happens
         [SerializeField]
         private float attack3TotalDuration = 0.8f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack3TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
+
+        //
+
 
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")]
         private float attackRange = 2.0f;
 
         [SerializeField, Range(5f, 360f), Tooltip("Semiancho del cono frontal (°).")]
         private float attackHalfAngleDegrees = 55f;
-
-        [SerializeField, Tooltip("Ventana para encadenar siguiente golpe (s).")]
-        private float attackChainWindow = 0.30f;
-
-        [SerializeField, Tooltip("Tolerancia posterior al fin del ataque para aceptar el chain (s).")]
-        private float attackLateChainGrace = 0.08f;
 
         // [SerializeField, Tooltip("Empuje al enemigo impactado (m).")]
         // private float attackKnockbackDistance = 2.5f;
@@ -513,7 +516,13 @@ namespace Player.New
             get => attack1TotalDuration;
             set => attack1TotalDuration = value;
         }
-        
+
+        public float Attack1StunDuration
+        {
+            get => attack1TotalStunDuration;
+            set => attack1TotalStunDuration = value;
+        }
+
         public float Attack2HitTime
         {
             get => attack2HitTime;
@@ -544,7 +553,13 @@ namespace Player.New
             get => attack2TotalDuration;
             set => attack2TotalDuration = value;
         }
-        
+
+        public float Attack2StunDuration
+        {
+            get => attack2TotalStunDuration;
+            set => attack2TotalStunDuration = value;
+        }
+
         public float Attack3HitTime
         {
             get => attack3HitTime;
@@ -557,6 +572,12 @@ namespace Player.New
             set => attack3TotalDuration = value;
         }
         
+        public float Attack3StunDuration
+        {
+            get => attack3TotalStunDuration;
+            set => attack3TotalStunDuration = value;
+        }
+
         public float AttackRange
         {
             get => attackRange;
@@ -569,23 +590,13 @@ namespace Player.New
             set => attackHalfAngleDegrees = value;
         }
 
-        public float AttackChainWindow
-        {
-            get => attackChainWindow;
-            set => attackChainWindow = value;
-        }
-
-        public float AttackLateChainGrace
-        {
-            get => attackLateChainGrace;
-            set => attackLateChainGrace = value;
-        }
-
         public Vector2 Attack1KnockbackDistance
         {
             get => attack1KnockbackDistance;
             set => attack1KnockbackDistance = value;
         }
+
+        
 
         public Vector2 Attack2KnockbackDistance
         {

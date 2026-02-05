@@ -49,6 +49,7 @@ namespace Player.New
             _audioController?.PlayPlayerAttack2();
 
             knockbackDistance = Model.Attack2KnockbackDistance;
+            stunDuration = Model.Attack2StunDuration;
         }
 
         public override void Tick(float dt)

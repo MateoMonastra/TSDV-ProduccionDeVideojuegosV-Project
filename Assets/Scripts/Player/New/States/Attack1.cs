@@ -10,9 +10,7 @@ namespace Player.New
     {
         public const string ToAttack1 = "ToAttack1";
         public const string ToAttack2 = "ToAttack2";
-        public const string ToIdle = "ToIdle";
-
-        
+        public const string ToIdle = "ToIdle";        
 
         private bool _hitProcessed;
         private bool _chainRequested;
@@ -53,8 +51,9 @@ namespace Player.New
             _anim?.TriggerAttack1();
             _vfxController?.Play(VfxEvent.BaseAttack);
             _audioController?.PlayPlayerAttack1();
-            
-            Debug.Log("Entered 1");
+
+            knockbackDistance = Model.Attack1KnockbackDistance;
+            stunDuration = Model.Attack1StunDuration;
         }
 
         public override void Tick(float dt)

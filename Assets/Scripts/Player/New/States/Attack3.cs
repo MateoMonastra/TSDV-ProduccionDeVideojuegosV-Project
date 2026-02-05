@@ -50,6 +50,7 @@ namespace Player.New
             _audioController?.PlayPlayerAttack3();
 
             knockbackDistance = Model.Attack3KnockbackDistance;
+            stunDuration = Model.Attack3StunDuration;
         }
 
         public override void Tick(float dt)

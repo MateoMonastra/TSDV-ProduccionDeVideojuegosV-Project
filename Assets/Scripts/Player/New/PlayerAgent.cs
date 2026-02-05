@@ -1,14 +1,11 @@
-﻿using System;
-using FSM;
+﻿using FSM;
 using Health;
-using KinematicCharacterController.Examples;
 using Player.New.Audio;
 using Player.New.States;
 using Player.New.VFX;
 using Player.Old.KinematicCharacterController.ExampleCharacter.Scripts;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player.New
 {

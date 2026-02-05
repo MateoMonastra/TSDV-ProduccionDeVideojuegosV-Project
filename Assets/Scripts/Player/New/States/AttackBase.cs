@@ -29,6 +29,7 @@ namespace Player.New
         protected bool ChainBuffered;
 
         protected Vector2 knockbackDistance;
+        protected float stunDuration;
 
         protected AttackBase(MyKinematicMotor m, PlayerModel mdl, Action<string> req)
         { M = m; Model = mdl; Req = req; }
@@ -102,7 +103,7 @@ namespace Player.New
                 return;
 
             _enemiesHit.Add(enemyHealth);
-            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance,"PlayerBaseAttack"));
+            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance,"PlayerBaseAttack", stunDuration));
         }
     }
 }

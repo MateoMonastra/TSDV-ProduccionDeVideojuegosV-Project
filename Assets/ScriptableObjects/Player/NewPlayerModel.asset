@@ -52,7 +52,7 @@ MonoBehaviour:
   attack1KnockbackDistance: {x: 8, y: 12}
   attack2KnockbackDistance: {x: 8, y: 12}
   attack3KnockbackDistance: {x: 8, y: 12}
-  attack1HitTime: 0.1
+  attack1HitTime: 0.25
   attack1ChainWindowStart: 0.2
   attack1ChainWindowEnd: 0.55
   attack1LateGraceEnd: 0.65
@@ -107,8 +107,8 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  jumpBlocked: 1
-  dashBlocked: 1
+  jumpBlocked: 0
+  dashBlocked: 0
   invulnerableToEnemies: 0
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
