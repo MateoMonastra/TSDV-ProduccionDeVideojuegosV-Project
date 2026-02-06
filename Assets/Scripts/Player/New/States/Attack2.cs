@@ -57,9 +57,8 @@ namespace Player.New
             t += dt;
 
             // 1. HIT LOGIC
-            if (!_hitProcessed && t >= Model.Attack2HitTime)
+            if (t >= Model.Attack2HitTime && t <= Model.Attack1ChainWindowEnd)
             {
-                _hitProcessed = true;
                 TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 

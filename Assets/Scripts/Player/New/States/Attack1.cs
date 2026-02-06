@@ -61,9 +61,8 @@ namespace Player.New
             t += dt;
 
             // 1. HIT LOGIC: Independent of other windows
-            if (!_hitProcessed && t >= Model.Attack1HitTime)
+            if (t >= Model.Attack1HitTime && t <= Model.Attack1ChainWindowEnd)
             {
-                _hitProcessed = true;
                 TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 

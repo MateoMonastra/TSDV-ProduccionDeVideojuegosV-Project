@@ -58,9 +58,8 @@ namespace Player.New
             t += dt;
 
             // 1. HIT LOGIC
-            if (!_hitProcessed && t >= Model.Attack3HitTime)
+            if (t >= Model.Attack3HitTime && t <= 0.35f)
             {
-                _hitProcessed = true;
                 TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
             }
 
@@ -80,8 +79,6 @@ namespace Player.New
         public override void Exit()
         {
             base.Exit();
-            
-            Debug.Log("Exited 3");
         }
     }
 }
