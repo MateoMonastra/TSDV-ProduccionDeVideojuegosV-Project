@@ -15,6 +15,7 @@ namespace Player.New
         protected readonly MyKinematicMotor M;
         protected readonly PlayerModel Model;
         protected readonly Action<string> Req;
+        private readonly MyCharacterCamera _characterCamera;
 
         /// <summary>Duración total del ataque actual.</summary>
         protected float Duration;
@@ -31,8 +32,13 @@ namespace Player.New
         protected Vector2 knockbackDistance;
         protected float stunDuration;
 
-        protected AttackBase(MyKinematicMotor m, PlayerModel mdl, Action<string> req)
-        { M = m; Model = mdl; Req = req; }
+        protected AttackBase(MyKinematicMotor m, PlayerModel mdl, MyCharacterCamera characterCamera, Action<string> req)
+        {
+            M = m;
+            Model = mdl;
+            _characterCamera = characterCamera;
+            Req = req;
+        }
 
         public override void Enter()
         {
@@ -65,11 +71,11 @@ namespace Player.New
 
         protected void TryDoHitFrontal(float normalizedTime, float halfAngleDeg)
         {
-            Vector3 origin  = M.transform.position;
-            Vector3 up      = M.CharacterUp;
+            Vector3 origin = M.transform.position;
+            Vector3 up = M.CharacterUp;
             Vector3 forward = Vector3.ProjectOnPlane(M.transform.forward, up).normalized;
-            float   range   = Model.AttackRange;
-            int     mask    = Model.EnemyMask.value;
+            float range = Model.AttackRange;
+            int mask = Model.EnemyMask.value;
 
             var cols = Physics.OverlapSphere(origin, range, mask, QueryTriggerInteraction.Collide);
 
@@ -90,7 +96,11 @@ namespace Player.New
                 if (ang > halfAngleDeg) continue;
 
                 float d = Vector3.Dot(forward, to);
-                if (d > bestDot) { bestDot = d; bestTf = t; }
+                if (d > bestDot)
+                {
+                    bestDot = d;
+                    bestTf = t;
+                }
             }
 
             if (!bestTf) return;
@@ -103,7 +113,10 @@ namespace Player.New
                 return;
 
             _enemiesHit.Add(enemyHealth);
-            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance,"PlayerBaseAttack", stunDuration));
+            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance, "PlayerBaseAttack",
+                stunDuration));
+
+            _characterCamera.TriggerCameraShake(0.15f, 3f, 0.35f);
         }
     }
 }

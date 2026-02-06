@@ -16,10 +16,10 @@ namespace Player.New
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
-        public Attack2(MyKinematicMotor m, PlayerModel mdl, Action<string> req,
+        public Attack2(MyKinematicMotor m, PlayerModel mdl, MyCharacterCamera characterCamera, Action<string> req,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
             PlayerAudioController audioController = null)
-            : base(m, mdl, req)
+            : base(m, mdl, characterCamera, req)
         {
             _vfxController = vfxController;
             _anim = anim;

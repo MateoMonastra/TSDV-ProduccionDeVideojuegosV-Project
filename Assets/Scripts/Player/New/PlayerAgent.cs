@@ -387,9 +387,9 @@ namespace Player.New
             void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
 
             _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor, audioController);
-            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _a1 = new Attack1(motor, model, _myCharacterCamera ,RequestActionTransition, animController, vfxController, audioController);
+            _a2 = new Attack2(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
+            _a3 = new Attack3(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
             _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera ,animController, vfxController, audioController);
             _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);

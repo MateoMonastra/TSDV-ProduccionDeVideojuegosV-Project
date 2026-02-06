@@ -169,7 +169,7 @@ namespace Player.New
             );
 
             _vfxController?.PlayAt(VfxEvent.VerticalAttackLand, center);
-            _characterCamera.CameraTest();
+            _characterCamera.TriggerCameraShake();
             
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();

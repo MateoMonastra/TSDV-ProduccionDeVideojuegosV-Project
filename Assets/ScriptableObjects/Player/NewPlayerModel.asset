@@ -49,20 +49,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
-  attack1KnockbackDistance: {x: 12, y: 20}
-  attack2KnockbackDistance: {x: 10, y: 20}
-  attack3KnockbackDistance: {x: 10, y: 20}
+  attack1KnockbackDistance: {x: 8.4, y: 25}
+  attack2KnockbackDistance: {x: 8.4, y: 25}
+  attack3KnockbackDistance: {x: 8.4, y: 25}
   attack1HitTime: 0.25
   attack1ChainWindowStart: 0.2
   attack1ChainWindowEnd: 0.55
   attack1LateGraceEnd: 0.65
   attack1TotalDuration: 1
   attack1TotalStunDuration: 0.6
-  attack2HitTime: 0.2
+  attack2HitTime: 0.1
   attack2ChainWindowStart: 0.2
   attack2ChainWindowEnd: 0.3
   attack2LateGraceEnd: 0.55
-  attack2TotalDuration: 0.9
+  attack2TotalDuration: 0.6
   attack2TotalStunDuration: 0.6
   attack3HitTime: 0.25
   attack3TotalDuration: 0.8
@@ -108,8 +108,8 @@ MonoBehaviour:
   actionMoveSpeedMultiplier: 1
   actionJumpSpeedMultiplier: 1
   locomotionBlocked: 0
-  jumpBlocked: 1
-  dashBlocked: 1
+  jumpBlocked: 0
+  dashBlocked: 0
   invulnerableToEnemies: 0
   aimLockActive: 0
   aimLockDirection: {x: 0, y: 0, z: 0}
