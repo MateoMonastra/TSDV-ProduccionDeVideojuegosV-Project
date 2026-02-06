@@ -271,6 +271,7 @@ namespace Enemies.BaseEnemy
                 {
                     impulse.SetImpulse(damageOrigin.Knockback);
                     impulse.SetImpulseSource(damageOrigin.DamageOrigin);
+                    impulse.SetImpulseDuration(damageOrigin.StunDuration);
                     TransitionToImpulse();
                 }
             }

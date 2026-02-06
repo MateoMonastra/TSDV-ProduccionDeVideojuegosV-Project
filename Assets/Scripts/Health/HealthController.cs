@@ -68,13 +68,15 @@ namespace Health
         public Vector3 DamageOrigin;
         public Vector2 Knockback;
         public string DamageName;
+        public float StunDuration;
 
-        public DamageInfo(int damage, Vector3 transformPosition, Vector2 knockback, string damageName)
+        public DamageInfo(int damage, Vector3 transformPosition, Vector2 knockback, string damageName, float stunDuration = 0.5f)
         {
             Damage = damage;
             DamageOrigin = transformPosition;
             Knockback = knockback;
             DamageName = damageName;
+            StunDuration = stunDuration;
         }
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using FSM;
+﻿using FSM;
 using Health;
-using KinematicCharacterController.Examples;
 using Player.New.Audio;
 using Player.New.States;
 using Player.New.VFX;
 using Player.Old.KinematicCharacterController.ExampleCharacter.Scripts;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player.New
 {
@@ -409,20 +406,19 @@ namespace Player.New
 
 
             _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor, audioController);
-            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera, animController,
-                vfxController, audioController);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor,
-                vfxController, animController, audioController);
-            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController,
-                audioController);
+            _a1 = new Attack1(motor, model, _myCharacterCamera ,RequestActionTransition, animController, vfxController, audioController);
+            _a2 = new Attack2(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
+            _a3 = new Attack3(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera ,animController, vfxController, audioController);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
+            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
+			
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController, vfxController);
 
             // Transiciones de acciones
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToAttack2 });
+            _a1.AddTransition(new Transition { From = _a1, To = _a1, ID = Attack1.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _aIdle, ID = Attack1.ToIdle });
             _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
