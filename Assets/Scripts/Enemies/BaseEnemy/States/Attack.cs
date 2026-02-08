@@ -36,7 +36,6 @@ namespace Enemies.BaseEnemy.States
             _agent.ResetPath();
             _onAttackDelay?.Invoke();
             if (_anim != null) _anim.OnAnim_AttackDamage += OnAttackDamageEvent;
-
         }
 
         public override void Tick(float delta)
