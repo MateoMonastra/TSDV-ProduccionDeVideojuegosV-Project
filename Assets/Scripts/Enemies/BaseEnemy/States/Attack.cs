@@ -16,7 +16,8 @@ namespace Enemies.BaseEnemy.States
         private float _attackTimer = 0f;
         private bool _delayed;
 
-        public Attack(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent, Collider collider, EnemyAnimationController anim,
+        public Attack(Transform enemy, Transform player, BaseEnemyModel model, NavMeshAgent agent, Collider collider,
+            EnemyAnimationController anim,
             System.Action onAttackDelay, System.Action onAttackHit,
             System.Action onAttackFinished) : base(enemy, player, model)
         {
@@ -56,16 +57,17 @@ namespace Enemies.BaseEnemy.States
                 Vector3 flatTarget = player.position;
                 flatTarget.y = enemy.position.y;
                 enemy.LookAt(flatTarget, Vector3.up);
-
             }
 
             if (!_delayed) return;
 
-            if (_attackTimer >= model.AttackDuration)
+            if (_attackTimer >= model.AttackColliderDuration)
             {
                 _collider.gameObject.SetActive(false);
-                _onAttackFinished?.Invoke();
             }
+
+            if (_attackTimer >= model.AttackTotalDuration)
+                _onAttackFinished?.Invoke();
         }
 
         private void OnAttackDamageEvent()

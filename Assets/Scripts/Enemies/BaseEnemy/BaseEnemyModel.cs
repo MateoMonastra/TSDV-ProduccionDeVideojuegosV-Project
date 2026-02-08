@@ -13,7 +13,8 @@ namespace Enemies.BaseEnemy
         
         [Header("Attack Settings")]
         [SerializeField] private float attackRange;
-        [SerializeField] private float attackDuration;
+        [SerializeField] private float attackColliderDuration;
+        [SerializeField] private float attackTotalDuration;
         [SerializeField] private float attackDelay;
         
         [Header("Damage Feedback Settings")]
@@ -47,10 +48,16 @@ namespace Enemies.BaseEnemy
             set => attackRange = value;
         }
 
-        public float AttackDuration
+        public float AttackColliderDuration
         {
-            get => attackDuration;
-            set => attackDuration = value;
+            get => attackColliderDuration;
+            set => attackColliderDuration = value;
+        }
+
+        public float AttackTotalDuration
+        {
+            get => attackTotalDuration;
+            set => attackTotalDuration = value;
         }
 
         public float AttackDelay
