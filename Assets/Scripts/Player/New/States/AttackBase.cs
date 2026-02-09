@@ -77,46 +77,55 @@ namespace Player.New
             float range = Model.AttackRange;
             int mask = Model.EnemyMask.value;
 
-            var cols = Physics.OverlapSphere(origin, range, mask, QueryTriggerInteraction.Collide);
+            Collider[] cols = Physics.OverlapSphere(origin, range, mask, QueryTriggerInteraction.Collide);
 
-            float bestDot = -1f;
-            Transform bestTf = null;
+            // float bestDot = -1f;
+            // Transform bestTf = null;
+            //
+            // for (int i = 0; i < cols.Length; i++)
+            // {
+            //     var t = cols[i].transform;
+            //     Vector3 to = Vector3.ProjectOnPlane(t.position - origin, up);
+            //     if (to.sqrMagnitude <= Model.MinInputSqr) continue;
+            //
+            //     float dist = to.magnitude;
+            //     if (dist > range + 0.001f) continue;
+            //
+            //     to /= dist;
+            //     float ang = Vector3.Angle(forward, to);
+            //     if (ang > halfAngleDeg) continue;
+            //
+            //     float d = Vector3.Dot(forward, to);
+            //     if (d > bestDot)
+            //     {
+            //         bestDot = d;
+            //         bestTf = t;
+            //     }
+            // }
+            //
+            // if (!bestTf) return;
 
-            for (int i = 0; i < cols.Length; i++)
+            List<HealthController> enemiesToHit = new List<HealthController>();
+
+            foreach (Collider col in cols)
             {
-                var t = cols[i].transform;
-                Vector3 to = Vector3.ProjectOnPlane(t.position - origin, up);
-                if (to.sqrMagnitude <= Model.MinInputSqr) continue;
-
-                float dist = to.magnitude;
-                if (dist > range + 0.001f) continue;
-
-                to /= dist;
-                float ang = Vector3.Angle(forward, to);
-                if (ang > halfAngleDeg) continue;
-
-                float d = Vector3.Dot(forward, to);
-                if (d > bestDot)
+                if (col.TryGetComponent(out HealthController health))
                 {
-                    bestDot = d;
-                    bestTf = t;
+                    enemiesToHit.Add(health);
                 }
             }
 
-            if (!bestTf) return;
+            foreach (HealthController health in enemiesToHit)
+            {
+                if (!_enemiesHit.Contains(health))
+                {
+                    _enemiesHit.Add(health);
+                    health.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance, "PlayerBaseAttack",
+                        stunDuration));
 
-            var enemyHealth = bestTf.GetComponentInParent<HealthController>();
-            if (enemyHealth == null) return;
-
-            // Evitar golpear dos veces al mismo enemigo en este ataque
-            if (_enemiesHit.Contains(enemyHealth))
-                return;
-
-            _enemiesHit.Add(enemyHealth);
-            enemyHealth.Damage(new DamageInfo(Model.AttackDamage, origin, knockbackDistance, "PlayerBaseAttack",
-                stunDuration));
-
-            _characterCamera.TriggerCameraShake(0.15f, 3f, 0.35f);
+                    _characterCamera.TriggerCameraShake(0.15f, 3f, 0.35f);
+                }
+            }
         }
     }
 }
