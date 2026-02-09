@@ -213,7 +213,7 @@ namespace Player.New
         /// <summary>Estado de “dash mantenido” para la mecánica de sprint.</summary>
         private void OnDashHeldChanged(bool held) => model.DashHeld = held;
 
-        private void OnPlayerDeath()
+        private void OnPlayerDeath(DamageInfo damageInfo)
         {
             model.ResetAfk();
             hud.SetHealth(0);

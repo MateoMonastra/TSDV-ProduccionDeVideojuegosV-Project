@@ -13,7 +13,7 @@ namespace Health
 
         public Action OnHeal;
         public Action<DamageInfo> OnTakeDamage;
-        public Action OnDeath;
+        public Action<DamageInfo> OnDeath;
 
         private void Awake()
         {
@@ -35,14 +35,15 @@ namespace Health
             if (_currentHealth > 0)
                 OnTakeDamage?.Invoke(damageInfo);
             else if (_currentHealth == 0)
-                OnDeath?.Invoke();
+                OnDeath?.Invoke(damageInfo);
 
             _timer = 0;
         }
 
         public void InstaKill()
         {
-            OnDeath?.Invoke();
+            DamageInfo instakillDamage = new DamageInfo(999999, Vector3.zero, Vector3.up, "InstaKill");
+            OnDeath?.Invoke(instakillDamage);
         }
 
         public void ResetHealth()

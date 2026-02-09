@@ -33,7 +33,7 @@ namespace Enemies.BaseEnemy
 
         private Fsm _fsm;
 
-        private State _deathImpulse;
+        private Impulse _deathImpulse;
         private Impulse impulse;
         private SpinningImpulse _spinningImpulse;
 
@@ -70,7 +70,7 @@ namespace Enemies.BaseEnemy
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: DeathImpulseOnEnd);
 
             State death = new Death(this.gameObject, model);
-            _states.Add(death);
+            _states.Add(_deathImpulse);
 
             //Idle Transitions
             Transition idleToChase = new Transition() { From = idle, To = chase, ID = ToChaseID };
@@ -191,10 +191,15 @@ namespace Enemies.BaseEnemy
             _fsm.TryTransitionTo(ToDeathID);
         }
 
-        private void TransitionToDeathImpulse()
+        private void TransitionToDeathImpulse(DamageInfo damageInfo)
         {
             if (_fsm.GetCurrentState() != _deathImpulse)
             {
+                _deathImpulse.SetImpulse(damageInfo.Knockback);
+                _deathImpulse.SetImpulseSource(damageInfo.DamageOrigin);
+                _deathImpulse.SetImpulseDuration(damageInfo.StunDuration);
+
+                onDeath?.Invoke();
                 _fsm.ForceTransition(_deathImpulse);
             }
         }
