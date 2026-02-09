@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,19 +9,16 @@ namespace Player.New
     [RequireComponent(typeof(Camera))]
     public class MyCharacterCamera : MonoBehaviour
     {
-        [Header("Framing")]
-        public Vector2 followPointFraming = new Vector2(0f, 0f);
+        [Header("Framing")] public Vector2 followPointFraming = new Vector2(0f, 0f);
         public float followingSharpness = 12f;
 
-        [Header("Distance")]
-        public float defaultDistance = 6f;
+        [Header("Distance")] public float defaultDistance = 6f;
         public float minDistance = 0f;
         public float maxDistance = 10f;
         public float distanceMovementSpeed = 5f;
         public float distanceMovementSharpness = 10f;
 
-        [Header("Rotation")]
-        public bool invertX = false;
+        [Header("Rotation")] public bool invertX = false;
         public bool invertY = false;
         [Range(-90f, 90f)] public float defaultVerticalAngle = 20f;
         [Range(-90f, 90f)] public float minVerticalAngle = -60f;
@@ -26,16 +26,14 @@ namespace Player.New
         public float mouseRotationSpeed = 0.1f;
         public float joystickRotationSpeed = 1f;
 
-        [Header("Obstruction")]
-        public float obstructionCheckRadius = 0.2f;
+        [Header("Obstruction")] public float obstructionCheckRadius = 0.2f;
         public LayerMask obstructionLayers = -1;
         public float obstructionSharpness = 12f;
         public Collider[] ignoredColliders;
 
-        [Header("Refs")]
-        public Transform followTransform;     
-        public InputReader inputReader;       
-        
+        [Header("Refs")] public Transform followTransform;
+        public InputReader inputReader;
+
         private Transform _transform;
         private CameraRotationHandler _rotationHandler;
         private CameraDistanceHandler _distanceHandler;
@@ -43,9 +41,12 @@ namespace Player.New
         private CameraObstructionHandler _obstructionHandler;
 
         private Vector3 _currentFollowPosition;
-        
+
+        private Vector3 _startingPosition;
+        private Quaternion _startingRotation;
+
         private Vector2 _look;
-        private float _zoom;                  
+        private float _zoom;
         private InputDevice _lastDevice;
 
         public Vector3 PlanarDirection => _rotationHandler.PlanarDirection;
@@ -58,10 +59,15 @@ namespace Player.New
             _framingHandler = new CameraFramingHandler(this);
             _obstructionHandler = new CameraObstructionHandler(this, _distanceHandler);
 
+            _startingPosition = transform.localPosition;
+            _startingRotation = transform.localRotation;
+
             Cursor.lockState = CursorLockMode.Locked;
-            
+
             if (followTransform != null)
                 _currentFollowPosition = followTransform.position;
+
+            GameEvents.GameEvents.OnPlayerRevived += ResetLook;
         }
 
         private void OnEnable()
@@ -80,9 +86,15 @@ namespace Player.New
             {
                 inputReader.OnLook -= OnLook;
             }
+
             GameEvents.GameEvents.OnGamePaused -= PauseTheCamera;
         }
-        
+
+        private void OnDestroy()
+        {
+            GameEvents.GameEvents.OnPlayerRevived -= ResetLook;
+        }
+
         private void CollectFallbackInput()
         {
             if (Mouse.current != null)
@@ -92,7 +104,7 @@ namespace Player.New
             }
         }
 
-        public void PauseTheCamera(bool isGamePaused)
+        private void PauseTheCamera(bool isGamePaused)
         {
             if (isGamePaused)
             {
@@ -111,19 +123,34 @@ namespace Player.New
             _lastDevice = device;
         }
 
+        private void ResetLook()
+        {
+            _look = Vector2.zero;
+
+            if (followTransform != null)
+            {
+                _currentFollowPosition = followTransform.position;
+            }
+
+            _rotationHandler.ResetCameraRotation();
+    
+            _rotationHandler.SetCameraRotation(_startingRotation);
+    
+            UpdateCamera(0f, 0f, Vector3.zero, _lastDevice ?? Mouse.current);
+        }
+
         private void LateUpdate()
         {
             if (followTransform == null)
                 return;
-            
+
             if (inputReader == null) CollectFallbackInput();
-            
+
             UpdateCamera(Time.deltaTime, _zoom, new Vector3(_look.x, _look.y, 0f), _lastDevice ?? Mouse.current);
-            
             _zoom = 0f;
         }
 
-        public void UpdateCamera(float deltaTime, float zoomInput, Vector3 rotationInput, InputDevice inputDevice)
+        private void UpdateCamera(float deltaTime, float zoomInput, Vector3 rotationInput, InputDevice inputDevice)
         {
             if (followTransform == null) return;
 
@@ -145,6 +172,29 @@ namespace Player.New
 
             _transform.position = targetPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
+        }
+
+        public void TriggerCameraShake(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            StartCoroutine(CameraShakeCoroutine(duration, maxShakeDistance, shakeMagnitude));
+        }
+
+        public IEnumerator CameraShakeCoroutine(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0.0f;
+
+            while (elapsed < duration)
+            {
+                float x = (Mathf.PerlinNoise(Time.time * maxShakeDistance, 0) - 0.5f) * shakeMagnitude ;
+                float y = (Mathf.PerlinNoise(0,Time.time * maxShakeDistance) - 0.5f) * shakeMagnitude ;
+                
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x, _framingHandler.DefaultFraming.y + y));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            _framingHandler.ResetCameraFollowPointFraming();
         }
     }
 }

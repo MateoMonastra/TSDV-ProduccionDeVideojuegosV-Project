@@ -21,6 +21,7 @@ namespace Player.New
 
         private float _timeSinceUngrounded;
         private int _ungroundedFrames;
+        private bool cancelledSprint = false;
         private const float GroundProbeLength = 100f;
 
         public Sprint(MyKinematicMotor m,
@@ -39,22 +40,32 @@ namespace Player.New
         {
             base.Enter();
 
+            Model.ResetJumps();
             Model.ActionMoveSpeedMultiplier = Model.SprintSpeedMultiplier;
+
+            if (Model.SprintBuffered)
+            {
+                Model.SprintArmed = true;
+            }
 
             _anim?.SetWalking(false);
             _anim?.SetSprinting(true);
 
             _vfx.Play(VfxEvent.Run);
+
+            Model.DashOnCooldown = false;
         }
 
         public override void Exit()
         {
             base.Exit();
             Model.ActionMoveSpeedMultiplier = 1f;
-            Model.SprintArmed = false;
             _anim.SetSprinting(false);
+            Model.SprintArmed = false;
 
-            _vfx.Stop(VfxEvent.Run);
+            _vfx.Stop(VfxEvent.Run, 0, 0, ParticleSystemStopBehavior.StopEmitting);
+            _vfx.Stop(VfxEvent.Run, 0, 1, ParticleSystemStopBehavior.StopEmitting);
+            _vfx.Stop(VfxEvent.Run, 0, 2, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         public override void Tick(float dt)
@@ -83,10 +94,11 @@ namespace Player.New
             if (!Model.DashHeld)
             {
                 RequestTransition?.Invoke(ToWalkIdle);
-                
+                Model.SprintArmed = false;
+                Model.SprintHoldCounter = 0;
                 if (Model.RawMoveInput.sqrMagnitude > Model.MinInputSqr)
                     _anim?.SetWalking(true);
-                
+
                 return;
             }
 
@@ -106,6 +118,11 @@ namespace Player.New
                     _ungroundedFrames >= 2 &&
                     heightEnough)
                 {
+                    if (Model.DashHeld)
+                    {
+                        Model.SprintBuffered = true;
+                    }
+
                     RequestTransition?.Invoke(ToFall);
                     return;
                 }
@@ -129,6 +146,7 @@ namespace Player.New
 
                         if (Model.JumpsLeft > 0)
                         {
+                            Model.SprintBuffered = true;
                             RequestTransition?.Invoke(ToJump);
                         }
                 }

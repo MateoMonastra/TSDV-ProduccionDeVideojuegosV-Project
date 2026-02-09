@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{35628C3F-20FB-4EC1-BC25-310599AEDB83}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}">
+<WwiseDocument Type="WorkUnit" ID="{35628C3F-20FB-4EC1-BC25-310599AEDB83}" SchemaVersion="123" RootDocumentID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" ParentDocumentID="{8FEC1668-79F2-401A-B63F-E1ADA7C31B69}">
 	<Events>
-		<WorkUnit Name="Music_Lvl_1" ID="{35628C3F-20FB-4EC1-BC25-310599AEDB83}" OwnerID="{D4A42FFD-90CE-40DF-BFA5-789E7FB31C88}" PersistMode="Nested"/>
+		<WorkUnit Name="Music_Lvl_1" ID="{35628C3F-20FB-4EC1-BC25-310599AEDB83}" OwnerID="{8FEC1668-79F2-401A-B63F-E1ADA7C31B69}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="9"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Event Name="Music_Lvl1_1" ID="{CB2ADAF6-C641-4D54-B219-96254DC1E816}">
+					<ChildrenList>
+						<Action Name="" ID="{A220172F-B184-4687-A8A0-93A08D17C87F}" ShortID="261895390">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Musica1" ID="{B4A0CA82-39EA-4480-B254-4AB0D3108698}" WorkUnitID="{FD993286-8B9F-4AD1-84E8-3F960E13105F}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

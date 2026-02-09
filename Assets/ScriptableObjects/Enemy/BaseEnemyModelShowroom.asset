@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37212effd789418eb25a4e3a33ef248e, type: 3}
   m_Name: BaseEnemyModelShowroom
   m_EditorClassIdentifier: 
-  innerRadius: 13
-  outerRadius: 15
+  innerRadius: 20
+  outerRadius: 25
   groundLayer:
     serializedVersion: 2
     m_Bits: 34881
   attackRange: 3
-  attackDuration: 0.7
-  attackDelay: 0.5
-  horizontalImpulseForce: 8
-  verticalImpulseForce: 15
-  lowJumpMultiplier: 24
-  fallMultiplier: 4
+  attackColliderDuration: 0.7
+  attackTotalDuration: 1
+  attackDelay: 0
+  lowJumpMultiplier: 22
+  fallMultiplier: 3
+  spinningLowJumpMultiplier: 18
+  spinningFallMultiplier: 2
   damagedStunTime: 2
   deathTime: 5

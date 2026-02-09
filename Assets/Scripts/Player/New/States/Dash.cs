@@ -14,6 +14,7 @@ namespace Player.New
     {
         public const string ToFall     = "ToFall";
         public const string ToWalkIdle = "ToWalkIdle";
+        public const string ToSprint = "ToSprint";
 
         private readonly MyKinematicMotor _m;
         private readonly PlayerModel _model;
@@ -121,18 +122,26 @@ namespace Player.New
 
             _vfxController?.Play(VfxEvent.Dash);
 
+            _model.BeginSprintWindow();
+            _recovering = false;
+
         }
 
         public override void Exit()
         {
             base.Exit();
-            _model.BeginSprintWindow();
+            
+            _model.ResetAfk();
+            _recoverT = 0;
+            
             _model.InvulnerableToEnemies = false;
         }
 
         public override void Tick(float dt)
         {
             base.Tick(dt);
+
+            SprintWindow(dt);
 
             if (!_recovering)
             {
@@ -154,7 +163,6 @@ namespace Player.New
                 {
                     _recovering = true;
                     _recoverT = 0f;
-                    _model.BeginSprintWindow();
                 }
 
             }
@@ -174,10 +182,66 @@ namespace Player.New
 
                 if (_recoverT >= _model.DashExitBlendTime)
                 {
+                    _recoverT = 0;
                     _recovering = false;
                     _req?.Invoke(_m.IsGrounded ? ToWalkIdle : ToFall);
                     Finish();
                 }
+            }
+            
+        }
+
+        private void SprintWindow(float dt)
+        {
+            if (!_model.SprintArmed)
+            {
+                return;
+            }
+
+                
+            if (!_model.DashHeld)
+            {
+                _model.SprintArmed = false;
+                _model.SprintHoldCounter = 0f;
+                return; 
+            }
+                
+            _model.SprintArmTimeLeft -= dt;
+            if (_model.SprintArmTimeLeft <= 0f)
+            {
+                _model.SprintArmed = false;
+                _model.SprintHoldCounter = 0f;
+                return;
+            }
+
+            if (_t >= _duration) 
+            {
+                _model.SprintHoldCounter += dt;
+            }
+            else 
+            {
+                _model.SprintHoldCounter = 0f;
+            }
+            //bool hasMoveInput = _model.RawMoveInput.sqrMagnitude > 1e-5f;
+            bool hasMoveInput = true;
+
+            if (_model.SprintHoldCounter >= _model.SprintHoldTime && hasMoveInput && _model.SprintArmed)
+            {
+                if (_m.IsGrounded)
+                {
+                    _req?.Invoke(ToSprint);
+                    _anim.SetWalking(false);
+                    _anim.SetSprinting(true);
+                    _model.SprintHoldCounter = 0f;
+                }
+                else
+                {
+                    _model.SprintBuffered = true;
+                }
+            }
+            else
+            {
+                //Debug.LogError("SPRINT HOLD COUNTER " + _model.SprintHoldCounter);
             }
         }
     }

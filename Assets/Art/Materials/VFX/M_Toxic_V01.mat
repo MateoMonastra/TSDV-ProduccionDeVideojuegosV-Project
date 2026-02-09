@@ -13,7 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -34,6 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _CausticTextur:
         m_Texture: {fileID: 2800000, guid: 1af47a2d90ff3914abb9d7dd971a1e71, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Caustic_textur_2:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -96,8 +100,8 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
-    - _CasticsSpeed: 0.01
-    - _CasticsTiling: 6.26
+    - _CasticsSpeed: 0.005
+    - _CasticsTiling: 6
     - _CausticCutout: 0.43
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -122,7 +126,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5

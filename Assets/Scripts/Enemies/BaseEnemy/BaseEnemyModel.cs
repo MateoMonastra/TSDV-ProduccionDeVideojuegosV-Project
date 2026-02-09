@@ -13,14 +13,15 @@ namespace Enemies.BaseEnemy
         
         [Header("Attack Settings")]
         [SerializeField] private float attackRange;
-        [SerializeField] private float attackDuration;
+        [SerializeField] private float attackColliderDuration;
+        [SerializeField] private float attackTotalDuration;
         [SerializeField] private float attackDelay;
         
         [Header("Damage Feedback Settings")]
-        [SerializeField] private float horizontalImpulseForce;
-        [SerializeField] private float verticalImpulseForce;
         [SerializeField] private float lowJumpMultiplier;
         [SerializeField] private float fallMultiplier;
+        [SerializeField] private float spinningLowJumpMultiplier;
+        [SerializeField] private float spinningFallMultiplier;
         [SerializeField] private float damagedStunTime;
         [SerializeField] private float deathTime;
 
@@ -47,10 +48,16 @@ namespace Enemies.BaseEnemy
             set => attackRange = value;
         }
 
-        public float AttackDuration
+        public float AttackColliderDuration
         {
-            get => attackDuration;
-            set => attackDuration = value;
+            get => attackColliderDuration;
+            set => attackColliderDuration = value;
+        }
+
+        public float AttackTotalDuration
+        {
+            get => attackTotalDuration;
+            set => attackTotalDuration = value;
         }
 
         public float AttackDelay
@@ -59,18 +66,6 @@ namespace Enemies.BaseEnemy
             set => attackDelay = value;
         }
 
-        public float HorizontalImpulseForce
-        {
-            get => horizontalImpulseForce;
-            set => horizontalImpulseForce = value;
-        }
-
-        public float VerticalImpulseForce
-        {
-            get => verticalImpulseForce;
-            set => verticalImpulseForce = value;
-        }
-        
         public float LowJumpMultiplier
         {
             get => lowJumpMultiplier;
@@ -81,6 +76,18 @@ namespace Enemies.BaseEnemy
         {
             get => fallMultiplier;
             set => fallMultiplier = value;
+        }
+
+        public float SpinningLowJumpMultiplier
+        {
+            get => spinningLowJumpMultiplier;
+            set => spinningLowJumpMultiplier = value;
+        }
+
+        public float SpinningFallMultiplier
+        {
+            get => spinningFallMultiplier;
+            set => spinningFallMultiplier = value;
         }
         
         public float DamagedStunTime

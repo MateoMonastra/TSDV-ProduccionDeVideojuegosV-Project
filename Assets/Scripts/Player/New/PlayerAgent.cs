@@ -1,13 +1,11 @@
-﻿using System;
-using FSM;
+﻿using FSM;
 using Health;
-using KinematicCharacterController.Examples;
 using Player.New.Audio;
 using Player.New.States;
 using Player.New.VFX;
+using Player.Old.KinematicCharacterController.ExampleCharacter.Scripts;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player.New
 {
@@ -70,6 +68,9 @@ namespace Player.New
 
         #endregion
 
+        MyCharacterCamera _myCharacterCamera;
+
+
         // ───────────────────────────────────────────────────────────────────────
 
         #region Unity Messages
@@ -85,7 +86,8 @@ namespace Player.New
 
         private void OnEnable()
         {
-            SubscribeInputs(true); if (health != null) health.OnDeath += OnPlayerDeath;
+            SubscribeInputs(true);
+            if (health != null) health.OnDeath += OnPlayerDeath;
             if (health) health.OnTakeDamage += OnPlayerDamaged;
 
             if (interactController) interactController.OnStartInteractAction += OnInteractStarted;
@@ -98,7 +100,7 @@ namespace Player.New
             SubscribeInputs(false);
             if (health != null) health.OnDeath -= OnPlayerDeath;
             if (health) health.OnTakeDamage -= OnPlayerDamaged;
-            
+
             if (interactController) interactController.OnStartInteractAction -= OnInteractStarted;
             if (interactController) interactController.OnEndInteractAction -= OnInteractEnded;
             if (_sFall != null) _sFall.OnEnter -= FallResetActionFsm;
@@ -115,7 +117,7 @@ namespace Player.New
             float dt = Time.deltaTime;
             UpdateCooldowns(dt);
             interactController.DetectInteractions();
-            
+
             _locomotionFsm.Update();
             _actionFsm.Update();
         }
@@ -149,6 +151,7 @@ namespace Player.New
             if (!Dash.CanUse(model)) return;
             if (model.DashBlocked) return;
             _locomotionFsm.ForceTransition(_sDash);
+            _actionFsm.ForceTransition(_aIdle);
         }
 
         private void OnJump()
@@ -162,13 +165,14 @@ namespace Player.New
         {
             model.ResetAfk();
             if (IsActionBlocked()) return;
+            if (!motor.IsGrounded) return;
             interactController.Interact();
         }
 
         private void OnAttackBasic()
         {
             model.ResetAfk();
-            
+
             if (IsActionBlocked())
             {
                 return;
@@ -186,15 +190,15 @@ namespace Player.New
 
             _actionFsm.GetCurrentState()?.HandleInput(CommandKeys.AttackPressed);
             _locomotionFsm.ForceTransition(_sIdle);
-            
         }
 
         /// <summary>Heavy presionado: entra a SpinCharge (si grounded y sin cooldown).</summary>
         private void OnAttackHeavyPressed()
         {
             model.ResetAfk();
-            if (!motor.IsGrounded || model.SpinOnCooldown) return;
-            
+            if (!motor.IsGrounded || model.SpinOnCooldown || _actionFsm.GetCurrentState() == _aSpinRelease ||
+                _actionFsm.GetCurrentState() == _aSelfStun) return;
+
             _actionFsm.ForceTransition(_aSpinCharge);
             _locomotionFsm.ForceTransition(_sIdle);
         }
@@ -209,20 +213,20 @@ namespace Player.New
         /// <summary>Estado de “dash mantenido” para la mecánica de sprint.</summary>
         private void OnDashHeldChanged(bool held) => model.DashHeld = held;
 
-        private void OnPlayerDeath()
+        private void OnPlayerDeath(DamageInfo damageInfo)
         {
             model.ResetAfk();
             hud.SetHealth(0);
             _actionFsm?.ForceTransition(_aIdle);
             interactController.InterruptInteraction();
             _locomotionFsm.ForceTransition(_sDeath);
-            GameEvents.GameEvents.PlayerDied(gameObject);
+            GameEvents.GameEvents.PlayerDied();
         }
 
         private void OnPlayerDamaged(DamageInfo info)
         {
             if (_locomotionFsm.GetCurrentState() == _sDeath) return;
-            
+
             model.ResetAfk();
             model.LastDamage = info;
             hud.OnDamaged();
@@ -242,7 +246,7 @@ namespace Player.New
         {
             _locomotionFsm.ForceTransition(_sIdle);
         }
-        
+
         #endregion
 
         // ───────────────────────────────────────────────────────────────────────
@@ -254,13 +258,13 @@ namespace Player.New
         /// <summary>Aplica tick a todos los cooldowns y actualiza la UI (si existe).</summary>
         private void UpdateCooldowns(float dt)
         {
-            // Dash
-            if (model.DashOnCooldown)
-            {
-                model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
-                if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
-                _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
-            }
+            // // Dash
+            // if (model.DashOnCooldown)
+            // {
+            //     model.DashCooldownLeft = Mathf.Max(0f, model.DashCooldownLeft - dt);
+            //     if (model.DashCooldownLeft <= 0f) model.DashOnCooldown = false;
+            //     _sDash?.OnDashCooldownUI?.Invoke(model.DashCooldownLeft);
+            // }
 
             // Spin
             if (model.SpinOnCooldown)
@@ -299,6 +303,8 @@ namespace Player.New
             if (motor == null) motor = GetComponent<MyKinematicMotor>();
             if (model == null) model = ScriptableObject.CreateInstance<PlayerModel>();
 
+            _myCharacterCamera = cameraRef.GetComponent<MyCharacterCamera>();
+
             if (!model) return;
             model.HasExtraJump = false;
             model.DashBuffPending = false;
@@ -306,8 +312,8 @@ namespace Player.New
             model.DashBlocked = false;
 
             if (!hud) return;
+            health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());
-            
         }
 
         /// <summary>
@@ -316,20 +322,31 @@ namespace Player.New
         /// </summary>
         private void BuildLocomotionFsm()
         {
-            void RequestLocomotionTransition(string transitionId) => _locomotionFsm.TryTransitionTo(transitionId);
+            void RequestLocomotionTransition(string transitionId)
+            {
+                if (_locomotionFsm.GetCurrentState() != _sDeath)
+                {
+                    _locomotionFsm.TryTransitionTo(transitionId);
+                }
+            }
 
             _sIdle = new WalkIdle(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController);
 
-            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
+            _sJumpGround = new JumpGround(motor, model, cameraRef.transform, RequestLocomotionTransition,
+                anim: animController, vfxController, audioController);
 
-            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
+            _sJumpAir = new JumpAir(motor, model, cameraRef.transform, RequestLocomotionTransition,
+                anim: animController, vfxController, audioController);
 
             _sInteract = new Interact(motor, model, RequestLocomotionTransition, anim: animController);
-            
-            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, audioController);
 
-            _sDash = new Dash(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController, audioController);
-            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController, vfxController);
+            _sFall = new Fall(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController,
+                audioController);
+
+            _sDash = new Dash(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController,
+                vfxController, audioController);
+            _sSprint = new Sprint(motor, model, cameraRef.transform, RequestLocomotionTransition, anim: animController,
+                vfxController);
 
             _sDeath = new Death(
                 motor,
@@ -341,7 +358,8 @@ namespace Player.New
                 () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true)
             );
 
-            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController, audioController);
+            _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController,
+                audioController);
 
             // Transiciones de locomoción
             _sSprint.AddTransition(new Transition { From = _sSprint, To = _sIdle, ID = Sprint.ToWalkIdle });
@@ -351,7 +369,7 @@ namespace Player.New
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sSprint, ID = WalkIdle.ToSprint });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sJumpGround, ID = WalkIdle.ToJump });
             _sIdle.AddTransition(new Transition { From = _sIdle, To = _sFall, ID = WalkIdle.ToFall });
-            _sIdle.AddTransition(new Transition{From = _sIdle, To = _sInteract, ID = WalkIdle.ToInteract});
+            _sIdle.AddTransition(new Transition { From = _sIdle, To = _sInteract, ID = WalkIdle.ToInteract });
 
             _sJumpGround.AddTransition(new Transition { From = _sJumpGround, To = _sFall, ID = JumpGround.ToFall });
             _sJumpGround.AddTransition(
@@ -359,10 +377,12 @@ namespace Player.New
             _sJumpAir.AddTransition(new Transition { From = _sJumpAir, To = _sFall, ID = JumpAir.ToFall });
 
             _sFall.AddTransition(new Transition { From = _sFall, To = _sIdle, ID = Fall.ToWalkIdle });
+            _sFall.AddTransition(new Transition { From = _sFall, To = _sSprint, ID = Fall.ToSprint });
             _sFall.AddTransition(new Transition { From = _sFall, To = _sJumpAir, ID = Fall.ToJumpAir });
 
             _sDash.AddTransition(new Transition { From = _sDash, To = _sIdle, ID = Dash.ToWalkIdle });
             _sDash.AddTransition(new Transition { From = _sDash, To = _sFall, ID = Dash.ToFall });
+            _sDash.AddTransition(new Transition { From = _sDash, To = _sSprint, ID = Dash.ToSprint });
 
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
 
@@ -376,20 +396,29 @@ namespace Player.New
         /// </summary>
         private void BuildActionFsm()
         {
-            void RequestActionTransition(string transitionId) => _actionFsm.TryTransitionTo(transitionId);
+            void RequestActionTransition(string transitionId)
+            {
+                if (_locomotionFsm.GetCurrentState() != _sDeath)
+                {
+                    _actionFsm.TryTransitionTo(transitionId);
+                }
+            }
+
 
             _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor, audioController);
-            _a1 = new Attack1(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a2 = new Attack2(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _a3 = new Attack3(motor, model, RequestActionTransition, animController, vfxController, audioController);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, animController, vfxController, audioController);
+            _a1 = new Attack1(motor, model, _myCharacterCamera ,RequestActionTransition, animController, vfxController, audioController);
+            _a2 = new Attack2(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
+            _a3 = new Attack3(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera ,animController, vfxController, audioController);
             _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
             _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
+			
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController, vfxController);
 
             // Transiciones de acciones
             _aIdle.AddTransition(new Transition { From = _aIdle, To = _a1, ID = AttackIdle.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _a2, ID = Attack1.ToAttack2 });
+            _a1.AddTransition(new Transition { From = _a1, To = _a1, ID = Attack1.ToAttack1 });
             _a1.AddTransition(new Transition { From = _a1, To = _aIdle, ID = Attack1.ToIdle });
             _a2.AddTransition(new Transition { From = _a2, To = _a3, ID = Attack2.ToAttack3 });
             _a2.AddTransition(new Transition { From = _a2, To = _aIdle, ID = Attack2.ToIdle });
@@ -451,6 +480,7 @@ namespace Player.New
         {
             _actionFsm?.ForceTransition(_aIdle);
         }
+
         public void SetPlayerIdleState()
         {
             _locomotionFsm?.ForceTransition(_sIdle);
@@ -460,10 +490,10 @@ namespace Player.New
         {
             animController?.TriggerDoubleJump();
         }
-        
+
         private void FallResetActionFsm()
         {
-            if (_actionFsm.GetCurrentState() == _aVertical )
+            if (_actionFsm.GetCurrentState() == _aVertical)
             {
                 return;
             }
@@ -478,13 +508,17 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm?.ForceTransition(_sIdle);
 
+            GameEvents.GameEvents.PlayerRevived();
+
             model.ClearActionLocks();
             model.ResetJumps();
             model.LocomotionBlocked = false;
             model.IsDead = false;
 
+
             motor.WarpTo(pos, rot);
             motor.SetVelocity(Vector3.zero);
+
 
             if (!resetHealth || health == null) return;
             health.ResetHealth();

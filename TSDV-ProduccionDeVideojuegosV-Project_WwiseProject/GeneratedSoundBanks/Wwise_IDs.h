@@ -13,6 +13,11 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID AMBACIDPIPE = 3640817996U;
+        static const AkUniqueID AMBACIDPIPEGAS = 3927828283U;
+        static const AkUniqueID AMBACIDSTREAM = 2773708536U;
+        static const AkUniqueID AMBFIRE = 857272499U;
+        static const AkUniqueID MUSIC_LVL1_1 = 158641202U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;
@@ -26,13 +31,40 @@ namespace AK
         static const AkUniqueID PLAYERGETSHIT = 608095284U;
         static const AkUniqueID PLAYERJUMP = 4008126242U;
         static const AkUniqueID PLAYERJUMP2 = 937597620U;
+        static const AkUniqueID PLAYERSPINCHARGE1 = 395070063U;
+        static const AkUniqueID PLAYERSPINCHARGE2 = 395070060U;
+        static const AkUniqueID PLAYERSPINCHARGE3 = 395070061U;
         static const AkUniqueID PLAYERSTEP = 412471812U;
+        static const AkUniqueID PROPULSORBOUNCE = 778438783U;
     } // namespace EVENTS
+
+    namespace SWITCHES
+    {
+        namespace STEPFLOORTYPE
+        {
+            static const AkUniqueID GROUP = 3407025663U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID CARPET = 2412606308U;
+                static const AkUniqueID METAL = 2473969246U;
+                static const AkUniqueID TILE = 2637588553U;
+                static const AkUniqueID WOOD = 2058049674U;
+            } // namespace SWITCH
+        } // namespace STEPFLOORTYPE
+
+    } // namespace SWITCHES
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID LVL_1 = 2397100949U;
+        static const AkUniqueID PLAYER = 1069431850U;
     } // namespace BANKS
 
     namespace BUSSES

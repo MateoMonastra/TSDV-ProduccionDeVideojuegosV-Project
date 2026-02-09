@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections;
-using System.Data;
-using Player.New;
 using UnityEngine;
 
-namespace KinematicCharacterController.Examples
+namespace Player.Old.KinematicCharacterController.ExampleCharacter.Scripts
 {
     public class InteractController : MonoBehaviour
     {
-        private IInteractable interactionTarget;
+        private IInteractable _interactionTarget;
         private Coroutine _interactionCoroutine;
 
         public Action<InteractData> OnStartInteractAction;
         public Action<InteractData> OnEndInteractAction;
+        
+       [SerializeField] private float detectionRadius = 22f;
 
 
         public void Interact()
         {
-            if (interactionTarget != null)
+            if (_interactionTarget != null)
             {
-                InteractData data = interactionTarget.Interact(false);
+                InteractData data = _interactionTarget.Interact(false);
 
                 if (data.successInteraction)
                 {
@@ -30,9 +30,9 @@ namespace KinematicCharacterController.Examples
 
         public void DetectInteractions()
         {
-            Collider[] colls = Physics.OverlapSphere(transform.position, 22.0f, LayerMask.GetMask("Interact"));
+            Collider[] colls = Physics.OverlapSphere(transform.position, detectionRadius, LayerMask.GetMask("Interact"));
 
-            interactionTarget = null;
+            _interactionTarget = null;
             IInteractable closestInteractable = null;
             float closestDistance = float.MaxValue;
 
@@ -57,7 +57,7 @@ namespace KinematicCharacterController.Examples
             if (closestInteractable != null)
             {
                 closestInteractable.SetIndicator(true);
-                interactionTarget = closestInteractable;
+                _interactionTarget = closestInteractable;
             }
         }
 
@@ -66,7 +66,7 @@ namespace KinematicCharacterController.Examples
             OnStartInteractAction?.Invoke(data);
             yield return new WaitForSeconds(data.interactionTime);
             OnEndInteractAction?.Invoke(data);
-            interactionTarget?.FinishInteraction();
+            _interactionTarget?.FinishInteraction();
         }
 
         public void InterruptInteraction()
@@ -74,7 +74,7 @@ namespace KinematicCharacterController.Examples
             if (_interactionCoroutine != null)
                 StopCoroutine(_interactionCoroutine);
             
-            interactionTarget?.InterruptInteraction();
+            _interactionTarget?.InterruptInteraction();
         }
     }
 }

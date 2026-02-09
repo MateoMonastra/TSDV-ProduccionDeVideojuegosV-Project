@@ -9,7 +9,7 @@ public class PlayerAnimStepAudio : MonoBehaviour
 
     public void OnStepAudio()
     {
-        Debug.Log("Step");
+        //Debug.Log("Step");
         _akPlayerStep.Post(PlayerAudio);
     }
 }

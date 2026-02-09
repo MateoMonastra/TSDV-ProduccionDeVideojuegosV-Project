@@ -73,7 +73,6 @@ namespace Player.New
         private void OnDeathFinished()
         {
             _doRespawn?.Invoke();
-            _req?.Invoke(ToWalkIdle);
             Finish();
         }
     }

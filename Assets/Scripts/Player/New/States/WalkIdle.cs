@@ -40,6 +40,8 @@ namespace Player.New
 
             _anim?.SetGrounded(true);
             _anim?.SetFalling(false);
+            Model.DashOnCooldown = false;
+
             //_anim?.SetWalking(false);
         }
 
@@ -117,6 +119,7 @@ namespace Player.New
         /// </summary>
         private void HandleSprintWindow(float dt)
         {
+
             if (!Motor.IsGrounded)
             {
                 Model.SprintArmed = false;

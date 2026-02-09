@@ -11,8 +11,9 @@ namespace Player.New
     public class Fall : LocomotionState
     {
         public const string ToWalkIdle = "ToWalkIdle";
-        public const string ToJumpAir  = "ToJumpAir";
-                
+        public const string ToSprint = "ToSprint";
+        public const string ToJumpAir = "ToJumpAir";
+
         private int _groundedFrames;
 
         private readonly PlayerAnimationController _anim;
@@ -25,7 +26,7 @@ namespace Player.New
         {
             _audioController = audioController;
             _anim = anim;
-            _actionFsm =  actionFsm;
+            _actionFsm = actionFsm;
         }
 
         public override void Enter()
@@ -45,11 +46,11 @@ namespace Player.New
         public override void Tick(float dt)
         {
             base.Tick(dt);
-            
+
             UpdateMoveInputWorld();
-            
+
             ApplyLocomotion(dt, inAir: true, limitAirSpeed: true, maxAirSpeed: Model.AirHorizontalSpeed);
-            
+
             if (Motor.IsGrounded)
             {
                 _groundedFrames++;
@@ -61,11 +62,16 @@ namespace Player.New
 
                     if (Model.LandStopsHorizontal)
                     {
-                        var v = Motor.Velocity; v.x = 0f; v.z = 0f;
+                        var v = Motor.Velocity;
+                        v.x = 0f;
+                        v.z = 0f;
                         Motor.SetVelocity(v);
                     }
 
-                    RequestTransition?.Invoke(ToWalkIdle);
+                    if (Model.SprintBuffered)
+                        RequestTransition?.Invoke(ToSprint);
+                        else
+                        RequestTransition?.Invoke(ToWalkIdle);
                 }
             }
             else
@@ -86,7 +92,6 @@ namespace Player.New
                 {
                     RequestTransition?.Invoke(ToJumpAir);
                 }
-
             }
         }
 

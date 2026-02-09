@@ -12,12 +12,10 @@ namespace UI
     {
         [SerializeField] private HeartWidget[] hearts;
 
-        [Header("Animación")]
-        [SerializeField, Tooltip("Si está activo, aplica los cambios uno por uno.")]
+        [Header("Animación")] [SerializeField, Tooltip("Si está activo, aplica los cambios uno por uno.")]
         private bool rtlSequential = false;
 
-        [SerializeField, Range(0.01f, 0.25f)]
-        private float rtlStepDelay = 0.06f;
+        [SerializeField, Range(0.01f, 0.25f)] private float rtlStepDelay = 0.06f;
 
         private int _prevCount = -1;
         private Coroutine _seqCo;
@@ -45,13 +43,21 @@ namespace UI
                 for (int i = 0; i < capacity; i++)
                 {
                     var state = (i < current) ? HeartState.Full : HeartState.Empty;
-                    if (hearts != null) hearts[i]?.Init(state);
+                    if (hearts != null)
+                    {
+                        hearts[i]?.Init(state);
+                    }
                 }
+
                 _prevCount = current;
                 return;
             }
 
-            if (_seqCo != null) { StopCoroutine(_seqCo); _seqCo = null; }
+            if (_seqCo != null)
+            {
+                StopCoroutine(_seqCo);
+                _seqCo = null;
+            }
 
             if (!rtlSequential)
             {
@@ -70,7 +76,9 @@ namespace UI
             if (current < _prevCount)
             {
                 for (int i = _prevCount - 1; i >= current; i--)
+                {
                     hearts[i]?.Play(HeartState.Empty, TransitionCause.Damage);
+                }
             }
             else if (current > _prevCount)
             {

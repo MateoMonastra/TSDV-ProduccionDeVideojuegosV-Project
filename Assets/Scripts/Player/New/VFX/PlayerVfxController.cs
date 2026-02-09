@@ -85,7 +85,7 @@ namespace Player.New.VFX
                     if (!system.gameObject.activeInHierarchy)
                         system.gameObject.SetActive(true);
 
-                    system.Clear(true);
+                    system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                     system.Play(true);
                 }
             }
@@ -110,7 +110,7 @@ namespace Player.New.VFX
                 if (!system.gameObject.activeInHierarchy)
                     system.gameObject.SetActive(true);
 
-                system.Clear(true);
+                system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                 system.Play(true);
             }
         }
@@ -189,7 +189,7 @@ namespace Player.New.VFX
         }
 
         /// <summary>Detiene solo una variante por índice.</summary>
-        public void Stop(VfxEvent key, int variantIndex, bool clear = false)
+        public void Stop(VfxEvent key, int variantIndex, int systemIndex, ParticleSystemStopBehavior stopBehavior, bool clear = false)
         {
             if (!_map.TryGetValue(key, out var variants) || variants == null) return;
             if (variantIndex < 0 || variantIndex >= variants.Count) return;
@@ -197,12 +197,12 @@ namespace Player.New.VFX
             var systems = variants[variantIndex];
             if (systems == null) return;
 
-            foreach (var system in systems)
+            for (int i = 0; i < systems.Length; i++)
             {
-                if (system == null) continue;
+                if (systems[i] == null || systemIndex != i) continue;
 
-                system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-                if (clear) system.Clear(true);
+                systems[i].Stop(true, stopBehavior);
+                if (clear) systems[i].Clear(true);
             }
         }
     }

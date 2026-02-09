@@ -1,5 +1,7 @@
 ﻿using Health;
 using UnityEngine;
+using UnityEngine.InputSystem.Composites;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Player.New
@@ -28,9 +30,10 @@ namespace Player.New
         [SerializeField, Tooltip("Velocidad horizontal máxima en el aire (m/s).")]
         private float airHorizontalSpeed = 6f;
 
-        [SerializeField, Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
+        [SerializeField,
+         Tooltip("Al aterrizar, ¿anular el horizontal? (true = frena en seco; false = conserva momentum)")]
         private bool landStopsHorizontal = false;
-        
+
         [Header("Ground Tuning (Anti-Drift / Sprint Turning)")]
         [SerializeField, Range(1f, 40f), Tooltip("Qué tan rápido gira la velocidad hacia el input en suelo.")]
         private float groundReorientationSharpness = 10f;
@@ -49,15 +52,16 @@ namespace Player.New
 
         [SerializeField, Range(0f, 100f), Tooltip("Deceleración al soltar input durante sprint.")]
         private float sprintBrakingDecel = 32f;
-        
+
         [SerializeField, Tooltip("Altura mínima desde el suelo para considerar Fall")]
         private float minFallHeight = 0.35f;
+
         public float MinFallHeight
         {
             get => minFallHeight;
             set => minFallHeight = value;
         }
-        
+
         /// <summary>Sharpness de reorientación en suelo.</summary>
         public float GroundReorientationSharpness
         {
@@ -101,7 +105,6 @@ namespace Player.New
         }
 
 
-
         /// <summary>Si true, al aterrizar se anula la velocidad horizontal; si false, se conserva.</summary>
         public bool LandStopsHorizontal
         {
@@ -131,6 +134,7 @@ namespace Player.New
         }
 
         #endregion
+
         // ───────────────────────────────────────────────────────────────────────
 
         #region Sprint (hold window + behavior)
@@ -274,7 +278,7 @@ namespace Player.New
 
         [SerializeField, Range(1f, 30f), Tooltip("Sharpness del ease-out (↑ más snappy).")]
         private float dashExitSharpness = 10f;
-        
+
         [SerializeField, Tooltip("Sharpness de la rotación.")]
         private float dashRotationSharpness = 12f;
 
@@ -312,6 +316,7 @@ namespace Player.New
             get => dashExitSharpness;
             set => dashExitSharpness = value;
         }
+
         public float DashRotationSharpness
         {
             get => dashRotationSharpness;
@@ -412,27 +417,59 @@ namespace Player.New
 
         [Header("Attack (Combo Básico)")] [SerializeField, Tooltip("Daño base por golpe.")]
         private int attackDamage = 10;
+        
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack1KnockbackDistance = new Vector2(8,8);
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack2KnockbackDistance = new Vector2(8,8);
+        [SerializeField, Tooltip("Empuje radial (m).")]
+        private Vector2 attack3KnockbackDistance = new Vector2(8,8);
+        
+        [SerializeField]
+        private float attack1HitTime = 0.0f; // When the damage happens
+        [SerializeField]
+        private float attack1ChainWindowStart = 0.2f; // When we start listening for the next combo
+        [SerializeField]
+        private float attack1ChainWindowEnd = 0.5f; // When the natural window closes (Duration)
+        [SerializeField]
+        private float attack1LateGraceEnd = 0.85f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack1TotalDuration = 1.0f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack1TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
 
-        [SerializeField, Tooltip("Duración del ataque 1 (s).")]
-        private float attack1Duration = 0.25f;
+        //
 
-        [SerializeField, Tooltip("Duración del ataque 2 (s).")]
-        private float attack2Duration = 0.28f;
+        [SerializeField]
+        private float attack2HitTime = 0.15f; // When the damage happens
+        [SerializeField]
+        private float attack2ChainWindowStart = 0.05f; // When we start listening for the next combo
+        [SerializeField]
+        private float attack2ChainWindowEnd = 0.4f; // When the natural window closes (Duration)
+        [SerializeField]
+        private float attack2LateGraceEnd = 0.75f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack2TotalDuration = 1.0f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack2TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
+                                                    
+        //
 
-        [SerializeField, Tooltip("Duración del ataque 3 (s).")]
-        private float attack3Duration = 0.34f;
+        [SerializeField]
+        private float attack3HitTime = 0.1f; // When the damage happens
+        [SerializeField]
+        private float attack3TotalDuration = 0.8f; // Total time allowed to "save" the combo
+        [SerializeField]
+        private float attack3TotalStunDuration = 0.5f; // Total time allowed to "save" the combo
+
+        //
+
 
         [SerializeField, Tooltip("Alcance efectivo frontal (m).")]
         private float attackRange = 2.0f;
 
         [SerializeField, Range(5f, 360f), Tooltip("Semiancho del cono frontal (°).")]
         private float attackHalfAngleDegrees = 55f;
-
-        [SerializeField, Tooltip("Ventana para encadenar siguiente golpe (s).")]
-        private float attackChainWindow = 0.30f;
-
-        [SerializeField, Tooltip("Tolerancia posterior al fin del ataque para aceptar el chain (s).")]
-        private float attackLateChainGrace = 0.08f;
 
         // [SerializeField, Tooltip("Empuje al enemigo impactado (m).")]
         // private float attackKnockbackDistance = 2.5f;
@@ -449,22 +486,96 @@ namespace Player.New
             set => attackDamage = value;
         }
 
-        public float Attack1Duration
+        public float Attack1HitTime
         {
-            get => attack1Duration;
-            set => attack1Duration = value;
+            get => attack1HitTime;
+            set => attack1HitTime = value;
         }
 
-        public float Attack2Duration
+
+        public float Attack1ChainWindowStart
         {
-            get => attack2Duration;
-            set => attack2Duration = value;
+            get => attack1ChainWindowStart;
+            set => attack1ChainWindowStart = value;
         }
 
-        public float Attack3Duration
+        public float Attack1ChainWindowEnd
         {
-            get => attack3Duration;
-            set => attack3Duration = value;
+            get => attack1ChainWindowEnd;
+            set => attack1ChainWindowEnd = value;
+        }
+
+        public float Attack1LateGraceEnd
+        {
+            get => attack1LateGraceEnd;
+            set => attack1LateGraceEnd = value;
+        }
+
+        public float Attack1TotalDuration
+        {
+            get => attack1TotalDuration;
+            set => attack1TotalDuration = value;
+        }
+
+        public float Attack1StunDuration
+        {
+            get => attack1TotalStunDuration;
+            set => attack1TotalStunDuration = value;
+        }
+
+        public float Attack2HitTime
+        {
+            get => attack2HitTime;
+            set => attack2HitTime = value;
+        }
+
+
+        public float Attack2ChainWindowStart
+        {
+            get => attack2ChainWindowStart;
+            set => attack2ChainWindowStart = value;
+        }
+
+        public float Attack2ChainWindowEnd
+        {
+            get => attack2ChainWindowEnd;
+            set => attack2ChainWindowEnd = value;
+        }
+
+        public float Attack2LateGraceEnd
+        {
+            get => attack2LateGraceEnd;
+            set => attack2LateGraceEnd = value;
+        }
+
+        public float Attack2TotalDuration
+        {
+            get => attack2TotalDuration;
+            set => attack2TotalDuration = value;
+        }
+
+        public float Attack2StunDuration
+        {
+            get => attack2TotalStunDuration;
+            set => attack2TotalStunDuration = value;
+        }
+
+        public float Attack3HitTime
+        {
+            get => attack3HitTime;
+            set => attack3HitTime = value;
+        }
+
+        public float Attack3TotalDuration
+        {
+            get => attack3TotalDuration;
+            set => attack3TotalDuration = value;
+        }
+        
+        public float Attack3StunDuration
+        {
+            get => attack3TotalStunDuration;
+            set => attack3TotalStunDuration = value;
         }
 
         public float AttackRange
@@ -479,24 +590,26 @@ namespace Player.New
             set => attackHalfAngleDegrees = value;
         }
 
-        public float AttackChainWindow
+        public Vector2 Attack1KnockbackDistance
         {
-            get => attackChainWindow;
-            set => attackChainWindow = value;
+            get => attack1KnockbackDistance;
+            set => attack1KnockbackDistance = value;
         }
 
-        public float AttackLateChainGrace
+        
+
+        public Vector2 Attack2KnockbackDistance
         {
-            get => attackLateChainGrace;
-            set => attackLateChainGrace = value;
+            get => attack2KnockbackDistance;
+            set => attack2KnockbackDistance = value;
         }
 
-        // public float AttackKnockbackDistance
-        // {
-        //     get => attackKnockbackDistance;
-        //     set => attackKnockbackDistance = value;
-        // }
-
+        public Vector2 Attack3KnockbackDistance
+        {
+            get => attack3KnockbackDistance;
+            set => attack3KnockbackDistance = value;
+        }
+        
         // public float AttackStaggerTime
         // {
         //     get => attackStaggerTime;
@@ -524,11 +637,11 @@ namespace Player.New
         private int verticalDamage = 12;
 
         [SerializeField, Tooltip("Empuje radial (m).")]
-        private float verticalKnockbackDistance = 2.5f;
+        private Vector2 verticalAttackKnockbackDistance = Vector2.one;
 
         [SerializeField, Tooltip("Stagger en enemigos (s).")]
         private float verticalStaggerTime = 0.35f;
-        
+
         [SerializeField, Tooltip("Tiempo para atrasar el impacto para que sincronice con la animación (s).")]
         private float verticalAttackImpactDelay = 0.35f;
 
@@ -602,10 +715,10 @@ namespace Player.New
             set => verticalDamage = value;
         }
 
-        public float VerticalKnockbackDistance
+        public Vector2 VerticalAttackKnockbackDistance
         {
-            get => verticalKnockbackDistance;
-            set => verticalKnockbackDistance = value;
+            get => verticalAttackKnockbackDistance;
+            set => verticalAttackKnockbackDistance = value;
         }
 
         public float VerticalStaggerTime
@@ -619,7 +732,7 @@ namespace Player.New
             get => verticalAttackImpactDelay;
             set => verticalAttackImpactDelay = value;
         }
-        
+
         public float VerticalAttackCooldown
         {
             get => verticalAttackCooldown;
@@ -840,7 +953,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Bloquea el salto.")]
         private bool jumpBlocked = false;
-        
+
         [SerializeField, Tooltip("Bloquea el dash.")]
         private bool dashBlocked = false;
 
@@ -876,6 +989,7 @@ namespace Player.New
             get => jumpBlocked;
             set => jumpBlocked = value;
         }
+
         public bool DashBlocked
         {
             get => dashBlocked;
@@ -922,7 +1036,7 @@ namespace Player.New
 
         [SerializeField, Tooltip("Layer del Player")]
         private LayerMask playerLayer;
-        
+
         [SerializeField, Tooltip("Segundos de inactividad para disparar animación AFK.")]
         private float afkSeconds = 7f;
 
@@ -997,6 +1111,7 @@ namespace Player.New
         [System.NonSerialized] private float _selfStunDuration;
 
         [System.NonSerialized] private bool _sprintArmed;
+        [System.NonSerialized] private bool _sprintBuffered;
         [System.NonSerialized] private bool _dashHeld;
         [System.NonSerialized] private float _sprintArmTimeLeft;
         [System.NonSerialized] private float _sprintHoldCounter;
@@ -1005,10 +1120,10 @@ namespace Player.New
         [System.NonSerialized] public Quaternion RespawnRotation;
 
         [System.NonSerialized] private bool _isDead;
-        
+
         [System.NonSerialized] private float _afkTimer;
         [System.NonSerialized] private bool _afkTriggered;
-        
+
         [System.NonSerialized] public readonly float MinSpeedSqr = 0.0001f;
         [System.NonSerialized] public readonly float MinInputSqr = 1e-5f;
 
@@ -1137,18 +1252,34 @@ namespace Player.New
             set => _selfStunDuration = value;
         }
 
+        public bool SprintBuffered
+        {
+            get => _sprintBuffered;
+            set => _sprintBuffered = value;
+        }
+        
         /// <summary>Ventana post-dash armada para iniciar sprint.</summary>
         public bool SprintArmed
         {
             get => _sprintArmed;
-            set => _sprintArmed = value;
+
+            set
+            {
+                _sprintArmed = value;
+            }
         }
 
         /// <summary>Estado de botón de dash mantenido (para hold de sprint).</summary>
         public bool DashHeld
         {
             get => _dashHeld;
-            set => _dashHeld = value;
+            set
+            {
+                if(value == false)
+                _sprintBuffered = value;
+                
+                _dashHeld = value;   
+            }
         }
 
         /// <summary>Tiempo restante de la ventana de sprint (s).</summary>
@@ -1162,7 +1293,7 @@ namespace Player.New
         public float SprintHoldCounter
         {
             get => _sprintHoldCounter;
-            set => _sprintHoldCounter = value;
+            set { _sprintHoldCounter = value; }
         }
 
         #endregion
@@ -1218,8 +1349,8 @@ namespace Player.New
             _attackComboOnCooldown = false;
             _attackComboCooldownLeft = 0f;
         }
-        
-        
+
+
         /// <summary>Resetea contador y estado AFK.</summary>
         public void ResetAfk()
         {

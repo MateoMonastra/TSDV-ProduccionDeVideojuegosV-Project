@@ -11,7 +11,7 @@ namespace Player.New
         private CapsuleCollider capsule;
 
         [SerializeField] private LayerMask collisionMask;
-        [SerializeField] private LayerMask groundMask;
+        public LayerMask groundMask;
 
         [Header("Movement Settings")] [SerializeField]
         private float characterMass = 1f;
@@ -45,6 +45,20 @@ namespace Player.New
         [Header("Runtime Locks")]
         [SerializeField, Tooltip("Si está activo, el motor NO integra ni mueve al personaje.")]
         private bool frozen = false;
+
+        [Header("Low-speed snap")] [SerializeField]
+        private float lowSpeedMin = 0.25f;
+
+        [SerializeField] private float lowSpeedSnapMaxDist = 0.50f;
+
+        [SerializeField] private bool rotationLocked = false;
+
+        public bool RotationLocked
+        {
+            get => rotationLocked;
+            set => rotationLocked = value;
+        }
+
 
         /// <summary>Congela/descongela la integración del motor.</summary>
         public bool Frozen
@@ -90,7 +104,15 @@ namespace Player.New
 
         public void SetVelocity(Vector3 velocity) => _velocity = velocity;
         public void AddVelocity(Vector3 deltaVelocity) => _velocity += deltaVelocity;
-        public void SetRotation(Quaternion rotation) => _rotation = rotation;
+
+        public void SetRotation(Quaternion rotation)
+        {
+            if (rotationLocked)
+                return;
+
+            _rotation = rotation;
+        }
+
         public Vector3 CharacterUp => Vector3.up;
         public CharacterGroundingReport GroundingReport => _groundingReport;
 
@@ -153,7 +175,13 @@ namespace Player.New
             {
                 _groundingReport = default;
             }
-            
+
+            if (_velocity.sqrMagnitude <= lowSpeedMin * lowSpeedMin)
+            {
+                _groundingReport.SnappingPrevented = false;
+                TrySnapToGround(lowSpeedSnapMaxDist);
+            }
+
             _movementSolver.Solve(ref _velocity, deltaTime, ref _position);
 
             if (_ungroundTimer <= 0f && _velocity.y <= maxSnapSpeed)
@@ -174,7 +202,7 @@ namespace Player.New
 
         public void SetRotation(Vector3 direction)
         {
-            if (direction != Vector3.zero)
+            if (direction != Vector3.zero && !RotationLocked)
             {
                 _rotation = Quaternion.LookRotation(direction);
             }
@@ -182,7 +210,7 @@ namespace Player.New
 
         public void SmoothRotation(Vector3 direction, float sharpness, float deltaTime)
         {
-            if (direction.sqrMagnitude > 0.01f)
+            if (direction.sqrMagnitude > 0.01f && !RotationLocked)
             {
                 Quaternion targetRot = Quaternion.LookRotation(direction);
                 _rotation = Quaternion.Slerp(_rotation, targetRot, 1 - Mathf.Exp(-sharpness * deltaTime));
@@ -191,10 +219,7 @@ namespace Player.New
 
         public void ApplyGravity(float gravity, float deltaTime)
         {
-            if (!IsGrounded)
-            {
-                _velocity.y += gravity * deltaTime;
-            }
+            _velocity.y += gravity * deltaTime;
         }
 
         /// <summary>Ignora detección de suelo durante "duration" segundos.</summary>

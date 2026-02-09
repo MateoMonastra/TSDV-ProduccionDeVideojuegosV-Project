@@ -36,6 +36,13 @@ namespace Player.New.Audio
         private AK.Wwise.Event _akPlayerChargeAttackStop;
         [SerializeField]
         private AK.Wwise.Event _akPlayerAttackSmashHitFloor;
+        [SerializeField]
+        private AK.Wwise.Event _akPlayerSpinCharge1;
+        [SerializeField]
+        private AK.Wwise.Event _akPlayerSpinCharge2;
+        [SerializeField]
+        private AK.Wwise.Event _akPlayerSpinCharge3;
+
 
         public void PlayJumpAudio()
         {
@@ -73,55 +80,74 @@ namespace Player.New.Audio
 
         public void PlayPlayerAttack1()
         {
-            Debug.Log("PlayPlayerAttack1");
+            //Debug.Log("PlayPlayerAttack1");
             _akPlayerAttack1.Post(this.gameObject);
         }
 
         public void PlayPlayerAttack2()
         {
-            Debug.Log("PlayPlayerAttack2");
+            //Debug.Log("PlayPlayerAttack2");
             _akPlayerAttack2.Post(this.gameObject);
         }
 
         public void PlayPlayerAttack3()
         {
-            Debug.Log("PlayPlayerAttack3");
+            //Debug.Log("PlayPlayerAttack3");
             _akPlayerAttack3.Post(this.gameObject);
         }
 
         public void PlayPlayerAttackSmash()
         {
-            Debug.Log("PlayPlayerAttackSmash");
+            //Debug.Log("PlayPlayerAttackSmash");
             _akPlayPlayerAttackSmash.Post(this.gameObject);
         }
 
         public void PlayPlayerChargeStart()
         {
-            Debug.Log("PlayerChargeStart");
+            //Debug.Log("PlayerChargeStart");
             _akPlayerChargeStart.Post(this.gameObject);
         }
 
         public void PlayPlayerChargeStopFail()
         {
-            Debug.Log("PlayerChargeStopFail");
+            //Debug.Log("PlayerChargeStopFail");
             _akPlayerChargeStopFail.Post(this.gameObject);
         }
         public void PlayPlayerChargeAttackStart()
         {
-            Debug.Log("PlayerChargeAttackStart");
+            //Debug.Log("PlayerChargeAttackStart");
             _akPlayerChargeAttackStart.Post(this.gameObject);
         }
         public void PlayPlayerChargeAttackStop()
         {
-            Debug.Log("PlayerChargeAttackStop");
+            //Debug.Log("PlayerChargeAttackStop");
             _akPlayerChargeAttackStop.Post(this.gameObject);
         }
 
         public void PlayPlayerAttackSmashHitFloor()
         {
-            Debug.Log("PlayPlayerAttackSmashHitFloor");
+            //Debug.Log("PlayPlayerAttackSmashHitFloor");
             _akPlayerAttackSmashHitFloor.Post(this.gameObject);
 
         }
+        public void PlayPlayerSpinCharge1()
+        {
+            //Debug.Log("PlayPlayerSpinCharge1");
+            _akPlayerSpinCharge1.Post(this.gameObject);
+
+        }
+        public void PlayPlayerSpinCharge2()
+        {
+            //Debug.Log("PlayPlayerSpinCharge2");
+            _akPlayerSpinCharge2.Post(this.gameObject);
+
+        }
+        public void PlayPlayerSpinCharge3()
+        {
+            //Debug.Log("PlayPlayerSpinCharge3");
+            _akPlayerSpinCharge3.Post(this.gameObject);
+
+        }
+
     }
 }

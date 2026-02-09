@@ -17,9 +17,9 @@ MonoBehaviour:
   airHorizontalSpeed: 15
   landStopsHorizontal: 0
   groundReorientationSharpness: 24
-  sprintReorientationSharpness: 5
-  groundLateralFriction: 28
-  sprintLateralFriction: 14
+  sprintReorientationSharpness: 60
+  groundLateralFriction: 2.4
+  sprintLateralFriction: 4.4
   groundBrakingDecel: 32
   sprintBrakingDecel: 55
   minFallHeight: 6
@@ -32,11 +32,11 @@ MonoBehaviour:
   orientWithCameraWhileIdle: 0
   jumpSpeed: 16
   maxJumps: 2
-  dashDistance: 1.8
-  dashSpeed: 30
-  dashCooldown: 1.8
+  dashDistance: 5
+  dashSpeed: 20
+  dashCooldown: 0.2
   dashExitBlendTime: 0.12
-  dashExitSharpness: 1
+  dashExitSharpness: 10
   dashRotationSharpness: 12
   hasExtraJump: 0
   dashBuffPending: 0
@@ -49,17 +49,30 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
-  attack1Duration: 1.25
-  attack2Duration: 0.43
-  attack3Duration: 1.25
+  attack1KnockbackDistance: {x: 8.4, y: 25}
+  attack2KnockbackDistance: {x: 8.4, y: 25}
+  attack3KnockbackDistance: {x: 8.4, y: 25}
+  attack1HitTime: 0.25
+  attack1ChainWindowStart: 0.2
+  attack1ChainWindowEnd: 0.55
+  attack1LateGraceEnd: 0.65
+  attack1TotalDuration: 1
+  attack1TotalStunDuration: 0.6
+  attack2HitTime: 0.1
+  attack2ChainWindowStart: 0.2
+  attack2ChainWindowEnd: 0.3
+  attack2LateGraceEnd: 0.55
+  attack2TotalDuration: 0.6
+  attack2TotalStunDuration: 0.6
+  attack3HitTime: 0.25
+  attack3TotalDuration: 0.8
+  attack3TotalStunDuration: 0.6
   attackRange: 4
   attackHalfAngleDegrees: 120
-  attackChainWindow: 0.3
-  attackLateChainGrace: 0.08
-  attackComboCooldown: 0.4
+  attackComboCooldown: 0
   verticalAttackRadius: 2.8
   verticalDamage: 1
-  verticalKnockbackDistance: 2.5
+  verticalAttackKnockbackDistance: {x: 8, y: 60}
   verticalStaggerTime: 0.35
   verticalAttackImpactDelay: 0.35
   verticalAttackCooldown: 1

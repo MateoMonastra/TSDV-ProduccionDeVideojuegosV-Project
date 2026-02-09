@@ -10,22 +10,39 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Bus Name="Player" ID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}"/>
-						<Bus Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}"/>
+						<Bus Name="Player" ID="{0EA81A79-404D-4F8E-BE54-ABC9AF0F10E3}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="1"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
+						<Bus Name="SFX" ID="{A683C51F-7F0B-4700-8627-BC59ABA13EBA}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="13"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
 						<Bus Name="Ambs" ID="{5B54036C-E97F-42B8-9A6F-EF72D840B311}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="4"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
 							<ObjectLists>
 								<ObjectList Name="Effects">
 									<Reference>
 										<Local>
-											<EffectSlot Name="" ID="{7F92B218-E016-45C5-BD5E-C3C218A31EB2}" ShortID="457349877">
-												<ReferenceList/>
-											</EffectSlot>
+											<EffectSlot Name="" ID="{7F92B218-E016-45C5-BD5E-C3C218A31EB2}" ShortID="457349877"/>
 										</Local>
 									</Reference>
 								</ObjectList>
 							</ObjectLists>
 						</Bus>
-						<Bus Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}"/>
+						<Bus Name="Music" ID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="7"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
 					</ChildrenList>
 				</Bus>
 			</ChildrenList>
