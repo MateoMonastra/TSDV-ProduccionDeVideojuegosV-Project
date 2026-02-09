@@ -130,13 +130,13 @@ namespace Player.New
             float aclamped = Mathf.Clamp(_t, aminT, amaxT);
             float valor = Mathf.InverseLerp(aminT, amaxT, aclamped);
 
-            if (_t >= _model.SpinChargeMinTime && !charge1)
+            if (!charge1)
             {
                 charge1 = true;
                 _vfxController.Play(VfxEvent.SpinCharge1);
                 _audioController.PlayPlayerSpinCharge1();
             }
-            else if (valor > 0.6f && !charge2)
+            else if (_t >= _model.SpinChargeMinTime && !charge2)
             {
                 charge2 = true;
                 _vfxController.Play(VfxEvent.SpinCharge2);
