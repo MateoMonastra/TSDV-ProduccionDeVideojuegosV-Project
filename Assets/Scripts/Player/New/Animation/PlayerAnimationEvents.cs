@@ -25,7 +25,7 @@ namespace Player.New.Animation
         public void FinishTransitionToIdle()
         {
             anim?.ResetTriggerIdle();
-            anim?.SetCombatActive(false);
+            //anim?.SetCombatActive(false);
         }
     }
 }

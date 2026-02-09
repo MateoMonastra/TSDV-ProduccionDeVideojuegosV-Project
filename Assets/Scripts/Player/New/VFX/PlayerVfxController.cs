@@ -85,7 +85,7 @@ namespace Player.New.VFX
                     if (!system.gameObject.activeInHierarchy)
                         system.gameObject.SetActive(true);
 
-                    system.Clear(true);
+                    system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                     system.Play(true);
                 }
             }
@@ -110,7 +110,7 @@ namespace Player.New.VFX
                 if (!system.gameObject.activeInHierarchy)
                     system.gameObject.SetActive(true);
 
-                system.Clear(true);
+                system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                 system.Play(true);
             }
         }

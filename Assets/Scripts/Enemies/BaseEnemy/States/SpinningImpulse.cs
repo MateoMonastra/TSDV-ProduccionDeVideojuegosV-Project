@@ -3,25 +3,26 @@ using UnityEngine;
 
 namespace Enemies.BaseEnemy.States
 {
-    public class Impulse : BaseEnemyState
+    public class SpinningImpulse : BaseEnemyState
     {
         private UnityEngine.AI.NavMeshAgent _agent;
         private Rigidbody _rigidbody;
+        private TrailRenderer _trailRenderer;
         private Action _onImpulseStarted;
         private Action _onImpulseEnded;
         private Vector3 _impulseSource;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
         private Vector2 _impulseForce;
-        private float _elapsed;
-        private float _impulseDuration;
+        private float elapsed = 0;
         
-        public Impulse(Transform enemy, Transform player, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
+        public SpinningImpulse(Transform enemy, Transform player, TrailRenderer trailRenderer, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
         {
             _agent = agent;
             _rigidbody = rigidbody;
             _onImpulseStarted = onImpulseStarted;
             _onImpulseEnded = onImpulseEnded;
+            _trailRenderer = trailRenderer;
         }
 
         public override void Enter()
@@ -33,11 +34,13 @@ namespace Enemies.BaseEnemy.States
             _agent.enabled = false;
             Vector3 fromPlayer = player.forward;
             fromPlayer.y = 0;
-            Vector3 toPlayer = player.position;
+            Vector3 toPlayer = _impulseSource;
             toPlayer.y = enemy.position.y;
             enemy.LookAt(toPlayer);
 
-            _elapsed = 0;
+            elapsed = 0;
+            
+            _trailRenderer.enabled = true;
 
             _rigidbody.AddForce(
                 (enemy.position - _impulseSource).normalized * _impulseForce.x + Vector3.up * _impulseForce.y,
@@ -48,36 +51,32 @@ namespace Enemies.BaseEnemy.States
         {
             base.Tick(delta);
 
-            _elapsed += delta;
-
-            if(_elapsed < _impulseDuration)
+            elapsed += delta;
+            if (_rigidbody.linearVelocity.y < 0)
             {
-                if (_rigidbody.linearVelocity.y < 0)
-                {
-                    _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.FallMultiplier - 1) * delta);
-                }
-                else if (_rigidbody.linearVelocity.y > 0)
-                {
-                    _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.LowJumpMultiplier - 1) * delta);
-                }
+                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.SpinningFallMultiplier - 1) * delta);
             }
-           
-           
+            else if (_rigidbody.linearVelocity.y > 0)
+            {
+                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.SpinningLowJumpMultiplier - 1) * delta);
+            }
+
+            Quaternion deltaRotation = Quaternion.Euler(-460 * delta, 0, 0);
+        
+            _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
             
             GroundCheck();
         }
 
         private void GroundCheck()
         {
-            bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, 0.5f, model.GroundLayer);
+            Debug.DrawRay(enemy.position + enemy.up * 1.2f,Vector3.down * 2.2f, Color.yellow);
+            bool isGrounded = Physics.Raycast(enemy.position + enemy.up * 1.2f, Vector3.down, 2.2f, model.GroundLayer);
 
-            if (isGrounded && _elapsed >= _impulseDuration)
+            if (isGrounded && elapsed > 0.65f)  //Enough time to get off the ground
             {
                 _onImpulseEnded?.Invoke();
             }
-
-            if (isGrounded)
-                _rigidbody.linearVelocity = Vector3.zero;
         }
 
         public override void FixedTick(float delta)
@@ -89,6 +88,8 @@ namespace Enemies.BaseEnemy.States
         {
             _agent.enabled = true;
             _rigidbody.isKinematic = true;
+            _trailRenderer.enabled = false;
+
             _agent.ResetPath();
         }
 
@@ -100,11 +101,6 @@ namespace Enemies.BaseEnemy.States
         public void SetImpulseSource(Vector3 impulseSource)
         {
             _impulseSource = impulseSource;
-        }
-
-        public void SetImpulseDuration(float duration)
-        {
-            _impulseDuration = duration;
         }
     }
 }

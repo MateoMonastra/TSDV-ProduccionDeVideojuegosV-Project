@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -170,6 +172,29 @@ namespace Player.New
 
             _transform.position = targetPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
+        }
+
+        public void TriggerCameraShake(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            StartCoroutine(CameraShakeCoroutine(duration, maxShakeDistance, shakeMagnitude));
+        }
+
+        public IEnumerator CameraShakeCoroutine(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0.0f;
+
+            while (elapsed < duration)
+            {
+                float x = (Mathf.PerlinNoise(Time.time * maxShakeDistance, 0) - 0.5f) * shakeMagnitude ;
+                float y = (Mathf.PerlinNoise(0,Time.time * maxShakeDistance) - 0.5f) * shakeMagnitude ;
+                
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x, _framingHandler.DefaultFraming.y + y));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            _framingHandler.ResetCameraFollowPointFraming();
         }
     }
 }

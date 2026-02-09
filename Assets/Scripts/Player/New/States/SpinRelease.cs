@@ -52,15 +52,16 @@ namespace Player.New
             _damageTicked = false;
             _nextIsSelfStun = false;
 
-            _model.LocomotionBlocked = false;
+     
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
 
             _model.InvulnerableToEnemies = false;
             _model.AimLockActive = false;
-
+       
             _model.SpinOnCooldown = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
+            _motor.RotationLocked = true;
 
             float r = Mathf.Clamp01(_model.SpinChargeRatio);
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
@@ -84,6 +85,7 @@ namespace Player.New
             if (!_nextIsSelfStun)
                 _model.ClearActionLocks();
 
+            _motor.RotationLocked = false;
             _model.JumpBlocked = false;
             _model.DashBlocked = false;
 
@@ -142,7 +144,7 @@ namespace Player.New
                 var objectiveHealth = hits[i].GetComponentInParent<HealthController>();
                 if (objectiveHealth == null) continue;
 
-                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, (0,0)));
+                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.one, "PlayerSpinAttack"));
             }
 
         }

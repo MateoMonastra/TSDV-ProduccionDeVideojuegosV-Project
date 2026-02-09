@@ -1,6 +1,8 @@
-﻿using Player.New.Audio;
+﻿using System;
+using FSM;
+using Player.New.Audio;
 using Player.New.VFX;
-using Player.Old;
+using UnityEngine;
 
 namespace Player.New
 {
@@ -9,15 +11,15 @@ namespace Player.New
     {
         public const string ToIdle = "ToIdle";
 
-        private float _windUpTime = 0.45f;
+        private bool _hitProcessed;
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
-        public Attack3(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+        public Attack3(MyKinematicMotor m, PlayerModel mdl, MyCharacterCamera characterCamera, Action<string> req,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
             PlayerAudioController audioController = null)
-            : base(m, mdl, req)
+            : base(m, mdl, characterCamera, req)
         {
             _vfxController = vfxController;
             _anim = anim;
@@ -27,40 +29,56 @@ namespace Player.New
         public override void Enter()
         {
             base.Enter();
-            Duration = Model.Attack3Duration;
+            
+            // Safety check for air-attacks if your system doesn't support them
+            if (!M.IsGrounded)
+            {
+                _anim?.SetCombatActive(false);
+                Req?.Invoke(ToIdle);
+                Finish();
+                return;
+            }
 
+            // Initialize local state
+            t = 0;
+            _hitProcessed = false;
+
+            // Trigger Visuals/Audio
             _anim?.SetCombatActive(true);
             _anim?.TriggerAttack3();
-            if (_anim != null) _anim.OnAnim_AttackHit += OnAnimHit;
             _vfxController?.Play(VfxEvent.Attack3);
-            _audioController.PlayPlayerAttack3();
+            _audioController?.PlayPlayerAttack3();
+
+            knockbackDistance = Model.Attack3KnockbackDistance;
+            stunDuration = Model.Attack3StunDuration;
+        }
+
+        public override void Tick(float dt)
+        {
+            t += dt;
+
+            // 1. HIT LOGIC
+            if (t >= Model.Attack3HitTime && t <= 0.35f)
+            {
+                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
+            }
+
+            // 2. FINISHER / COOLDOWN LOGIC
+            if (t >= Model.Attack3TotalDuration)
+            {
+                // Set combo cooldown values in the model
+                Model.AttackComboOnCooldown = true;
+                Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
+
+                _anim?.SetCombatActive(false);
+                Req?.Invoke(ToIdle);
+                Finish();
+            }
         }
 
         public override void Exit()
         {
             base.Exit();
-            if (_anim != null) _anim.OnAnim_AttackHit -= OnAnimHit;
         }
-
-        public override void Tick(float dt)
-        {
-            base.Tick(dt);
-            t += dt;
-
-            if (t >= _windUpTime)
-                TryDoHitFrontal(0.5f, Model.AttackHalfAngleDegrees);
-
-            if (t >= Duration)
-            {
-                Model.AttackComboOnCooldown = true;
-                Model.AttackComboCooldownLeft = Model.AttackComboCooldown;
-
-                Req?.Invoke(ToIdle);
-                _anim.SetCombatActive(false);
-                Finish();
-            }
-        }
-
-        private void OnAnimHit() => TryDoHitFrontal(0f);
     }
 }
