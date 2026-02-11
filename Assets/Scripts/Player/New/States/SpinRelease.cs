@@ -46,6 +46,7 @@ namespace Player.New
             _requestTransition = requestTransition;
             _anim = anim;
             _audioController = audioController;
+            staggeredHits = new List<HealthController>();
         }
 
         /// <summary>Entrar al release: setea multiplicadores, cooldown y calcula duraciones.</summary>
@@ -57,6 +58,9 @@ namespace Player.New
             _nextIsSelfStun = false;
             _keepDamaging = true;
 
+            staggeredHits.Clear();
+
+            
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
 
@@ -92,7 +96,8 @@ namespace Player.New
             _motor.RotationLocked = false;
             _model.JumpBlocked = false;
             _model.DashBlocked = false;
-
+            
+            
             _vfxController?.Stop(VfxEvent.SpinAttack);
         }
 
@@ -174,17 +179,28 @@ namespace Player.New
                     hit.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.zero,
                         "PlayerSpinAttack", 1.0f));
                 }
+                else
+                {
+                    hit.Damage(new DamageInfo(0, center, Vector2.zero,
+                        "PlayerSpinAttack", 1.0f));
+                }
             }
         }
 
         private void DamageLastHit()
         {
+
             Vector3 center = _motor.transform.position;
 
             foreach (HealthController hit in staggeredHits)
             {
-                hit.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.zero,
-                    "PlayerSpinLastAttack", 5.0f));
+                hit.transform.parent = null;
+                
+                Debug.Log("LAUNCHING");
+                
+                hit.Damage(new DamageInfo(1, center, new Vector2(15.0f, 0.0f),
+                    "PlayerSpinLastAttack", 1.5f));
+
             }
         }
 

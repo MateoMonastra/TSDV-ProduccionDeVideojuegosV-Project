@@ -28,7 +28,6 @@ namespace Health
 
         public void Damage(DamageInfo damageInfo)
         {
-            if (_timer <= damageCooldown) return;
 
             _currentHealth -= damageInfo.Damage;
 
@@ -37,7 +36,6 @@ namespace Health
             else if (_currentHealth == 0)
                 OnDeath?.Invoke(damageInfo);
 
-            _timer = 0;
         }
 
         public void InstaKill()

@@ -35,7 +35,8 @@ namespace Enemies.BaseEnemy
 
         private Impulse _deathImpulse;
         private Impulse impulse;
-        private SpinningImpulse _spinningImpulse;
+        private SpinningVerticalImpulse _spinningVerticalImpulse;
+        private SpinningHorizontalImpulse _spinningHorizontalImpulse;
 
         private List<State> _states = new List<State>();
         private bool _isGodModeActive = false;
@@ -44,7 +45,8 @@ namespace Enemies.BaseEnemy
         private const string ToAttackID = "toAttack";
         private const string ToIdleID = "toIdle";
         private const string ToImpulseID = "toImpulse";
-        private const string ToSpinningImpulseID = "toSpinningImpulse";
+        private const string ToSpinningVerticalImpulseID = "toSpinningVerticalImpulse";
+        private const string ToSpinningHorizontalImpulseID = "toSpinningHorizontalImpulse";
         private const string ToDeathID = "toDeath";
 
         private void Start()
@@ -62,9 +64,12 @@ namespace Enemies.BaseEnemy
             impulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
-            _spinningImpulse = new SpinningImpulse(this.transform, player, trailRenderer, model, navMeshAgent,
+            _spinningVerticalImpulse = new SpinningVerticalImpulse(this.transform, player, trailRenderer, model, navMeshAgent,
                 rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+
+            _spinningHorizontalImpulse = new SpinningHorizontalImpulse(this.transform, player, model, navMeshAgent,
+                rigidbody, onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
 
             _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: DeathImpulseOnEnd);
@@ -79,8 +84,12 @@ namespace Enemies.BaseEnemy
             Transition idleToImpulse = new Transition() { From = idle, To = impulse, ID = ToImpulseID };
             idle.AddTransition(idleToImpulse);
 
-            Transition idleToSpinImpulse = new Transition() { From = idle, To = _spinningImpulse, ID = ToImpulseID };
-            idle.AddTransition(idleToSpinImpulse);
+            Transition idleToSpinVerticalImpulse = new Transition() { From = idle, To = _spinningVerticalImpulse, ID = ToSpinningVerticalImpulseID };
+            idle.AddTransition(idleToSpinVerticalImpulse);
+
+            Transition idleToSpinHorizontalImpulse = new Transition()
+                { From = idle, To = _spinningHorizontalImpulse, ID = ToSpinningHorizontalImpulseID };
+            idle.AddTransition(idleToSpinHorizontalImpulse);
             _states.Add(idle);
 
             //Chase Transitions
@@ -93,9 +102,13 @@ namespace Enemies.BaseEnemy
             Transition chaseToImpulse = new Transition() { From = chase, To = impulse, ID = ToImpulseID };
             chase.AddTransition(chaseToImpulse);
 
-            Transition chaseToSpinImpulse = new Transition()
-                { From = chase, To = _spinningImpulse, ID = ToSpinningImpulseID };
-            chase.AddTransition(chaseToSpinImpulse);
+            Transition chaseToSpinVerticalImpulse = new Transition()
+                { From = chase, To = _spinningVerticalImpulse, ID = ToSpinningVerticalImpulseID };
+            chase.AddTransition(chaseToSpinVerticalImpulse);
+
+            Transition chaseToSpinHorizontalImpulse = new Transition()
+                { From = chase, To = _spinningHorizontalImpulse, ID = ToSpinningHorizontalImpulseID };
+            chase.AddTransition(chaseToSpinHorizontalImpulse);
             _states.Add(chase);
 
             //Attack Transitions
@@ -105,9 +118,13 @@ namespace Enemies.BaseEnemy
             Transition attackToImpulse = new Transition() { From = attack, To = impulse, ID = ToImpulseID };
             attack.AddTransition(attackToImpulse);
 
-            Transition attackToSpinImpulse = new Transition()
-                { From = attack, To = _spinningImpulse, ID = ToSpinningImpulseID };
-            attack.AddTransition(attackToSpinImpulse);
+            Transition attackToSpinVerticalImpulse = new Transition()
+                { From = attack, To = _spinningVerticalImpulse, ID = ToSpinningVerticalImpulseID };
+            attack.AddTransition(attackToSpinVerticalImpulse);
+
+            Transition attackToSpinHorizontalImpulse = new Transition()
+                { From = attack, To = _spinningHorizontalImpulse, ID = ToSpinningHorizontalImpulseID };
+            attack.AddTransition(attackToSpinHorizontalImpulse);
             _states.Add(attack);
 
             //Impulse transitions
@@ -117,24 +134,30 @@ namespace Enemies.BaseEnemy
             Transition impulseToImpulse = new Transition() { From = impulse, To = impulse, ID = ToImpulseID };
             impulse.AddTransition(impulseToImpulse);
 
-            Transition impulseToSpinImpulse = new Transition()
-                { From = impulse, To = _spinningImpulse, ID = ToSpinningImpulseID };
-            impulse.AddTransition(impulseToSpinImpulse);
+            Transition impulseToSpinVerticalImpulse = new Transition()
+                { From = impulse, To = _spinningVerticalImpulse, ID = ToSpinningVerticalImpulseID };
+            impulse.AddTransition(impulseToSpinVerticalImpulse);
+
+            Transition impulseToSpinHorizontalImpulse = new Transition()
+            {
+                From = impulse, To = _spinningHorizontalImpulse, ID = ToSpinningHorizontalImpulseID
+            };
+            impulse.AddTransition(impulseToSpinHorizontalImpulse);
             _states.Add(impulse);
 
             //Spin impulse transition
 
             Transition spinImpulseToImpulse = new Transition()
-                { From = _spinningImpulse, To = impulse, ID = ToImpulseID };
-            _spinningImpulse.AddTransition(spinImpulseToImpulse);
+                { From = _spinningVerticalImpulse, To = impulse, ID = ToImpulseID };
+            _spinningVerticalImpulse.AddTransition(spinImpulseToImpulse);
 
             Transition spinImpulseToSpinImpulse = new Transition()
-                { From = _spinningImpulse, To = _spinningImpulse, ID = ToSpinningImpulseID };
-            _spinningImpulse.AddTransition(spinImpulseToSpinImpulse);
+                { From = _spinningVerticalImpulse, To = _spinningVerticalImpulse, ID = ToSpinningVerticalImpulseID };
+            _spinningVerticalImpulse.AddTransition(spinImpulseToSpinImpulse);
 
-            Transition spinImpulseToChase = new Transition() { From = _spinningImpulse, To = chase, ID = ToChaseID };
-            _spinningImpulse.AddTransition(spinImpulseToChase);
-            _states.Add(_spinningImpulse);
+            Transition spinImpulseToChase = new Transition() { From = _spinningVerticalImpulse, To = chase, ID = ToChaseID };
+            _spinningVerticalImpulse.AddTransition(spinImpulseToChase);
+            _states.Add(_spinningVerticalImpulse);
 
             //Death Impulse transitions
             Transition deathImpulseToDeath = new Transition() { From = _deathImpulse, To = death, ID = ToDeathID };
@@ -180,9 +203,14 @@ namespace Enemies.BaseEnemy
             _fsm.TryTransitionTo(ToImpulseID);
         }
 
-        private void TransitionToSpinningImpulse()
+        private void TransitionToSpinningVerticalImpulse()
         {
-            _fsm.TryTransitionTo(ToSpinningImpulseID);
+            _fsm.TryTransitionTo(ToSpinningVerticalImpulseID);
+        }
+
+        private void TransitionToSpinningHorizontalImpulse()
+        {
+            _fsm.TryTransitionTo(ToSpinningHorizontalImpulseID);
         }
 
         private void TransitionToDeath()
@@ -264,21 +292,20 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked(DamageInfo damageOrigin)
         {
+
             if (healthController.GetCurrentHealth() > 0)
             {
                 if (damageOrigin.DamageName == "PlayerVerticalAttack")
                 {
-                    _spinningImpulse.SetImpulse(damageOrigin.Knockback);
-                    _spinningImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
-                    TransitionToSpinningImpulse();
+                    _spinningVerticalImpulse.SetImpulse(damageOrigin.Knockback);
+                    _spinningVerticalImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
+                    TransitionToSpinningVerticalImpulse();
                 }
                 else if (damageOrigin.DamageName == "PlayerSpinLastAttack")
                 {
-                    
-                }
-                else if (damageOrigin.DamageName == "PlayerSpinAttack")
-                {
-                    
+                    _spinningHorizontalImpulse.SetImpulse(damageOrigin.Knockback);
+                    _spinningHorizontalImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
+                    TransitionToSpinningHorizontalImpulse();
                 }
                 else
                 {
