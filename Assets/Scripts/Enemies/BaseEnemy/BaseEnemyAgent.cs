@@ -272,6 +272,14 @@ namespace Enemies.BaseEnemy
                     _spinningImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
                     TransitionToSpinningImpulse();
                 }
+                else if (damageOrigin.DamageName == "PlayerSpinLastAttack")
+                {
+                    
+                }
+                else if (damageOrigin.DamageName == "PlayerSpinAttack")
+                {
+                    
+                }
                 else
                 {
                     impulse.SetImpulse(damageOrigin.Knockback);

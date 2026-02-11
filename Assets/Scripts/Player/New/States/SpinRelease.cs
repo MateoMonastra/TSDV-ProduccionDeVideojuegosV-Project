@@ -1,4 +1,5 @@
-﻿using FSM;
+﻿using System.Collections.Generic;
+using FSM;
 using Health;
 using Player.New.Audio;
 using Player.New.VFX;
@@ -13,7 +14,7 @@ namespace Player.New
     /// </summary>
     public class SpinRelease : FinishableState
     {
-        public const string ToIdle     = "ToIdle";
+        public const string ToIdle = "ToIdle";
         public const string ToSelfStun = "ToSelfStun";
 
         private readonly MyKinematicMotor _motor;
@@ -23,18 +24,21 @@ namespace Player.New
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
 
+        private List<HealthController> staggeredHits;
+
         private float _t;
-        private bool  _damageTicked;
-        private bool  _nextIsSelfStun;
+        private bool _damageTicked;
+        private bool _keepDamaging;
+        private bool _nextIsSelfStun;
 
         private float _execDuration;
         private float _postStun;
 
         public SpinRelease(MyKinematicMotor motor,
-                           PlayerModel model,
-                           System.Action<string> requestTransition,
-                           PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
-                           PlayerAudioController audioController = null)
+            PlayerModel model,
+            System.Action<string> requestTransition,
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
         {
             _vfxController = vfxController;
             _motor = motor;
@@ -51,14 +55,14 @@ namespace Player.New
             _t = 0f;
             _damageTicked = false;
             _nextIsSelfStun = false;
+            _keepDamaging = true;
 
-     
             _model.ActionMoveSpeedMultiplier = Mathf.Max(0.01f, _model.SpinMoveSpeedMultiplierWhileExecuting);
             _model.ActionJumpSpeedMultiplier = Mathf.Max(0.01f, _model.SpinJumpSpeedMultiplier);
 
             _model.InvulnerableToEnemies = false;
             _model.AimLockActive = false;
-       
+
             _model.SpinOnCooldown = true;
             _model.SpinCooldownLeft = _model.SpinCooldown;
             _motor.RotationLocked = true;
@@ -67,10 +71,10 @@ namespace Player.New
             _execDuration = Mathf.Lerp(_model.SpinMinDuration, _model.SpinMaxDuration, r);
             _postStun = _model.SpinPostStun;
             _model.SelfStunDuration = Mathf.Lerp(_model.SelfStunMinDuration, _model.SelfStunMaxDuration, r);
-            
+
             _anim?.TriggerSpinRelease();
             if (_anim != null) _anim.OnAnim_SpinDamage += OnSpinDamageEvent;
-            
+
             _vfxController?.Play(VfxEvent.SpinAttack);
 
             _audioController.PlayPlayerChargeAttackStart();
@@ -81,7 +85,7 @@ namespace Player.New
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_SpinDamage -= OnSpinDamageEvent;
-            
+
             if (!_nextIsSelfStun)
                 _model.ClearActionLocks();
 
@@ -99,16 +103,18 @@ namespace Player.New
             _t += dt;
 
             if (_damageTicked) DoSpinDamage();
-            
-            
+
+
             if (_t >= _execDuration + _postStun)
             {
+                _keepDamaging = false;
+                DamageLastHit();
+                
                 if (_model.SpinCausesSelfStun)
                 {
                     _nextIsSelfStun = true;
                     _requestTransition?.Invoke(ToSelfStun);
                     _audioController.PlayPlayerChargeAttackStop();
-
                 }
                 else
                 {
@@ -121,7 +127,9 @@ namespace Player.New
         }
 
         // ──────────────────────────────────────────────────────────────────────
+
         #region Anim Events & Damage
+
         // ──────────────────────────────────────────────────────────────────────
 
         /// <summary>Llamado por Animation Event para sincronizar el impacto exacto.</summary>
@@ -133,20 +141,51 @@ namespace Player.New
         /// <summary>Aplica daño/knockback/stagger en un radio alrededor del jugador.</summary>
         private void DoSpinDamage()
         {
-            
+            if (!_keepDamaging) return;
+
             Vector3 center = _motor.transform.position;
-            float radius   = _model.SpinRadius;
-            int   mask     = _model.EnemyMask.value;
+            float radius = _model.SpinRadius;
+            int mask = _model.EnemyMask.value;
 
             var hits = Physics.OverlapSphere(center, radius, mask, QueryTriggerInteraction.Collide);
+
             for (int i = 0; i < hits.Length; i++)
             {
-                var objectiveHealth = hits[i].GetComponentInParent<HealthController>();
+                HealthController objectiveHealth = hits[i].GetComponentInParent<HealthController>();
                 if (objectiveHealth == null) continue;
 
-                objectiveHealth.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.one, "PlayerSpinAttack"));
+                if (!staggeredHits.Contains(objectiveHealth))
+                {
+                    staggeredHits.Add(objectiveHealth);
+                    objectiveHealth.transform.SetParent(_motor.transform);
+                }
             }
 
+            DamageStaggeredHits();
+        }
+
+        private void DamageStaggeredHits()
+        {
+            Vector3 center = _motor.transform.position;
+            foreach (HealthController hit in staggeredHits)
+            {
+                if (hit.GetCurrentHealth() != 1)
+                {
+                    hit.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.zero,
+                        "PlayerSpinAttack", 1.0f));
+                }
+            }
+        }
+
+        private void DamageLastHit()
+        {
+            Vector3 center = _motor.transform.position;
+
+            foreach (HealthController hit in staggeredHits)
+            {
+                hit.Damage(new DamageInfo(_model.SpinDamage, center, Vector2.zero,
+                    "PlayerSpinLastAttack", 5.0f));
+            }
         }
 
         #endregion
