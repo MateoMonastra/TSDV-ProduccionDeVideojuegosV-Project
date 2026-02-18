@@ -80,11 +80,6 @@ namespace Enemies.BaseEnemy.States
                 _rigidbody.linearVelocity = Vector3.zero;
         }
 
-        public override void FixedTick(float delta)
-        {
-            base.FixedTick(delta);
-        }
-
         public override void Exit()
         {
             _agent.enabled = true;

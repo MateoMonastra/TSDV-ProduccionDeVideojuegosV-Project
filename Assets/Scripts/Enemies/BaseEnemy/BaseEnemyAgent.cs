@@ -28,6 +28,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private NavMeshAgent navMeshAgent;
         [SerializeField] private Rigidbody rigidbody;
         [SerializeField] private Collider hitBox;
+        [SerializeField] private Collider bodyCollider;
         [SerializeField] private EnemyAnimationController animator;
         [SerializeField] private TrailRenderer trailRenderer;
 
@@ -221,14 +222,15 @@ namespace Enemies.BaseEnemy
 
         private void TransitionToDeathImpulse(DamageInfo damageInfo)
         {
-            if (_fsm.GetCurrentState() != _deathImpulse)
+            if (_fsm.GetCurrentState() != _spinningHorizontalImpulse)
             {
-                _deathImpulse.SetImpulse(damageInfo.Knockback);
-                _deathImpulse.SetImpulseSource(damageInfo.DamageOrigin);
-                _deathImpulse.SetImpulseDuration(damageInfo.StunDuration);
-
+                Debug.Log("Here i am");
+                _spinningHorizontalImpulse.SetImpulse(damageInfo.Knockback);
+                _spinningHorizontalImpulse.SetImpulseSource(damageInfo.DamageOrigin);
+                bodyCollider.enabled = true;
+                
                 onDeath?.Invoke();
-                _fsm.ForceTransition(_deathImpulse);
+                _fsm.ForceTransition(_spinningHorizontalImpulse);
             }
         }
 
@@ -303,6 +305,7 @@ namespace Enemies.BaseEnemy
                 }
                 else if (damageOrigin.DamageName == "PlayerSpinLastAttack")
                 {
+                    Debug.Log("I entered here lol");
                     _spinningHorizontalImpulse.SetImpulse(damageOrigin.Knockback);
                     _spinningHorizontalImpulse.SetImpulseSource(damageOrigin.DamageOrigin);
                     TransitionToSpinningHorizontalImpulse();

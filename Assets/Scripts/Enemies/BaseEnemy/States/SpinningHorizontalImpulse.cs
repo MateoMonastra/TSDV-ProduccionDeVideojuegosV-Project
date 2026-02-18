@@ -31,6 +31,7 @@ namespace Enemies.BaseEnemy.States
             Debug.Log("Entered spinning");
 
             _onImpulseStarted?.Invoke();
+            
             _rigidbody.isKinematic = false;
             _rigidbody.linearVelocity = Vector3.zero;
             _agent.enabled = false;
