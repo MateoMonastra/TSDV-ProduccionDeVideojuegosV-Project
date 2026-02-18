@@ -28,8 +28,6 @@ namespace Enemies.BaseEnemy.States
         {
             base.Enter();
 
-            Debug.Log("Entered spinning");
-
             _onImpulseStarted?.Invoke();
             
             _rigidbody.isKinematic = false;
@@ -47,7 +45,6 @@ namespace Enemies.BaseEnemy.States
             travel.y = 0;
             travel.Normalize();
             Vector3 direction = travel * _impulseForce.x + Vector3.up * _impulseForce.y;
-            direction.Normalize();
             
             _rigidbody.AddForce(
                 direction,
@@ -69,7 +66,7 @@ namespace Enemies.BaseEnemy.States
                 _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.SpinningLowJumpMultiplier - 1) * delta);
             }
             
-            Quaternion deltaRotation = Quaternion.Euler(0, -720 * delta, 0);
+            Quaternion deltaRotation = Quaternion.Euler(0, -1420 * delta, 0);
             
             _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
 

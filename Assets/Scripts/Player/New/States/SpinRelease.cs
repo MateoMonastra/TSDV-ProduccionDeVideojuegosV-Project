@@ -196,8 +196,6 @@ namespace Player.New
             {
                 hit.transform.parent = null;
                 
-                Debug.Log("LAUNCHING");
-                
                 hit.Damage(new DamageInfo(1, center, new Vector2(15.0f, 0.0f),
                     "PlayerSpinLastAttack", 1.5f));
 

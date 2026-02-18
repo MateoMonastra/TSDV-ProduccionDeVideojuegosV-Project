@@ -123,7 +123,7 @@ namespace Enemies.RangeEnemy
             Gizmos.DrawWireSphere(transform.position, model.AttackRange);
         }
 
-        public void OnBeingAttacked(DamageInfo damageOrigin)
+        public void OnBeingAttacked(DamageInfo damageInfo)
         {
             TransitionToDeath();
         }
