@@ -27,6 +27,7 @@ namespace Player.New
         private List<HealthController> staggeredHits;
 
         private float _t;
+        private float _tickTimer = 1.0f;
         private bool _damageTicked;
         private bool _keepDamaging;
         private bool _nextIsSelfStun;
@@ -54,7 +55,7 @@ namespace Player.New
         {
             base.Enter();
             _t = 0f;
-            _damageTicked = false;
+            _damageTicked = true;
             _nextIsSelfStun = false;
             _keepDamaging = true;
 
@@ -106,8 +107,14 @@ namespace Player.New
         {
             base.Tick(dt);
             _t += dt;
+            _tickTimer += dt;
 
-            if (_damageTicked) DoSpinDamage();
+            if(_tickTimer >= 0.25f)
+            {
+                _tickTimer = 0;
+                if (_damageTicked) DoSpinDamage();
+            }
+            
 
 
             if (_t >= _execDuration + _postStun)
