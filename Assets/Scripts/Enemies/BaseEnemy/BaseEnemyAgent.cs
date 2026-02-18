@@ -317,11 +317,6 @@ namespace Enemies.BaseEnemy
                     _spinningVerticalImpulse.SetImpulseSource(damageInfo.DamageOrigin);
                     TransitionToSpinningVerticalImpulse();
                 }
-                else if (damageInfo.DamageName == "PlayerSpinLastAttack")
-                {
-                    Debug.Log("I entered here lol");
-                    
-                }
                 else
                 {
                     impulse.SetImpulse(damageInfo.Knockback);
