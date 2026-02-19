@@ -1,0 +1,79 @@
+﻿using System;
+using Health;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Hazards.FlameThrower
+{
+    public class FireBreatherAgent : MonoBehaviour
+    {
+        public UnityEvent fireTickEvent;
+        public UnityEvent chargingTickEvent;
+
+        [SerializeField] private float gasTime;
+        [SerializeField] private float fireTime;
+        [SerializeField] private Vector3 center;
+        [SerializeField] private Vector3 extents;
+        [SerializeField] private Vector2 knockbackForce;
+
+        private float _elapsed;
+
+        private bool breathingFire = false;
+
+        private void Update()
+        {
+            _elapsed += Time.deltaTime;
+
+            if (breathingFire)
+            {
+                BreatheFire();
+                if (_elapsed >= fireTime)
+                {
+                    _elapsed = 0;
+                    breathingFire = !breathingFire;
+                }
+            }
+            else
+            {
+                ChargeFire();
+                if (_elapsed >= fireTime)
+                {
+                    _elapsed = 0;
+                    breathingFire = !breathingFire;
+                }
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position + center, extents / 2.0f);
+            Gizmos.color = Color.green;
+        }
+
+        private void BreatheFire()
+        {
+            fireTickEvent?.Invoke();
+
+            Collider[] colliders = Physics.OverlapBox(transform.position + center, extents / 2.0f, Quaternion.identity, LayerMask.GetMask("Player"));
+
+            foreach (Collider collider in colliders)
+            {
+                //var health = collider.GetComponentInParent<HealthController>();
+                var health = collider.GetComponent<HealthController>();
+                if (!health) return;
+
+                var root = health.gameObject;
+                if (!root.CompareTag("Player")) return;
+
+                health.Damage(new DamageInfo(1, transform.position,
+                    knockbackForce, "FireBreath"));
+            }
+        }
+
+        private void ChargeFire()
+        {
+            chargingTickEvent?.Invoke();
+        }
+    }
+}
