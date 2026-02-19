@@ -161,7 +161,13 @@ namespace Enemies.BaseEnemy
             Transition spinImpulseToChase = new Transition()
                 { From = _spinningVerticalImpulse, To = chase, ID = ToChaseID };
             _spinningVerticalImpulse.AddTransition(spinImpulseToChase);
+
+            Transition spinVerticalImpulseToDeath = new Transition()
+                { From = _spinningVerticalImpulse, To = death, ID = ToDeathID };
+            _spinningVerticalImpulse.AddTransition(spinVerticalImpulseToDeath);
+
             _states.Add(_spinningVerticalImpulse);
+
 
             Transition spinImpulseToDeath = new Transition()
                 { From = _spinningHorizontalImpulse, To = death, ID = ToDeathID };
@@ -174,7 +180,7 @@ namespace Enemies.BaseEnemy
             Transition spinHorizontalImpulseToChase = new Transition()
                 { From = _spinningHorizontalImpulse, To = chase, ID = ToChaseID };
             _spinningHorizontalImpulse.AddTransition(spinHorizontalImpulseToChase);
-            
+
             _states.Add(_spinningHorizontalImpulse);
 
 
@@ -248,6 +254,12 @@ namespace Enemies.BaseEnemy
 
                 _fsm.ForceTransition(_spinningHorizontalImpulse);
             }
+            else if (damageInfo.DamageName == "PlayerVerticalAttack")
+            {
+                _spinningVerticalImpulse.SetImpulse(damageInfo.Knockback);
+                _spinningVerticalImpulse.SetImpulseSource(damageInfo.DamageOrigin);
+                TransitionToSpinningVerticalImpulse();
+            }
             else
             {
                 _deathImpulse.SetImpulse(damageInfo.Knockback);
@@ -278,7 +290,15 @@ namespace Enemies.BaseEnemy
         {
             onImpulseEnded?.Invoke();
 
-            TransitionToChase();
+            if (healthController.GetCurrentHealth() > 0)
+            {
+                TransitionToChase();
+            }
+            else
+            {
+                rigidbody.isKinematic = true;
+                TransitionToDeath();
+            }
         }
 
         private void SpinningImpulseOnStart()

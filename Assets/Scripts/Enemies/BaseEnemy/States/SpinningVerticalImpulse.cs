@@ -90,6 +90,8 @@ namespace Enemies.BaseEnemy.States
             _rigidbody.isKinematic = true;
             _trailRenderer.enabled = false;
 
+            
+            _rigidbody.rotation = Quaternion.identity;
             _agent.ResetPath();
         }
 
