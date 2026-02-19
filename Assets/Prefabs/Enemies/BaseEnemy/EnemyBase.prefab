@@ -41,6 +41,7 @@ Transform:
   - {fileID: 6856786367200452442}
   - {fileID: 220163300998599590}
   - {fileID: 4060668019878829527}
+  - {fileID: 982495217859618775}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6096114325307598351
@@ -192,7 +193,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onSpinningImpulseStarted:
+  onSpinningHorizontalImpulseStarted:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6952151925575430033}
@@ -243,9 +244,69 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  onSpinningImpulseEnded:
+      - m_Target: {fileID: 6952151925575430033}
+        m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
+        m_MethodName: TriggerDamaged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1521384194627771495}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4425998427253358519}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onSpinningHorizontalImpulseEnded:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1521384194627771495}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4425998427253358519}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6952151925575430033}
         m_TargetAssemblyTypeName: Enemies.EnemyAnimationController, Assembly-CSharp
         m_MethodName: SetDamagedAnimation
@@ -350,6 +411,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8625324188891851793}
+        m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   healthController: {fileID: 6096114325307598351}
   player: {fileID: 0}
@@ -1054,6 +1127,78 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &136490376993132125
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8136693203401698564}
+    m_Modifications:
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192870073901930176, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+      propertyPath: m_Name
+      value: VFX_Stuun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+--- !u!4 &982495217859618775 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 884516936499964298, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+  m_PrefabInstance: {fileID: 136490376993132125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1521384194627771495 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1511489405158806074, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+  m_PrefabInstance: {fileID: 136490376993132125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4425998427253358519 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4361920239587357162, guid: 098cd66fcdce8b94aace444a4ec70e00, type: 3}
+  m_PrefabInstance: {fileID: 136490376993132125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3631437700424887255
 PrefabInstance:
   m_ObjectHideFlags: 0
