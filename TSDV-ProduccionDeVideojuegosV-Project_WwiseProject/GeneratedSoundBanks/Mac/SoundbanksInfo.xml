@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="154">
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="154">
 	<RootPaths>
 		<ProjectRoot>../..</ProjectRoot>
 		<SourceFilesRoot>../../.cache</SourceFilesRoot>
@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{5D1F6B54-7245-91BA-0B43-0F4DFBEB26FF}">
+		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{E406396E-4C54-39AA-82FB-F19F3B080EF8}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Player</ObjectPath>
 			<ShortName>Player</ShortName>
 			<Path>Player.bnk</Path>
@@ -33,10 +33,6 @@
 				<File Id="92625590" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_03_002.wav</ShortName>
 					<CachePath>2B/{2B9AE72F-B945-3784-6990-A19AE2FFE0D1}.wem</CachePath>
-				</File>
-				<File Id="104068066" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PlayerAttackVoice_03_004.wav</ShortName>
-					<CachePath>AE/{AE5E5B1C-0032-6F72-1254-786FA5D21B3D}.wem</CachePath>
 				</File>
 				<File Id="123982431" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_01_002.wav</ShortName>
@@ -90,10 +86,6 @@
 					<ShortName>PlayerAttackSmashHitFloor_002.wav</ShortName>
 					<CachePath>E9/{E9DE0C4B-1C81-75DC-326A-C9B45A4C3760}.wem</CachePath>
 				</File>
-				<File Id="342814479" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PlayerAttackVoice_03_003.wav</ShortName>
-					<CachePath>E5/{E5C72F99-23A1-E8BF-4195-ECE1BAC73716}.wem</CachePath>
-				</File>
 				<File Id="364665653" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStartSustain_002.wav</ShortName>
 					<CachePath>BA/{BA493198-AE05-86FF-ED6A-3F4CFDAA44B3}.wem</CachePath>
@@ -121,10 +113,6 @@
 				<File Id="422686684" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStart_002.wav</ShortName>
 					<CachePath>FE/{FEB3D6A2-3A3C-EC59-37AD-AD0B34EE0BD7}.wem</CachePath>
-				</File>
-				<File Id="457045746" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PlayerAttackVoice_03_001.wav</ShortName>
-					<CachePath>F3/{F3A06094-105B-6EF9-53D9-FB6799242B19}.wem</CachePath>
 				</File>
 				<File Id="460485397" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_003.wav</ShortName>
@@ -230,10 +218,6 @@
 					<ShortName>PlayerAttack_03_001.wav</ShortName>
 					<CachePath>07/{07B8B7FB-26EB-C232-F84D-27DB23EA6E68}.wem</CachePath>
 				</File>
-				<File Id="1049525045" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PlayerAttackVoice_03_002.wav</ShortName>
-					<CachePath>75/{75B89808-8BCC-2267-1B5D-BEFA6B3D5849}.wem</CachePath>
-				</File>
 				<File Id="1055424899" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackSmashHitFloor_001.wav</ShortName>
 					<CachePath>6C/{6CFC1562-DE3B-AA15-0392-0BB42063CF1E}.wem</CachePath>
@@ -288,16 +272,23 @@
 						<MediaRef Id="1045516680"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3142261798" Name="PlayerAttackSmash" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmash" GUID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}" Color="2" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
-				<Event Id="4071124885" Name="PlayerAttackSmashHitFloor" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmashHitFloor" GUID="{963549E2-EDEE-4C73-AD09-98CF47D31C47}" Color="2" DurationType="OneShot" DurationMin="2.2853541" DurationMax="2.361292">
+				<Event Id="3142261798" Name="PlayerAttackSmash" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmash" GUID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}" Color="2" DurationType="OneShot" DurationMin="2.3733356" DurationMax="2.6334026">
 					<MediaRefs>
-						<MediaRef Id="104068066"/>
+						<MediaRef Id="15267930"/>
+						<MediaRef Id="92625590"/>
+						<MediaRef Id="381791278"/>
+						<MediaRef Id="406088048"/>
+						<MediaRef Id="460485397"/>
+						<MediaRef Id="510333262"/>
+						<MediaRef Id="636108755"/>
+						<MediaRef Id="1045516680"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="4071124885" Name="PlayerAttackSmashHitFloor" ObjectPath="\Events\Default Work Unit\Player\PlayerAttackSmashHitFloor" GUID="{963549E2-EDEE-4C73-AD09-98CF47D31C47}" Color="2" DurationType="OneShot" DurationMin="2.2853541" DurationMax="2.285375">
+					<MediaRefs>
 						<MediaRef Id="334170738"/>
-						<MediaRef Id="342814479"/>
-						<MediaRef Id="457045746"/>
 						<MediaRef Id="545483333"/>
 						<MediaRef Id="813132997"/>
-						<MediaRef Id="1049525045"/>
 						<MediaRef Id="1055424899"/>
 					</MediaRefs>
 				</Event>
@@ -420,7 +411,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{3CF426ED-9B10-A506-8694-554D77DB3C44}">
+		<SoundBank Id="1355168291" Type="User" GUID="{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}" Language="SFX" Hash="{C9920984-05E6-7FE4-0811-5DCF1AC3C855}">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -438,7 +429,7 @@
 				<Bus Id="3991942870" Name="Music" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music" GUID="{41152D0D-5F63-4B2C-B7F4-D544143EF62E}" Color="7"/>
 			</Busses>
 			<GameParameters>
-				<GameParameter Id="3437795929" Name="RotatingSawAngle" ObjectPath="\Game Parameters\Default Work Unit\RotatingSawAngle" GUID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"/>
+				<GameParameter Id="3671138082" Name="New_Game_Parameter" ObjectPath="\Game Parameters\Default Work Unit\New_Game_Parameter" GUID="{24FCBC6D-2A4F-4525-913B-7FB39460590E}"/>
 			</GameParameters>
 			<SwitchGroups>
 				<SwitchGroup Id="3407025663" Name="StepFloorType" ObjectPath="\Switches\Default Work Unit\StepFloorType" GUID="{4C12FC41-69B4-4002-854D-DA066D33727E}">
@@ -451,7 +442,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{F0DDB703-E853-84B2-8472-2E43F283AA31}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{964016FD-CBF7-18C9-1404-0BDB0BAC7B59}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -521,6 +512,10 @@
 					<ShortName>AmbAcidPipesImpacts2_009.wav</ShortName>
 					<CachePath>E0/{E0A71B5C-64AA-1F31-C821-BB174308A3D1}.wem</CachePath>
 				</File>
+				<File Id="270755844" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_005.wav</ShortName>
+					<CachePath>90/{904A0554-A3E8-23D3-4809-AB408A4F3D7D}.wem</CachePath>
+				</File>
 				<File Id="298927861" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_003.wav</ShortName>
 					<CachePath>39/{39252B42-310B-8990-FB01-BC6A928E002E}.wem</CachePath>
@@ -553,6 +548,10 @@
 					<ShortName>AmbAcidPipesImpacts2_019.wav</ShortName>
 					<CachePath>55/{55BE9BCE-B3A6-D1C0-40BC-2B5AA19C7419}.wem</CachePath>
 				</File>
+				<File Id="370264577" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbAcidStream_004.wav</ShortName>
+					<CachePath>13/{1342E0C8-8BA3-C15A-7DA2-31DCFCBF75DB}.wem</CachePath>
+				</File>
 				<File Id="376895675" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_011.wav</ShortName>
 					<CachePath>53/{534E7BD4-3F7F-8B4B-8F62-53520DF2FFA7}.wem</CachePath>
@@ -564,10 +563,6 @@
 				<File Id="428057301" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_024.wav</ShortName>
 					<CachePath>46/{463899FF-FBCC-1203-6B47-71B2E2D9A60F}.wem</CachePath>
-				</File>
-				<File Id="489728472" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>RotarySaw.wav</ShortName>
-					<CachePath>C2/{C2203CE0-DFD8-043E-49E3-90FC770737CD}.wem</CachePath>
 				</File>
 				<File Id="520038629" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_001.wav</ShortName>
@@ -792,13 +787,15 @@
 						<MediaRef Id="1061482636"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3927828283" Name="AmbAcidPipeGas" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidPipeGas" GUID="{2BC5A590-EA80-44B6-8657-E4E3FD40104E}" Color="4" MaxAttenuation="70" DurationType="Infinite">
+				<Event Id="3927828283" Name="AmbAcidPipeGas" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidPipeGas" GUID="{2BC5A590-EA80-44B6-8657-E4E3FD40104E}" Color="4" MaxAttenuation="80" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="806812880"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2773708536" Name="AmbAcidStream" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbAcidStream" GUID="{2EF42980-4CEA-46E3-894B-7321AE8D8AC0}" Color="4" MaxAttenuation="50" DurationType="Infinite">
 					<MediaRefs>
+						<MediaRef Id="270755844"/>
+						<MediaRef Id="370264577"/>
 						<MediaRef Id="833462405"/>
 						<MediaRef Id="861232703"/>
 						<MediaRef Id="1015983070"/>
@@ -823,16 +820,8 @@
 						<MediaRef Id="782662004"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="1041503305" Name="RotarySaw" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\RotarySaw" GUID="{F778D436-80D8-40F4-ACA6-E5135F2E9B1D}" Color="12" MaxAttenuation="80" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="489728472"/>
-					</MediaRefs>
-				</Event>
 			</Events>
-			<GameParameters>
-				<GameParameter Id="3437795929" Name="RotatingSawAngle" ObjectPath="\Game Parameters\Default Work Unit\RotatingSawAngle" GUID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"/>
-			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{CB19F80D-2C69-9658-3966-385081792B55}</FileHash>
+	<FileHash>{46149A5C-9B95-8E4D-AB54-37E7511D4C80}</FileHash>
 </SoundBanksInfo>

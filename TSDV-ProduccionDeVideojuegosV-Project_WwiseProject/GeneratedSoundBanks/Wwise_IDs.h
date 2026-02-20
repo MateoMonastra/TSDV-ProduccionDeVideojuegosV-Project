@@ -36,6 +36,7 @@ namespace AK
         static const AkUniqueID PLAYERSPINCHARGE3 = 395070061U;
         static const AkUniqueID PLAYERSTEP = 412471812U;
         static const AkUniqueID PROPULSORBOUNCE = 778438783U;
+        static const AkUniqueID ROTARYSAW = 1041503305U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -57,7 +58,7 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
+        static const AkUniqueID ROTATINGSAWANGLE = 3437795929U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
