@@ -21,6 +21,7 @@ namespace Enemies.BaseEnemy
         public UnityEvent<bool> onChase;
         public UnityEvent onIdle;
         public UnityEvent onDeath;
+        public UnityEvent onBeingAttacked;
 
         //TODO: pasar conocimiento del player a un scriptable object
         [SerializeField] private HealthController healthController;
@@ -375,6 +376,7 @@ namespace Enemies.BaseEnemy
 
         public void OnBeingAttacked(DamageInfo damageInfo)
         {
+            onBeingAttacked?.Invoke();
             if (healthController.GetCurrentHealth() > 0)
             {
                 if (damageInfo.DamageName == "PlayerVerticalAttack")

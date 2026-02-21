@@ -186,6 +186,47 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Enemy1GetHit" ID="{0D324DA8-2484-4166-A38F-03BAE66DA487}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{4805E0BC-D029-40E2-90AC-8B1F0241848A}" ShortID="909451359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1GetHit" ID="{32B9DA0D-5F40-41DB-B6D6-13636090FAC4}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Enemy1HitGround" ID="{68937EAF-6401-42D4-9FBF-AF05FF08B3A2}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{B88C7510-0231-4F36-B75B-00F4EC0A55F5}" ShortID="243026019">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1HitGround" ID="{D081BA66-E828-4FCE-9B0C-1D36FE0FA480}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AmbVentilador" ID="{E5B25632-80EE-4F34-A327-AC4FDC4B8560}">
+					<ChildrenList>
+						<Action Name="" ID="{DE87F527-FC73-4AC0-A564-4808427CE6D6}" ShortID="1023943342">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbVentilador" ID="{9DC4F702-E83F-4E84-BB99-8EB40ADFC741}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
