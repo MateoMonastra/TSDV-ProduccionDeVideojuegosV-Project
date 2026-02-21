@@ -4736,6 +4736,40 @@
 												</Position>
 											</PositioningInfo>
 										</RandomSequenceContainer>
+										<Sound Name="AmbVentilador" ID="{9DC4F702-E83F-4E84-BB99-8EB40ADFC741}" ShortID="682461696">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+												<Property Name="UserAuxSendVolume0" Type="Real64">
+													<ValueList>
+														<Value>-8</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="AmbVentilador" ID="{3A28BE26-45B5-4F89-B92D-9A40D44A3A9C}">
+													<Language>SFX</Language>
+													<AudioFile>AmbVentilador.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="354878542"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="AmbVentilador" ID="{3A28BE26-45B5-4F89-B92D-9A40D44A3A9C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</Folder>
 								<Sound Name="AmbAcidPipeGas" ID="{6BFC4B4B-3F54-4FC0-BA5D-72B135B062C0}" ShortID="119349330">

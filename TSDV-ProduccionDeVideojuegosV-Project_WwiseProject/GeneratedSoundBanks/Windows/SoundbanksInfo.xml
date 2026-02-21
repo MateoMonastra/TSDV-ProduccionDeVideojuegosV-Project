@@ -508,7 +508,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{F10436F8-E28D-AABE-5E51-09912B2B4008}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{6F47596A-3231-ABC7-C964-F94FB26A680A}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -605,6 +605,10 @@
 				<File Id="340490636" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_027.wav</ShortName>
 					<CachePath>0E/{0EE22925-10C3-255F-C286-7A4E87CDFDB7}.wem</CachePath>
+				</File>
+				<File Id="354878542" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AmbVentilador.wav</ShortName>
+					<CachePath>01/{01A9838B-5106-1D17-BF4D-ED9DDA6871B6}.wem</CachePath>
 				</File>
 				<File Id="356249650" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_019.wav</ShortName>
@@ -911,6 +915,14 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="1754896513" Name="AmbVentilador" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\AmbVentilador" GUID="{E5B25632-80EE-4F34-A327-AC4FDC4B8560}" Color="4" MaxAttenuation="50" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="354878542"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
+				</Event>
 				<Event Id="4035222199" Name="Enemy1GetHit" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\Enemy1GetHit" GUID="{0D324DA8-2484-4166-A38F-03BAE66DA487}" Color="12" MaxAttenuation="20" DurationType="OneShot" DurationMin="0.9707292" DurationMax="1.0332291">
 					<MediaRefs>
 						<MediaRef Id="420397316"/>
@@ -971,5 +983,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{08C9D28D-20FD-D2E9-98FF-E8BD9EEA92D6}</FileHash>
+	<FileHash>{CB1B1254-1069-338E-C1C0-EB9D66AE4053}</FileHash>
 </SoundBanksInfo>

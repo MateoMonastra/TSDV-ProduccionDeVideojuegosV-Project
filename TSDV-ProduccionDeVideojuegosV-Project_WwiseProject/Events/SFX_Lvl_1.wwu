@@ -216,6 +216,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="AmbVentilador" ID="{E5B25632-80EE-4F34-A327-AC4FDC4B8560}">
+					<ChildrenList>
+						<Action Name="" ID="{DE87F527-FC73-4AC0-A564-4808427CE6D6}" ShortID="1023943342">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbVentilador" ID="{9DC4F702-E83F-4E84-BB99-8EB40ADFC741}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
