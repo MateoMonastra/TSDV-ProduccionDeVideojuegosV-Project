@@ -186,6 +186,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Enemy1GetHit" ID="{0D324DA8-2484-4166-A38F-03BAE66DA487}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{4805E0BC-D029-40E2-90AC-8B1F0241848A}" ShortID="909451359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1GetHit" ID="{32B9DA0D-5F40-41DB-B6D6-13636090FAC4}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

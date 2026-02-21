@@ -4695,6 +4695,209 @@
 										</ObjectList>
 									</ObjectLists>
 								</RandomSequenceContainer>
+								<ActorMixer Name="Enemies" ID="{BA186CDC-E17C-4DE6-BBAF-739EE876A0A7}" ShortID="301169042">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<RandomSequenceContainer Name="Enemy1GetHit" ID="{32B9DA0D-5F40-41DB-B6D6-13636090FAC4}" ShortID="39938581">
+											<PropertyList>
+												<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="OnAttackHit-001" ID="{12F64EAE-4074-4358-9937-C680A5E15706}" ShortID="926314535">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-001" ID="{BB89A558-473A-4DA2-B41C-ABA8AE91A1A8}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="420397316"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-001" ID="{BB89A558-473A-4DA2-B41C-ABA8AE91A1A8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-002" ID="{045C4067-DAE6-4969-A28C-A586F01FA4DC}" ShortID="435029141">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-002" ID="{B0337EB8-E27E-4A72-B41F-DCACC6443BCA}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="775984391"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-002" ID="{B0337EB8-E27E-4A72-B41F-DCACC6443BCA}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-003" ID="{51AE3EF4-2949-494B-9D24-A88E6F2C2CF2}" ShortID="668692653">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-003" ID="{4E1BEC23-2484-4C8F-B343-27842F054A57}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="958509920"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-003" ID="{4E1BEC23-2484-4C8F-B343-27842F054A57}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-004" ID="{2C41CA69-7269-4372-9B74-531FC97E58FF}" ShortID="552036776">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-004" ID="{28C57F7B-44EE-4B73-B7D8-B061CD07472C}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="583511681"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-004" ID="{28C57F7B-44EE-4B73-B7D8-B061CD07472C}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-005" ID="{DDF46979-E043-41C1-BEC7-CA99E1F43A6E}" ShortID="564073966">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-005" ID="{4E429F97-7CC3-456D-A22A-03C1E5B37574}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-005.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="1033481509"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-005" ID="{4E429F97-7CC3-456D-A22A-03C1E5B37574}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-006" ID="{959F30C1-8D41-46EB-B35A-4A8C38D97FC8}" ShortID="435094302">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-006" ID="{92742778-588F-4808-AEED-BB5EB0D29705}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-006.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="503813983"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-006" ID="{92742778-588F-4808-AEED-BB5EB0D29705}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-007" ID="{D0B9B644-991A-4A81-AE7F-961E6D1CCB02}" ShortID="356471214">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-007" ID="{45385283-7C2C-42B7-8305-77E0FB71DC04}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-007.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="598195291"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-007" ID="{45385283-7C2C-42B7-8305-77E0FB71DC04}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="OnAttackHit-008" ID="{4F005825-C023-4412-AD75-3F9A458D09F5}" ShortID="330623465">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="OnAttackHit-008" ID="{9E7ED824-BCF2-4C03-A44C-FAA03A6F9E64}">
+															<Language>SFX</Language>
+															<AudioFile>OnAttackHit-008.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="900488528"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="OnAttackHit-008" ID="{9E7ED824-BCF2-4C03-A44C-FAA03A6F9E64}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
+									</ChildrenList>
+								</ActorMixer>
 							</ChildrenList>
 						</ActorMixer>
 					</ChildrenList>
