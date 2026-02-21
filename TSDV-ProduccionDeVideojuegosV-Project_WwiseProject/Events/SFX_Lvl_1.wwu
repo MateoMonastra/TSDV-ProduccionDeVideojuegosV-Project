@@ -201,6 +201,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Enemy1HitGround" ID="{68937EAF-6401-42D4-9FBF-AF05FF08B3A2}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{B88C7510-0231-4F36-B75B-00F4EC0A55F5}" ShortID="243026019">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1HitGround" ID="{D081BA66-E828-4FCE-9B0C-1D36FE0FA480}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

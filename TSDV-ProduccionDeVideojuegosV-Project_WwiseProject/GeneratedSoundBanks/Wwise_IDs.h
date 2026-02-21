@@ -18,6 +18,7 @@ namespace AK
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
+        static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
         static const AkUniqueID MUSIC_LVL1_1 = 158641202U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
@@ -77,6 +78,11 @@ namespace AK
         static const AkUniqueID PLAYER = 1069431850U;
         static const AkUniqueID SFX = 393239870U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID REVERBPLATE = 3552122435U;
+    } // namespace AUX_BUSSES
 
     namespace AUDIO_DEVICES
     {
