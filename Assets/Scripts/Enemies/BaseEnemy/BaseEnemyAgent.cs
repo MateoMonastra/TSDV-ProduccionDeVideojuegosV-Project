@@ -15,7 +15,7 @@ namespace Enemies.BaseEnemy
         public UnityEvent onAttackFinish;
         public UnityEvent onImpulseStarted;
         public UnityEvent onImpulseEnded;
-        public UnityEvent onGroundHit;
+        public UnityEvent onSpinningVerticalImpulseEnded;
         public UnityEvent onSpinningHorizontalImpulseStarted;
         public UnityEvent onSpinningHorizontalImpulseEnded;
         public UnityEvent<bool> onChase;
@@ -306,7 +306,7 @@ namespace Enemies.BaseEnemy
         private void SpinningVerticalImpulseOnEnd()
         {
             onImpulseEnded?.Invoke();
-            onGroundHit?.Invoke();
+            onSpinningVerticalImpulseEnded?.Invoke();
             
             if (healthController.GetCurrentHealth() > 0)
             {
