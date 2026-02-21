@@ -7,6 +7,8 @@ namespace Hazards.FlameThrower
 {
     public class FireBreatherAgent : MonoBehaviour
     {
+        public UnityEvent onStartFireEvent;
+        public UnityEvent onStopFireEvent;
         public UnityEvent fireTickEvent;
         public UnityEvent chargingTickEvent;
 
@@ -31,6 +33,7 @@ namespace Hazards.FlameThrower
                 {
                     _elapsed = 0;
                     breathingFire = !breathingFire;
+                    onStopFireEvent?.Invoke();
                 }
             }
             else
@@ -40,6 +43,7 @@ namespace Hazards.FlameThrower
                 {
                     _elapsed = 0;
                     breathingFire = !breathingFire;
+                    onStartFireEvent?.Invoke();
                 }
             }
         }

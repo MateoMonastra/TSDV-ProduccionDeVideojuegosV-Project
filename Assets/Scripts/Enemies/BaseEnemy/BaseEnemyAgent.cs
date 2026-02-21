@@ -15,6 +15,7 @@ namespace Enemies.BaseEnemy
         public UnityEvent onAttackFinish;
         public UnityEvent onImpulseStarted;
         public UnityEvent onImpulseEnded;
+        public UnityEvent onGroundHit;
         public UnityEvent onSpinningHorizontalImpulseStarted;
         public UnityEvent onSpinningHorizontalImpulseEnded;
         public UnityEvent<bool> onChase;
@@ -68,7 +69,7 @@ namespace Enemies.BaseEnemy
             _spinningVerticalImpulse = new SpinningVerticalImpulse(this.transform, player, trailRenderer, model,
                 navMeshAgent,
                 rigidbody,
-                onImpulseStarted: ImpulseOnStart, onImpulseEnded: ImpulseOnEnd);
+                onImpulseStarted: ImpulseOnStart, onImpulseEnded: SpinningVerticalImpulseOnEnd);
 
             _spinningHorizontalImpulse = new SpinningHorizontalImpulse(this.transform, player, model, navMeshAgent,
                 rigidbody, onImpulseStarted: SpinningImpulseOnStart, onImpulseEnded: SpinningImpulseOnEnd);
@@ -290,6 +291,22 @@ namespace Enemies.BaseEnemy
         {
             onImpulseEnded?.Invoke();
 
+            if (healthController.GetCurrentHealth() > 0)
+            {
+                TransitionToChase();
+            }
+            else
+            {
+                rigidbody.isKinematic = true;
+                TransitionToDeath();
+            }
+        }
+
+        private void SpinningVerticalImpulseOnEnd()
+        {
+            onImpulseEnded?.Invoke();
+            onGroundHit?.Invoke();
+            
             if (healthController.GetCurrentHealth() > 0)
             {
                 TransitionToChase();
