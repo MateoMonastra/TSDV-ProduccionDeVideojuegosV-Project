@@ -17,7 +17,7 @@ public class BaseEnemyAudio : MonoBehaviour
 
     private void OnbeingAttacked(BaseEnemyAgent enemyBase)
     {
-        Debug.Log("AUDIO: Enemy Attacked");
+        Debug.Log("AUDIO: Enemy Being Hit");
         _akEnemy1GetHit.Post(this.gameObject);
     }
 
