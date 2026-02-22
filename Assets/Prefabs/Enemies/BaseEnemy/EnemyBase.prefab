@@ -194,6 +194,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onSpinningVerticalImpulseEnded:
+    m_PersistentCalls:
+      m_Calls: []
   onSpinningHorizontalImpulseStarted:
     m_PersistentCalls:
       m_Calls:
@@ -425,6 +428,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  onBeingAttacked:
+    m_PersistentCalls:
+      m_Calls: []
   healthController: {fileID: 6096114325307598351}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 55ce2bfbec3bcbb46b654a581783e7e8, type: 2}
@@ -1475,6 +1481,10 @@ PrefabInstance:
       propertyPath: enemyBase
       value: 
       objectReference: {fileID: 5813122811278968515}
+    - target: {fileID: 2591443750671620091, guid: 367e41efa1d82d34ca18fcbc0b128e26, type: 3}
+      propertyPath: _akEnemy1HitGround.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 3592dd661d76ef641b1a388b56e5170a, type: 2}
     - target: {fileID: 3224982935712363452, guid: 367e41efa1d82d34ca18fcbc0b128e26, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
