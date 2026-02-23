@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SlidingDoor : MonoBehaviour
 {
+    public UnityEvent SubePorton;
     [SerializeField] private float slidingTime;
     [SerializeField] private float yDistance;
-    
+
     private Vector3 startingPos;
     private Vector3 endPos;
     private bool _isTimerRunning;
@@ -14,18 +16,15 @@ public class SlidingDoor : MonoBehaviour
 
     private float _currentYValue;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-            currentSign = 1f;
-            _currentTimer = slidingTime;
+        currentSign = 1f;
+        _currentTimer = slidingTime;
         startingPos = transform.position;
         endPos = transform.position + Vector3.up * yDistance;
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         if (_isTimerRunning)
@@ -49,6 +48,7 @@ public class SlidingDoor : MonoBehaviour
 
     public void Slide()
     {
+        SubePorton?.Invoke();
         _isTimerRunning = true;
         currentSign *= -1f;
 
@@ -56,7 +56,7 @@ public class SlidingDoor : MonoBehaviour
         {
             _currentTimer = 0;
         }
-        else if(_currentTimer > slidingTime)
+        else if (_currentTimer > slidingTime)
         {
             _currentTimer = slidingTime;
         }
