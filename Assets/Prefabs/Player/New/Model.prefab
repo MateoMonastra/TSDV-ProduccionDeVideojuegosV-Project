@@ -2539,15 +2539,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
       propertyPath: simulationSpeed
-      value: 0.6
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
       propertyPath: startDelay.scalar
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime0
+      value: 15806
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 23130
       objectReference: {fileID: 0}
     - target: {fileID: 6649977363039503553, guid: 77c54e00c0f367f41adb80fccd554a57, type: 3}
       propertyPath: RotationModule.y.maxCurve.m_Curve.Array.data[1].value
