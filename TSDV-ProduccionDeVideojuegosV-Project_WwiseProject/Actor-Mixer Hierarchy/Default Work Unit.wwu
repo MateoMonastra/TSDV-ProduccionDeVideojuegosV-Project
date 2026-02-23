@@ -5607,24 +5607,7 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<Sound Name="M_Alcantarilla_Loop" ID="{48B54F71-FF19-4ED9-B1D8-CF60DF49CE8F}" ShortID="1045003679">
-													<PropertyList>
-														<Property Name="IsStreamingEnabled" Type="bool">
-															<ValueList>
-																<Value>True</Value>
-															</ValueList>
-														</Property>
-														<Property Name="IsZeroLatency" Type="bool">
-															<ValueList>
-																<Value>True</Value>
-															</ValueList>
-														</Property>
-														<Property Name="PreFetchLength" Type="int16">
-															<ValueList>
-																<Value>300</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
+												<Sound Name="M_Alcantarilla_Loop" ID="{FCE7754B-CB1D-4094-9194-C6CAE8081D9E}" ShortID="217497488">
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
@@ -5634,7 +5617,7 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="M_Alcantarilla_Loop" ID="{B2D0F769-8AA1-45DE-82C6-15F8D0E46BF8}">
+														<AudioFileSource Name="M_Alcantarilla_Loop" ID="{EABF992A-1069-455A-81B5-6FD9C6B6F16B}">
 															<Language>SFX</Language>
 															<AudioFile>M_Alcantarilla_Loop.wav</AudioFile>
 															<MediaIDList>
@@ -5643,17 +5626,10 @@
 														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="M_Alcantarilla_Loop" ID="{B2D0F769-8AA1-45DE-82C6-15F8D0E46BF8}" Platform="Linked"/>
+														<ActiveSource Name="M_Alcantarilla_Loop" ID="{EABF992A-1069-455A-81B5-6FD9C6B6F16B}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
 											</ChildrenList>
-											<ObjectLists>
-												<ObjectList Name="Playlist">
-													<Reference>
-														<ObjectRef Name="M_Alcantarilla_Loop" ID="{48B54F71-FF19-4ED9-B1D8-CF60DF49CE8F}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-													</Reference>
-												</ObjectList>
-											</ObjectLists>
 										</RandomSequenceContainer>
 									</ChildrenList>
 									<ObjectLists>
