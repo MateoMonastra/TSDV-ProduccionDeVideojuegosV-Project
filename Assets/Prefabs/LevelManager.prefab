@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8895305946433101684}
   - component: {fileID: 5439174636999499091}
   - component: {fileID: 5043053252456929986}
+  - component: {fileID: 2623053833314523020}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -60,3 +61,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpointManagerRef: {fileID: 11400000, guid: 7adeac47ce2d37c4e80247a7c07c6561, type: 2}
   playerModel: {fileID: 11400000, guid: b500ce0009cf57f4e8bfa79ec0eccd22, type: 2}
+--- !u!114 &2623053833314523020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634163867921088009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebef24caada2b9488a9c76f6c880370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 9040297816899319675, guid: 386b0ab2a331c274ea47a601a3cb4181, type: 3}
+  minCoins: 3
+  maxCoins: 8
+  spawnRadius: 0.25
+  minForceMultiplier: 0.8
+  maxForceMultiplier: 1.25
