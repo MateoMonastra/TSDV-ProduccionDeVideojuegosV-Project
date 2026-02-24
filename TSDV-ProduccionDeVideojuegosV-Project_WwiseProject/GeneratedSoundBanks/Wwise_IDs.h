@@ -21,6 +21,7 @@ namespace AK
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
         static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
         static const AkUniqueID M_ALCANTARILLA = 139541255U;
+        static const AkUniqueID M_MENU = 2338369940U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;
@@ -68,6 +69,7 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID LVL_1 = 2397100949U;
+        static const AkUniqueID MENU = 2607556080U;
         static const AkUniqueID PLAYER = 1069431850U;
     } // namespace BANKS
 
