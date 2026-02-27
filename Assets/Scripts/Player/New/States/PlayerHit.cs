@@ -1,14 +1,15 @@
 ﻿using FSM;
+using Health;
 using Player.New.Audio;
 using Player.New.VFX;
 using UnityEngine;
 
 namespace Player.New.States
 {
-/// <summary>
-/// Estado de “golpeado”: aplica knockback + stun y bloquea input por un tiempo.
-/// Se alimenta con PlayerModel.LastDamage (escrito por PlayerAgent cuando HealthController dispara OnTakeDamage).
-/// </summary>
+    /// <summary>
+    /// Estado de “golpeado”: aplica knockback + stun y bloquea input por un tiempo.
+    /// Se alimenta con PlayerModel.LastDamage (escrito por PlayerAgent cuando HealthController dispara OnTakeDamage).
+    /// </summary>
     public class PlayerHit : FinishableState
     {
         public const string ToWalkIdle = "Hit->ToWalkIdle";
@@ -19,16 +20,21 @@ namespace Player.New.States
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
+        private DamageInfo _damageInfo;
 
         private float _t;
         private bool _impulseApplied;
 
         public PlayerHit(MyKinematicMotor m, PlayerModel model, System.Action<string> req,
-            PlayerAnimationController anim = null, PlayerVfxController vfxController = null, PlayerAudioController audioController = null)
+            PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
+            PlayerAudioController audioController = null)
         {
             _audioController = audioController;
             _vfxController = vfxController;
-            _m = m; _model = model; _req = req; _anim = anim;
+            _m = m;
+            _model = model;
+            _req = req;
+            _anim = anim;
         }
 
         public override void Enter()
@@ -39,7 +45,12 @@ namespace Player.New.States
 
             _model.LocomotionBlocked = true;
             _anim.TriggerHit();
-            _vfxController?.Play(VfxEvent.Hit);
+
+            if (_damageInfo.DamageName == "PendulumHazard")
+                _vfxController?.Play(VfxEvent.HitPendulum);
+            else
+                _vfxController?.Play(VfxEvent.Hit);
+
             _audioController?.PlayPlayerGetsHitAudio();
         }
 
@@ -54,7 +65,7 @@ namespace Player.New.States
         {
             base.Tick(dt);
             _t += dt;
-            
+
             if (!_impulseApplied)
             {
                 ApplyImpulseFromLastDamage();
@@ -83,10 +94,19 @@ namespace Player.New.States
             v = horiz * _model.HitKnockbackHorizontal + up * _model.HitKnockbackUp;
             _m.SetVelocity(v);
         }
+
+        public void SetDamageInfo(DamageInfo damageInfo)
+        {
+            _damageInfo = damageInfo;
+        }
     }
 
     static class VecExt
     {
-        public static Vector3 WithY(this Vector3 v, float y) { v.y = y; return v; }
+        public static Vector3 WithY(this Vector3 v, float y)
+        {
+            v.y = y;
+            return v;
+        }
     }
 }
