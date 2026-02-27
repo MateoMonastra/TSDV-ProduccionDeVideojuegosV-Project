@@ -12,6 +12,7 @@ namespace Enemies
         private static readonly int AttackHit = Animator.StringToHash("AttackHit");
         private static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Damaged = Animator.StringToHash("Damaged");
+        private static readonly int StunSpin = Animator.StringToHash("StunSpin");
         private static readonly int GetUp = Animator.StringToHash("GetUp");
 
         [SerializeField] Animator animator;
@@ -39,6 +40,11 @@ namespace Enemies
         public void TriggerDamaged()
         {
             animator.SetTrigger(Damaged);
+        }
+
+        public void TriggerStunSpin()
+        {
+            animator.SetTrigger(StunSpin);
         }
 
         public void SetAttackAnimation()
