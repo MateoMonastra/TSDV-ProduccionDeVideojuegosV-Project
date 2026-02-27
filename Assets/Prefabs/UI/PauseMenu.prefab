@@ -2171,7 +2171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3990582685298932075
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2773,13 +2773,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9066213765264475165}
+  - component: {fileID: 7858805042736437763}
   m_Layer: 5
   m_Name: StampScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9066213765264475165
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2803,6 +2804,44 @@ RectTransform:
   m_AnchoredPosition: {x: 4.3574905, y: -4.390541}
   m_SizeDelta: {x: 171.08504, y: 200.81897}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7858805042736437763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4308505646856451471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6863f490bb7bace428e2607ed9c557dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - stampId: stamp_01
+    icon: {fileID: 974967280510618352}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  - stampId: stamp_02
+    icon: {fileID: 9169546120419484728}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  - stampId: stamp_03
+    icon: {fileID: 928133319306209045}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  - stampId: stamp_04
+    icon: {fileID: 3761936853321250124}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  - stampId: stamp_05
+    icon: {fileID: 3167855969880431381}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  - stampId: stamp_06
+    icon: {fileID: 809375929552806504}
+    lockedColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
+    unlockedColor: {r: 1, g: 1, b: 1, a: 1}
+  collectedText: {fileID: 3483679346585684639}
 --- !u!1 &4517954290113815163
 GameObject:
   m_ObjectHideFlags: 0
@@ -4535,7 +4574,6 @@ GameObject:
   - component: {fileID: 4521733794927911183}
   - component: {fileID: 974967280510618352}
   - component: {fileID: 7918761283757504849}
-  - component: {fileID: 5010137949917678341}
   m_Layer: 5
   m_Name: ui_stamp1
   m_TagString: Untagged
@@ -4622,22 +4660,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &5010137949917678341
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570233778742748517}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!1 &7614818623086697875
 GameObject:
   m_ObjectHideFlags: 0
