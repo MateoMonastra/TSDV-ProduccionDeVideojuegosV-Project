@@ -19,7 +19,8 @@ namespace Player.New.VFX
         SpinCharge3,
         Stun,
         Attack2,
-        Attack3
+        Attack3,
+        HitPendulum
     }
 
     [Serializable]
