@@ -7,9 +7,10 @@ namespace Coins
     {
         [Header("Value")] [SerializeField] private int coinValue = 1;
         [SerializeField] private float spinSpeed = 360f;
-        
+
         [Header("Spawn Burst")] [SerializeField]
         private float burstForce = 5f;
+
         [SerializeField] private float upwardForce = 4f;
         [SerializeField] private float settleTime = 0.35f;
 
@@ -23,7 +24,7 @@ namespace Coins
         [SerializeField] private float magnetSpeed = 9f;
 
         [Header("Fly To UI")] [SerializeField] private float flyToUiDuration = 0.25f;
-        
+
 
         [Header("Refs")] [SerializeField] private Rigidbody rb;
         [SerializeField] private Collider triggerCollider;
@@ -95,7 +96,7 @@ namespace Coins
             {
                 transform.Rotate(0f, spinSpeed * Time.deltaTime, 0f);
             }
-            
+
             if (!_hasLanded && rb != null)
             {
                 bool enoughAirTime = (Time.time - _spawnTime) >= minAirTimeBeforeLandingCheck;
@@ -128,7 +129,8 @@ namespace Coins
 
                 if (dist < 0.2f && _flyToUiRoutine == null)
                 {
-                    _flyToUiRoutine = StartCoroutine(FlyToUiRoutine());
+                    CoinsWallet.Instance.RequestCoinFromWorld(transform.position, coinValue);
+                    Destroy(gameObject);
                 }
             }
         }
@@ -141,10 +143,9 @@ namespace Coins
             {
                 _playerTarget = other.transform;
 
-                _flyToUiRoutine ??= StartCoroutine(FlyToUiRoutine());
+                CoinsWallet.Instance.RequestCoinFromWorld(transform.position, coinValue);
+                Destroy(gameObject);
             }
-            
-            
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -157,73 +158,6 @@ namespace Coins
             }
         }
 
-        private IEnumerator FlyToUiRoutine()
-        {
-            if (_isFlyingToUI) yield break;
-
-            _isFlyingToUI = true;
-            _canBePicked = false;
-
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
-
-            if (triggerCollider != null)
-                triggerCollider.enabled = false;
-
-            if (CoinsWallet.Instance == null || CoinsWallet.Instance.CoinIconTarget == null)
-            {
-                CoinsWallet.Instance?.AddCoins(coinValue);
-                Destroy(gameObject);
-                yield break;
-            }
-
-            Canvas canvas = CoinsWallet.Instance.RootCanvas;
-            RectTransform canvasRect = CoinsWallet.Instance.RootCanvasRect;
-
-            if (canvas == null || canvasRect == null || CoinsWallet.Instance.CoinUiFlyPrefab == null)
-            {
-                CoinsWallet.Instance.AddCoins(coinValue);
-                Destroy(gameObject);
-                yield break;
-            }
-
-            if (_mainCam == null) _mainCam = Camera.main;
-            Vector3 screenPos = (_mainCam != null)
-                ? _mainCam.WorldToScreenPoint(transform.position)
-                : RectTransformUtility.WorldToScreenPoint(null, transform.position);
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                screenPos,
-                null,
-                out Vector2 startAnchoredPos
-            );
-
-            CoinUiFly fly = Instantiate(CoinsWallet.Instance.CoinUiFlyPrefab, canvasRect);
-            bool finished = false;
-
-            fly.Play(
-                canvasRect,
-                startAnchoredPos,
-                CoinsWallet.Instance.CoinIconTarget,
-                () =>
-                {
-                    CoinsWallet.Instance.AddCoins(coinValue);
-                    finished = true;
-                });
-
-            if (visualRenderer != null) visualRenderer.enabled = false;
-            if (rb != null) rb.detectCollisions = false;
-
-            while (!finished)
-                yield return null;
-
-            Destroy(gameObject);
-        }
         private void MarkAsLanded()
         {
             if (_hasLanded) return;

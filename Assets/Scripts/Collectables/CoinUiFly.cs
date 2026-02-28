@@ -21,20 +21,19 @@ namespace Coins
 
             rect.SetParent(canvasRect, false);
             rect.anchoredPosition = startAnchoredPos;
-
+            
             StartCoroutine(FlyRoutine(target, onComplete));
         }
 
         private IEnumerator FlyRoutine(RectTransform target, System.Action onComplete)
         {
             Vector2 start = rect.anchoredPosition;
-
-            // Convertir target a anchoredPosition dentro del mismo canvas
+            
             RectTransform parentRect = rect.parent as RectTransform;
             Vector2 targetAnchored;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentRect,
-                RectTransformUtility.WorldToScreenPoint(null, target.position), // Overlay => null
+                RectTransformUtility.WorldToScreenPoint(null, target.position),
                 null,
                 out targetAnchored
             );
