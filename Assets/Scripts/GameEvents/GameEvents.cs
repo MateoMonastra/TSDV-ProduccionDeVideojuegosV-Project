@@ -5,12 +5,24 @@ namespace GameEvents
 {
     public static class GameEvents
     {
+        public static event Action OnLevelStarted;
+        public static event Action OnLevelEnded;
         public static event Action OnPlayerDied;
         public static event Action OnPlayerRevived;
         public static event Action OnPlayerDamaged;
         public static event Action<bool> OnPlayerGodMode;
         public static event Action<bool> OnGamePaused;
         public static event Action OnPlayerBlinded;
+
+        public static void LevelStarted()
+        {
+            OnLevelStarted?.Invoke();
+        }
+
+        public static void LevelEnded()
+        {
+            OnLevelEnded?.Invoke();
+        }
 
         public static void PlayerDied()
         {
