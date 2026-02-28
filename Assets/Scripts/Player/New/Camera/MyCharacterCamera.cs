@@ -162,15 +162,21 @@ namespace Player.New
                 followTransform.position,
                 1f - Mathf.Exp(-followingSharpness * deltaTime));
 
+            Quaternion camRot = _rotationHandler.GetCameraRotation();
+            
+            Vector3 desiredPosition = _currentFollowPosition - (camRot * Vector3.forward * _distanceHandler.TargetDistance);
+            desiredPosition = _framingHandler.ApplyFramingOffset(desiredPosition, _transform);
+            
             float currentDistance = _obstructionHandler.GetAdjustedDistance(
-                _currentFollowPosition, _rotationHandler.GetCameraRotation(), deltaTime);
+                _currentFollowPosition, desiredPosition, deltaTime);
 
-            Vector3 targetPosition = _currentFollowPosition -
-                                     (_rotationHandler.GetCameraRotation() * Vector3.forward * currentDistance);
-
-            targetPosition = _framingHandler.ApplyFramingOffset(targetPosition, _transform);
-
-            _transform.position = targetPosition;
+            Vector3 dir = (desiredPosition - _currentFollowPosition);
+            if (dir.sqrMagnitude > 0.000001f)
+            {
+                dir.Normalize();
+                desiredPosition = _currentFollowPosition + dir * currentDistance;
+            }
+            _transform.position = desiredPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
         }
 

@@ -18,25 +18,33 @@ namespace Player.New
             _currentDistance = _distanceHandler.TargetDistance;
         }
 
-        public float GetAdjustedDistance(Vector3 origin, Quaternion rotation, float deltaTime)
+        public float GetAdjustedDistance(Vector3 origin, Vector3 desiredCameraPosition, float deltaTime)
         {
-            float targetDistance = _distanceHandler.TargetDistance;
-            RaycastHit closestHit = new RaycastHit { distance = Mathf.Infinity };
-            int hitCount = Physics.SphereCastNonAlloc(
-                origin,
-                _camera.obstructionCheckRadius,
-                -(rotation * Vector3.forward),
-                _obstructions,
-                targetDistance,
-                _camera.obstructionLayers,
-                QueryTriggerInteraction.Ignore);
+            Vector3 toDesired = desiredCameraPosition - origin;
+            float targetDistance = toDesired.magnitude;
 
-            for (int i = 0; i < hitCount; i++)
+            RaycastHit closestHit = new RaycastHit { distance = Mathf.Infinity };
+
+            if (targetDistance > 0.0001f)
             {
-                if (IsIgnored(_obstructions[i].collider)) continue;
-                if (_obstructions[i].distance < closestHit.distance && _obstructions[i].distance > 0)
+                Vector3 dir = toDesired / targetDistance;
+
+                int hitCount = Physics.SphereCastNonAlloc(
+                    origin,
+                    _camera.obstructionCheckRadius,
+                    dir,
+                    _obstructions,
+                    targetDistance,
+                    _camera.obstructionLayers,
+                    QueryTriggerInteraction.Ignore);
+
+                for (int i = 0; i < hitCount; i++)
                 {
-                    closestHit = _obstructions[i];
+                    if (IsIgnored(_obstructions[i].collider)) continue;
+                    if (_obstructions[i].distance < closestHit.distance && _obstructions[i].distance >= 0f)
+                    {
+                        closestHit = _obstructions[i];
+                    }
                 }
             }
 

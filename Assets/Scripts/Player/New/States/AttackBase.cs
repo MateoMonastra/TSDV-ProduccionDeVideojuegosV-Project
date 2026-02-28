@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Coins;
 using FSM;
 using Health;
 using UnityEngine;
+
 
 namespace Player.New
 {
@@ -16,17 +18,13 @@ namespace Player.New
         protected readonly PlayerModel Model;
         protected readonly Action<string> Req;
         private readonly MyCharacterCamera _characterCamera;
-
-        /// <summary>Duración total del ataque actual.</summary>
+        
         protected float Duration;
-
-        /// <summary>Acumulador de tiempo del ataque.</summary>
         protected float t;
-
-        /// <summary>Enemigos ya golpeados durante este ataque.</summary>
+        
         private readonly HashSet<HealthController> _enemiesHit = new HashSet<HealthController>();
-
-        /// <summary>Si el jugador pidió encadenar (presionó Attack) en cualquier momento.</summary>
+        private readonly HashSet<BreakableLoot> _breakablesHit = new HashSet<BreakableLoot>();
+        
         protected bool ChainBuffered;
 
         protected Vector2 knockbackDistance;
@@ -49,6 +47,7 @@ namespace Player.New
 
             Model.DashBlocked = true;
             Model.JumpBlocked = true;
+            _breakablesHit.Clear();
         }
 
         public override void Exit()
@@ -58,6 +57,7 @@ namespace Player.New
             _enemiesHit.Clear();
 
             Model.DashBlocked = false;
+            _breakablesHit.Clear();
         }
 
         /// <summary>Marca que el jugador pidió encadenar el siguiente golpe.</summary>
@@ -79,32 +79,6 @@ namespace Player.New
 
             Collider[] cols = Physics.OverlapSphere(origin, range, mask, QueryTriggerInteraction.Collide);
 
-            // float bestDot = -1f;
-            // Transform bestTf = null;
-            //
-            // for (int i = 0; i < cols.Length; i++)
-            // {
-            //     var t = cols[i].transform;
-            //     Vector3 to = Vector3.ProjectOnPlane(t.position - origin, up);
-            //     if (to.sqrMagnitude <= Model.MinInputSqr) continue;
-            //
-            //     float dist = to.magnitude;
-            //     if (dist > range + 0.001f) continue;
-            //
-            //     to /= dist;
-            //     float ang = Vector3.Angle(forward, to);
-            //     if (ang > halfAngleDeg) continue;
-            //
-            //     float d = Vector3.Dot(forward, to);
-            //     if (d > bestDot)
-            //     {
-            //         bestDot = d;
-            //         bestTf = t;
-            //     }
-            // }
-            //
-            // if (!bestTf) return;
-
             List<HealthController> enemiesToHit = new List<HealthController>();
 
             foreach (Collider col in cols)
@@ -113,6 +87,16 @@ namespace Player.New
                 {
                     enemiesToHit.Add(health);
                 }
+                
+                if (col.TryGetComponent(out BreakableLoot breakable))
+                {
+                    if (!_breakablesHit.Contains(breakable))
+                    {
+                        _breakablesHit.Add(breakable);
+                        breakable.Hit();
+                    }
+                }
+                
             }
 
             foreach (HealthController health in enemiesToHit)

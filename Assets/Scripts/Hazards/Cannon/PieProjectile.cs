@@ -13,13 +13,24 @@ namespace Hazards.Cannon
         [SerializeField] private List<ParticleSystem> OnHit;
         [SerializeField] private GameObject model;
 
+        private Rigidbody rb;
+            
         private bool _hasCollided = false;
         private float destroyOffset = 3.0f;
 
-
         public Action onSurfaceHit;
         public Action onPlayerHit;
-        
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
+        private void Update()
+        {
+            transform.LookAt(rb.linearVelocity, -Vector3.up);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (_hasCollided) return;
