@@ -18,18 +18,13 @@ public class DissolvingController : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            StartCoroutine(DissolveCo());
-        }
-    }
-
-    private string DissolveCo()
-    {
-        throw new NotImplementedException();
-    }
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Escape))
+    //     {
+    //         StartCoroutine(Dissolveco());
+    //     }
+    // }
 
     IEnumerator Dissolveco ()
 

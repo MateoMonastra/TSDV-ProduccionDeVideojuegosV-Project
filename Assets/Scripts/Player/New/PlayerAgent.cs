@@ -232,6 +232,7 @@ namespace Player.New
             hud.OnDamaged();
             hud.SetHealth(health.GetCurrentHealth());
             interactController.InterruptInteraction();
+            _sHit.SetDamageInfo(info);
             _locomotionFsm.ForceTransition(_sHit);
             _actionFsm.ForceTransition(_aIdle);
         }

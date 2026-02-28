@@ -12,6 +12,7 @@ namespace Hazards.FlameThrower
         public UnityEvent fireTickEvent;
         public UnityEvent chargingTickEvent;
 
+        [SerializeField] private float delayTime;
         [SerializeField] private float gasTime;
         [SerializeField] private float fireTime;
         [SerializeField] private Vector3 center;
@@ -20,11 +21,26 @@ namespace Hazards.FlameThrower
 
         private float _elapsed;
 
+        private bool delaying = true;
         private bool breathingFire = false;
 
         private void Update()
         {
             _elapsed += Time.deltaTime;
+
+            if (delaying)
+            {
+                if (_elapsed >= delayTime)
+                {
+                    delaying = false;
+                    _elapsed = 0;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
 
             if (breathingFire)
             {
@@ -59,7 +75,8 @@ namespace Hazards.FlameThrower
         {
             fireTickEvent?.Invoke();
 
-            Collider[] colliders = Physics.OverlapBox(transform.position + center, extents / 2.0f, Quaternion.identity, LayerMask.GetMask("Player"));
+            Collider[] colliders = Physics.OverlapBox(transform.position + center, extents / 2.0f, Quaternion.identity,
+                LayerMask.GetMask("Player"));
 
             foreach (Collider collider in colliders)
             {
