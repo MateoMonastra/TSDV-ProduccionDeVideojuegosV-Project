@@ -508,7 +508,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{5E1CE294-A0B3-4A00-337C-594B5276A1B0}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{FBBBF760-811E-BB30-314E-0A899A5F1C30}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -545,6 +545,10 @@
 				<File Id="150925605" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_020.wav</ShortName>
 					<CachePath>28/{285BBBDE-63A1-7E15-05C0-21AA148203CC}.wem</CachePath>
+				</File>
+				<File Id="156639926" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LeverInteracted.wav</ShortName>
+					<CachePath>66/{66A00CE6-CFC7-1F36-F7F2-99B60BEDF8EC}.wem</CachePath>
 				</File>
 				<File Id="164027548" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_025.wav</ShortName>
@@ -957,6 +961,11 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="4096151038" Name="LeverInteracted" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\LeverInteracted" GUID="{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}" Color="12" MaxAttenuation="20" DurationType="OneShot" DurationMin="2.866565" DurationMax="2.866565">
+					<MediaRefs>
+						<MediaRef Id="156639926"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="139541255" Name="M_Alcantarilla" ObjectPath="\Events\Default Work Unit\Lvl_1\Music_Lvl_1\M_Alcantarilla" GUID="{CB2ADAF6-C641-4D54-B219-96254DC1E816}" Color="7" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="514872662"/>
@@ -1010,5 +1019,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{DEA36627-49AD-8335-E182-7B862FE2B678}</FileHash>
+	<FileHash>{D83A1088-8E92-E3C5-DC2E-32488BEA9C48}</FileHash>
 </SoundBanksInfo>

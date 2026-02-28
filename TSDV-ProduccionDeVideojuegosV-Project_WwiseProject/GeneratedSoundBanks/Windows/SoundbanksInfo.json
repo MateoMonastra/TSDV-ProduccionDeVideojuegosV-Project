@@ -1297,7 +1297,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{5E1CE294-A0B3-4A00-337C-594B5276A1B0}",
+    "Hash": "{FBBBF760-811E-BB30-314E-0A899A5F1C30}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1366,6 +1366,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_020.wav",
       "CachePath": "28/{285BBBDE-63A1-7E15-05C0-21AA148203CC}.wem"
+     },
+     {
+      "Id": "156639926",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "LeverInteracted.wav",
+      "CachePath": "66/{66A00CE6-CFC7-1F36-F7F2-99B60BEDF8EC}.wem"
      },
      {
       "Id": "164027548",
@@ -2312,6 +2320,22 @@
       ]
      },
      {
+      "Id": "4096151038",
+      "Name": "LeverInteracted",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\LeverInteracted",
+      "GUID": "{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}",
+      "Color": "12",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "2.866565",
+      "DurationMax": "2.866565",
+      "MediaRefs": [
+       {
+        "Id": "156639926"
+       }
+      ]
+     },
+     {
       "Id": "139541255",
       "Name": "M_Alcantarilla",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\Music_Lvl_1\\M_Alcantarilla",
@@ -2439,6 +2463,6 @@
     ]
    }
   ],
-  "FileHash": "{488E146E-EC53-598E-54D9-8008C8507676}"
+  "FileHash": "{50EB2DF6-D7D6-74D6-8E49-FDC2B9656DB7}"
  }
 }

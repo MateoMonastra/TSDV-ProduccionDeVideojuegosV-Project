@@ -227,6 +227,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="LeverInteracted" ID="{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{77D905A8-7B98-4E3B-A2EC-6B9EDF747488}" ShortID="80501960">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LeverInteracted" ID="{8FF01944-2F84-42A3-A81A-CDB2A9205A31}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
