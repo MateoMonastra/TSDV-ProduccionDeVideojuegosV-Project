@@ -18,7 +18,7 @@
     "Type": "User",
     "GUID": "{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}",
     "Language": "SFX",
-    "Hash": "{E9588B5C-82CA-AEB4-FFCF-38FCA4009B27}",
+    "Hash": "{C8AE45BB-D4BF-1DE4-5B06-8BBC744CA9CF}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Player",
     "ShortName": "Player",
     "Path": "Player.bnk",
@@ -1297,7 +1297,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{CBB772FE-E8FC-EAC0-F2EF-BFAB6A0C8222}",
+    "Hash": "{99ABA71C-ADEE-E01D-CFF2-01194CDB4405}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1554,12 +1554,10 @@
      {
       "Id": "514872662",
       "Language": "SFX",
-      "Streaming": "true",
+      "Streaming": "false",
       "Location": "Memory",
       "ShortName": "M_Alcantarilla_Loop.wav",
-      "Path": "Media/514872662.wem",
-      "CachePath": "96/{9624F207-FC14-1499-6A16-056EC6873E70}.wem",
-      "PrefetchSize": "57696"
+      "CachePath": "0D/{0D40FF18-AC99-E175-3829-C61AFFB6A4ED}.wem"
      },
      {
       "Id": "520038629",
@@ -2404,8 +2402,43 @@
       "GUID": "{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"
      }
     ]
+   },
+   {
+    "Id": "2607556080",
+    "Type": "User",
+    "GUID": "{83C7482A-004C-491B-B93B-39F99765B33A}",
+    "Language": "SFX",
+    "Hash": "{26E0338D-9647-074F-A22B-DE4EAFDD6243}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Menu",
+    "ShortName": "Menu",
+    "Path": "Menu.bnk",
+    "Media": [
+     {
+      "Id": "404221077",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "M_Menu.wav",
+      "Path": "Media/404221077.wem",
+      "CachePath": "CC/{CCC1B209-23AB-36E9-9217-CE9708F43A74}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2338369940",
+      "Name": "M_Menu",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu\\M_Menu",
+      "GUID": "{EA633CE1-73FF-4820-AA24-F05B91C09B02}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "404221077"
+       }
+      ]
+     }
+    ]
    }
   ],
-  "FileHash": "{A9CEC7FF-4016-C271-3944-3BB383D55810}"
+  "FileHash": "{7D81E514-57A6-7F0E-DAA3-0DE85C4E1182}"
  }
 }

@@ -9,7 +9,7 @@ namespace Interactable
     public class InteractableLever : MonoBehaviour, IInteractable
     {
         [Header("Settings")] [SerializeField] private InteractData interactData;
-        [SerializeField] private UnityEvent onInteract;
+        [SerializeField] public UnityEvent onInteract;
         [SerializeField] private InputReader inputReader;
         [SerializeField] private Image pcIndicator;
         [SerializeField] private Image joystickIndicator;

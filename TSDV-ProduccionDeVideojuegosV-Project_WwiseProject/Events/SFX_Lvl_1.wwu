@@ -227,6 +227,36 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="LeverInteracted" ID="{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{77D905A8-7B98-4E3B-A2EC-6B9EDF747488}" ShortID="80501960">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LeverInteracted" ID="{8FF01944-2F84-42A3-A81A-CDB2A9205A31}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="DoorSlide" ID="{70234AA8-40FC-47DF-A745-3B2752AD3A66}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{9D021904-558A-4032-B434-4ED46F7AA24D}" ShortID="120966551">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DoorSlide" ID="{A365108F-83CE-46B1-88D8-CF37C74843DF}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

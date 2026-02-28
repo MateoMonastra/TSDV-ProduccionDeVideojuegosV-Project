@@ -18,7 +18,7 @@
     "Type": "User",
     "GUID": "{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}",
     "Language": "SFX",
-    "Hash": "{E9588B5C-82CA-AEB4-FFCF-38FCA4009B27}",
+    "Hash": "{C8AE45BB-D4BF-1DE4-5B06-8BBC744CA9CF}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Player",
     "ShortName": "Player",
     "Path": "Player.bnk",
@@ -1297,7 +1297,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{CBB772FE-E8FC-EAC0-F2EF-BFAB6A0C8222}",
+    "Hash": "{DDD7C636-47E2-D02D-BD95-AB7315DCD32A}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1366,6 +1366,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_020.wav",
       "CachePath": "28/{285BBBDE-63A1-7E15-05C0-21AA148203CC}.wem"
+     },
+     {
+      "Id": "156639926",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "LeverInteracted.wav",
+      "CachePath": "54/{54428FCF-52DD-B06C-CDE5-AD04B3333F4E}.wem"
      },
      {
       "Id": "164027548",
@@ -1554,12 +1562,10 @@
      {
       "Id": "514872662",
       "Language": "SFX",
-      "Streaming": "true",
+      "Streaming": "false",
       "Location": "Memory",
       "ShortName": "M_Alcantarilla_Loop.wav",
-      "Path": "Media/514872662.wem",
-      "CachePath": "96/{9624F207-FC14-1499-6A16-056EC6873E70}.wem",
-      "PrefetchSize": "57696"
+      "CachePath": "0D/{0D40FF18-AC99-E175-3829-C61AFFB6A4ED}.wem"
      },
      {
       "Id": "520038629",
@@ -1907,6 +1913,14 @@
       "CachePath": "37/{375FC76F-AD9D-370D-D8B0-894D2AAEE7AD}.wem"
      },
      {
+      "Id": "1020493207",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "DoorSlide.wav",
+      "CachePath": "F6/{F6E9BE3F-BC35-E4FE-DB2E-F85713FED045}.wem"
+     },
+     {
       "Id": "1033481509",
       "Language": "SFX",
       "Streaming": "false",
@@ -2222,6 +2236,31 @@
       ]
      },
      {
+      "Id": "1609904760",
+      "Name": "DoorSlide",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\DoorSlide",
+      "GUID": "{70234AA8-40FC-47DF-A745-3B2752AD3A66}",
+      "Color": "12",
+      "MaxAttenuation": "150",
+      "DurationType": "OneShot",
+      "DurationMin": "3.3342707",
+      "DurationMax": "3.3342707",
+      "MediaRefs": [
+       {
+        "Id": "1020493207"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
       "Id": "4035222199",
       "Name": "Enemy1GetHit",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Enemy1GetHit",
@@ -2301,6 +2340,31 @@
        },
        {
         "Id": "1033481509"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
+      "Id": "4096151038",
+      "Name": "LeverInteracted",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\LeverInteracted",
+      "GUID": "{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}",
+      "Color": "12",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "2.866565",
+      "DurationMax": "2.866565",
+      "MediaRefs": [
+       {
+        "Id": "156639926"
        }
       ],
       "AuxBusRefs": [
@@ -2404,8 +2468,43 @@
       "GUID": "{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"
      }
     ]
+   },
+   {
+    "Id": "2607556080",
+    "Type": "User",
+    "GUID": "{83C7482A-004C-491B-B93B-39F99765B33A}",
+    "Language": "SFX",
+    "Hash": "{26E0338D-9647-074F-A22B-DE4EAFDD6243}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\Menu",
+    "ShortName": "Menu",
+    "Path": "Menu.bnk",
+    "Media": [
+     {
+      "Id": "404221077",
+      "Language": "SFX",
+      "Streaming": "true",
+      "Location": "Loose",
+      "ShortName": "M_Menu.wav",
+      "Path": "Media/404221077.wem",
+      "CachePath": "CC/{CCC1B209-23AB-36E9-9217-CE9708F43A74}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2338369940",
+      "Name": "M_Menu",
+      "ObjectPath": "\\Events\\Default Work Unit\\Menu\\M_Menu",
+      "GUID": "{EA633CE1-73FF-4820-AA24-F05B91C09B02}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "404221077"
+       }
+      ]
+     }
+    ]
    }
   ],
-  "FileHash": "{C87A01EF-C5CE-83DC-062B-CE965708B56C}"
+  "FileHash": "{30D8FD15-9244-D1D3-F6D8-9676B58200F1}"
  }
 }
