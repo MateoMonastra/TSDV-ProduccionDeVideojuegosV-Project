@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7357040251856687090
+--- !u!1 &2566744005215167374
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3956864300618280831}
-  - component: {fileID: 30903565611489989}
-  - component: {fileID: 2789549066467499344}
-  m_Layer: 13
-  m_Name: LeverAudio
+  - component: {fileID: 5207600392096666352}
+  - component: {fileID: 6757536344488011605}
+  - component: {fileID: 552850821414826498}
+  m_Layer: 0
+  m_Name: SlidingDoorAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3956864300618280831
+--- !u!4 &5207600392096666352
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7357040251856687090}
+  m_GameObject: {fileID: 2566744005215167374}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &30903565611489989
+--- !u!114 &6757536344488011605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7357040251856687090}
+  m_GameObject: {fileID: 2566744005215167374}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29bfd20328f1e0e4d9b9ef6c11de2dfb, type: 3}
@@ -57,20 +57,20 @@ MonoBehaviour:
   scalingFactor: 1
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &2789549066467499344
+--- !u!114 &552850821414826498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7357040251856687090}
+  m_GameObject: {fileID: 2566744005215167374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60eb5613b859734781ce9f2d222c949, type: 3}
+  m_Script: {fileID: 11500000, guid: 88f94f45689ade449b37342821d1f516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leverInteracted:
+  _doorSlide:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 9683de57834aa954d838c37ef1beb2d1, type: 2}
-  _interactableLever: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 8fa2b544161f05e439f3b40eb31ebc5c, type: 2}
+  _slidingDoor: {fileID: 0}
