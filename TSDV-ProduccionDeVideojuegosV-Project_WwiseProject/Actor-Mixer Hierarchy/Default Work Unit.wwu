@@ -5086,12 +5086,23 @@
 									</ObjectLists>
 								</RandomSequenceContainer>
 								<ActorMixer Name="Enemies" ID="{BA186CDC-E17C-4DE6-BBAF-739EE876A0A7}" ShortID="301169042">
+									<PropertyList>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-20</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
 										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
@@ -5515,6 +5526,12 @@
 												<Value>4</Value>
 											</ValueList>
 										</Property>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-17</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -5525,6 +5542,9 @@
 										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
@@ -5543,6 +5563,39 @@
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="LeverInteracted" ID="{A6C6F496-AC20-481D-855E-576130FAE4CA}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DoorSlide" ID="{A365108F-83CE-46B1-88D8-CF37C74843DF}" ShortID="237109141">
+									<PropertyList>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-17</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="DoorSlide" ID="{9CF18728-5F28-4E2B-A3D9-704F9AFBF0A8}">
+											<Language>SFX</Language>
+											<AudioFile>DoorSlide.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1020493207"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="DoorSlide" ID="{9CF18728-5F28-4E2B-A3D9-704F9AFBF0A8}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

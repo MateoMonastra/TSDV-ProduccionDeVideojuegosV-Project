@@ -1297,7 +1297,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{FBBBF760-811E-BB30-314E-0A899A5F1C30}",
+    "Hash": "{A571754B-67D7-F670-E801-7092473B46FB}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1913,6 +1913,14 @@
       "CachePath": "37/{375FC76F-AD9D-370D-D8B0-894D2AAEE7AD}.wem"
      },
      {
+      "Id": "1020493207",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "DoorSlide.wav",
+      "CachePath": "F6/{F6E9BE3F-BC35-E4FE-DB2E-F85713FED045}.wem"
+     },
+     {
       "Id": "1033481509",
       "Language": "SFX",
       "Streaming": "false",
@@ -2228,6 +2236,31 @@
       ]
      },
      {
+      "Id": "1609904760",
+      "Name": "DoorSlide",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\DoorSlide",
+      "GUID": "{70234AA8-40FC-47DF-A745-3B2752AD3A66}",
+      "Color": "12",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "3.3342707",
+      "DurationMax": "3.3342707",
+      "MediaRefs": [
+       {
+        "Id": "1020493207"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
       "Id": "4035222199",
       "Name": "Enemy1GetHit",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Enemy1GetHit",
@@ -2332,6 +2365,15 @@
       "MediaRefs": [
        {
         "Id": "156639926"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
        }
       ]
      },
@@ -2463,6 +2505,6 @@
     ]
    }
   ],
-  "FileHash": "{50EB2DF6-D7D6-74D6-8E49-FDC2B9656DB7}"
+  "FileHash": "{7BE3D75D-F068-0AF0-51B4-414C74726801}"
  }
 }
