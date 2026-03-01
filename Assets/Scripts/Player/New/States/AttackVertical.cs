@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enemies.Beetle;
 using FSM;
 using Health;
 using UnityEngine;
@@ -203,6 +204,13 @@ namespace Player.New
                         br.Break();
                     }
 
+                    continue;
+                }
+
+                var beetles = c.GetComponentInParent<BeetleAgent>();
+                if (beetles != null)
+                {
+                    beetles.OnBeingAttacked();
                     continue;
                 }
 
