@@ -25,6 +25,7 @@ public class ComicEvents : MonoBehaviour
     public void AwakenLevel()
     {
         characterObject.SetActive(true);
+        characterCanvas.SetActive(true);
         introCanvas.SetActive(false);
         ComicCamera.SetActive(false);
     }
