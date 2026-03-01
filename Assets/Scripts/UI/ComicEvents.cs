@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ComicEvents : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class ComicEvents : MonoBehaviour
 
     public void EndLevel()
     {
-        
+        SceneManager.LoadScene("SplashScene");
     }
 
     public void StartIntro()
