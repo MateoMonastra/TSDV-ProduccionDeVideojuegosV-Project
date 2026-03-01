@@ -474,7 +474,10 @@ namespace Player.New
         // ───────────────────────────────────────────────────────────────────────
 
         #region Utilities
-
+        
+        public MyKinematicMotor GetMotor() => motor;
+        public MyCharacterCamera GetCharacterCamera() => _myCharacterCamera;
+        
         public PlayerModel GetPlayerModel() => model;
 
         public void SetPlayerAttackIdleState()
@@ -524,6 +527,21 @@ namespace Player.New
             if (!resetHealth || health == null) return;
             health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());
+        }
+        
+        public void SetCinematicMode(bool enabled)
+        {
+            model.LocomotionBlocked = enabled;
+            model.RawMoveInput = Vector2.zero;
+            
+            if (enabled)
+            {
+                SetPlayerIdleState();
+                SetPlayerAttackIdleState();
+                animController.ResetTriggerIdle();
+            }
+            
+            SubscribeInputs(!enabled);
         }
 
         #endregion
