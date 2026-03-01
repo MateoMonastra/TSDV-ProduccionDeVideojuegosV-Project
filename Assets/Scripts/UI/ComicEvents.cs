@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class ComicEvents : MonoBehaviour
 {
+    private static readonly int Outro = Animator.StringToHash("Outro");
     [SerializeField] private GameObject characterObject;
     [SerializeField] private GameObject characterCanvas;
-    [SerializeField] private GameObject ComicCamera;
+    [SerializeField] private Camera ComicCamera;
     [SerializeField] private GameObject introCanvas;
     [SerializeField] private GameObject outroCanvas;
 
@@ -27,18 +28,26 @@ public class ComicEvents : MonoBehaviour
         characterObject.SetActive(true);
         characterCanvas.SetActive(true);
         introCanvas.SetActive(false);
-        ComicCamera.SetActive(false);
+        ComicCamera.enabled = false;
+    }
+
+    public void EndLevel()
+    {
+        
     }
 
     public void StartIntro()
     {
-        ComicCamera.SetActive(true);
+        ComicCamera.enabled = true;
         outroCanvas.SetActive(false);
     }
 
     public void StartOutro()
     {
-        ComicCamera.SetActive(true);
+        ComicCamera.GetComponent<Animator>().SetTrigger(Outro);
+        ComicCamera.enabled = true;
+        outroCanvas.SetActive(true);
         characterObject.SetActive(false);
+        characterCanvas.SetActive(false);
     }
 }
