@@ -10,7 +10,7 @@ namespace Coins
 
         [Header("Spawn Burst")] [SerializeField]
         private float burstForce = 5f;
-
+        [SerializeField] private float gravityMultiplier = 2.0f;
         [SerializeField] private float upwardForce = 4f;
         [SerializeField] private float settleTime = 0.35f;
 
@@ -88,6 +88,15 @@ namespace Coins
 
             Vector3 force = randomDir * (burstForce * randomForceMultiplier) + Vector3.up * upwardForce;
             rb.AddForce(force, ForceMode.Impulse);
+        }
+        
+        private void FixedUpdate()
+        {
+            if (rb == null) return;
+            if (rb.isKinematic) return;       
+            if (!rb.useGravity) return;
+            
+            rb.AddForce(Physics.gravity * (gravityMultiplier - 1f), ForceMode.Acceleration);
         }
 
         private void Update()
