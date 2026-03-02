@@ -10,7 +10,6 @@ namespace Player.New.States
 
         private readonly MyKinematicMotor _motor;
         private readonly PlayerModel _model;
-        private readonly Camera _cameraRef;
         private readonly PlayerAnimationController _anim;
         private readonly System.Action<string> _req;
         private readonly System.Action _doRespawn;
@@ -18,7 +17,6 @@ namespace Player.New.States
 
         public FireDeath(MyKinematicMotor motor,
             PlayerModel model,
-            Camera cameraRef,
             System.Action<string> request,
             PlayerAnimationController anim,
             System.Action doRespawn,
@@ -26,7 +24,6 @@ namespace Player.New.States
         {
             _motor = motor;
             _model = model;
-            _cameraRef = cameraRef;
             _req = request;
             _anim = anim;
             _doRespawn = doRespawn;
@@ -45,7 +42,7 @@ namespace Player.New.States
 
             _anim?.SetCombatActive(false);
             _anim?.TriggerFireDeath();
-
+            
             foreach (var controller in _dissolvingController)
             {
                 if (controller.isActiveAndEnabled)
@@ -61,7 +58,7 @@ namespace Player.New.States
         {
             base.Exit();
             if (_anim != null) _anim.OnAnim_FireDeathFinished -= OnDeathFinished;
-
+            
             _motor.Frozen = false;
 
             _model.IsDead = false;

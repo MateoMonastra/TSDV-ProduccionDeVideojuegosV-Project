@@ -20,7 +20,8 @@ namespace Player.New.VFX
         Stun,
         Attack2,
         Attack3,
-        HitPendulum
+        HitPendulum,
+        WaterDeath
     }
 
     [Serializable]
