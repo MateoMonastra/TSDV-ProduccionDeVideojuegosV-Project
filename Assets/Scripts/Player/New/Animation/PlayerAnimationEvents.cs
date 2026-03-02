@@ -27,5 +27,11 @@ namespace Player.New.Animation
             anim?.ResetTriggerIdle();
             //anim?.SetCombatActive(false);
         }
+
+        public void OnAnimEvent_FireDeathFinished()
+        {
+            anim?.OnAnimEvent_FireDeathFinished();
+            anim?.TriggerIdle();
+        }
     }
 }

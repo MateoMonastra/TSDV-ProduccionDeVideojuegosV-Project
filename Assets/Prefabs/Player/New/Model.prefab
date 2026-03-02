@@ -1402,6 +1402,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7096405113937477580}
+    - targetCorrespondingSourceObject: {fileID: -605376636397225026, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1219432900318076077}
   m_SourcePrefab: {fileID: 100100000, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
 --- !u!1 &114345881773943113 stripped
 GameObject:
@@ -1589,6 +1592,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -7512645311774290541, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
   m_PrefabInstance: {fileID: 184275264779530555}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &1627078950816434421 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1448512904528591310, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
+  m_PrefabInstance: {fileID: 184275264779530555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1955416100052266942 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1850317496517844613, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
@@ -1659,6 +1667,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -1257996542771355131, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
   m_PrefabInstance: {fileID: 184275264779530555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8437467825423764101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -605376636397225026, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
+  m_PrefabInstance: {fileID: 184275264779530555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1219432900318076077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437467825423764101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f81c23530a7474ead09d3a0af6ede0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMesh: {fileID: 1627078950816434421}
+  dissolveRate: 0.0125
+  refreshRate: 0.025
+  origMaterial: {fileID: 2100000, guid: 79723227796da8349a71a12d0f5d26bf, type: 2}
+  dissolvingMaterial: {fileID: 2100000, guid: 062d6bf24fe890944ab2044385f92049, type: 2}
 --- !u!1 &8582854670166180865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -751325184348261062, guid: 748e13d8c703c9a4195cd0785335fca8, type: 3}
