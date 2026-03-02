@@ -29,7 +29,11 @@ namespace Coins
         private void Break()
         {
             if (breakVfx != null)
-                Instantiate(breakVfx, transform.position, Quaternion.identity);
+            {
+                GameObject go = Instantiate(breakVfx, transform.position, Quaternion.identity);
+                go.transform.position += Vector3.up * 2f;
+                go.transform.localScale *= 2.0f;
+            }
 
             if (_breakSfx != null)
                 _breakSfx.Invoke();

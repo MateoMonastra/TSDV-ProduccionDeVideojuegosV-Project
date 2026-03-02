@@ -171,6 +171,7 @@ MonoBehaviour:
   hud: {fileID: 0}
   health: {fileID: 5112014566630472189}
   interactController: {fileID: 2430419389362974229}
+  dissolvingController: []
 --- !u!114 &8801759034548020238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1871,6 +1872,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3996355031352745667}
     m_Modifications:
+    - target: {fileID: 327525711524535255, guid: 72e1acfcda8569749b6013e902141eda, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180699105420550274, guid: 72e1acfcda8569749b6013e902141eda, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1280572538220812688, guid: 72e1acfcda8569749b6013e902141eda, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1914,6 +1923,10 @@ PrefabInstance:
     - target: {fileID: 4860656018680866527, guid: 72e1acfcda8569749b6013e902141eda, type: 3}
       propertyPath: m_Name
       value: VFX_Hit_Candy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8284675006666933918, guid: 72e1acfcda8569749b6013e902141eda, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
