@@ -112,10 +112,8 @@ namespace Enemies.Beetle
             transform.localScale = Vector3.zero;
 
             if (deathVfx != null)
-            {
-               
                 Instantiate(deathVfx, transform.position,deathVfx.transform.rotation);
-            }
+            
             
             gameObject.SetActive(false);
         }

@@ -5,6 +5,7 @@ using Health;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Enemies.BaseEnemy
 {
@@ -35,6 +36,7 @@ namespace Enemies.BaseEnemy
         [SerializeField] private Collider bodyCollider;
         [SerializeField] private EnemyAnimationController animator;
         [SerializeField] private TrailRenderer trailRenderer;
+        [SerializeField] private GameObject deathVfx;
 
         private Fsm _fsm;
 
@@ -80,7 +82,7 @@ namespace Enemies.BaseEnemy
             _deathImpulse = new Impulse(this.transform, player, model, navMeshAgent, rigidbody,
                 onImpulseStarted: ImpulseOnStart, onImpulseEnded: DeathImpulseOnEnd);
 
-            State death = new Death(this.gameObject, model);
+            State death = new Death(this.gameObject, model, InstanceDeadVFX);
             _states.Add(_deathImpulse);
 
             //Idle Transitions
@@ -411,6 +413,12 @@ namespace Enemies.BaseEnemy
                     TransitionToImpulse();
                 }
             }
+        }
+
+        private void InstanceDeadVFX()
+        {
+            if (deathVfx != null)
+                Instantiate(deathVfx, transform.position ,deathVfx.transform.rotation);
         }
     }
 }
