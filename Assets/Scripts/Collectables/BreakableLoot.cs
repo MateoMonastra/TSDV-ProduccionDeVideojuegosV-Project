@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Coins
@@ -8,7 +9,7 @@ namespace Coins
         [SerializeField] private int coinAmount = 6;
         [SerializeField] private CoinBurstSpawner coinBurstSpawner;
         [SerializeField] private GameObject breakVfx;
-        [SerializeField] private AudioSource breakSfx;
+        public Action _breakSfx;
 
         private int _currentHits;
 
@@ -30,8 +31,8 @@ namespace Coins
             if (breakVfx != null)
                 Instantiate(breakVfx, transform.position, Quaternion.identity);
 
-            if (breakSfx != null)
-                breakSfx.Play();
+            if (_breakSfx != null)
+                _breakSfx.Invoke();
 
             if (coinBurstSpawner != null)
                 coinBurstSpawner.SpawnCoins(transform.position, coinAmount);
