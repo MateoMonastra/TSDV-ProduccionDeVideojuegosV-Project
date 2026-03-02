@@ -23,12 +23,12 @@ namespace Hazards.FlameThrower
 
         private void OnFireIgnite()
         {
-            akFireIgnite.Post(gameObject);
+            akFireIgnite?.Post(gameObject);
         }
 
         private void OnFireStop()
         {
-            akFireStop.Post(gameObject);
+            akFireStop?.Post(gameObject);
         }
     }
 }
