@@ -1,15 +1,15 @@
-using UnityEngine;
 using Enemies.BaseEnemy;
-using System;
-using Unity.VisualScripting;
+using UnityEngine;
+using Event = AK.Wwise.Event;
+
 public class BaseEnemyAudio : MonoBehaviour
 {
     [SerializeField] 
     BaseEnemyAgent enemyBase;
     [SerializeField]
-    private AK.Wwise.Event _akEnemy1GetHit;
+    private Event _akEnemy1GetHit;
     [SerializeField]
-    private AK.Wwise.Event _akEnemy1HitGround;
+    private Event _akEnemy1HitGround;
 
 
     void OnEnable()
@@ -35,6 +35,7 @@ public class BaseEnemyAudio : MonoBehaviour
     {
         enemyBase.onAttackHit.RemoveListener(() => OnAttackHit(enemyBase));
         enemyBase.onAttackFinish.RemoveListener(() => OnAttackFinish(enemyBase));
+        enemyBase.onBeingAttacked.RemoveListener(() => OnbeingAttacked(enemyBase));
     }
 
     private void OnAttackFinish(BaseEnemyAgent enemy)
