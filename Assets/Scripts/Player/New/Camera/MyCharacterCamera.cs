@@ -72,21 +72,14 @@ namespace Player.New
 
         private void OnEnable()
         {
-            if (inputReader != null)
-            {
-                inputReader.OnLook += OnLook;
-            }
+            InputSubscription(true);
 
             GameEvents.GameEvents.OnGamePaused += PauseTheCamera;
         }
 
         private void OnDisable()
         {
-            if (inputReader != null)
-            {
-                inputReader.OnLook -= OnLook;
-            }
-
+            InputSubscription(false);
             GameEvents.GameEvents.OnGamePaused -= PauseTheCamera;
         }
 
@@ -133,10 +126,15 @@ namespace Player.New
             }
 
             _rotationHandler.ResetCameraRotation();
-    
+
             _rotationHandler.SetCameraRotation(_startingRotation);
-    
+
             UpdateCamera(0f, 0f, Vector3.zero, _lastDevice ?? Mouse.current);
+        }
+
+        public void SetCameraRotation(Quaternion rotation)
+        {
+            _rotationHandler.SetCameraRotation(rotation);
         }
 
         private void LateUpdate()
@@ -163,10 +161,11 @@ namespace Player.New
                 1f - Mathf.Exp(-followingSharpness * deltaTime));
 
             Quaternion camRot = _rotationHandler.GetCameraRotation();
-            
-            Vector3 desiredPosition = _currentFollowPosition - (camRot * Vector3.forward * _distanceHandler.TargetDistance);
+
+            Vector3 desiredPosition =
+                _currentFollowPosition - (camRot * Vector3.forward * _distanceHandler.TargetDistance);
             desiredPosition = _framingHandler.ApplyFramingOffset(desiredPosition, _transform);
-            
+
             float currentDistance = _obstructionHandler.GetAdjustedDistance(
                 _currentFollowPosition, desiredPosition, deltaTime);
 
@@ -176,6 +175,7 @@ namespace Player.New
                 dir.Normalize();
                 desiredPosition = _currentFollowPosition + dir * currentDistance;
             }
+
             _transform.position = desiredPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
         }
@@ -185,22 +185,38 @@ namespace Player.New
             StartCoroutine(CameraShakeCoroutine(duration, maxShakeDistance, shakeMagnitude));
         }
 
-        public IEnumerator CameraShakeCoroutine(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        public IEnumerator CameraShakeCoroutine(float duration = 0.25f, float maxShakeDistance = 8f,
+            float shakeMagnitude = 0.8f)
         {
             Vector3 originalPos = transform.localPosition;
             float elapsed = 0.0f;
 
             while (elapsed < duration)
             {
-                float x = (Mathf.PerlinNoise(Time.time * maxShakeDistance, 0) - 0.5f) * shakeMagnitude ;
-                float y = (Mathf.PerlinNoise(0,Time.time * maxShakeDistance) - 0.5f) * shakeMagnitude ;
-                
-                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x, _framingHandler.DefaultFraming.y + y));
+                float x = (Mathf.PerlinNoise(Time.time * maxShakeDistance, 0) - 0.5f) * shakeMagnitude;
+                float y = (Mathf.PerlinNoise(0, Time.time * maxShakeDistance) - 0.5f) * shakeMagnitude;
+
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x,
+                    _framingHandler.DefaultFraming.y + y));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            
+
             _framingHandler.ResetCameraFollowPointFraming();
+        }
+        
+        public void InputSubscription(bool subscribe)
+        {
+            if (subscribe)
+            {
+                if (inputReader != null)
+                    inputReader.OnLook += OnLook;
+            }
+            else
+            {
+                if (inputReader != null)
+                    inputReader.OnLook -= OnLook;
+            }
         }
     }
 }

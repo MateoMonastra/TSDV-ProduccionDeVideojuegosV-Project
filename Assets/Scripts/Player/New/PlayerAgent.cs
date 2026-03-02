@@ -1,4 +1,6 @@
-﻿using FSM;
+﻿using System.Collections.Generic;
+using Art.VFX.Script_VFX;
+using FSM;
 using Health;
 using Player.New.Audio;
 using Player.New.States;
@@ -34,7 +36,8 @@ namespace Player.New
         [SerializeField] private HUDManager hud;
         [SerializeField] private HealthController health;
         [SerializeField] private InteractController interactController;
-
+        [SerializeField] private DissolvingController[] dissolvingController;
+        [SerializeField] private List<GameObject> playerRig;
         #endregion
 
         // ───────────────────────────────────────────────────────────────────────
@@ -53,6 +56,8 @@ namespace Player.New
         private Dash _sDash;
         private Sprint _sSprint;
         private Death _sDeath;
+        private FireDeath _sFireDeath;
+        private WaterDeath _sWaterDeath;
         private PlayerHit _sHit;
 
         // Acciones
@@ -66,10 +71,9 @@ namespace Player.New
         private SpinRelease _aSpinRelease;
         private SelfStun _aSelfStun;
 
-        #endregion
-
         MyCharacterCamera _myCharacterCamera;
 
+        #endregion
 
         // ───────────────────────────────────────────────────────────────────────
 
@@ -215,6 +219,22 @@ namespace Player.New
 
         private void OnPlayerDeath(DamageInfo damageInfo)
         {
+            if (damageInfo.DamageName == "Water")
+            {
+                WaterDeath();
+            }
+            else if (damageInfo.DamageName == "FireBreath")
+            {
+                FireDeath();
+            }
+            else
+            {
+                BaseDeath();
+            }
+        }
+
+        private void BaseDeath()
+        {
             model.ResetAfk();
             hud.SetHealth(0);
             _actionFsm?.ForceTransition(_aIdle);
@@ -223,9 +243,29 @@ namespace Player.New
             GameEvents.GameEvents.PlayerDied();
         }
 
+        private void WaterDeath()
+        {
+            model.ResetAfk();
+            hud.SetHealth(0);
+            _actionFsm?.ForceTransition(_aIdle);
+            interactController.InterruptInteraction();
+            _locomotionFsm.ForceTransition(_sWaterDeath);
+            GameEvents.GameEvents.PlayerDied();
+        }
+
+        private void FireDeath()
+        {
+            model.ResetAfk();
+            hud.SetHealth(0);
+            _actionFsm?.ForceTransition(_aIdle);
+            interactController.InterruptInteraction();
+            _locomotionFsm.ForceTransition(_sFireDeath);
+            GameEvents.GameEvents.PlayerDied();
+        }
+
         private void OnPlayerDamaged(DamageInfo info)
         {
-            if (_locomotionFsm.GetCurrentState() == _sDeath) return;
+            if (_locomotionFsm.GetCurrentState() == _sDeath || _locomotionFsm.GetCurrentState() == _sFireDeath || _locomotionFsm.GetCurrentState() == _sWaterDeath) return;
 
             model.ResetAfk();
             model.LastDamage = info;
@@ -325,7 +365,7 @@ namespace Player.New
         {
             void RequestLocomotionTransition(string transitionId)
             {
-                if (_locomotionFsm.GetCurrentState() != _sDeath)
+                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath)
                 {
                     _locomotionFsm.TryTransitionTo(transitionId);
                 }
@@ -358,6 +398,26 @@ namespace Player.New
                 animController,
                 () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true)
             );
+            
+            _sFireDeath = new FireDeath(
+                motor,
+                model,
+                RequestLocomotionTransition,
+                animController,
+                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true),
+                dissolvingController
+            );
+            
+            _sWaterDeath = new WaterDeath(
+                motor,
+                model,
+                vfxController,
+                RequestLocomotionTransition,
+                animController,
+                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true),
+                playerRig,
+                _myCharacterCamera
+            );
 
             _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController,
                 audioController);
@@ -386,6 +446,8 @@ namespace Player.New
             _sDash.AddTransition(new Transition { From = _sDash, To = _sSprint, ID = Dash.ToSprint });
 
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
+            _sFireDeath.AddTransition(new Transition { From = _sFireDeath, To = _sIdle, ID = Death.ToWalkIdle });
+            _sWaterDeath.AddTransition(new Transition { From = _sWaterDeath, To = _sIdle, ID = Death.ToWalkIdle });
 
             _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
 
@@ -399,7 +461,7 @@ namespace Player.New
         {
             void RequestActionTransition(string transitionId)
             {
-                if (_locomotionFsm.GetCurrentState() != _sDeath)
+                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath)
                 {
                     _actionFsm.TryTransitionTo(transitionId);
                 }
@@ -407,13 +469,19 @@ namespace Player.New
 
 
             _aIdle = new AttackIdle(model, RequestActionTransition, animController, motor, audioController);
-            _a1 = new Attack1(motor, model, _myCharacterCamera ,RequestActionTransition, animController, vfxController, audioController);
-            _a2 = new Attack2(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
-            _a3 = new Attack3(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController, audioController);
-            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera ,animController, vfxController, audioController);
-            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor, vfxController, animController, audioController);
-            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController, audioController);
-			
+            _a1 = new Attack1(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController,
+                audioController);
+            _a2 = new Attack2(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController,
+                audioController);
+            _a3 = new Attack3(motor, model, _myCharacterCamera, RequestActionTransition, animController, vfxController,
+                audioController);
+            _aVertical = new AttackVertical(motor, model, RequestActionTransition, _myCharacterCamera, animController,
+                vfxController, audioController);
+            _aSpinCharge = new SpinCharge(model, RequestActionTransition, cameraRef.transform, hud, motor,
+                vfxController, animController, audioController);
+            _aSpinRelease = new SpinRelease(motor, model, RequestActionTransition, animController, vfxController,
+                audioController);
+
             _aSelfStun = new SelfStun(motor, model, RequestActionTransition, animController, vfxController);
 
             // Transiciones de acciones
@@ -474,10 +542,10 @@ namespace Player.New
         // ───────────────────────────────────────────────────────────────────────
 
         #region Utilities
-        
+
         public MyKinematicMotor GetMotor() => motor;
         public MyCharacterCamera GetCharacterCamera() => _myCharacterCamera;
-        
+
         public PlayerModel GetPlayerModel() => model;
 
         public void SetPlayerAttackIdleState()
@@ -528,19 +596,19 @@ namespace Player.New
             health.ResetHealth();
             hud.SetHealth(health.GetCurrentHealth());
         }
-        
+
         public void SetCinematicMode(bool enabled)
         {
             model.LocomotionBlocked = enabled;
             model.RawMoveInput = Vector2.zero;
-            
+
             if (enabled)
             {
                 SetPlayerIdleState();
                 SetPlayerAttackIdleState();
                 animController.ResetTriggerIdle();
             }
-            
+
             SubscribeInputs(!enabled);
         }
 

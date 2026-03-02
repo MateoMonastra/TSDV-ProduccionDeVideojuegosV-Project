@@ -7,8 +7,9 @@ namespace CheckPoint
     [RequireComponent(typeof(Rigidbody))]
     public class KillBound : MonoBehaviour
     {
-        private Collider _col;
+        [SerializeField] private string name = "Water";
         private Rigidbody _rb;
+        private Collider _col;
 
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace CheckPoint
             var health = other.GetComponentInParent<HealthController>();
             if (!health) return;
 
-            health.InstaKill();
+            health.InstaKill(name);
         }
     }
 }

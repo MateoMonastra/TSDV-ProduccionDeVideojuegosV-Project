@@ -35,6 +35,7 @@ namespace Player.New
         static readonly int tGetUp = Animator.StringToHash("GetUp");
         static readonly int tGetRecovered = Animator.StringToHash("GetRecovered");
         static readonly int IsDie = Animator.StringToHash("Die");
+        static readonly int IsFireDie = Animator.StringToHash("FireDie");
         static readonly int IsHit = Animator.StringToHash("Hit");
         static readonly int IsIdle = Animator.StringToHash("Idle");
         static readonly int IsIdleAfk = Animator.StringToHash("IdleAfk");
@@ -180,6 +181,13 @@ namespace Player.New
             SetWalking(false);
             _anim?.SetTrigger(IsDie);
         }
+        
+        public void TriggerFireDeath()
+        {
+            SetFalling(false);
+            SetWalking(false);
+            _anim?.SetTrigger(IsFireDie);
+        }
 
         public void TriggerHit() => _anim?.SetTrigger(IsHit);
         public void TriggerIdle() => _anim?.SetTrigger(IsIdle);
@@ -207,6 +215,7 @@ namespace Player.New
         public Action OnAnim_SpinDamage;
         public Action OnAnim_Footstep;
         public Action OnAnim_DeathFinished;
+        public Action OnAnim_FireDeathFinished;
 
         public void AnimEvent_AttackHit()
         {
@@ -235,6 +244,11 @@ namespace Player.New
         public void OnAnimEvent_DeathFinished()
         {
             OnAnim_DeathFinished?.Invoke();
+        }
+        
+        public void OnAnimEvent_FireDeathFinished()
+        {
+            OnAnim_FireDeathFinished?.Invoke();
         }
     }
 }
