@@ -52,7 +52,6 @@ Material:
   - TransparentDepthPostpass
   - MOTIONVECTORS
   - DepthOnly
-  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -127,7 +126,7 @@ Material:
     - _Blend: 2
     - _BlendMode: 0
     - _BumpScale: 1
-    - _CastShadows: 0
+    - _CastShadows: 1
     - _ConservativeDepthOffsetEnable: 0
     - _Cull: 0
     - _CullMode: 0
