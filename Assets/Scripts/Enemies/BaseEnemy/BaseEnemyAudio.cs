@@ -17,6 +17,7 @@ public class BaseEnemyAudio : MonoBehaviour
         enemyBase.onAttackHit.AddListener(() => OnAttackHit(enemyBase));
         enemyBase.onAttackFinish.AddListener(() => OnAttackFinish(enemyBase));
         enemyBase.onBeingAttacked.AddListener(() => OnbeingAttacked(enemyBase));
+        enemyBase.onDeath.AddListener(() => OnbeingAttacked(enemyBase));
         enemyBase.onSpinningVerticalImpulseEnded.AddListener(() => OnEnemyHitGround(enemyBase));
     }
 
@@ -36,6 +37,7 @@ public class BaseEnemyAudio : MonoBehaviour
         enemyBase.onAttackHit.RemoveListener(() => OnAttackHit(enemyBase));
         enemyBase.onAttackFinish.RemoveListener(() => OnAttackFinish(enemyBase));
         enemyBase.onBeingAttacked.RemoveListener(() => OnbeingAttacked(enemyBase));
+        enemyBase.onDeath.RemoveListener(() => OnbeingAttacked(enemyBase));
     }
 
     private void OnAttackFinish(BaseEnemyAgent enemy)
