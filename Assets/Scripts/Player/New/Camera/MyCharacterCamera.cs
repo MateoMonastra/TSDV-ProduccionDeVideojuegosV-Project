@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -160,16 +162,45 @@ namespace Player.New
                 followTransform.position,
                 1f - Mathf.Exp(-followingSharpness * deltaTime));
 
+            Quaternion camRot = _rotationHandler.GetCameraRotation();
+            
+            Vector3 desiredPosition = _currentFollowPosition - (camRot * Vector3.forward * _distanceHandler.TargetDistance);
+            desiredPosition = _framingHandler.ApplyFramingOffset(desiredPosition, _transform);
+            
             float currentDistance = _obstructionHandler.GetAdjustedDistance(
-                _currentFollowPosition, _rotationHandler.GetCameraRotation(), deltaTime);
+                _currentFollowPosition, desiredPosition, deltaTime);
 
-            Vector3 targetPosition = _currentFollowPosition -
-                                     (_rotationHandler.GetCameraRotation() * Vector3.forward * currentDistance);
-
-            targetPosition = _framingHandler.ApplyFramingOffset(targetPosition, _transform);
-
-            _transform.position = targetPosition;
+            Vector3 dir = (desiredPosition - _currentFollowPosition);
+            if (dir.sqrMagnitude > 0.000001f)
+            {
+                dir.Normalize();
+                desiredPosition = _currentFollowPosition + dir * currentDistance;
+            }
+            _transform.position = desiredPosition;
             _transform.rotation = _rotationHandler.GetCameraRotation();
+        }
+
+        public void TriggerCameraShake(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            StartCoroutine(CameraShakeCoroutine(duration, maxShakeDistance, shakeMagnitude));
+        }
+
+        public IEnumerator CameraShakeCoroutine(float duration = 0.25f, float maxShakeDistance = 8f, float shakeMagnitude = 0.8f)
+        {
+            Vector3 originalPos = transform.localPosition;
+            float elapsed = 0.0f;
+
+            while (elapsed < duration)
+            {
+                float x = (Mathf.PerlinNoise(Time.time * maxShakeDistance, 0) - 0.5f) * shakeMagnitude ;
+                float y = (Mathf.PerlinNoise(0,Time.time * maxShakeDistance) - 0.5f) * shakeMagnitude ;
+                
+                _framingHandler.SetCameraFollowPointFraming(new Vector2(_framingHandler.DefaultFraming.x + x, _framingHandler.DefaultFraming.y + y));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            
+            _framingHandler.ResetCameraFollowPointFraming();
         }
     }
 }

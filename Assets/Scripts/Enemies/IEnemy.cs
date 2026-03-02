@@ -5,6 +5,6 @@ namespace Enemies
 {
     public interface IEnemy
     {
-        public void OnBeingAttacked(DamageInfo damageOrigin);
+        public void OnBeingAttacked(DamageInfo damageInfo);
     }
 }

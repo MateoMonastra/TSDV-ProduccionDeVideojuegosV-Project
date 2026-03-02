@@ -6,13 +6,15 @@ namespace Enemies.BaseEnemy.States
     public class Death : State
     {
         private GameObject _enemy;
+        private System.Action _deathVfx;
         private BaseEnemyModel _model;
 
         private float _deathTimer;
-        public Death(GameObject enemy, BaseEnemyModel model)
+        public Death(GameObject enemy, BaseEnemyModel model, System.Action deathVfx)
         {
             this._enemy = enemy;
             this._model = model;
+            this._deathVfx = deathVfx;
         }
         public override void Enter()
         {
@@ -28,6 +30,7 @@ namespace Enemies.BaseEnemy.States
             }
             else
             {
+                _deathVfx.Invoke();
                 _enemy.SetActive(false);
             }
             

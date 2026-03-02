@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enemies.Beetle;
 using FSM;
 using Health;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Player.New
         private readonly PlayerAnimationController _anim;
         private readonly PlayerVfxController _vfxController;
         private readonly PlayerAudioController _audioController;
+        private readonly MyCharacterCamera _characterCamera;
 
         private float _t;
         private bool _impactDone;
@@ -33,12 +35,14 @@ namespace Player.New
         private const float MaxAirTime = 3.0f;
 
         public AttackVertical(MyKinematicMotor m, PlayerModel mdl, System.Action<string> req,
+            MyCharacterCamera characterCamera,
             PlayerAnimationController anim = null, PlayerVfxController vfxController = null,
             PlayerAudioController audioController = null)
         {
             _m = m;
             _model = mdl;
             _req = req;
+            _characterCamera = characterCamera;
             _anim = anim;
             _vfxController = vfxController;
             _audioController = audioController;
@@ -146,7 +150,9 @@ namespace Player.New
 
             Vector3 center;
 
-            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 3.0f, Vector3.down, out RaycastHit hit,
+            Debug.DrawRay(_m.transform.position + _m.transform.forward * 2.5f + _m.transform.right * 0.4f, Vector3.down * 3.0f, Color.green,
+                3.0f);
+            if (Physics.Raycast(_m.transform.position + _m.transform.forward * 2.5f + _m.transform.right * 0.4f, Vector3.down, out RaycastHit hit,
                     3.0f, _m.groundMask))
             {
                 center = hit.point + Vector3.up * 0.5f;
@@ -164,7 +170,8 @@ namespace Player.New
             );
 
             _vfxController?.PlayAt(VfxEvent.VerticalAttackLand, center);
-
+            _characterCamera.TriggerCameraShake();
+            
             var processedEnemies = new System.Collections.Generic.HashSet<object>();
             var processedBreakable = new System.Collections.Generic.HashSet<object>();
 
@@ -181,7 +188,7 @@ namespace Player.New
                     {
                         processedEnemies.Add(key);
 
-                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, (8, 60)));
+                        enemyHealth.Damage(new DamageInfo(_model.VerticalDamage, center, _model.VerticalAttackKnockbackDistance, "PlayerVerticalAttack"));
                     }
 
                     continue;
@@ -197,6 +204,13 @@ namespace Player.New
                         br.Break();
                     }
 
+                    continue;
+                }
+
+                var beetles = c.GetComponentInParent<BeetleAgent>();
+                if (beetles != null)
+                {
+                    beetles.OnBeingAttacked();
                     continue;
                 }
 

@@ -33,6 +33,7 @@ namespace Player.New
         static readonly int tSpinInterruption = Animator.StringToHash("SpinInterruption");
         static readonly int tKnockdown = Animator.StringToHash("Knockdown");
         static readonly int tGetUp = Animator.StringToHash("GetUp");
+        static readonly int tGetRecovered = Animator.StringToHash("GetRecovered");
         static readonly int IsDie = Animator.StringToHash("Die");
         static readonly int IsHit = Animator.StringToHash("Hit");
         static readonly int IsIdle = Animator.StringToHash("Idle");
@@ -161,6 +162,11 @@ namespace Player.New
         public void TriggerGetUp()
         {
             if (_anim) _anim.SetTrigger(tGetUp);
+        }
+
+        public void TriggerGetRecovered()
+        {
+            if(_anim) _anim.SetTrigger(tGetRecovered);
         }
 
         public void TriggerInteract()

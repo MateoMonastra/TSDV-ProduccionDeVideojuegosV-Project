@@ -98,6 +98,7 @@ namespace Player.New
             if (_t >= _model.SelfStunDuration)
             {
                 _requestTransition?.Invoke(ToIdle);
+                _anim.TriggerGetRecovered();
                 Finish();
             }
         }

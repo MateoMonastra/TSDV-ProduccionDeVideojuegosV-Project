@@ -17,7 +17,13 @@ namespace AK
         static const AkUniqueID AMBACIDPIPEGAS = 3927828283U;
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
-        static const AkUniqueID MUSIC_LVL1_1 = 158641202U;
+        static const AkUniqueID AMBVENTILADOR = 1754896513U;
+        static const AkUniqueID DOORSLIDE = 1609904760U;
+        static const AkUniqueID ENEMY1GETHIT = 4035222199U;
+        static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
+        static const AkUniqueID LEVERINTERACTED = 4096151038U;
+        static const AkUniqueID M_ALCANTARILLA = 139541255U;
+        static const AkUniqueID M_MENU = 2338369940U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;
@@ -36,6 +42,7 @@ namespace AK
         static const AkUniqueID PLAYERSPINCHARGE3 = 395070061U;
         static const AkUniqueID PLAYERSTEP = 412471812U;
         static const AkUniqueID PROPULSORBOUNCE = 778438783U;
+        static const AkUniqueID ROTARYSAW = 1041503305U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -57,13 +64,14 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID NEW_GAME_PARAMETER = 3671138082U;
+        static const AkUniqueID ROTATINGSAWANGLE = 3437795929U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID LVL_1 = 2397100949U;
+        static const AkUniqueID MENU = 2607556080U;
         static const AkUniqueID PLAYER = 1069431850U;
     } // namespace BANKS
 
@@ -75,6 +83,11 @@ namespace AK
         static const AkUniqueID PLAYER = 1069431850U;
         static const AkUniqueID SFX = 393239870U;
     } // namespace BUSSES
+
+    namespace AUX_BUSSES
+    {
+        static const AkUniqueID REVERBPLATE = 3552122435U;
+    } // namespace AUX_BUSSES
 
     namespace AUDIO_DEVICES
     {

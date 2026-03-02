@@ -11,7 +11,9 @@ namespace Enemies.BaseEnemy.States
         private Action _onImpulseEnded;
         private Vector3 _impulseSource;
         private readonly RaycastHit[] _hit = new RaycastHit[1];
-        private (float, float) _impulseForce;
+        private Vector2 _impulseForce;
+        private float _elapsed;
+        private float _impulseDuration;
         
         public Impulse(Transform enemy, Transform player, BaseEnemyModel model, UnityEngine.AI.NavMeshAgent agent,
             Rigidbody rigidbody, Action onImpulseStarted, Action onImpulseEnded) : base(enemy, player, model)
@@ -20,8 +22,6 @@ namespace Enemies.BaseEnemy.States
             _rigidbody = rigidbody;
             _onImpulseStarted = onImpulseStarted;
             _onImpulseEnded = onImpulseEnded;
-
-            _impulseForce = (model.VerticalImpulseForce,model.VerticalImpulseForce);
         }
 
         public override void Enter()
@@ -37,8 +37,10 @@ namespace Enemies.BaseEnemy.States
             toPlayer.y = enemy.position.y;
             enemy.LookAt(toPlayer);
 
+            _elapsed = 0;
+
             _rigidbody.AddForce(
-                (enemy.position - _impulseSource).normalized * _impulseForce.Item1 + Vector3.up * _impulseForce.Item2,
+                (enemy.position - _impulseSource).normalized * _impulseForce.x + Vector3.up * _impulseForce.y,
                 ForceMode.Impulse);
         }
 
@@ -46,14 +48,21 @@ namespace Enemies.BaseEnemy.States
         {
             base.Tick(delta);
 
-            if (_rigidbody.linearVelocity.y < 0)
+            _elapsed += delta;
+
+            if(_elapsed < _impulseDuration)
             {
-                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.FallMultiplier - 1) * delta);
+                if (_rigidbody.linearVelocity.y < 0)
+                {
+                    _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.FallMultiplier - 1) * delta);
+                }
+                else if (_rigidbody.linearVelocity.y > 0)
+                {
+                    _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.LowJumpMultiplier - 1) * delta);
+                }
             }
-            else if (_rigidbody.linearVelocity.y > 0)
-            {
-                _rigidbody.linearVelocity += Vector3.up * (Physics.gravity.y * (model.LowJumpMultiplier - 1) * delta);
-            }
+           
+           
             
             GroundCheck();
         }
@@ -62,15 +71,13 @@ namespace Enemies.BaseEnemy.States
         {
             bool isGrounded = Physics.Raycast(enemy.position + Vector3.up * 0.5f, -enemy.up, 0.5f, model.GroundLayer);
 
-            if (isGrounded)
+            if (isGrounded && _elapsed >= _impulseDuration)
             {
                 _onImpulseEnded?.Invoke();
             }
-        }
 
-        public override void FixedTick(float delta)
-        {
-            base.FixedTick(delta);
+            if (isGrounded)
+                _rigidbody.linearVelocity = Vector3.zero;
         }
 
         public override void Exit()
@@ -80,7 +87,7 @@ namespace Enemies.BaseEnemy.States
             _agent.ResetPath();
         }
 
-        public void SetImpulse((float, float) newImpulse)
+        public void SetImpulse(Vector2 newImpulse)
         {
             _impulseForce = newImpulse;
         }
@@ -88,6 +95,11 @@ namespace Enemies.BaseEnemy.States
         public void SetImpulseSource(Vector3 impulseSource)
         {
             _impulseSource = impulseSource;
+        }
+
+        public void SetImpulseDuration(float duration)
+        {
+            _impulseDuration = duration;
         }
     }
 }

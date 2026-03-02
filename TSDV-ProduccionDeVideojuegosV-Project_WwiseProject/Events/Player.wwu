@@ -102,10 +102,10 @@
 				</Event>
 				<Event Name="PlayerChargeAttackStop" ID="{D71A7997-9415-434C-B021-7DF429EBBD42}">
 					<ChildrenList>
-						<Action Name="" ID="{E9176ED6-EA8F-477B-A57B-E14C625C646F}" ShortID="899372809">
+						<Action Name="" ID="{686FA308-A917-408E-92B0-EA795B927914}" ShortID="839963077">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="ChargeAttackStop" ID="{2819FC8F-7DA8-45A5-9DE5-345A120CD17A}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerStun" ID="{32A302D1-CF6F-4F4D-BC9C-B15A23AFDC0E}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -251,23 +251,13 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="PlayerAttackSmash" ID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}">
-					<ChildrenList>
-						<Action Name="" ID="{747BF610-B5B7-4A13-A372-EEC1ECA389E9}" ShortID="2974872">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="PlayerAttack_03_Blend" ID="{688F93F9-B30D-4158-BF16-3EE9777E70A6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
+				<Event Name="PlayerAttackSmash" ID="{3433EA3F-D3F0-4C9D-B463-7A6CD3442CF7}"/>
 				<Event Name="PlayerAttackSmashHitFloor" ID="{963549E2-EDEE-4C73-AD09-98CF47D31C47}">
 					<ChildrenList>
-						<Action Name="" ID="{F748EBBE-91A0-4E77-95F4-417959792D57}" ShortID="671671022">
+						<Action Name="" ID="{98D1F2C1-FB4F-46BA-974E-36FDF809B9B9}" ShortID="368709242">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="PlayerAttackSmashHitFloor" ID="{A95B3C79-570E-4CCB-8980-4D5E980AEAB7}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="PlayerAttackSmashHitFloorBlend" ID="{2B92E129-AB1B-4A57-94E9-0889CEF4A775}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

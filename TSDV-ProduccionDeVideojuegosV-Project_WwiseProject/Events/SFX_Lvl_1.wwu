@@ -16,6 +16,28 @@
 								</Reference>
 							</ReferenceList>
 						</Action>
+						<Action Name="" ID="{CE6AF191-5B51-477B-9DDE-E776439EE4AD}" ShortID="766485259">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{5419002B-1C32-4D84-887A-E1C1F702A5C4}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbAcidStreams" ID="{EBD0F654-A4B9-4B74-9285-0B2F219C7C1B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="AmbFire" ID="{D5235B01-656C-498E-90F2-DAAE8EF5F842}">
@@ -122,6 +144,114 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="AmbAcidPipeGas" ID="{6BFC4B4B-3F54-4FC0-BA5D-72B135B062C0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="RotarySaw" ID="{F778D436-80D8-40F4-ACA6-E5135F2E9B1D}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{19C07DFF-52AB-4653-97B4-32AFEF8FC10A}" ShortID="90391149">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RotarySaw" ID="{A9F8DB64-8322-4BEB-85C0-D94ED43E2904}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{5FA74ADC-194E-40F1-B6E2-7EEC5C147670}" ShortID="132071292">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{D3A33E65-CECB-44BA-9007-B05E1E31E3B0}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RotarySaw" ID="{A9F8DB64-8322-4BEB-85C0-D94ED43E2904}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Enemy1GetHit" ID="{0D324DA8-2484-4166-A38F-03BAE66DA487}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{4805E0BC-D029-40E2-90AC-8B1F0241848A}" ShortID="909451359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1GetHit" ID="{32B9DA0D-5F40-41DB-B6D6-13636090FAC4}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Enemy1HitGround" ID="{68937EAF-6401-42D4-9FBF-AF05FF08B3A2}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{B88C7510-0231-4F36-B75B-00F4EC0A55F5}" ShortID="243026019">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Enemy1HitGround" ID="{D081BA66-E828-4FCE-9B0C-1D36FE0FA480}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AmbVentilador" ID="{E5B25632-80EE-4F34-A327-AC4FDC4B8560}">
+					<ChildrenList>
+						<Action Name="" ID="{DE87F527-FC73-4AC0-A564-4808427CE6D6}" ShortID="1023943342">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="AmbVentilador" ID="{9DC4F702-E83F-4E84-BB99-8EB40ADFC741}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="LeverInteracted" ID="{08B8680A-19B7-4CE1-81C3-4B544E38DB9E}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{77D905A8-7B98-4E3B-A2EC-6B9EDF747488}" ShortID="80501960">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LeverInteracted" ID="{8FF01944-2F84-42A3-A81A-CDB2A9205A31}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="DoorSlide" ID="{70234AA8-40FC-47DF-A745-3B2752AD3A66}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{9D021904-558A-4032-B434-4ED46F7AA24D}" ShortID="120966551">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DoorSlide" ID="{A365108F-83CE-46B1-88D8-CF37C74843DF}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
