@@ -5604,6 +5604,83 @@
 										<ActiveSource Name="DoorSlide" ID="{9CF18728-5F28-4E2B-A3D9-704F9AFBF0A8}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<ActorMixer Name="FireBreather" ID="{BADD4859-AA97-4C83-BC81-89F4817D57F3}" ShortID="28041519">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="2.45"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="49"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-16</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="RotarySaw" ID="{D94ECCBF-C763-4A9E-BA8E-874043A385AF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="FireBreatherIgnite" ID="{6E94A688-9BFF-48E0-AFC3-1F8E3BFAC91C}" ShortID="528995953">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="FireBreatherIgnite" ID="{26F12155-E74F-47F6-A251-4067C1D94BF7}">
+													<Language>SFX</Language>
+													<AudioFile>FireBreatherIgnite.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="383353568"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="FireBreatherIgnite" ID="{26F12155-E74F-47F6-A251-4067C1D94BF7}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="FireBreatherLoop" ID="{47C1DF3E-4A38-4042-84A5-0D716A226DC3}" ShortID="455576042">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="FireBreatherLoop" ID="{E7DC1344-D234-44EF-B6CA-F28A803EA0A0}">
+													<Language>SFX</Language>
+													<AudioFile>FireBreatherLoop.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="797065536"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="FireBreatherLoop" ID="{E7DC1344-D234-44EF-B6CA-F28A803EA0A0}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</ActorMixer>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">

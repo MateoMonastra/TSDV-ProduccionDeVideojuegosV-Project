@@ -6,17 +6,6 @@
 				<WorkUnit Name="Player" ID="{7B7B5D13-FFAB-49C1-874D-26DB6806DF7D}" PersistMode="Reference"/>
 				<WorkUnit Name="Lvl_1" ID="{8FEC1668-79F2-401A-B63F-E1ADA7C31B69}" PersistMode="Reference"/>
 				<WorkUnit Name="Menu" ID="{4CE6E0D1-0FF1-45E1-AB35-3B6A90B00886}" PersistMode="Reference"/>
-				<Event Name="Play_LeverInteracted" ID="{DAB7C9DB-0FCE-4AC9-B815-D9A5DB067A22}">
-					<ChildrenList>
-						<Action Name="" ID="{A0436C3A-B88C-4470-8203-BA62A2759BF7}" ShortID="487073635">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="LeverInteracted" ID="{8FF01944-2F84-42A3-A81A-CDB2A9205A31}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

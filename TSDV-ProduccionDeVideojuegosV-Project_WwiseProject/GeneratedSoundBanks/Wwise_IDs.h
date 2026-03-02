@@ -21,6 +21,8 @@ namespace AK
         static const AkUniqueID DOORSLIDE = 1609904760U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
         static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
+        static const AkUniqueID FIREHAZARDSTARTS = 164662770U;
+        static const AkUniqueID FIREHAZARDSTOPS = 1281357192U;
         static const AkUniqueID LEVERINTERACTED = 4096151038U;
         static const AkUniqueID M_ALCANTARILLA = 139541255U;
         static const AkUniqueID M_MENU = 2338369940U;

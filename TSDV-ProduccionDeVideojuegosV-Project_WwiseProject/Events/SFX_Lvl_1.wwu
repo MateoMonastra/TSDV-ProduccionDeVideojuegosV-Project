@@ -257,6 +257,51 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="FireHazardStarts" ID="{A5C42401-3621-4B40-A50C-81DDC8E8DE36}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{48E46857-E6A5-4A7D-A3EC-8858BC1F0135}" ShortID="688899514">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FireBreatherIgnite" ID="{6E94A688-9BFF-48E0-AFC3-1F8E3BFAC91C}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{3D2D8BC4-C507-4052-8F91-F9D828413C0B}" ShortID="946428058">
+							<PropertyList>
+								<Property Name="Delay" Type="Real64" Value="0.146"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FireBreatherLoop" ID="{47C1DF3E-4A38-4042-84A5-0D716A226DC3}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="FireHazardStops" ID="{F3558E92-2563-46F1-8035-F8A48BE2D1C3}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{01CC1ADB-73A1-4248-B86A-15AA02B0FAEC}" ShortID="816609459">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="FireBreatherLoop" ID="{47C1DF3E-4A38-4042-84A5-0D716A226DC3}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
