@@ -8,6 +8,7 @@ namespace Collectables
     {
         public string stampId;
         public Image icon;
+        public Image background;
         public Color lockedColor = new Color(1,1,1,0.25f);
         public Color unlockedColor = new Color(1,1,1,1f);
 
@@ -15,6 +16,7 @@ namespace Collectables
         {
             if (icon == null) return;
             icon.color = unlocked ? unlockedColor : lockedColor;
+            background.color = unlocked ? unlockedColor : lockedColor;
         }
     }
 }

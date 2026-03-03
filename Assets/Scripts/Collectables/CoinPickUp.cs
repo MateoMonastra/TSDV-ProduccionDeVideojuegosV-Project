@@ -27,6 +27,7 @@ namespace Coins
 
 
         [Header("Refs")] [SerializeField] private Rigidbody rb;
+        [SerializeField] private GameObject pickupParticles;
         [SerializeField] private Collider triggerCollider;
         [SerializeField] private Renderer visualRenderer;
 
@@ -153,6 +154,8 @@ namespace Coins
                 _playerTarget = other.transform;
 
                 CoinsWallet.Instance.RequestCoinFromWorld(transform.position, coinValue);
+                Instantiate(pickupParticles, transform.position, Quaternion.identity);
+                
                 Destroy(gameObject);
             }
         }
