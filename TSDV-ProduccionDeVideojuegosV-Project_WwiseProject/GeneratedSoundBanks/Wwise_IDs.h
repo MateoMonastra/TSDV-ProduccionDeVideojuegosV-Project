@@ -25,7 +25,9 @@ namespace AK
         static const AkUniqueID FIREHAZARDSTOPS = 1281357192U;
         static const AkUniqueID LEVERINTERACTED = 4096151038U;
         static const AkUniqueID M_ALCANTARILLA = 139541255U;
+        static const AkUniqueID M_CASTILLO = 1505863096U;
         static const AkUniqueID M_MENU = 2338369940U;
+        static const AkUniqueID M_STOPALCANTARILLA = 3593700799U;
         static const AkUniqueID PLAYERATTACK1 = 3417696939U;
         static const AkUniqueID PLAYERATTACK2 = 3417696936U;
         static const AkUniqueID PLAYERATTACK3 = 3417696937U;

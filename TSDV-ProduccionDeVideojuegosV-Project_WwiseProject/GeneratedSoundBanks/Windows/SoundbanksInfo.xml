@@ -546,7 +546,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{0AB74EE6-04DC-FFC0-780D-4D026BE81A71}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{2D2BB69D-D922-3C12-C926-65175CF33590}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -603,6 +603,10 @@
 				<File Id="194541887" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_028.wav</ShortName>
 					<CachePath>1F/{1FE5410F-7EC1-F559-29CA-A2DF72F1B6B4}.wem</CachePath>
+				</File>
+				<File Id="202211210" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>M_Castillo.wav</ShortName>
+					<CachePath>48/{480628E7-B65A-7F71-B82D-DE3302E6044E}.wem</CachePath>
 				</File>
 				<File Id="203377699" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_013.wav</ShortName>
@@ -1046,6 +1050,15 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="1505863096" Name="M_Castillo" ObjectPath="\Events\Default Work Unit\Lvl_1\Music_Lvl_1\M_Castillo" GUID="{313D1CEC-FBD2-47AC-81C7-A6C16076489D}" Color="7" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="202211210"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
+				</Event>
+				<Event Id="3593700799" Name="M_StopAlcantarilla" ObjectPath="\Events\Default Work Unit\Lvl_1\Music_Lvl_1\M_StopAlcantarilla" GUID="{DF04C57E-4131-4125-9C4A-A43646673D90}" Color="7" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="778438783" Name="PropulsorBounce" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\PropulsorBounce" GUID="{7446A1F9-7D18-4029-880C-36C66725B72B}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="1.6466045" DurationMax="1.8060586">
 					<MediaRefs>
 						<MediaRef Id="24105696"/>
@@ -1070,7 +1083,7 @@
 				<GameParameter Id="3437795929" Name="RotatingSawAngle" ObjectPath="\Game Parameters\Default Work Unit\RotatingSawAngle" GUID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2607556080" Type="User" GUID="{83C7482A-004C-491B-B93B-39F99765B33A}" Language="SFX" Hash="{26E0338D-9647-074F-A22B-DE4EAFDD6243}">
+		<SoundBank Id="2607556080" Type="User" GUID="{83C7482A-004C-491B-B93B-39F99765B33A}" Language="SFX" Hash="{FA6B9970-94B1-A975-58A2-40198B4C86DA}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Menu</ObjectPath>
 			<ShortName>Menu</ShortName>
 			<Path>Menu.bnk</Path>
@@ -1086,9 +1099,12 @@
 					<MediaRefs>
 						<MediaRef Id="404221077"/>
 					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
 				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{908BB0E7-E2B3-C870-0C73-0AFB51AB9D01}</FileHash>
+	<FileHash>{763A0A13-BABC-6474-A365-2C7D8F8008B9}</FileHash>
 </SoundBanksInfo>
