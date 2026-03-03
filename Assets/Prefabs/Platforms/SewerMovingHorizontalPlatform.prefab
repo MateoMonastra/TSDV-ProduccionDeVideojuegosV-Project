@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4877721831097574508}
+  - {fileID: 4870355687112880181}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7384788203247985394
@@ -200,6 +201,72 @@ Transform:
   - {fileID: 6380091624379277518}
   m_Father: {fileID: 6321908204931992393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1834210568908500873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6321908204931992393}
+    m_Modifications:
+    - target: {fileID: 3064292412178348801, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: akSwitchStepTo.WwiseObjectReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f2ae93caac454d44b58e96e2c2979a8, type: 2}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703506357295279183, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_Name
+      value: AudioStepSwitch
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+--- !u!4 &4870355687112880181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+  m_PrefabInstance: {fileID: 1834210568908500873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6845501094767822629
 PrefabInstance:
   m_ObjectHideFlags: 0

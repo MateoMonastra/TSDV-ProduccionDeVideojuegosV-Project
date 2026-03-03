@@ -169,106 +169,6 @@ MonoBehaviour:
   riderProbeHeight: 0.25
   carryRotation: 1
   logs: 0
---- !u!1 &6294734535058452117
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8462515644563119462}
-  - component: {fileID: 366197746147408347}
-  - component: {fileID: 7304052912799027994}
-  - component: {fileID: 1739178657002925847}
-  m_Layer: 16
-  m_Name: AudioStepSwitch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8462515644563119462
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294734535058452117}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.08, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6321908204931992393}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &366197746147408347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294734535058452117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18a937040e02a74fbd0adf267376096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  akSwitchStepTo:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7ed48b1028a288341ba606f523e033d2, type: 2}
---- !u!65 &7304052912799027994
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294734535058452117}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 65536
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 65527
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3, y: 1, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1739178657002925847
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294734535058452117}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 65536
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 65527
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &7618307982351701567
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +201,68 @@ Transform:
   - {fileID: 3757283972174930757}
   m_Father: {fileID: 6321908204931992393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3427929115481244378
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6321908204931992393}
+    m_Modifications:
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703506357295279183, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+      propertyPath: m_Name
+      value: AudioStepSwitch
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+--- !u!4 &8462515644563119462 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6548962259671211964, guid: 10ad88867ccbefd4384be77f2e0dfac7, type: 3}
+  m_PrefabInstance: {fileID: 3427929115481244378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3723971807430837422
 PrefabInstance:
   m_ObjectHideFlags: 0
