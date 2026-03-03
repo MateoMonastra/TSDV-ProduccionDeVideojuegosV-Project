@@ -51,6 +51,7 @@ MonoBehaviour:
   coinValue: 1
   spinSpeed: 360
   burstForce: 4
+  gravityMultiplier: 2
   upwardForce: 7
   settleTime: 0.1
   groundMask:
@@ -64,6 +65,7 @@ MonoBehaviour:
   magnetSpeed: 9
   flyToUiDuration: 1
   rb: {fileID: 822874610422131331}
+  pickupParticles: {fileID: 8355211174439773028, guid: 1515474e0a470734cb7d2633f1991f3c, type: 3}
   triggerCollider: {fileID: 6483681721422165279}
   visualRenderer: {fileID: 2552755873335272833}
 --- !u!54 &822874610422131331
