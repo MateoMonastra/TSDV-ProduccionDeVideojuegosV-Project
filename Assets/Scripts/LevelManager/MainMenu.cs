@@ -12,6 +12,11 @@ public class MainMenu : MonoBehaviour
         animator.SetTrigger(Trigger);
         StartCoroutine(ChangeScene());
     }
+    
+    public void TriggerExit()
+    {
+       Application.Quit();
+    }
 
     private IEnumerator ChangeScene()
     {
