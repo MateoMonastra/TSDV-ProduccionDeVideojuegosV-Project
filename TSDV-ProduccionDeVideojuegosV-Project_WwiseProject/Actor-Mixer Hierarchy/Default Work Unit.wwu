@@ -6997,6 +6997,28 @@
 										<ActiveSource Name="CannonMovement" ID="{317FB8EA-37A3-40DE-9127-DC973E6715DB}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="CoinPickup" ID="{0CE360BB-D873-4541-BDA5-BD43D89B73FA}" ShortID="732671123">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="coin" ID="{46F55282-9F4F-4948-A367-FEDE031225A1}">
+											<Language>SFX</Language>
+											<AudioFile>coin.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="467390899"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="coin" ID="{46F55282-9F4F-4948-A367-FEDE031225A1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">

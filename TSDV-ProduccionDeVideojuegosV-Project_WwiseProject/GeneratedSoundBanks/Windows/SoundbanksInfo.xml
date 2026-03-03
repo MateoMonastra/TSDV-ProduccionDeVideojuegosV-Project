@@ -657,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{EC0EE7B7-524E-6162-C0AA-45067F2DA8D9}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{5272791A-2435-032B-6F2D-867047DE4893}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -838,6 +838,10 @@
 				<File Id="428057301" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_024.wav</ShortName>
 					<CachePath>46/{463899FF-FBCC-1203-6B47-71B2E2D9A60F}.wem</CachePath>
+				</File>
+				<File Id="467390899" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>coin.wav</ShortName>
+					<CachePath>F5/{F5AE2271-D86F-7377-F949-37DBA87EB1BB}.wem</CachePath>
 				</File>
 				<File Id="489728472" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>RotarySaw.wav</ShortName>
@@ -1250,6 +1254,11 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="2752428610" Name="CoinPickup" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\CoinPickup" GUID="{F18967D5-16E1-4378-9F2F-E75DC52FA0E5}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="0.9044898" DurationMax="0.9044898">
+					<MediaRefs>
+						<MediaRef Id="467390899"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1609904760" Name="DoorSlide" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\DoorSlide" GUID="{70234AA8-40FC-47DF-A745-3B2752AD3A66}" Color="12" MaxAttenuation="150" DurationType="OneShot" DurationMin="3.3342707" DurationMax="3.3342707">
 					<MediaRefs>
 						<MediaRef Id="1020493207"/>
@@ -1371,5 +1380,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{4C82DF41-02F0-28B4-C8D3-FBE2025DB6CC}</FileHash>
+	<FileHash>{F49C79E9-81B4-CD22-3101-EFED76BAD659}</FileHash>
 </SoundBanksInfo>

@@ -386,6 +386,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="CoinPickup" ID="{F18967D5-16E1-4378-9F2F-E75DC52FA0E5}">
+					<ChildrenList>
+						<Action Name="" ID="{538C5790-1AF2-4CC3-A750-99B3B238048F}" ShortID="832991808">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CoinPickup" ID="{0CE360BB-D873-4541-BDA5-BD43D89B73FA}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

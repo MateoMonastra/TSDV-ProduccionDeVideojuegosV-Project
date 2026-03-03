@@ -23,6 +23,7 @@ namespace AK
         static const AkUniqueID CANONMOVEMENTSTART = 3248953847U;
         static const AkUniqueID CANONMOVEMENTSTOP = 1539789917U;
         static const AkUniqueID CANONSHOOT = 1021628111U;
+        static const AkUniqueID COINPICKUP = 2752428610U;
         static const AkUniqueID DOORSLIDE = 1609904760U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
         static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
