@@ -430,6 +430,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="BugDeath" ID="{8995B632-4E40-4C8A-BE9D-6F85F94C663D}">
+					<ChildrenList>
+						<Action Name="" ID="{B71F1CB2-344F-4A45-B50D-707DF6D0AD49}" ShortID="166925359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BugDeath" ID="{48AE43DD-CBB4-42C1-BA63-CD74C995FFE0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BreakableWood" ID="{9D3B870F-D84B-40BA-A9A8-19D51744F431}">
+					<ChildrenList>
+						<Action Name="" ID="{FF5A582D-E182-4969-BE42-79BBACAA92AF}" ShortID="729104183">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BreakableWood" ID="{6F6F61E3-F3DA-4B9B-86A8-E9FE06076541}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

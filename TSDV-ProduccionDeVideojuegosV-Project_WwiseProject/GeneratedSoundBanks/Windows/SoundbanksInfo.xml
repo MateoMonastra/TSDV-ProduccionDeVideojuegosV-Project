@@ -657,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{12DB3B00-D4A9-88E3-33EF-5AF558908699}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{1AF69C4A-4650-3A21-C269-01B459D81205}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -726,6 +726,10 @@
 				<File Id="176133664" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_008.wav</ShortName>
 					<CachePath>58/{580CF9B1-3455-1C16-5E55-66D048E35A44}.wem</CachePath>
+				</File>
+				<File Id="180743224" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>crack11.mp3.wav</ShortName>
+					<CachePath>CF/{CF56770E-EA88-A5CA-3B5B-D439CA979668}.wem</CachePath>
 				</File>
 				<File Id="189852758" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_013.wav</ShortName>
@@ -830,6 +834,10 @@
 				<File Id="383353568" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FireBreatherIgnite.wav</ShortName>
 					<CachePath>E8/{E8085001-AB04-049C-5BCC-41ABE9EB6367}.wem</CachePath>
+				</File>
+				<File Id="390487426" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>bug_08.wav</ShortName>
+					<CachePath>CA/{CA2CF343-D206-5269-93FE-F9A6F5C0E5EE}.wem</CachePath>
 				</File>
 				<File Id="394391360" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_002.wav</ShortName>
@@ -1217,6 +1225,16 @@
 						<MediaRef Id="379814874"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="1880224085" Name="BreakableWood" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\BreakableWood" GUID="{9D3B870F-D84B-40BA-A9A8-19D51744F431}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="1.0973614" DurationMax="1.0973614">
+					<MediaRefs>
+						<MediaRef Id="180743224"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2166415085" Name="BugDeath" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\BugDeath" GUID="{8995B632-4E40-4C8A-BE9D-6F85F94C663D}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="0.34954166" DurationMax="0.34954166">
+					<MediaRefs>
+						<MediaRef Id="390487426"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="2393348022" Name="Cannon" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\Cannon" GUID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}" Color="12" MaxAttenuation="144" DurationType="OneShot" DurationMin="2.5184584" DurationMax="3.006271">
 					<MediaRefs>
 						<MediaRef Id="12197693"/>
@@ -1407,5 +1425,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{06081786-CBA0-CE5E-AAE3-3C320EF73D86}</FileHash>
+	<FileHash>{D1078BD1-F383-C4DE-C188-1F755C1101BA}</FileHash>
 </SoundBanksInfo>

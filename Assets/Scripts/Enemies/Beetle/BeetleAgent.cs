@@ -2,6 +2,7 @@ using System.Collections;
 using Enemies.BaseEnemy;
 using Health;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Enemies.Beetle
 {
@@ -25,6 +26,7 @@ namespace Enemies.Beetle
         [Header("Death Shrink")]
         [SerializeField] private float shrinkDuration = 4f;
         [SerializeField] private AnimationCurve shrinkCurve = null;
+        [SerializeField] private Event deathSfx;
 
         private float _angleRad;
         private float _fixedY;
@@ -93,6 +95,7 @@ namespace Enemies.Beetle
         {
             _dying = true;
             _animationController.PlayDead();
+            deathSfx?.Post(gameObject);
             
             if (_col) _col.enabled = false;
             

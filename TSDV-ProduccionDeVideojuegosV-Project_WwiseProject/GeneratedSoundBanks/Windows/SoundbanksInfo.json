@@ -1632,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{12DB3B00-D4A9-88E3-33EF-5AF558908699}",
+    "Hash": "{1AF69C4A-4650-3A21-C269-01B459D81205}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1765,6 +1765,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_008.wav",
       "CachePath": "58/{580CF9B1-3455-1C16-5E55-66D048E35A44}.wem"
+     },
+     {
+      "Id": "180743224",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "crack11.mp3.wav",
+      "CachePath": "CF/{CF56770E-EA88-A5CA-3B5B-D439CA979668}.wem"
      },
      {
       "Id": "189852758",
@@ -1973,6 +1981,14 @@
       "Location": "Memory",
       "ShortName": "FireBreatherIgnite.wav",
       "CachePath": "E8/{E8085001-AB04-049C-5BCC-41ABE9EB6367}.wem"
+     },
+     {
+      "Id": "390487426",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "bug_08.wav",
+      "CachePath": "CA/{CA2CF343-D206-5269-93FE-F9A6F5C0E5EE}.wem"
      },
      {
       "Id": "394391360",
@@ -2843,6 +2859,38 @@
       ]
      },
      {
+      "Id": "1880224085",
+      "Name": "BreakableWood",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BreakableWood",
+      "GUID": "{9D3B870F-D84B-40BA-A9A8-19D51744F431}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "1.0973614",
+      "DurationMax": "1.0973614",
+      "MediaRefs": [
+       {
+        "Id": "180743224"
+       }
+      ]
+     },
+     {
+      "Id": "2166415085",
+      "Name": "BugDeath",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BugDeath",
+      "GUID": "{8995B632-4E40-4C8A-BE9D-6F85F94C663D}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "0.34954166",
+      "DurationMax": "0.34954166",
+      "MediaRefs": [
+       {
+        "Id": "390487426"
+       }
+      ]
+     },
+     {
       "Id": "2393348022",
       "Name": "Cannon",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Cannon",
@@ -3411,6 +3459,6 @@
     ]
    }
   ],
-  "FileHash": "{0E590BE1-0C3D-834D-ABE5-A236BD8B439B}"
+  "FileHash": "{30237311-11E4-139A-8771-E04DC2B1BA9B}"
  }
 }

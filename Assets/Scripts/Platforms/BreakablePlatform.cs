@@ -3,6 +3,7 @@ using PickUps;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Event = AK.Wwise.Event;
 using Random = UnityEngine.Random;
 
 namespace Platforms
@@ -11,6 +12,7 @@ namespace Platforms
     {
         [SerializeField] private Rigidbody[] rbFragments;
         [SerializeField] private UnityEvent onBreak;
+        [SerializeField] private Event breakSfx;
         [SerializeField] private float explosionMinForce;
         [SerializeField] private float explosionMaxForce;
         [SerializeField] private float explosionForceRadius;
@@ -31,6 +33,7 @@ namespace Platforms
         {
             RefreshCooldown();
             onBreak?.Invoke();
+            breakSfx?.Post(gameObject);
             if (CooldownCoroutine != null ) return;
             ExplodeFragments();
         }
