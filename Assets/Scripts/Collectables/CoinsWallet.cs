@@ -84,20 +84,13 @@ namespace Coins
 
         private void EnsureFxPlaying()
         {
-            if (_fxPlaying)
-            {
-                if (collectFxAnimator != null)
-                    collectFxAnimator.ResetTrigger(playTriggerName);
+            if (collectFxAnimator != null)
+                collectFxAnimator.ResetTrigger(playTriggerName);
 
-                if (collectFxAnimator != null)
-                    collectFxAnimator.SetTrigger(playTriggerName);
+            if (collectFxAnimator != null)
+                collectFxAnimator.SetTrigger(playTriggerName);
 
-                AddCoins(1);
-            }
-            else
-            {
-                collectFxAnimator.SetTrigger(Enter);
-            }
+            AddCoins(1);
 
             _fxPlaying = true;
         }
