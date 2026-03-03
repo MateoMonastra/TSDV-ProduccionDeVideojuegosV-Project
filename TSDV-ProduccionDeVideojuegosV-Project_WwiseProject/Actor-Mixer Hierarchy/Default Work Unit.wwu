@@ -2755,7 +2755,7 @@
 							<PropertyList>
 								<Property Name="MakeUpGain" Type="Real64">
 									<ValueList>
-										<Value>-2</Value>
+										<Value>-8</Value>
 									</ValueList>
 								</Property>
 								<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
@@ -2775,7 +2775,7 @@
 								<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
 								<Property Name="UserAuxSendVolume0" Type="Real64">
 									<ValueList>
-										<Value>-12</Value>
+										<Value>-16</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -2881,6 +2881,28 @@
 								</Sound>
 							</ChildrenList>
 						</RandomSequenceContainer>
+						<Sound Name="PlayerDies" ID="{4106C562-6885-4389-AE1A-4F27040FD3BE}" ShortID="940539433">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="PlayerDies" ID="{54A1A8A3-55D1-4470-BFAA-C509A65EF9A1}">
+									<Language>SFX</Language>
+									<AudioFile>PlayerDies.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="543819527"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="PlayerDies" ID="{54A1A8A3-55D1-4470-BFAA-C509A65EF9A1}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 					<PositioningInfo>
 						<Panner Name="" ID="{D2D7ACE6-1A6D-460D-A097-869CA28E5FDB}"/>

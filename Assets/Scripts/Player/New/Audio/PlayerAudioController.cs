@@ -42,8 +42,23 @@ namespace Player.New.Audio
         private AK.Wwise.Event _akPlayerSpinCharge2;
         [SerializeField]
         private AK.Wwise.Event _akPlayerSpinCharge3;
+        [SerializeField]
+        private AK.Wwise.Event _akPlayerDies;
 
 
+        void OnEnable()
+        {
+            GameEvents.GameEvents.OnPlayerDied += PlayPlayerDies;
+        }
+        void OnDisable()
+        {
+            GameEvents.GameEvents.OnPlayerDied -= PlayPlayerDies;
+        }
+
+        public void PlayPlayerDies()
+        {
+            _akPlayerDies.Post(this.gameObject);
+        }
         public void PlayJumpAudio()
         {
             //Debug.Log("PlayJumpAudio");

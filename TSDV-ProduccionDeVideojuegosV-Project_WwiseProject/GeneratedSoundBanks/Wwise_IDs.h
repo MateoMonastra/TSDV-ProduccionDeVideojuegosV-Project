@@ -36,6 +36,7 @@ namespace AK
         static const AkUniqueID PLAYERCHARGESTART = 297139706U;
         static const AkUniqueID PLAYERCHARGESTOPFAIL = 185233618U;
         static const AkUniqueID PLAYERDASH = 2525052962U;
+        static const AkUniqueID PLAYERDIES = 1886223539U;
         static const AkUniqueID PLAYERGETSHIT = 608095284U;
         static const AkUniqueID PLAYERJUMP = 4008126242U;
         static const AkUniqueID PLAYERJUMP2 = 937597620U;

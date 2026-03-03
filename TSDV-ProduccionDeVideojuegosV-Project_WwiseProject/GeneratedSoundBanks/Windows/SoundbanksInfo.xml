@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{54B6FC66-CEEE-9035-443C-7CEAA78BE48C}">
+		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{2E8E6A2A-86B4-4C87-866A-452EA5E10A13}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Player</ObjectPath>
 			<ShortName>Player</ShortName>
 			<Path>Player.bnk</Path>
@@ -161,6 +161,10 @@
 				<File Id="539892687" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_02_001.wav</ShortName>
 					<CachePath>79/{79DC3D53-FC5A-9FF6-D8DC-D8C74C6D4202}.wem</CachePath>
+				</File>
+				<File Id="543819527" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerDies.wav</ShortName>
+					<CachePath>1F/{1F65AAB7-EE8E-3E7C-322F-B8F7D8F7C295}.wem</CachePath>
 				</File>
 				<File Id="544271888" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>StepMetal_011.wav</ShortName>
@@ -383,6 +387,14 @@
 						<MediaRef Id="558616669"/>
 						<MediaRef Id="583577687"/>
 						<MediaRef Id="595908703"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
+				</Event>
+				<Event Id="1886223539" Name="PlayerDies" ObjectPath="\Events\Default Work Unit\Player\PlayerDies" GUID="{A8306B17-A88B-4E85-8A21-E286D1ECA42C}" Color="2" DurationType="OneShot" DurationMin="4.4691668" DurationMax="4.4691668">
+					<MediaRefs>
+						<MediaRef Id="543819527"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
@@ -1078,5 +1090,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{7B64A96F-18E5-C26D-CF51-9B6B4508C315}</FileHash>
+	<FileHash>{908BB0E7-E2B3-C870-0C73-0AFB51AB9D01}</FileHash>
 </SoundBanksInfo>

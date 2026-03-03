@@ -329,6 +329,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="PlayerDies" ID="{A8306B17-A88B-4E85-8A21-E286D1ECA42C}">
+					<ChildrenList>
+						<Action Name="" ID="{EDB3955F-BB93-4BDD-98DA-396970D3E691}" ShortID="309951144">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerDies" ID="{4106C562-6885-4389-AE1A-4F27040FD3BE}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

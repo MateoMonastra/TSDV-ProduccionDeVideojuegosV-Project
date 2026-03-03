@@ -18,7 +18,7 @@
     "Type": "User",
     "GUID": "{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}",
     "Language": "SFX",
-    "Hash": "{54B6FC66-CEEE-9035-443C-7CEAA78BE48C}",
+    "Hash": "{2E8E6A2A-86B4-4C87-866A-452EA5E10A13}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Player",
     "ShortName": "Player",
     "Path": "Player.bnk",
@@ -318,6 +318,14 @@
       "Location": "Memory",
       "ShortName": "PlayerAttack_02_001.wav",
       "CachePath": "79/{79DC3D53-FC5A-9FF6-D8DC-D8C74C6D4202}.wem"
+     },
+     {
+      "Id": "543819527",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerDies.wav",
+      "CachePath": "1F/{1F65AAB7-EE8E-3E7C-322F-B8F7D8F7C295}.wem"
      },
      {
       "Id": "544271888",
@@ -895,6 +903,30 @@
        },
        {
         "Id": "595908703"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
+      "Id": "1886223539",
+      "Name": "PlayerDies",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerDies",
+      "GUID": "{A8306B17-A88B-4E85-8A21-E286D1ECA42C}",
+      "Color": "2",
+      "DurationType": "OneShot",
+      "DurationMin": "4.4691668",
+      "DurationMax": "4.4691668",
+      "MediaRefs": [
+       {
+        "Id": "543819527"
        }
       ],
       "AuxBusRefs": [
@@ -2612,6 +2644,6 @@
     ]
    }
   ],
-  "FileHash": "{A8985A2E-B428-1BB4-A325-FC0EC43E74CE}"
+  "FileHash": "{A81A6119-175D-DBEC-26DD-5CB4C4B24199}"
  }
 }
