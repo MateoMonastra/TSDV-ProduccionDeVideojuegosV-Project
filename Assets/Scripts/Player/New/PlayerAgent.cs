@@ -58,6 +58,7 @@ namespace Player.New
         private Death _sDeath;
         private FireDeath _sFireDeath;
         private WaterDeath _sWaterDeath;
+        private CastleWaterDeath _sCastleWaterDeath;
         private PlayerHit _sHit;
 
         // Acciones
@@ -223,6 +224,10 @@ namespace Player.New
             {
                 WaterDeath();
             }
+            else if (damageInfo.DamageName == "CastleWater")
+            {
+                CastleWaterDeath();
+            }
             else if (damageInfo.DamageName == "FireBreath")
             {
                 FireDeath();
@@ -252,6 +257,15 @@ namespace Player.New
             _locomotionFsm.ForceTransition(_sWaterDeath);
             GameEvents.GameEvents.PlayerDied();
         }
+        private void CastleWaterDeath()
+        {
+            model.ResetAfk();
+            hud.SetHealth(0);
+            _actionFsm?.ForceTransition(_aIdle);
+            interactController.InterruptInteraction();
+            _locomotionFsm.ForceTransition(_sCastleWaterDeath);
+            GameEvents.GameEvents.PlayerDied();
+        }
 
         private void FireDeath()
         {
@@ -265,7 +279,7 @@ namespace Player.New
 
         private void OnPlayerDamaged(DamageInfo info)
         {
-            if (_locomotionFsm.GetCurrentState() == _sDeath || _locomotionFsm.GetCurrentState() == _sFireDeath || _locomotionFsm.GetCurrentState() == _sWaterDeath) return;
+            if (_locomotionFsm.GetCurrentState() == _sDeath || _locomotionFsm.GetCurrentState() == _sFireDeath || _locomotionFsm.GetCurrentState() == _sWaterDeath || _locomotionFsm.GetCurrentState() == _sCastleWaterDeath) return;
 
             model.ResetAfk();
             model.LastDamage = info;
@@ -365,7 +379,7 @@ namespace Player.New
         {
             void RequestLocomotionTransition(string transitionId)
             {
-                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath)
+                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath || _locomotionFsm.GetCurrentState() != _sCastleWaterDeath)
                 {
                     _locomotionFsm.TryTransitionTo(transitionId);
                 }
@@ -418,6 +432,17 @@ namespace Player.New
                 playerRig,
                 _myCharacterCamera
             );
+            
+            _sCastleWaterDeath = new CastleWaterDeath(
+                motor,
+                model,
+                vfxController,
+                RequestLocomotionTransition,
+                animController,
+                () => RespawnAt(model.RespawnPosition, model.RespawnRotation, resetHealth: true),
+                playerRig,
+                _myCharacterCamera
+            );
 
             _sHit = new PlayerHit(motor, model, RequestLocomotionTransition, anim: animController, vfxController,
                 audioController);
@@ -448,6 +473,7 @@ namespace Player.New
             _sDeath.AddTransition(new Transition { From = _sDeath, To = _sIdle, ID = Death.ToWalkIdle });
             _sFireDeath.AddTransition(new Transition { From = _sFireDeath, To = _sIdle, ID = Death.ToWalkIdle });
             _sWaterDeath.AddTransition(new Transition { From = _sWaterDeath, To = _sIdle, ID = Death.ToWalkIdle });
+            _sCastleWaterDeath.AddTransition(new Transition { From = _sCastleWaterDeath, To = _sIdle, ID = Death.ToWalkIdle });
 
             _sHit.AddTransition(new Transition { From = _sHit, To = _sIdle, ID = PlayerHit.ToWalkIdle });
 
@@ -461,7 +487,7 @@ namespace Player.New
         {
             void RequestActionTransition(string transitionId)
             {
-                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath)
+                if (_locomotionFsm.GetCurrentState() != _sDeath || _locomotionFsm.GetCurrentState() != _sFireDeath || _locomotionFsm.GetCurrentState() != _sWaterDeath || _locomotionFsm.GetCurrentState() != _sCastleWaterDeath)
                 {
                     _actionFsm.TryTransitionTo(transitionId);
                 }

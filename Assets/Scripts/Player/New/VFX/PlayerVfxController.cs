@@ -21,7 +21,8 @@ namespace Player.New.VFX
         Attack2,
         Attack3,
         HitPendulum,
-        WaterDeath
+        WaterDeath,
+        CastleWaterDeath,
     }
 
     [Serializable]
