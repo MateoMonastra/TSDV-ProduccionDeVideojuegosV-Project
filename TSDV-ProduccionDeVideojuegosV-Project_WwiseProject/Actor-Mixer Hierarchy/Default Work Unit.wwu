@@ -2237,9 +2237,237 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="StepCarpet" ID="{BEDA2559-505A-4D3D-A792-9D8B610F582D}" ShortID="268879978">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{36C54414-948A-4226-BDCC-19479BC3AE64}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="50"/>
+																	<Property Name="Min" Type="Real64" Value="-50"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="StepCarpet-001" ID="{72560C3C-CD41-40FE-A83C-C4E70FD9F047}" ShortID="953939388">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-001" ID="{E743B29C-1210-4FE2-9E70-DED6AE5E6706}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="135409609"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-001" ID="{E743B29C-1210-4FE2-9E70-DED6AE5E6706}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-002" ID="{85046385-7CAD-425C-9E84-28B76EB09C10}" ShortID="960251217">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-002" ID="{5BBAFB83-1810-4D0D-94DE-D2A396408A3D}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="511605750"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-002" ID="{5BBAFB83-1810-4D0D-94DE-D2A396408A3D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-003" ID="{9B869F5A-0A34-4514-90D2-9B97C9C18923}" ShortID="203778487">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-003" ID="{D8905331-638E-4A6B-993F-9C116DA63164}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="603293763"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-003" ID="{D8905331-638E-4A6B-993F-9C116DA63164}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-004" ID="{B43CD5C1-4C39-444F-B66B-B665D99BF64E}" ShortID="415542976">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-004" ID="{EE2F0AA1-F525-4604-8003-DCC9FC19B8CE}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="598149669"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-004" ID="{EE2F0AA1-F525-4604-8003-DCC9FC19B8CE}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-005" ID="{1C73ECFD-2C8A-4C65-AB2F-0CADF62E4284}" ShortID="359243199">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-005" ID="{08C73A93-C5F3-4840-8DBE-C5F15C2778A8}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-005.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="437950122"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-005" ID="{08C73A93-C5F3-4840-8DBE-C5F15C2778A8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-006" ID="{4A0D97D0-0883-42FC-BC35-10222F155E65}" ShortID="580177764">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-006" ID="{46C96783-29AC-406B-96AD-178637A5F6D8}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-006.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="2020367"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-006" ID="{46C96783-29AC-406B-96AD-178637A5F6D8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-007" ID="{62C5A212-9484-494A-BE95-1163059320B8}" ShortID="358919325">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-007" ID="{40DD23FF-4B77-4DAF-BCB3-29D85D9E3011}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-007.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="1009630059"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-007" ID="{40DD23FF-4B77-4DAF-BCB3-29D85D9E3011}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-008" ID="{C3DBCD22-D477-4FD2-BEFA-95146DBD4757}" ShortID="851129232">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-008" ID="{CCC8A56B-183D-4370-B4BD-B8043672AD9F}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-008.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="818494292"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-008" ID="{CCC8A56B-183D-4370-B4BD-B8043672AD9F}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepCarpet-009" ID="{3BABA536-F43C-4824-BD3F-99D965E85F35}" ShortID="830696685">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepCarpet-009" ID="{3E84659D-C114-4C29-A64C-CC86D06B65B3}">
+															<Language>SFX</Language>
+															<AudioFile>StepCarpet-009.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="29394198"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepCarpet-009" ID="{3E84659D-C114-4C29-A64C-CC86D06B65B3}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
 									</ChildrenList>
 									<GroupingInfo>
 										<GroupingBehaviorList>
+											<GroupingBehavior>
+												<ItemRef Name="StepCarpet" ID="{BEDA2559-505A-4D3D-A792-9D8B610F582D}"/>
+											</GroupingBehavior>
 											<GroupingBehavior>
 												<ItemRef Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}"/>
 											</GroupingBehavior>
@@ -2249,6 +2477,12 @@
 												<SwitchRef Name="Metal" ID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"/>
 												<ItemList>
 													<ItemRef Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Carpet" ID="{7808F1B5-C468-42CB-8C39-E6B2FFA83DC1}"/>
+												<ItemList>
+													<ItemRef Name="StepCarpet" ID="{BEDA2559-505A-4D3D-A792-9D8B610F582D}"/>
 												</ItemList>
 											</Grouping>
 										</GroupingList>
