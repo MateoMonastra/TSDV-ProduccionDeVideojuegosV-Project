@@ -39,6 +39,7 @@ namespace Health
 
         public void InstaKill(string instakillDamageName)
         {
+            
             DamageInfo instakillDamage = new DamageInfo(999999, Vector3.zero, Vector3.up, instakillDamageName);
             OnDeath?.Invoke(instakillDamage);
         }
