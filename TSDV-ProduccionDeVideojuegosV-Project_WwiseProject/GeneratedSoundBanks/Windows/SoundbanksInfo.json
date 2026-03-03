@@ -1632,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{5272791A-2435-032B-6F2D-867047DE4893}",
+    "Hash": "{0EF0F17A-E795-FC92-C094-BCC766B53B85}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -2157,6 +2157,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts2_023.wav",
       "CachePath": "24/{249AC26F-51F9-FBDF-D445-0F4DE4E72A86}.wem"
+     },
+     {
+      "Id": "682835436",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "bang_02.wav",
+      "CachePath": "36/{3673EA29-D6DA-AEB7-CE82-3FBCC8E1130B}.wem"
      },
      {
       "Id": "687226501",
@@ -3283,6 +3291,22 @@
         "Color": "17"
        }
       ]
+     },
+     {
+      "Id": "493550803",
+      "Name": "TurretShot",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\TurretShot",
+      "GUID": "{C1C17477-888E-467B-A7AB-8EE4A2C72050}",
+      "Color": "4",
+      "MaxAttenuation": "80",
+      "DurationType": "OneShot",
+      "DurationMin": "0.65493435",
+      "DurationMax": "0.65493435",
+      "MediaRefs": [
+       {
+        "Id": "682835436"
+       }
+      ]
      }
     ],
     "GameParameters": [
@@ -3339,6 +3363,6 @@
     ]
    }
   ],
-  "FileHash": "{A2B8D372-FA3D-BD3A-026E-FA2ED03DA0F6}"
+  "FileHash": "{0F87B653-BAA4-647D-E47B-4549487205B7}"
  }
 }

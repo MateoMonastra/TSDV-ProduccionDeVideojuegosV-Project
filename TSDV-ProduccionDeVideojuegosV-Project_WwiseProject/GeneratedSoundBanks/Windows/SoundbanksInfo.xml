@@ -657,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{5272791A-2435-032B-6F2D-867047DE4893}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{0EF0F17A-E795-FC92-C094-BCC766B53B85}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -922,6 +922,10 @@
 				<File Id="675133473" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_023.wav</ShortName>
 					<CachePath>24/{249AC26F-51F9-FBDF-D445-0F4DE4E72A86}.wem</CachePath>
+				</File>
+				<File Id="682835436" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>bang_02.wav</ShortName>
+					<CachePath>36/{3673EA29-D6DA-AEB7-CE82-3FBCC8E1130B}.wem</CachePath>
 				</File>
 				<File Id="687226501" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_015.wav</ShortName>
@@ -1352,6 +1356,11 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="493550803" Name="TurretShot" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\TurretShot" GUID="{C1C17477-888E-467B-A7AB-8EE4A2C72050}" Color="4" MaxAttenuation="80" DurationType="OneShot" DurationMin="0.65493435" DurationMax="0.65493435">
+					<MediaRefs>
+						<MediaRef Id="682835436"/>
+					</MediaRefs>
+				</Event>
 			</Events>
 			<GameParameters>
 				<GameParameter Id="3437795929" Name="RotatingSawAngle" ObjectPath="\Game Parameters\Default Work Unit\RotatingSawAngle" GUID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"/>
@@ -1380,5 +1389,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{F49C79E9-81B4-CD22-3101-EFED76BAD659}</FileHash>
+	<FileHash>{460F0555-A537-3911-6133-BD8903D15766}</FileHash>
 </SoundBanksInfo>
