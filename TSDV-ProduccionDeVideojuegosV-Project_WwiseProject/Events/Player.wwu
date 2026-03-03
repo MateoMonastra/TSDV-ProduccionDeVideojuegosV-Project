@@ -263,7 +263,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="PlayerGetsHit" ID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}"/>
+				<Event Name="PlayerGetsHit" ID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}">
+					<ChildrenList>
+						<Action Name="" ID="{354698DE-0A86-4BA2-BAEE-569309E900F4}" ShortID="517701946">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PlayerGetsHit" ID="{5E3661A7-B8F3-440D-8C4B-FEDAF52A90C2}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 				<Event Name="PlayerDash" ID="{767A710A-D4B6-4AB6-94D4-06417B1DAE2D}">
 					<ChildrenList>
 						<Action Name="" ID="{512CE768-FA42-47AF-B4CC-5C1815FA8190}" ShortID="176761527">

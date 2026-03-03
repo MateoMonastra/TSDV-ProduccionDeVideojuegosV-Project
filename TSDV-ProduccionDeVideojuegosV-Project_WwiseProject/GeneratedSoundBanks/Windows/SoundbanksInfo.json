@@ -18,11 +18,19 @@
     "Type": "User",
     "GUID": "{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}",
     "Language": "SFX",
-    "Hash": "{C8AE45BB-D4BF-1DE4-5B06-8BBC744CA9CF}",
+    "Hash": "{54B6FC66-CEEE-9035-443C-7CEAA78BE48C}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Player",
     "ShortName": "Player",
     "Path": "Player.bnk",
     "Media": [
+     {
+      "Id": "1126812",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerGetsHit-003.wav",
+      "CachePath": "A3/{A3A6B330-0E05-B821-1DB7-EC3D7D8C5FC9}.wem"
+     },
      {
       "Id": "10724109",
       "Language": "SFX",
@@ -30,6 +38,14 @@
       "Location": "Memory",
       "ShortName": "PlayerAttack_01_003.wav",
       "CachePath": "63/{636D5632-BF6F-DF57-A4D0-DF4EEBBC5A0D}.wem"
+     },
+     {
+      "Id": "11193874",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerGetsHit-004.wav",
+      "CachePath": "56/{56E1C5AE-7B57-5A51-510D-B3ACB85E34F3}.wem"
      },
      {
       "Id": "15267930",
@@ -232,12 +248,28 @@
       "CachePath": "1A/{1AAED8BB-C08F-77C7-D645-60D827CAF71C}.wem"
      },
      {
+      "Id": "410464886",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerGetsHit-002.wav",
+      "CachePath": "63/{639FA2AC-1353-7051-DAE8-5FB565B20DD9}.wem"
+     },
+     {
       "Id": "422686684",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "PlayerChargeStart_002.wav",
       "CachePath": "FE/{FEB3D6A2-3A3C-EC59-37AD-AD0B34EE0BD7}.wem"
+     },
+     {
+      "Id": "434753113",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "PlayerGetsHit-001.wav",
+      "CachePath": "6A/{6A44C2ED-0858-9C73-C029-4DDB550B008F}.wem"
      },
      {
       "Id": "457045746",
@@ -881,10 +913,32 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\PlayerGetsHit",
       "GUID": "{4895556E-6B94-4DB5-B155-FD17B6D594E6}",
       "Color": "2",
-      "MaxAttenuation": "0",
       "DurationType": "OneShot",
-      "DurationMin": "0",
-      "DurationMax": "0"
+      "DurationMin": "0.6520308",
+      "DurationMax": "0.73087865",
+      "MediaRefs": [
+       {
+        "Id": "1126812"
+       },
+       {
+        "Id": "11193874"
+       },
+       {
+        "Id": "410464886"
+       },
+       {
+        "Id": "434753113"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
      },
      {
       "Id": "4008126242",
@@ -2558,6 +2612,6 @@
     ]
    }
   ],
-  "FileHash": "{45E1E054-6628-B83B-EF25-39F6B6EECD40}"
+  "FileHash": "{A8985A2E-B428-1BB4-A325-FC0EC43E74CE}"
  }
 }

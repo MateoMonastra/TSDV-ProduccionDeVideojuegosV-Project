@@ -9,14 +9,22 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{C8AE45BB-D4BF-1DE4-5B06-8BBC744CA9CF}">
+		<SoundBank Id="1069431850" Type="User" GUID="{A2FB66F5-FAF4-41FF-BA17-6F66F120AC91}" Language="SFX" Hash="{54B6FC66-CEEE-9035-443C-7CEAA78BE48C}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Player</ObjectPath>
 			<ShortName>Player</ShortName>
 			<Path>Player.bnk</Path>
 			<Media>
+				<File Id="1126812" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerGetsHit-003.wav</ShortName>
+					<CachePath>A3/{A3A6B330-0E05-B821-1DB7-EC3D7D8C5FC9}.wem</CachePath>
+				</File>
 				<File Id="10724109" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_01_003.wav</ShortName>
 					<CachePath>63/{636D5632-BF6F-DF57-A4D0-DF4EEBBC5A0D}.wem</CachePath>
+				</File>
+				<File Id="11193874" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerGetsHit-004.wav</ShortName>
+					<CachePath>56/{56E1C5AE-7B57-5A51-510D-B3ACB85E34F3}.wem</CachePath>
 				</File>
 				<File Id="15267930" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttack_03_004.wav</ShortName>
@@ -118,9 +126,17 @@
 					<ShortName>PlayerAttackVoice_03_004.wav</ShortName>
 					<CachePath>1A/{1AAED8BB-C08F-77C7-D645-60D827CAF71C}.wem</CachePath>
 				</File>
+				<File Id="410464886" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerGetsHit-002.wav</ShortName>
+					<CachePath>63/{639FA2AC-1353-7051-DAE8-5FB565B20DD9}.wem</CachePath>
+				</File>
 				<File Id="422686684" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerChargeStart_002.wav</ShortName>
 					<CachePath>FE/{FEB3D6A2-3A3C-EC59-37AD-AD0B34EE0BD7}.wem</CachePath>
+				</File>
+				<File Id="434753113" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PlayerGetsHit-001.wav</ShortName>
+					<CachePath>6A/{6A44C2ED-0858-9C73-C029-4DDB550B008F}.wem</CachePath>
 				</File>
 				<File Id="457045746" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>PlayerAttackVoice_03_001.wav</ShortName>
@@ -372,7 +388,17 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="608095284" Name="PlayerGetsHit" ObjectPath="\Events\Default Work Unit\Player\PlayerGetsHit" GUID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}" Color="2" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="608095284" Name="PlayerGetsHit" ObjectPath="\Events\Default Work Unit\Player\PlayerGetsHit" GUID="{4895556E-6B94-4DB5-B155-FD17B6D594E6}" Color="2" DurationType="OneShot" DurationMin="0.6520308" DurationMax="0.73087865">
+					<MediaRefs>
+						<MediaRef Id="1126812"/>
+						<MediaRef Id="11193874"/>
+						<MediaRef Id="410464886"/>
+						<MediaRef Id="434753113"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
+				</Event>
 				<Event Id="4008126242" Name="PlayerJump" ObjectPath="\Events\Default Work Unit\Player\PlayerJump" GUID="{96AE7904-2812-4EB8-842E-AA63D546BCA7}" Color="2" DurationType="OneShot" DurationMin="0.943875" DurationMax="0.98879164">
 					<MediaRefs>
 						<MediaRef Id="24336308"/>
@@ -1052,5 +1078,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{652A4020-35BB-3E72-B188-B277B1DEC76D}</FileHash>
+	<FileHash>{7B64A96F-18E5-C26D-CF51-9B6B4508C315}</FileHash>
 </SoundBanksInfo>
