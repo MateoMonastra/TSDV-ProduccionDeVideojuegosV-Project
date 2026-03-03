@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EndTrigger : MonoBehaviour
@@ -8,7 +7,6 @@ public class EndTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameEvents.GameEvents.LevelEnded();
-            Debug.Log("SASA");
         }
     }
 }

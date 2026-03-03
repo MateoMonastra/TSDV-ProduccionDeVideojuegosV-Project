@@ -580,7 +580,6 @@ namespace Player.New
             _actionFsm?.ForceTransition(_aIdle);
             _locomotionFsm?.ForceTransition(_sIdle);
 
-            GameEvents.GameEvents.PlayerRevived();
 
             model.ClearActionLocks();
             model.ResetJumps();
@@ -591,6 +590,7 @@ namespace Player.New
             motor.WarpTo(pos, rot);
             motor.SetVelocity(Vector3.zero);
 
+            GameEvents.GameEvents.PlayerRevived();
 
             if (!resetHealth || health == null) return;
             health.ResetHealth();
