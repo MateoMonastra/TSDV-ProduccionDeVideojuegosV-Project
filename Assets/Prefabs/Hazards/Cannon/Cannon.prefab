@@ -228,6 +228,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onRotate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopRotate:
+    m_PersistentCalls:
+      m_Calls: []
   model: {fileID: 11400000, guid: d93200e20d8c47e419b653425f5deab5, type: 2}
   bulletPrefab: {fileID: 5520838819442800868, guid: 29129b0455f7c1543bccf1a537c0a6d6, type: 3}
   groundMarkPrefab: {fileID: 7663107877028067152, guid: 175d19a22bf129940a7e121842106940, type: 3}
@@ -376,7 +382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5665892024102449734
 RectTransform:
   m_ObjectHideFlags: 0
