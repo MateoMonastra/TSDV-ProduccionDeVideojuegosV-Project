@@ -18,6 +18,8 @@ namespace AK
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID AMBVENTILADOR = 1754896513U;
+        static const AkUniqueID CANNONHIT = 2779984353U;
+        static const AkUniqueID CANONSHOOT = 1021628111U;
         static const AkUniqueID DOORSLIDE = 1609904760U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
         static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
