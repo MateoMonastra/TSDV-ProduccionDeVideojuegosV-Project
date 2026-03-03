@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Health;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +24,23 @@ namespace Hazards.FlameThrower
 
         private bool delaying = true;
         private bool breathingFire = false;
+
+        private HashSet<HealthController> fireTargets = new HashSet<HealthController>();
+
+        private void OnEnable()
+        {
+            GameEvents.GameEvents.OnPlayerRevived += ClearList;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.GameEvents.OnPlayerRevived -= ClearList;
+        }
+
+        public void ClearList()
+        {
+            fireTargets.Clear();
+        }
 
         private void Update()
         {
@@ -50,6 +68,7 @@ namespace Hazards.FlameThrower
                     _elapsed = 0;
                     breathingFire = !breathingFire;
                     onStopFireEvent?.Invoke();
+                    fireTargets?.Clear();
                 }
             }
             else
@@ -60,6 +79,7 @@ namespace Hazards.FlameThrower
                     _elapsed = 0;
                     breathingFire = !breathingFire;
                     onStartFireEvent?.Invoke();
+                    fireTargets?.Clear();
                 }
             }
         }
@@ -84,11 +104,15 @@ namespace Hazards.FlameThrower
                 var health = collider.GetComponent<HealthController>();
                 if (!health) return;
 
+                if (fireTargets.Contains(health))
+                    return;
+                else
+                    fireTargets.Add(health);
+
                 var root = health.gameObject;
                 if (!root.CompareTag("Player")) return;
 
-                health.Damage(new DamageInfo(1, transform.position,
-                    knockbackForce, "FireBreath"));
+                health.InstaKill("FireBreath");
             }
         }
 
