@@ -6540,6 +6540,213 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="CannonHit" ID="{7CE1D2E2-16A5-4213-A793-44C19D03203C}" ShortID="754429445">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="1.8"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="71"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-25</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="RotarySaw" ID="{D94ECCBF-C763-4A9E-BA8E-874043A385AF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="CannonHit-001" ID="{A0AF0AE4-1E67-4681-94AC-24DB42BC9FDA}" ShortID="305208297">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-001" ID="{4B525F66-6360-4EEE-A9AC-4B9323F25A71}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="811516775"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-001" ID="{4B525F66-6360-4EEE-A9AC-4B9323F25A71}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-002" ID="{17D7197B-149F-44B0-8B6A-813E49FB2DB8}" ShortID="518301941">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-002" ID="{B66B9741-7C3B-43DB-BBF7-DA99D1BFBE15}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1023542233"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-002" ID="{B66B9741-7C3B-43DB-BBF7-DA99D1BFBE15}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-003" ID="{D5292B93-4091-497F-822B-9C19D0009228}" ShortID="984819251">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-003" ID="{0352ED7F-4AF0-4053-BAB3-E3EE9B2E5F0F}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="493164738"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-003" ID="{0352ED7F-4AF0-4053-BAB3-E3EE9B2E5F0F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-004" ID="{9381AFEC-7A27-4484-AB3C-20B4C368A96C}" ShortID="776856368">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-004" ID="{0B83844B-14F3-439A-9667-C159D98DE94A}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="880947069"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-004" ID="{0B83844B-14F3-439A-9667-C159D98DE94A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-005" ID="{957A7AF9-EE43-46F5-BB10-36E847DF307B}" ShortID="28055933">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-005" ID="{55D33992-7029-4FAA-8B62-C4FC1D0E7394}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-005.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="360987428"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-005" ID="{55D33992-7029-4FAA-8B62-C4FC1D0E7394}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-006" ID="{B0C40197-D8B2-4690-B8B2-018A5B7A9511}" ShortID="1059849852">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-006" ID="{A95FEB57-2363-4BAF-B44D-D1BEB49BBC1B}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-006.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="725309848"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-006" ID="{A95FEB57-2363-4BAF-B44D-D1BEB49BBC1B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-007" ID="{A59F6800-63FE-4750-91D2-05703142966D}" ShortID="927083135">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-007" ID="{7A1ADBA5-1E21-4061-89BA-4C472AAC43E5}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-007.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="877381130"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-007" ID="{7A1ADBA5-1E21-4061-89BA-4C472AAC43E5}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CannonHit-008" ID="{C3D21164-FCEF-4893-838F-122094DAE305}" ShortID="647113950">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CannonHit-008" ID="{45E07407-3693-4E69-9EFD-BE0427061600}">
+													<Language>SFX</Language>
+													<AudioFile>CannonHit-008.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="324703555"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CannonHit-008" ID="{45E07407-3693-4E69-9EFD-BE0427061600}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">
