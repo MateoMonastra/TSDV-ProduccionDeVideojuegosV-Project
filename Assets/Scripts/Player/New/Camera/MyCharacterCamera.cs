@@ -124,10 +124,8 @@ namespace Player.New
             {
                 _currentFollowPosition = followTransform.position;
             }
-
-            _rotationHandler.ResetCameraRotation();
-
-            _rotationHandler.SetCameraRotation(_startingRotation);
+            
+            _rotationHandler.SetCameraRotation(followTransform.rotation);
 
             UpdateCamera(0f, 0f, Vector3.zero, _lastDevice ?? Mouse.current);
         }
