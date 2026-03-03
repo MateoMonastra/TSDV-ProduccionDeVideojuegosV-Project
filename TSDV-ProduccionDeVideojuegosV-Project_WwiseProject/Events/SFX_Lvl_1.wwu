@@ -302,6 +302,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="CanonShoot" ID="{8C2D9ADA-C84A-45D2-B349-1501EBB5B0B6}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{665E9AEB-DA6C-42CA-AD8E-74172289BFF3}" ShortID="89551688">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CakeCanon" ID="{E8F2781B-2557-4463-AF3C-114A42C82D90}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
