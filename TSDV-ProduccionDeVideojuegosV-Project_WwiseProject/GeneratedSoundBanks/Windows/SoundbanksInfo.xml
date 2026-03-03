@@ -641,6 +641,12 @@
 				<GameParameter Id="3437795929" Name="RotatingSawAngle" ObjectPath="\Game Parameters\Default Work Unit\RotatingSawAngle" GUID="{4C59BC5E-9CCA-449D-B9F2-07286D563E24}"/>
 			</GameParameters>
 			<SwitchGroups>
+				<SwitchGroup Id="2094601073" Name="CannonMovement" ObjectPath="\Switches\Default Work Unit\CannonMovement" GUID="{37B4694B-6D99-4485-B6B7-4599488C3B34}">
+					<Switches>
+						<Switch Id="2649703675" Name="Moving" ObjectPath="\Switches\Default Work Unit\CannonMovement\Moving" GUID="{E8FCDEA7-32C8-4094-9DB0-EBCA4D1E8A16}"/>
+						<Switch Id="2904797076" Name="Stopped" ObjectPath="\Switches\Default Work Unit\CannonMovement\Stopped" GUID="{C5B7DF48-1F74-4160-B0B4-097EF5CFFF93}"/>
+					</Switches>
+				</SwitchGroup>
 				<SwitchGroup Id="3407025663" Name="StepFloorType" ObjectPath="\Switches\Default Work Unit\StepFloorType" GUID="{4C12FC41-69B4-4002-854D-DA066D33727E}">
 					<Switches>
 						<Switch Id="1216965916" Name="Stone" ObjectPath="\Switches\Default Work Unit\StepFloorType\Stone" GUID="{195E5C04-BF13-4DBC-B4A3-675D8704875B}"/>
@@ -651,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{BE97E9F2-8DCB-2F4E-DB2A-D6FFB78626CE}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{EC0EE7B7-524E-6162-C0AA-45067F2DA8D9}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -961,6 +967,10 @@
 					<ShortName>PropulsorBounce_003.wav</ShortName>
 					<CachePath>F3/{F3FEDA8F-AF08-2C4F-6158-FE143D671AFD}.wem</CachePath>
 				</File>
+				<File Id="791443651" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CannonMovement.wav</ShortName>
+					<CachePath>2D/{2D80C4A1-8E50-051A-EDB2-E526C35B7E3C}.wem</CachePath>
+				</File>
 				<File Id="797065536" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FireBreatherLoop.wav</ShortName>
 					<CachePath>EA/{EAB2BB34-ABFB-1EBA-2435-B6DF075B1E68}.wem</CachePath>
@@ -1216,6 +1226,15 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="3248953847" Name="CanonMovementStart" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\CanonMovementStart" GUID="{0CE88C67-5799-437A-A14F-2E8909AB9663}" Color="12" MaxAttenuation="192" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="791443651"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
+				</Event>
+				<Event Id="1539789917" Name="CanonMovementStop" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\CanonMovementStop" GUID="{5F77D3E4-5FDC-42F8-8461-91DEF2F2223B}" Color="12" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="1021628111" Name="CanonShoot" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\CanonShoot" GUID="{8C2D9ADA-C84A-45D2-B349-1501EBB5B0B6}" Color="12" MaxAttenuation="144" DurationType="OneShot" DurationMin="2.5184584" DurationMax="3.006271">
 					<MediaRefs>
 						<MediaRef Id="3956892"/>
@@ -1352,5 +1371,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{38DD6900-DBA7-26D7-9557-A69C60A97687}</FileHash>
+	<FileHash>{4C82DF41-02F0-28B4-C8D3-FBE2025DB6CC}</FileHash>
 </SoundBanksInfo>

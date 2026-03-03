@@ -20,6 +20,8 @@ namespace AK
         static const AkUniqueID AMBVENTILADOR = 1754896513U;
         static const AkUniqueID CANNON = 2393348022U;
         static const AkUniqueID CANNONHIT = 2779984353U;
+        static const AkUniqueID CANONMOVEMENTSTART = 3248953847U;
+        static const AkUniqueID CANONMOVEMENTSTOP = 1539789917U;
         static const AkUniqueID CANONSHOOT = 1021628111U;
         static const AkUniqueID DOORSLIDE = 1609904760U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
@@ -55,6 +57,17 @@ namespace AK
 
     namespace SWITCHES
     {
+        namespace CANNONMOVEMENT
+        {
+            static const AkUniqueID GROUP = 2094601073U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID MOVING = 2649703675U;
+                static const AkUniqueID STOPPED = 2904797076U;
+            } // namespace SWITCH
+        } // namespace CANNONMOVEMENT
+
         namespace STEPFLOORTYPE
         {
             static const AkUniqueID GROUP = 3407025663U;

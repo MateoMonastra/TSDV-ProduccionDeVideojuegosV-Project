@@ -1574,6 +1574,26 @@
     ],
     "SwitchGroups": [
      {
+      "Id": "2094601073",
+      "Name": "CannonMovement",
+      "ObjectPath": "\\Switches\\Default Work Unit\\CannonMovement",
+      "GUID": "{37B4694B-6D99-4485-B6B7-4599488C3B34}",
+      "Switches": [
+       {
+        "Id": "2649703675",
+        "Name": "Moving",
+        "ObjectPath": "\\Switches\\Default Work Unit\\CannonMovement\\Moving",
+        "GUID": "{E8FCDEA7-32C8-4094-9DB0-EBCA4D1E8A16}"
+       },
+       {
+        "Id": "2904797076",
+        "Name": "Stopped",
+        "ObjectPath": "\\Switches\\Default Work Unit\\CannonMovement\\Stopped",
+        "GUID": "{C5B7DF48-1F74-4160-B0B4-097EF5CFFF93}"
+       }
+      ]
+     },
+     {
       "Id": "3407025663",
       "Name": "StepFloorType",
       "ObjectPath": "\\Switches\\Default Work Unit\\StepFloorType",
@@ -1612,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{BE97E9F2-8DCB-2F4E-DB2A-D6FFB78626CE}",
+    "Hash": "{EC0EE7B7-524E-6162-C0AA-45067F2DA8D9}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -2225,6 +2245,14 @@
       "Location": "Memory",
       "ShortName": "PropulsorBounce_003.wav",
       "CachePath": "F3/{F3FEDA8F-AF08-2C4F-6158-FE143D671AFD}.wem"
+     },
+     {
+      "Id": "791443651",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "CannonMovement.wav",
+      "CachePath": "2D/{2D80C4A1-8E50-051A-EDB2-E526C35B7E3C}.wem"
      },
      {
       "Id": "797065536",
@@ -2859,6 +2887,40 @@
       ]
      },
      {
+      "Id": "3248953847",
+      "Name": "CanonMovementStart",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\CanonMovementStart",
+      "GUID": "{0CE88C67-5799-437A-A14F-2E8909AB9663}",
+      "Color": "12",
+      "MaxAttenuation": "192",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "791443651"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
+      "Id": "1539789917",
+      "Name": "CanonMovementStop",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\CanonMovementStop",
+      "GUID": "{5F77D3E4-5FDC-42F8-8461-91DEF2F2223B}",
+      "Color": "12",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     },
+     {
       "Id": "1021628111",
       "Name": "CanonShoot",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\CanonShoot",
@@ -3253,6 +3315,6 @@
     ]
    }
   ],
-  "FileHash": "{0BBCC3E4-C2C8-CDE1-970C-B32BB42460A7}"
+  "FileHash": "{6BCA4C69-44C9-EB76-AA52-6A8C8CF2D059}"
  }
 }

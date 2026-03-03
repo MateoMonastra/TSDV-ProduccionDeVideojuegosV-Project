@@ -347,6 +347,45 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="CanonMovementStart" ID="{0CE88C67-5799-437A-A14F-2E8909AB9663}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{33C30AD2-6CE1-4A18-BD3E-F5CB981D8743}" ShortID="347195055">
+							<PropertyList>
+								<Property Name="FadeInCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CannonMovement" ID="{00E78103-2C57-4960-85E3-26CE206C79D6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="CanonMovementStop" ID="{5F77D3E4-5FDC-42F8-8461-91DEF2F2223B}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{07023989-2C63-4384-909E-9720207A86B5}" ShortID="332011438">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="5"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CannonMovement" ID="{00E78103-2C57-4960-85E3-26CE206C79D6}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
