@@ -60,7 +60,7 @@ namespace AK
             {
                 static const AkUniqueID CARPET = 2412606308U;
                 static const AkUniqueID METAL = 2473969246U;
-                static const AkUniqueID TILE = 2637588553U;
+                static const AkUniqueID STONE = 1216965916U;
                 static const AkUniqueID WOOD = 2058049674U;
             } // namespace SWITCH
         } // namespace STEPFLOORTYPE

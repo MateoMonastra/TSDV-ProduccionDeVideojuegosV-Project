@@ -2239,6 +2239,11 @@
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="StepCarpet" ID="{BEDA2559-505A-4D3D-A792-9D8B610F582D}" ShortID="268879978">
 											<PropertyList>
+												<Property Name="MakeUpGain" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ModifierList>
 														<ModifierInfo>
@@ -2462,6 +2467,258 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="StepStone" ID="{7B98635C-134C-465A-8195-E883DD43B784}" ShortID="498603902">
+											<PropertyList>
+												<Property Name="MakeUpGain" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{543EC7C8-6657-4ABC-BE6B-1445046C4EB8}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="50"/>
+																	<Property Name="Min" Type="Real64" Value="-50"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="StepStone-001" ID="{6892E07B-35D0-45B6-A4F0-4BF344C65D6E}" ShortID="773619362">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-001" ID="{F7CFCB67-060F-43E6-A8E1-FF1B26B22688}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="680204847"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-001" ID="{F7CFCB67-060F-43E6-A8E1-FF1B26B22688}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-002" ID="{A2D94A87-E4DE-4DAD-BD2F-42B39D479028}" ShortID="199602799">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-002" ID="{B21E993C-51FD-44B7-8191-9F0564DAA000}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="612516733"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-002" ID="{B21E993C-51FD-44B7-8191-9F0564DAA000}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-003" ID="{795ACFF4-8113-47B7-AD55-D85BBA3DBC95}" ShortID="7100689">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-003" ID="{03829033-2FE3-4E0D-9B15-3496D99EE526}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="935897820"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-003" ID="{03829033-2FE3-4E0D-9B15-3496D99EE526}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-004" ID="{857FB630-9772-4A0F-85F6-9E1CC7BEE8C3}" ShortID="19858126">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-004" ID="{7C59A8C5-5BFC-4458-81AE-A397AA2A1428}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="822493738"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-004" ID="{7C59A8C5-5BFC-4458-81AE-A397AA2A1428}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-005" ID="{F9CE42E0-61CC-4706-9FC6-B327A0F4D0F7}" ShortID="534650407">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-005" ID="{22D0FCF7-C31C-4CC3-8FB7-07B20A0EA6D1}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-005.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="480239325"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-005" ID="{22D0FCF7-C31C-4CC3-8FB7-07B20A0EA6D1}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-006" ID="{F97369A7-34D2-4A05-AD16-E48949B92503}" ShortID="755761617">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-006" ID="{98EE130F-1A82-49BA-BC11-061B9F7BF5D8}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-006.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="606322336"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-006" ID="{98EE130F-1A82-49BA-BC11-061B9F7BF5D8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-007" ID="{2F808078-9669-4422-9377-370387C4DF20}" ShortID="92253684">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-007" ID="{3C60D6A8-F923-4DED-924A-81E617BAFB8D}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-007.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="896999215"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-007" ID="{3C60D6A8-F923-4DED-924A-81E617BAFB8D}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-008" ID="{203DB582-210A-42FE-8125-A65996AA7673}" ShortID="216635170">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-008" ID="{88B35752-1854-428C-B5C8-78F180C60EA6}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-008.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="137533979"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-008" ID="{88B35752-1854-428C-B5C8-78F180C60EA6}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-009" ID="{F194630D-F043-4001-BFBB-FCEC3B8BDDA6}" ShortID="61542010">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-009" ID="{376AFE9D-FFB4-4149-8408-182E4F1D416E}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-009.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="394892048"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-009" ID="{376AFE9D-FFB4-4149-8408-182E4F1D416E}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="StepStone-010" ID="{4975205A-358C-47BC-A69D-5936057C87AC}" ShortID="806211132">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="StepStone-010" ID="{AF4E6611-E4D1-4147-AF6F-24674B747E05}">
+															<Language>SFX</Language>
+															<AudioFile>StepStone-010.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="382073410"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="StepStone-010" ID="{AF4E6611-E4D1-4147-AF6F-24674B747E05}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
 									</ChildrenList>
 									<GroupingInfo>
 										<GroupingBehaviorList>
@@ -2469,10 +2726,19 @@
 												<ItemRef Name="StepCarpet" ID="{BEDA2559-505A-4D3D-A792-9D8B610F582D}"/>
 											</GroupingBehavior>
 											<GroupingBehavior>
+												<ItemRef Name="StepStone" ID="{7B98635C-134C-465A-8195-E883DD43B784}"/>
+											</GroupingBehavior>
+											<GroupingBehavior>
 												<ItemRef Name="StepMetal" ID="{A8EB6282-1068-465B-8FDC-5E810E449193}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
 										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Stone" ID="{195E5C04-BF13-4DBC-B4A3-675D8704875B}"/>
+												<ItemList>
+													<ItemRef Name="StepStone" ID="{7B98635C-134C-465A-8195-E883DD43B784}"/>
+												</ItemList>
+											</Grouping>
 											<Grouping>
 												<SwitchRef Name="Metal" ID="{EA7EF788-BC1E-40B4-BFE3-A8B624E16963}"/>
 												<ItemList>
