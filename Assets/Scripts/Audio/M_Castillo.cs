@@ -9,7 +9,7 @@ public class M_Castillo : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         m_Castillo.Post(this.gameObject);
-        Debug.Log("AUDIO: Entered Castillo");
+        //Debug.Log("AUDIO: Entered Castillo");
     }
 
 }
