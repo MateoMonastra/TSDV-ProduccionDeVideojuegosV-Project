@@ -6333,6 +6333,213 @@
 										</Sound>
 									</ChildrenList>
 								</ActorMixer>
+								<RandomSequenceContainer Name="CakeCanon" ID="{E8F2781B-2557-4463-AF3C-114A42C82D90}" ShortID="364217398">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="2"/>
+										<Property Name="AttenuationDistanceScaling" Type="Real32" Value="1.8"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="3"/>
+										<Property Name="SpeakerPanning3DSpatializationMix" Type="int32" Value="71"/>
+										<Property Name="UserAuxSendVolume0" Type="Real64">
+											<ValueList>
+												<Value>-17</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="RotarySaw" ID="{D94ECCBF-C763-4A9E-BA8E-874043A385AF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="ReverbPlate" ID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="CakeCanon-001" ID="{0C2BE6AA-02DD-4383-BC9E-BED978536853}" ShortID="894460109">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-001" ID="{1F8C8831-BEC3-4054-9DD9-8734693EA36E}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="115338245"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-001" ID="{1F8C8831-BEC3-4054-9DD9-8734693EA36E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-002" ID="{FC700684-FB64-4890-A858-F1B102A2A4D8}" ShortID="96582973">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-002" ID="{EC067BCD-B658-43C0-B6F5-0551130EE550}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="951119129"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-002" ID="{EC067BCD-B658-43C0-B6F5-0551130EE550}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-003" ID="{681EF175-F9E4-466F-9392-C111E464980B}" ShortID="476149827">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-003" ID="{CCAD28F0-BFCC-4414-9B95-1C48AC89D215}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="3956892"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-003" ID="{CCAD28F0-BFCC-4414-9B95-1C48AC89D215}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-004" ID="{A6C30DDB-8498-4064-8B0D-139B57721BE9}" ShortID="206012578">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-004" ID="{AA34DF69-3D47-48DC-90F8-BD5B78428D36}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="332668689"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-004" ID="{AA34DF69-3D47-48DC-90F8-BD5B78428D36}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-005" ID="{5E39D2A5-F9DD-456B-9D3E-30E502B5DCFF}" ShortID="465071169">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-005" ID="{5B81A860-9E1B-4D34-9396-4D229404522B}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-005.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="102666738"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-005" ID="{5B81A860-9E1B-4D34-9396-4D229404522B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-006" ID="{C28C26D4-DB6A-4249-BB50-EA0FD9B45180}" ShortID="493114260">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-006" ID="{33F8E73D-1340-4AA7-A50F-8A12AFC1CD10}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-006.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="68748103"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-006" ID="{33F8E73D-1340-4AA7-A50F-8A12AFC1CD10}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-007" ID="{4B841D3D-9875-45BF-A325-E0BF3675BB23}" ShortID="1008540794">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-007" ID="{7E9E682C-9C95-4C7D-AD3F-F659E578F0F9}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-007.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="302897632"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-007" ID="{7E9E682C-9C95-4C7D-AD3F-F659E578F0F9}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="CakeCanon-008" ID="{ABC1CFFB-499A-48C8-B5EE-8C108421C693}" ShortID="491379450">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="CakeCanon-008" ID="{0F37478E-25CD-4591-AB3B-C8381CB76C7B}">
+													<Language>SFX</Language>
+													<AudioFile>CakeCanon-008.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="398200023"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="CakeCanon-008" ID="{0F37478E-25CD-4591-AB3B-C8381CB76C7B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">
