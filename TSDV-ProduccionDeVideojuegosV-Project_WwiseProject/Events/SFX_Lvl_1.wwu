@@ -332,6 +332,21 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Cannon" ID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="12"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Action Name="" ID="{283208C8-2059-4186-B7EA-4463A1EDFD53}" ShortID="406029982">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Cannon" ID="{5C809B30-DDB8-44AA-BB3A-A795AC8AC91B}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

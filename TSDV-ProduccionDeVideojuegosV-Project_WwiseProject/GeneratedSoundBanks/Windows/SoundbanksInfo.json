@@ -1612,7 +1612,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{8DE4621D-4BB5-FB1E-02CB-3AA5EACBBD75}",
+    "Hash": "{BE97E9F2-8DCB-2F4E-DB2A-D6FFB78626CE}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1624,6 +1624,14 @@
       "Location": "Memory",
       "ShortName": "CakeCanon-003.wav",
       "CachePath": "1E/{1E8259C4-8A3D-8E07-4D3C-F2B8D10B231E}.wem"
+     },
+     {
+      "Id": "12197693",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-001.wav",
+      "CachePath": "AD/{ADECD0B1-1CF7-5722-213C-BBA3EF1F6D6D}.wem"
      },
      {
       "Id": "24105696",
@@ -1795,6 +1803,14 @@
       "CachePath": "E0/{E0A71B5C-64AA-1F31-C821-BB174308A3D1}.wem"
      },
      {
+      "Id": "294628063",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-004.wav",
+      "CachePath": "57/{575EAC61-027E-9789-F434-DE6773E30722}.wem"
+     },
+     {
       "Id": "298927861",
       "Language": "SFX",
       "Streaming": "false",
@@ -1841,6 +1857,14 @@
       "Location": "Memory",
       "ShortName": "CannonHit-008.wav",
       "CachePath": "8D/{8DE7B89F-F71A-C9A6-28DC-10AF4991A569}.wem"
+     },
+     {
+      "Id": "326707085",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-005.wav",
+      "CachePath": "3F/{3FD5EBB7-E05A-A1DD-648C-237FE0DB2D01}.wem"
      },
      {
       "Id": "332668689",
@@ -2083,6 +2107,14 @@
       "CachePath": "18/{18F1DE02-D741-0CC5-9D9F-B3BCF9F0CF10}.wem"
      },
      {
+      "Id": "637147482",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-006.wav",
+      "CachePath": "39/{3949450C-2B4E-1CF7-E0F7-40E3F9CC5A65}.wem"
+     },
+     {
       "Id": "667737011",
       "Language": "SFX",
       "Streaming": "false",
@@ -2217,6 +2249,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_021.wav",
       "CachePath": "40/{40FEBC8A-CA9C-28B5-0A5F-3DD5FAB2B367}.wem"
+     },
+     {
+      "Id": "801235649",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-007.wav",
+      "CachePath": "92/{9298921A-04F5-E529-8912-85F0312143C2}.wem"
      },
      {
       "Id": "806812880",
@@ -2380,12 +2420,36 @@
       "CachePath": "F6/{F6E9BE3F-BC35-E4FE-DB2E-F85713FED045}.wem"
      },
      {
+      "Id": "1022646331",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-003.wav",
+      "CachePath": "16/{16BAA9FB-E1B2-8E7B-ADFB-BA7DFFC65C3B}.wem"
+     },
+     {
       "Id": "1023542233",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "CannonHit-002.wav",
       "CachePath": "42/{425B9BE4-7116-4512-5747-3233114E84FC}.wem"
+     },
+     {
+      "Id": "1026391555",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-002.wav",
+      "CachePath": "57/{57DFFAEC-805A-9F54-D8F8-CA8ECD90754D}.wem"
+     },
+     {
+      "Id": "1032862702",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Cannon-008.wav",
+      "CachePath": "A1/{A1B50E3D-C911-2D63-A834-8912F19F9892}.wem"
      },
      {
       "Id": "1033481509",
@@ -2690,6 +2754,52 @@
       "MediaRefs": [
        {
         "Id": "354878542"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "3552122435",
+        "Name": "ReverbPlate",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
+        "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
+        "Color": "17"
+       }
+      ]
+     },
+     {
+      "Id": "2393348022",
+      "Name": "Cannon",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Cannon",
+      "GUID": "{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}",
+      "Color": "12",
+      "MaxAttenuation": "144",
+      "DurationType": "OneShot",
+      "DurationMin": "2.5184584",
+      "DurationMax": "3.006271",
+      "MediaRefs": [
+       {
+        "Id": "12197693"
+       },
+       {
+        "Id": "294628063"
+       },
+       {
+        "Id": "326707085"
+       },
+       {
+        "Id": "637147482"
+       },
+       {
+        "Id": "801235649"
+       },
+       {
+        "Id": "1022646331"
+       },
+       {
+        "Id": "1026391555"
+       },
+       {
+        "Id": "1032862702"
        }
       ],
       "AuxBusRefs": [
@@ -3143,6 +3253,6 @@
     ]
    }
   ],
-  "FileHash": "{5259935D-DA4B-3B7A-AC9F-22F7EC95FD11}"
+  "FileHash": "{0BBCC3E4-C2C8-CDE1-970C-B32BB42460A7}"
  }
 }
