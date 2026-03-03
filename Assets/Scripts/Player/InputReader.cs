@@ -131,20 +131,25 @@ namespace Player
 
         public void HandleShowroomButton()
         {
+            return;
+            
             SceneManager.LoadScene("SplashScene");
             Time.timeScale = 1;
         }
         
         public void HandleShowRoomInput(InputAction.CallbackContext context)
         {
-            SceneManager.LoadScene("SplashScene");
-            Time.timeScale = 1;
+            return;
+            //SceneManager.LoadScene("SplashScene");
+            //Time.timeScale = 1;
             
             OnInputPressed?.Invoke(context.control.device);
         }
 
         public void HandleLevelInput(InputAction.CallbackContext context)
         {
+            return;
+            
             SceneManager.LoadScene(levelSceneName);
             Time.timeScale = 1;
             
