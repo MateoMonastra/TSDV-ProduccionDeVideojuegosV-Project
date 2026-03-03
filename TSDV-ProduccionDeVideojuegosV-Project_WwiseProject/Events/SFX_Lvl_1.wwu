@@ -408,6 +408,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="StampPickup" ID="{4D2AD767-B827-484C-B668-7C0907493602}">
+					<ChildrenList>
+						<Action Name="" ID="{E2CC01F4-581D-4283-901B-27B5C0321018}" ShortID="362788367">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="StampPickup" ID="{62004AED-0D23-4594-8455-8D9E99900D36}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -54,6 +54,7 @@ namespace AK
         static const AkUniqueID PLAYERSTEP = 412471812U;
         static const AkUniqueID PROPULSORBOUNCE = 778438783U;
         static const AkUniqueID ROTARYSAW = 1041503305U;
+        static const AkUniqueID STAMPPICKUP = 3837224478U;
         static const AkUniqueID TURRETSHOT = 493550803U;
     } // namespace EVENTS
 

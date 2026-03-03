@@ -1632,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{0EF0F17A-E795-FC92-C094-BCC766B53B85}",
+    "Hash": "{33185BA6-5191-BE46-9850-E839DB28B22D}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1941,6 +1941,14 @@
       "Location": "Memory",
       "ShortName": "CannonHit-005.wav",
       "CachePath": "02/{02A6740A-CDD9-FCDF-9F50-9889D97CEF82}.wem"
+     },
+     {
+      "Id": "375522787",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "gem-gather-stereo-reverb.wav",
+      "CachePath": "16/{16F62549-9DC1-96C4-3876-2864BD5E8344}.wem"
      },
      {
       "Id": "376895675",
@@ -3293,6 +3301,22 @@
       ]
      },
      {
+      "Id": "3837224478",
+      "Name": "StampPickup",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\StampPickup",
+      "GUID": "{4D2AD767-B827-484C-B668-7C0907493602}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "1.5",
+      "DurationMax": "1.5",
+      "MediaRefs": [
+       {
+        "Id": "375522787"
+       }
+      ]
+     },
+     {
       "Id": "493550803",
       "Name": "TurretShot",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\TurretShot",
@@ -3363,6 +3387,6 @@
     ]
    }
   ],
-  "FileHash": "{6E66710A-CEA6-DD8B-995C-1BAD4593B5C7}"
+  "FileHash": "{0440C82A-C3A7-7E96-6124-9DDE57561512}"
  }
 }

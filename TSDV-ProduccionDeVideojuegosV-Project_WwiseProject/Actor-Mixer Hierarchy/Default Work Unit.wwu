@@ -7064,6 +7064,35 @@
 										<ActiveSource Name="bang_02" ID="{EE94C3AB-C454-43AE-919F-916F268EC2BF}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="StampPickup" ID="{62004AED-0D23-4594-8455-8D9E99900D36}" ShortID="1073614912">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="gem-gather-stereo-reverb" ID="{B4D0DA56-1025-49AB-B9AF-BD38B2CC8875}">
+											<Language>SFX</Language>
+											<AudioFile>gem-gather-stereo-reverb.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="375522787"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="gem-gather-stereo-reverb" ID="{B4D0DA56-1025-49AB-B9AF-BD38B2CC8875}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">
