@@ -64,7 +64,6 @@ namespace Player.New.States
             _motor.Frozen = false;
             
             SetActiveMesh(true);
-            _myCharacterCamera.InputSubscription(true);
             _model.IsDead = false;
             _model.LocomotionBlocked = false;
             _model.ResetJumps();
