@@ -1,5 +1,6 @@
 using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -8,6 +9,7 @@ namespace UI
         [SerializeField] private InputReader inputReader;
         [SerializeField] private SlidesManager slidesManager;
         [SerializeField] private GameObject playerStats;
+        [SerializeField] private string menuSceneName;
         private void OnEnable()
         {
             inputReader.OnPause += InitPauseMenu;
@@ -40,7 +42,7 @@ namespace UI
     
         public void ExitGame()
         {
-            Application.Quit();
+            SceneManager.LoadScene(menuSceneName);
         }
     }
 }
