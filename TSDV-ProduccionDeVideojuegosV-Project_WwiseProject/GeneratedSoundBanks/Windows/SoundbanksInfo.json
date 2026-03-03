@@ -1632,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{33185BA6-5191-BE46-9850-E839DB28B22D}",
+    "Hash": "{12DB3B00-D4A9-88E3-33EF-5AF558908699}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1957,6 +1957,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_011.wav",
       "CachePath": "53/{534E7BD4-3F7F-8B4B-8F62-53520DF2FFA7}.wem"
+     },
+     {
+      "Id": "379814874",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "impact.1.wav",
+      "CachePath": "81/{817B4942-5F3F-5331-EA0F-9154E902CF4A}.wem"
      },
      {
       "Id": "383353568",
@@ -2819,6 +2827,22 @@
       ]
      },
      {
+      "Id": "1862720533",
+      "Name": "BreakableCoin",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BreakableCoin",
+      "GUID": "{6292922F-CE19-4B85-9D76-3EF47DB2F77E}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "0.61185914",
+      "DurationMax": "0.61185914",
+      "MediaRefs": [
+       {
+        "Id": "379814874"
+       }
+      ]
+     },
+     {
       "Id": "2393348022",
       "Name": "Cannon",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Cannon",
@@ -3387,6 +3411,6 @@
     ]
    }
   ],
-  "FileHash": "{4644DC59-1992-085A-142E-5FF7D1F4B69A}"
+  "FileHash": "{0E590BE1-0C3D-834D-ABE5-A236BD8B439B}"
  }
 }

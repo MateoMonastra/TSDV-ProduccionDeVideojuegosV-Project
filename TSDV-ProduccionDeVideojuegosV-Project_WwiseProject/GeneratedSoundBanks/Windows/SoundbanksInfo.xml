@@ -657,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{33185BA6-5191-BE46-9850-E839DB28B22D}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{12DB3B00-D4A9-88E3-33EF-5AF558908699}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -822,6 +822,10 @@
 				<File Id="376895675" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_011.wav</ShortName>
 					<CachePath>53/{534E7BD4-3F7F-8B4B-8F62-53520DF2FFA7}.wem</CachePath>
+				</File>
+				<File Id="379814874" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>impact.1.wav</ShortName>
+					<CachePath>81/{817B4942-5F3F-5331-EA0F-9154E902CF4A}.wem</CachePath>
 				</File>
 				<File Id="383353568" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FireBreatherIgnite.wav</ShortName>
@@ -1208,6 +1212,11 @@
 						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
 					</AuxBusRefs>
 				</Event>
+				<Event Id="1862720533" Name="BreakableCoin" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\BreakableCoin" GUID="{6292922F-CE19-4B85-9D76-3EF47DB2F77E}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="0.61185914" DurationMax="0.61185914">
+					<MediaRefs>
+						<MediaRef Id="379814874"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="2393348022" Name="Cannon" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\Cannon" GUID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}" Color="12" MaxAttenuation="144" DurationType="OneShot" DurationMin="2.5184584" DurationMax="3.006271">
 					<MediaRefs>
 						<MediaRef Id="12197693"/>
@@ -1398,5 +1407,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{A63D6576-0736-C382-0C99-084377BCB534}</FileHash>
+	<FileHash>{06081786-CBA0-CE5E-AAE3-3C320EF73D86}</FileHash>
 </SoundBanksInfo>

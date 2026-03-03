@@ -2,6 +2,7 @@ using UnityEngine;
 using Event = AK.Wwise.Event;
 
 namespace Collectables
+
 {
     public class StampPickup : MonoBehaviour
     {

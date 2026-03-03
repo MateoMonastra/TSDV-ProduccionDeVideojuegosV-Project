@@ -7093,6 +7093,33 @@
 										<ActiveSource Name="gem-gather-stereo-reverb" ID="{B4D0DA56-1025-49AB-B9AF-BD38B2CC8875}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="BreakableCoin" ID="{19EBA379-55A5-4A62-81CE-495B2B6BC5AB}" ShortID="1034980575">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="impact_1" ID="{0D74ACC5-6634-446E-A15A-FB0F7A16B621}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="0.202396159199463"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.200839265667159"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>impact.1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="379814874"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="impact_1" ID="{0D74ACC5-6634-446E-A15A-FB0F7A16B621}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">
