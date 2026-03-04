@@ -6997,6 +6997,193 @@
 										<ActiveSource Name="CannonMovement" ID="{317FB8EA-37A3-40DE-9127-DC973E6715DB}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="CoinPickup" ID="{0CE360BB-D873-4541-BDA5-BD43D89B73FA}" ShortID="732671123">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="coin" ID="{46F55282-9F4F-4948-A367-FEDE031225A1}">
+											<Language>SFX</Language>
+											<AudioFile>coin.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="467390899"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="coin" ID="{46F55282-9F4F-4948-A367-FEDE031225A1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="TurretShot" ID="{1B991D0C-EC31-4575-9DBC-A3547F116328}" ShortID="60786472">
+									<PropertyList>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>540</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>12</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="RotarySaw" ID="{D94ECCBF-C763-4A9E-BA8E-874043A385AF}" WorkUnitID="{58B91D11-5B01-42CF-972F-D12106CA2A49}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="bang_02" ID="{EE94C3AB-C454-43AE-919F-916F268EC2BF}">
+											<PropertyList>
+												<Property Name="VolumeOffset" Type="Real64">
+													<ValueList>
+														<Value>6.3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>bang_02.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="682835436"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="bang_02" ID="{EE94C3AB-C454-43AE-919F-916F268EC2BF}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="StampPickup" ID="{62004AED-0D23-4594-8455-8D9E99900D36}" ShortID="1073614912">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>5</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="gem-gather-stereo-reverb" ID="{B4D0DA56-1025-49AB-B9AF-BD38B2CC8875}">
+											<Language>SFX</Language>
+											<AudioFile>gem-gather-stereo-reverb.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="375522787"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="gem-gather-stereo-reverb" ID="{B4D0DA56-1025-49AB-B9AF-BD38B2CC8875}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BreakableCoin" ID="{19EBA379-55A5-4A62-81CE-495B2B6BC5AB}" ShortID="1034980575">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-9</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="impact_1" ID="{0D74ACC5-6634-446E-A15A-FB0F7A16B621}">
+											<PropertyList>
+												<Property Name="LoopBegin" Type="Real64" Value="0.202396159199463"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.200839265667159"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>impact.1.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="379814874"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="impact_1" ID="{0D74ACC5-6634-446E-A15A-FB0F7A16B621}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BugDeath" ID="{48AE43DD-CBB4-42C1-BA63-CD74C995FFE0}" ShortID="767835391">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="bug_08" ID="{7ADBD8E6-E613-4425-9C56-4E6D9D6E9C0F}">
+											<Language>SFX</Language>
+											<AudioFile>bug_08.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="390487426"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="bug_08" ID="{7ADBD8E6-E613-4425-9C56-4E6D9D6E9C0F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="BreakableWood" ID="{6F6F61E3-F3DA-4B9B-86A8-E9FE06076541}" ShortID="340933002">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{18F29EFE-CA6E-47C7-8259-D5D5C24A2A6A}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F94FA519-A51E-4E40-B834-6BE31E99EA72}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="crack11_mp3" ID="{46C58BDC-840D-4442-BB0E-0A2ECFC7A748}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="1.05066566631712"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.171219590066493"/>
+												<Property Name="TrimEnd" Type="Real64" Value="1.26858108099114"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>crack11.mp3.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="180743224"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="crack11_mp3" ID="{46C58BDC-840D-4442-BB0E-0A2ECFC7A748}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Music" ID="{B35D7207-6ABE-4D19-A0FD-D43746232AF3}" ShortID="392398678">

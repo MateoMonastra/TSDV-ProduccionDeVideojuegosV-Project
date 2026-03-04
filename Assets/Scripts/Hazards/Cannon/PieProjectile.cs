@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using KinematicCharacterController.Examples;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Hazards.Cannon
 {
@@ -12,6 +13,7 @@ namespace Hazards.Cannon
         [SerializeField] private ParticleSystem environmentHit;
         [SerializeField] private List<ParticleSystem> OnHit;
         [SerializeField] private GameObject model;
+        [SerializeField] private Event pieHitSfx;
 
         private Rigidbody rb;
             
@@ -38,12 +40,14 @@ namespace Hazards.Cannon
 
             if (other.CompareTag("Player"))
             {
+                pieHitSfx?.Post(gameObject);
                 GameEvents.GameEvents.PlayerBlinded();
                 PlayOnHit();
                 onPlayerHit?.Invoke();
             }
             else if (other.gameObject.layer == environmentLayer)
             {
+                pieHitSfx?.Post(gameObject);
                 environmentHit.Play();
                 PlayOnHit();
                 onSurfaceHit?.Invoke();

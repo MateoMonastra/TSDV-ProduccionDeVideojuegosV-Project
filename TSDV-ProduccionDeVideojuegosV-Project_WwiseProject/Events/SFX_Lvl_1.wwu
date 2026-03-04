@@ -386,6 +386,72 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="CoinPickup" ID="{F18967D5-16E1-4378-9F2F-E75DC52FA0E5}">
+					<ChildrenList>
+						<Action Name="" ID="{538C5790-1AF2-4CC3-A750-99B3B238048F}" ShortID="832991808">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CoinPickup" ID="{0CE360BB-D873-4541-BDA5-BD43D89B73FA}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="TurretShot" ID="{C1C17477-888E-467B-A7AB-8EE4A2C72050}">
+					<ChildrenList>
+						<Action Name="" ID="{A249F6DF-CB68-4477-BCFE-3DD8580BA60C}" ShortID="11990415">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="TurretShot" ID="{1B991D0C-EC31-4575-9DBC-A3547F116328}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="StampPickup" ID="{4D2AD767-B827-484C-B668-7C0907493602}">
+					<ChildrenList>
+						<Action Name="" ID="{E2CC01F4-581D-4283-901B-27B5C0321018}" ShortID="362788367">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="StampPickup" ID="{62004AED-0D23-4594-8455-8D9E99900D36}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BreakableCoin" ID="{6292922F-CE19-4B85-9D76-3EF47DB2F77E}">
+					<ChildrenList>
+						<Action Name="" ID="{77A0C4D8-B6F4-4910-91F5-CDAF668000F4}" ShortID="921477119">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BreakableCoin" ID="{19EBA379-55A5-4A62-81CE-495B2B6BC5AB}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BugDeath" ID="{8995B632-4E40-4C8A-BE9D-6F85F94C663D}">
+					<ChildrenList>
+						<Action Name="" ID="{B71F1CB2-344F-4A45-B50D-707DF6D0AD49}" ShortID="166925359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BugDeath" ID="{48AE43DD-CBB4-42C1-BA63-CD74C995FFE0}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BreakableWood" ID="{9D3B870F-D84B-40BA-A9A8-19D51744F431}">
+					<ChildrenList>
+						<Action Name="" ID="{FF5A582D-E182-4969-BE42-79BBACAA92AF}" ShortID="729104183">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BreakableWood" ID="{6F6F61E3-F3DA-4B9B-86A8-E9FE06076541}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Coins
 {

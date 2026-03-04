@@ -4,6 +4,7 @@ using FSM;
 using Health;
 using UnityEngine;
 using UnityEngine.Events;
+using Event = AK.Wwise.Event;
 
 namespace Enemies.RangeEnemy
 {
@@ -22,6 +23,7 @@ namespace Enemies.RangeEnemy
         [SerializeField] private Transform shootPoint;
         [SerializeField] private Transform player;
         [SerializeField] private RangedEnemyModel model;
+        [SerializeField] private Event shotWwise;
 
         private Fsm _fsm;
         private List<State> _states = new List<State>();
@@ -39,7 +41,7 @@ namespace Enemies.RangeEnemy
             State specialAttack = new SpecialAttack(this.transform, player, model, TransitionToIdle,
                 groundMarkerPrefab, specialBulletPrefab, shootPoint.position);
 
-            State attack = new Attack(this.transform, player, model, bulletPrefab, shootParticle, shootPoint,
+            State attack = new Attack(this.transform, player, model, bulletPrefab, shootParticle, shootPoint, shotWwise, 
                 TransitionToIdle);
 
             //Idle Transitions

@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 990683695321628015}
   - component: {fileID: 7045124234364749166}
   - component: {fileID: 6132509427390379825}
+  - component: {fileID: 6400147569649038023}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -321,6 +322,10 @@ MonoBehaviour:
   shootPoint: {fileID: 306028874904714175}
   player: {fileID: 0}
   model: {fileID: 11400000, guid: 4b220d659abec1845b1a9cde8eac6ecd, type: 2}
+  shotWwise:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 02b052fbf50d4ca4cb393a5e987710af, type: 2}
 --- !u!114 &6132509427390379825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +339,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStateText: {fileID: 8073609384425977292}
+--- !u!114 &6400147569649038023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799735417556798114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29bfd20328f1e0e4d9b9ef6c11de2dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &7704771142481383807
 GameObject:
   m_ObjectHideFlags: 0

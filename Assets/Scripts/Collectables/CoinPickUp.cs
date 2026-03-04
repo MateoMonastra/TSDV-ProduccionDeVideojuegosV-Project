@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Coins
 {
@@ -27,6 +28,8 @@ namespace Coins
 
 
         [Header("Refs")] [SerializeField] private Rigidbody rb;
+        [Header("Refs")] [SerializeField] private Event pickUpEvent;
+        
         [SerializeField] private GameObject pickupParticles;
         [SerializeField] private Collider triggerCollider;
         [SerializeField] private Renderer visualRenderer;
@@ -153,6 +156,7 @@ namespace Coins
             {
                 _playerTarget = other.transform;
 
+                pickUpEvent?.Post(gameObject);
                 CoinsWallet.Instance.RequestCoinFromWorld(transform.position, coinValue);
                 Instantiate(pickupParticles, transform.position, Quaternion.identity);
                 

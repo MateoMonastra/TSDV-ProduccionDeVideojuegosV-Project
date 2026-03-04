@@ -18,11 +18,15 @@ namespace AK
         static const AkUniqueID AMBACIDSTREAM = 2773708536U;
         static const AkUniqueID AMBFIRE = 857272499U;
         static const AkUniqueID AMBVENTILADOR = 1754896513U;
+        static const AkUniqueID BREAKABLECOIN = 1862720533U;
+        static const AkUniqueID BREAKABLEWOOD = 1880224085U;
+        static const AkUniqueID BUGDEATH = 2166415085U;
         static const AkUniqueID CANNON = 2393348022U;
         static const AkUniqueID CANNONHIT = 2779984353U;
         static const AkUniqueID CANONMOVEMENTSTART = 3248953847U;
         static const AkUniqueID CANONMOVEMENTSTOP = 1539789917U;
         static const AkUniqueID CANONSHOOT = 1021628111U;
+        static const AkUniqueID COINPICKUP = 2752428610U;
         static const AkUniqueID DOORSLIDE = 1609904760U;
         static const AkUniqueID ENEMY1GETHIT = 4035222199U;
         static const AkUniqueID ENEMY1HITGROUND = 2315913614U;
@@ -53,6 +57,8 @@ namespace AK
         static const AkUniqueID PLAYERSTEP = 412471812U;
         static const AkUniqueID PROPULSORBOUNCE = 778438783U;
         static const AkUniqueID ROTARYSAW = 1041503305U;
+        static const AkUniqueID STAMPPICKUP = 3837224478U;
+        static const AkUniqueID TURRETSHOT = 493550803U;
     } // namespace EVENTS
 
     namespace SWITCHES

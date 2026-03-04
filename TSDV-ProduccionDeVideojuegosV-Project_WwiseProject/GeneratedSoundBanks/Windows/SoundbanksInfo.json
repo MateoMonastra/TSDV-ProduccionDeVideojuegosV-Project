@@ -1632,7 +1632,7 @@
     "Type": "User",
     "GUID": "{68F72122-2C1E-4754-B87D-BF09757E2B33}",
     "Language": "SFX",
-    "Hash": "{EC0EE7B7-524E-6162-C0AA-45067F2DA8D9}",
+    "Hash": "{1AF69C4A-4650-3A21-C269-01B459D81205}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Lvl_1",
     "ShortName": "Lvl_1",
     "Path": "Lvl_1.bnk",
@@ -1765,6 +1765,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_008.wav",
       "CachePath": "58/{580CF9B1-3455-1C16-5E55-66D048E35A44}.wem"
+     },
+     {
+      "Id": "180743224",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "crack11.mp3.wav",
+      "CachePath": "CF/{CF56770E-EA88-A5CA-3B5B-D439CA979668}.wem"
      },
      {
       "Id": "189852758",
@@ -1943,6 +1951,14 @@
       "CachePath": "02/{02A6740A-CDD9-FCDF-9F50-9889D97CEF82}.wem"
      },
      {
+      "Id": "375522787",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "gem-gather-stereo-reverb.wav",
+      "CachePath": "16/{16F62549-9DC1-96C4-3876-2864BD5E8344}.wem"
+     },
+     {
       "Id": "376895675",
       "Language": "SFX",
       "Streaming": "false",
@@ -1951,12 +1967,28 @@
       "CachePath": "53/{534E7BD4-3F7F-8B4B-8F62-53520DF2FFA7}.wem"
      },
      {
+      "Id": "379814874",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "impact.1.wav",
+      "CachePath": "81/{817B4942-5F3F-5331-EA0F-9154E902CF4A}.wem"
+     },
+     {
       "Id": "383353568",
       "Language": "SFX",
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "FireBreatherIgnite.wav",
       "CachePath": "E8/{E8085001-AB04-049C-5BCC-41ABE9EB6367}.wem"
+     },
+     {
+      "Id": "390487426",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "bug_08.wav",
+      "CachePath": "CA/{CA2CF343-D206-5269-93FE-F9A6F5C0E5EE}.wem"
      },
      {
       "Id": "394391360",
@@ -1989,6 +2021,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts1_024.wav",
       "CachePath": "46/{463899FF-FBCC-1203-6B47-71B2E2D9A60F}.wem"
+     },
+     {
+      "Id": "467390899",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "coin.wav",
+      "CachePath": "F5/{F5AE2271-D86F-7377-F949-37DBA87EB1BB}.wem"
      },
      {
       "Id": "489728472",
@@ -2149,6 +2189,14 @@
       "Location": "Memory",
       "ShortName": "AmbAcidPipesImpacts2_023.wav",
       "CachePath": "24/{249AC26F-51F9-FBDF-D445-0F4DE4E72A86}.wem"
+     },
+     {
+      "Id": "682835436",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "bang_02.wav",
+      "CachePath": "36/{3673EA29-D6DA-AEB7-CE82-3FBCC8E1130B}.wem"
      },
      {
       "Id": "687226501",
@@ -2795,6 +2843,54 @@
       ]
      },
      {
+      "Id": "1862720533",
+      "Name": "BreakableCoin",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BreakableCoin",
+      "GUID": "{6292922F-CE19-4B85-9D76-3EF47DB2F77E}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "0.61185914",
+      "DurationMax": "0.61185914",
+      "MediaRefs": [
+       {
+        "Id": "379814874"
+       }
+      ]
+     },
+     {
+      "Id": "1880224085",
+      "Name": "BreakableWood",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BreakableWood",
+      "GUID": "{9D3B870F-D84B-40BA-A9A8-19D51744F431}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "1.0973614",
+      "DurationMax": "1.0973614",
+      "MediaRefs": [
+       {
+        "Id": "180743224"
+       }
+      ]
+     },
+     {
+      "Id": "2166415085",
+      "Name": "BugDeath",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\BugDeath",
+      "GUID": "{8995B632-4E40-4C8A-BE9D-6F85F94C663D}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "0.34954166",
+      "DurationMax": "0.34954166",
+      "MediaRefs": [
+       {
+        "Id": "390487426"
+       }
+      ]
+     },
+     {
       "Id": "2393348022",
       "Name": "Cannon",
       "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\Cannon",
@@ -2963,6 +3059,22 @@
         "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\ReverbPlate",
         "GUID": "{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}",
         "Color": "17"
+       }
+      ]
+     },
+     {
+      "Id": "2752428610",
+      "Name": "CoinPickup",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\CoinPickup",
+      "GUID": "{F18967D5-16E1-4378-9F2F-E75DC52FA0E5}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "0.9044898",
+      "DurationMax": "0.9044898",
+      "MediaRefs": [
+       {
+        "Id": "467390899"
        }
       ]
      },
@@ -3259,6 +3371,38 @@
         "Color": "17"
        }
       ]
+     },
+     {
+      "Id": "3837224478",
+      "Name": "StampPickup",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\StampPickup",
+      "GUID": "{4D2AD767-B827-484C-B668-7C0907493602}",
+      "Color": "4",
+      "MaxAttenuation": "20",
+      "DurationType": "OneShot",
+      "DurationMin": "1.5",
+      "DurationMax": "1.5",
+      "MediaRefs": [
+       {
+        "Id": "375522787"
+       }
+      ]
+     },
+     {
+      "Id": "493550803",
+      "Name": "TurretShot",
+      "ObjectPath": "\\Events\\Default Work Unit\\Lvl_1\\SFX_Lvl_1\\TurretShot",
+      "GUID": "{C1C17477-888E-467B-A7AB-8EE4A2C72050}",
+      "Color": "4",
+      "MaxAttenuation": "80",
+      "DurationType": "OneShot",
+      "DurationMin": "0.65493435",
+      "DurationMax": "0.65493435",
+      "MediaRefs": [
+       {
+        "Id": "682835436"
+       }
+      ]
      }
     ],
     "GameParameters": [
@@ -3315,6 +3459,6 @@
     ]
    }
   ],
-  "FileHash": "{6BCA4C69-44C9-EB76-AA52-6A8C8CF2D059}"
+  "FileHash": "{30237311-11E4-139A-8771-E04DC2B1BA9B}"
  }
 }

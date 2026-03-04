@@ -1,4 +1,5 @@
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Enemies.RangeEnemy.States
 {
@@ -8,6 +9,7 @@ namespace Enemies.RangeEnemy.States
         private GameObject _projectilePrefab;
         private Transform _shootPoint;
         private System.Action _onFinishAttack;
+        private Event _shotWise;
         private int _shotsFired;
         private float _shotTimer;
         private float _cooldownTimer;
@@ -15,12 +17,12 @@ namespace Enemies.RangeEnemy.States
         private int _shotSeries;
 
         public Attack(Transform enemy, Transform player, RangedEnemyModel model, GameObject projectilePrefab,
-            ParticleSystem shootParticle, Transform shootPoint,System.Action onFinishAttack) : base(enemy, player, model )
+            ParticleSystem shootParticle, Transform shootPoint,Event shotWise, System.Action onFinishAttack) : base(enemy, player, model )
         {
             this._projectilePrefab = projectilePrefab;
             this._shootPoint = shootPoint;
             _shootParticle = shootParticle;
-            
+            _shotWise = shotWise;
             _onFinishAttack = onFinishAttack;
         }
 
@@ -109,6 +111,7 @@ namespace Enemies.RangeEnemy.States
             }
             
             _shootParticle?.Play();
+            _shotWise?.Post(_shootPoint.gameObject);
         }
         
         private void ResetStartValues()
