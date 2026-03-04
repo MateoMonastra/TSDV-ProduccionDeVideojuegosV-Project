@@ -399,10 +399,13 @@
 				</Event>
 				<Event Name="TurretShot" ID="{C1C17477-888E-467B-A7AB-8EE4A2C72050}">
 					<ChildrenList>
-						<Action Name="" ID="{A249F6DF-CB68-4477-BCFE-3DD8580BA60C}" ShortID="11990415">
+						<Action Name="" ID="{09BA881B-CDAC-4B20-87CB-0FC1E6B0A5EB}" ShortID="127855978">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="41"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="TurretShot" ID="{1B991D0C-EC31-4575-9DBC-A3547F116328}" WorkUnitID="{D9C5F2DD-A3B8-42CA-AA2F-1D8221D34F7B}"/>
+									<ObjectRef Name="Cannon" ID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}" WorkUnitID="{1A4BAB0F-27AE-4884-A4AB-BA751C097041}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

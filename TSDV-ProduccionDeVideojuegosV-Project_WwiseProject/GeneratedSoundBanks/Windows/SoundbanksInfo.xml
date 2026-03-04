@@ -657,7 +657,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{1AF69C4A-4650-3A21-C269-01B459D81205}">
+		<SoundBank Id="2397100949" Type="User" GUID="{68F72122-2C1E-4754-B87D-BF09757E2B33}" Language="SFX" Hash="{30AF87B9-FC4F-7BA4-75E8-C4F94E634E40}">
 			<ObjectPath>\SoundBanks\Default Work Unit\Lvl_1</ObjectPath>
 			<ShortName>Lvl_1</ShortName>
 			<Path>Lvl_1.bnk</Path>
@@ -729,7 +729,7 @@
 				</File>
 				<File Id="180743224" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>crack11.mp3.wav</ShortName>
-					<CachePath>CF/{CF56770E-EA88-A5CA-3B5B-D439CA979668}.wem</CachePath>
+					<CachePath>6B/{6BD4FA5D-A0D7-ED5F-C479-09841FA658AE}.wem</CachePath>
 				</File>
 				<File Id="189852758" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_013.wav</ShortName>
@@ -829,7 +829,7 @@
 				</File>
 				<File Id="379814874" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>impact.1.wav</ShortName>
-					<CachePath>81/{817B4942-5F3F-5331-EA0F-9154E902CF4A}.wem</CachePath>
+					<CachePath>75/{753D2053-0361-5AC3-1844-61D1DFF7DE0B}.wem</CachePath>
 				</File>
 				<File Id="383353568" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FireBreatherIgnite.wav</ShortName>
@@ -938,10 +938,6 @@
 				<File Id="675133473" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts2_023.wav</ShortName>
 					<CachePath>24/{249AC26F-51F9-FBDF-D445-0F4DE4E72A86}.wem</CachePath>
-				</File>
-				<File Id="682835436" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>bang_02.wav</ShortName>
-					<CachePath>36/{3673EA29-D6DA-AEB7-CE82-3FBCC8E1130B}.wem</CachePath>
 				</File>
 				<File Id="687226501" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AmbAcidPipesImpacts1_015.wav</ShortName>
@@ -1224,6 +1220,9 @@
 					<MediaRefs>
 						<MediaRef Id="379814874"/>
 					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
 				</Event>
 				<Event Id="1880224085" Name="BreakableWood" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\BreakableWood" GUID="{9D3B870F-D84B-40BA-A9A8-19D51744F431}" Color="4" MaxAttenuation="20" DurationType="OneShot" DurationMin="1.0973614" DurationMax="1.0973614">
 					<MediaRefs>
@@ -1234,6 +1233,9 @@
 					<MediaRefs>
 						<MediaRef Id="390487426"/>
 					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
 				</Event>
 				<Event Id="2393348022" Name="Cannon" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\Cannon" GUID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}" Color="12" MaxAttenuation="144" DurationType="OneShot" DurationMin="2.5184584" DurationMax="3.006271">
 					<MediaRefs>
@@ -1293,6 +1295,9 @@
 					<MediaRefs>
 						<MediaRef Id="467390899"/>
 					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="3552122435" Name="ReverbPlate" ObjectPath="\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\ReverbPlate" GUID="{89233FB2-B8AC-4F35-A695-2A8A8215FAC8}" Color="17"/>
+					</AuxBusRefs>
 				</Event>
 				<Event Id="1609904760" Name="DoorSlide" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\DoorSlide" GUID="{70234AA8-40FC-47DF-A745-3B2752AD3A66}" Color="12" MaxAttenuation="150" DurationType="OneShot" DurationMin="3.3342707" DurationMax="3.3342707">
 					<MediaRefs>
@@ -1392,10 +1397,10 @@
 						<MediaRef Id="375522787"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="493550803" Name="TurretShot" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\TurretShot" GUID="{C1C17477-888E-467B-A7AB-8EE4A2C72050}" Color="4" MaxAttenuation="80" DurationType="OneShot" DurationMin="0.65493435" DurationMax="0.65493435">
-					<MediaRefs>
-						<MediaRef Id="682835436"/>
-					</MediaRefs>
+				<Event Id="493550803" Name="TurretShot" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\TurretShot" GUID="{C1C17477-888E-467B-A7AB-8EE4A2C72050}" Color="4" MaxAttenuation="144" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="2393348022" Name="Cannon" ObjectPath="\Events\Default Work Unit\Lvl_1\SFX_Lvl_1\Cannon" GUID="{A3E0E90D-C699-4F9B-BB85-C67D3D7B5A44}" Color="12"/>
+					</ActionPostEvent>
 				</Event>
 			</Events>
 			<GameParameters>
@@ -1425,5 +1430,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{D1078BD1-F383-C4DE-C188-1F755C1101BA}</FileHash>
+	<FileHash>{3F2F2A7E-66E1-D29B-722D-4BE7CF7551F7}</FileHash>
 </SoundBanksInfo>
